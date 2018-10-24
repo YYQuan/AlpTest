@@ -1,8 +1,11 @@
 package com.alphawizard.hdwallet.alphahdwallet.db.Repositor;
 
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
+import com.alphawizard.hdwallet.alphahdwallet.service.EthTickerService;
 import com.alphawizard.hdwallet.alphahdwallet.service.TickerService;
+import com.alphawizard.hdwallet.common.util.Log;
 
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -10,12 +13,17 @@ import org.web3j.protocol.http.HttpService;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class WalletRepository implements WalletRepositoryType {
@@ -43,9 +51,13 @@ public class WalletRepository implements WalletRepositoryType {
 
 
 	public String getTickerPrice(){
+
 		return tickerService.fetchTickerPrice();
 	}
 
+	public Call<Transaction> getTransactions(String address){
+		return tickerService.fetchTransactions(address);
+	}
 
 	//产生 随机  password
 	public Single<String> generatePassword() {
@@ -100,6 +112,10 @@ public class WalletRepository implements WalletRepositoryType {
 				.flatMap(this::findWallet);
 	}
 
+	public Single<String>  getDefaultWalletAddress(){
+		return Single.fromCallable(preferenceRepositoryType::getCurrentWalletAddress);
+
+	}
 
 	public Single<Wallet> findWallet(String address) {
 		return fetchWallets()

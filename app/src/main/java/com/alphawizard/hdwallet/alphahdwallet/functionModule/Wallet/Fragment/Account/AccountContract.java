@@ -15,5 +15,6 @@ public interface AccountContract {
     interface Presenter extends BaseContract.BasePresenter<AccountContract.View,WalletViewModule> {
         void getDefaultWallet();
         void getBalance();
+        void getTransactions();
     }
 }

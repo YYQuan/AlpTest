@@ -1,21 +1,28 @@
 package com.alphawizard.hdwallet.alphahdwallet.service;
 
+import android.widget.Toast;
+
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.common.util.Log;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public class EthTickerService implements TickerService {
 
@@ -34,21 +41,14 @@ public class EthTickerService implements TickerService {
     }
 
     private void buildApiClient(String baseUrl) {
-//        apiClient = new Retrofit.Builder().baseUrl(baseUrl)  //设置域名
-//                .addConverterFactory(SimpleXmlConverterFactory.create()) //添加数据解析器,需要添加对应依赖
-//                .build()
-//                .create(ApiClient.class);
-
-//        apiClient = new Retrofit.Builder()
-//                .baseUrl(baseUrl)
-//                .client(httpClient)
-//                .addConverterFactory(GsonConverterFactory.create(gson))
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .build()
-//                .create(ApiClient.class);
-
-
-
+        Retrofit retrofit = new Retrofit.Builder()
+                //使用自定义的mGsonConverterFactory
+//                            .addConverterFactory(GsonConverterFactory.create(buildGson()))
+                .addConverterFactory(GsonConverterFactory.create())
+//                            .baseUrl("http://apis.baidu.com/txapi/")
+                .baseUrl("https://rinkeby.etherscan.io/")
+                .build();
+        apiClient = retrofit.create(ApiClient.class);
     }
 
     @Override
@@ -70,10 +70,39 @@ public class EthTickerService implements TickerService {
         return result;
     }
 
-    public interface ApiClient {
-        @GET("/")
-        Observable<Response<String>> fetchTickerPrice();
+    public Call<Transaction> fetchTransactions(String address){
 
+
+        Retrofit retrofit = new Retrofit.Builder()
+                //使用自定义的mGsonConverterFactory
+//                            .addConverterFactory(GsonConverterFactory.create(buildGson()))
+                .addConverterFactory(GsonConverterFactory.create())
+//                            .baseUrl("http://apis.baidu.com/txapi/")
+                .baseUrl("https://rinkeby.etherscan.io/")
+                .build();
+        apiClient = retrofit.create(ApiClient.class);
+        apiClient.getTransaction("account", "txlist",address)
+                .enqueue(new Callback<Transaction>() {
+                    @Override
+                    public void onResponse(Call<Transaction> call, Response<Transaction> response) {
+                        Transaction body = response.body();
+                        Log.d("body ");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Transaction> call, Throwable t) {
+                        Log.d("fail ");
+                    }
+                });
+        return null;
+
+    }
+
+    public interface ApiClient {
+//        @GET("/")
+//        Observable<Response<String>> fetchTickerPrice();
+        @GET("api")
+        Call<Transaction> getTransaction(@Query("module") String module, @Query("action") String action, @Query("address") String address);
     }
 
 

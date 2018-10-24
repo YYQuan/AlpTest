@@ -23,4 +23,9 @@ public class AccountPresenter extends BaseRecyclerPresenter<Wallet,WalletViewMod
     public void getBalance() {
         getViewModule().getBalance();
     }
+
+    @Override
+    public void getTransactions(){
+        getViewModule().fetchTransactions();
+    }
 }

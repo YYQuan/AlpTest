@@ -5,12 +5,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -64,8 +67,13 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         viewModel.defaultWallet().observe(this,this::defaultWalletBalanceChange);
         viewModel.defaultWalletBalance().observe(this,this::defaultWalletBalanceChange);
         viewModel.ethValue().observe(this,this::ethValueChange);
+        viewModel.transactionBeans().observe(this,this::transBeansChange);
         mPresenter.getDefaultWallet();
 
+    }
+
+    private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
+        Log.d("transBeansChange");
     }
 
     private void ethValueChange(String s) {
