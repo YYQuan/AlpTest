@@ -20,6 +20,8 @@ public interface WalletRepositoryType {
 								   byte[] data,
 								   long chainId);
 
+	Single<Wallet> importAccount(String keystore, String password);
+
 	Single<Wallet>  getDefaultWallet();
 
 	Single<Wallet> findWallet(String address);

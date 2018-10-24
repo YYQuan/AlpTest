@@ -7,8 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
-import com.alphawizard.hdwallet.alphahdwallet.data.ViewModule.SendViewModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.data.ViewModule.WalletsViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivityContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;

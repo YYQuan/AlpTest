@@ -5,6 +5,7 @@ import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PreferenceRepositoryT
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepository;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.di.ActivityScoped;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
@@ -40,7 +41,6 @@ public class InteractModule {
         return new GetBalanceInteract(walletRepositoryType);
     }
 
-
     @Provides
     static  SendTransactionInteract  sendTransactionInteract(WalletRepositoryType walletRepositoryType){
         return new SendTransactionInteract(walletRepositoryType);
@@ -49,6 +49,11 @@ public class InteractModule {
     @Provides
     static  FetchWalletInteract  fetchWalletInteract(WalletRepositoryType walletRepositoryType){
         return new FetchWalletInteract(walletRepositoryType);
+    }
+
+    @Provides
+    static  ImportAccountInteract  importAccountInteract(WalletRepositoryType walletRepositoryType){
+        return new ImportAccountInteract(walletRepositoryType);
     }
 
     @Provides
@@ -64,6 +69,11 @@ public class InteractModule {
     @Provides
     public static SendRouter providesSendRouter(){
         return new SendRouter();
+    }
+
+    @Provides
+    public static ImportRouter providesImportRouter(){
+        return new ImportRouter();
     }
 
 }

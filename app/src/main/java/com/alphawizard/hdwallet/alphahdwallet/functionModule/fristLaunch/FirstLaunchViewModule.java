@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.Local;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
@@ -20,12 +21,15 @@ public class FirstLaunchViewModule extends BaseViewModel {
 
     CreateWalletInteract createWalletInteract ;
     WalletRouter  walletRouter;
+    ImportRouter importRouter;
 
     public FirstLaunchViewModule(CreateWalletInteract createWalletInteract,
-                                 WalletRouter  router)
+                                 WalletRouter  walletRouter,
+                                 ImportRouter importRouter)
     {
         this.createWalletInteract = createWalletInteract;
-        walletRouter = router;
+        this.walletRouter = walletRouter;
+        this.importRouter = importRouter;
     }
 
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
@@ -47,6 +51,10 @@ public class FirstLaunchViewModule extends BaseViewModel {
 
     public void openWallet(Context context){
         walletRouter.open(context);
+    }
+
+    public void openImport(Context context){
+        importRouter.open(context);
     }
 
     private void onCreateWalletError(Throwable throwable) {

@@ -1,4 +1,4 @@
-package com.alphawizard.hdwallet.alphahdwallet.data.ViewModule;
+package com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;

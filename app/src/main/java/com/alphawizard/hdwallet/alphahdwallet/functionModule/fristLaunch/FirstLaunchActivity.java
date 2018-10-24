@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
-import com.alphawizard.hdwallet.alphahdwallet.data.ViewModule.FirstLaunchViewModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.data.ViewModule.WalletsViewModuleFactory;
+
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
@@ -73,7 +73,7 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
 
     @OnClick(R.id.btn_import_account)
     void onClickBtnImport(){
-
+        viewModel.openImport(this);
     }
 
     @Override

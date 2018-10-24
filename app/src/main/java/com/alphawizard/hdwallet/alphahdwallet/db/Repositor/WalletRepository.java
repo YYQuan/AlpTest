@@ -79,6 +79,10 @@ public class WalletRepository implements WalletRepositoryType {
 		 		chainId);
 	}
 
+	public Single<Wallet> importAccount(String keystore, String password){
+		return accountKeystoreService.importKeystore(keystore,password,"123");
+	}
+
 	public Single<Wallet> getDefaultWallet(){
 		return Single.fromCallable(preferenceRepositoryType::getCurrentWalletAddress)
 				.flatMap(this::findWallet);

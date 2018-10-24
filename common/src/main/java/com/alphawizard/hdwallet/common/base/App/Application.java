@@ -3,6 +3,10 @@ package com.alphawizard.hdwallet.common.base.App;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.widget.Toast;
+
+import net.qiujuer.genius.kit.handler.Run;
+import net.qiujuer.genius.kit.handler.runable.Action;
 
 import java.io.File;
 
@@ -70,12 +74,12 @@ public abstract class Application extends DaggerApplication{
 
     public  static void  showToast(final String string){
 //      用Rx 来代替
-//      Run.onUiAsync(new Action() {
-//            @Override
-//            public void call() {
-//                Toast.makeText(instance, string , Toast.LENGTH_SHORT).show();
-//            }
-//        });
+      Run.onUiAsync(new Action() {
+            @Override
+            public void call() {
+                Toast.makeText(instance, string , Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public  static void showToast(int  resId){

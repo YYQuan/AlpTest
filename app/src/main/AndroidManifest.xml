@@ -32,7 +32,10 @@
             android:label="@string/title_activity_send" />
         <activity
             android:name=".functionModule.ConfirmSend.ConfirmSendActivity"
-            android:label="@string/title_activity_confirm_send"></activity>
+            android:label="@string/title_activity_confirm_send" />
+        <activity
+            android:name=".functionModule.Import.ImportActivity"
+            android:label="@string/title_activity_import"></activity>
     </application>
 
 </manifest>
