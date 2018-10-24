@@ -2,6 +2,7 @@ package com.alphawizard.hdwallet.alphahdwallet.db.Repositor;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
+import com.alphawizard.hdwallet.alphahdwallet.service.TickerService;
 
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
@@ -10,23 +11,28 @@ import org.web3j.protocol.http.HttpService;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
+import retrofit2.Response;
+
 
 public class WalletRepository implements WalletRepositoryType {
 
 	private  OkHttpClient httpClient ;
 	private PreferenceRepositoryType preferenceRepositoryType;
 	private AccountKeystoreService accountKeystoreService;
-
+	private TickerService tickerService;
 	public WalletRepository(OkHttpClient httpClient,
 							PreferenceRepositoryType preferenceRepositoryType,
-							AccountKeystoreService accountKeystoreService) {
+							AccountKeystoreService accountKeystoreService,
+							TickerService tickerService
+	) {
 		this.httpClient =httpClient;
 		this.preferenceRepositoryType = preferenceRepositoryType;
 		this.accountKeystoreService = accountKeystoreService;
+		this.tickerService =  tickerService;
 	}
 
 	public Single<Wallet>  createAccount(){
@@ -34,6 +40,12 @@ public class WalletRepository implements WalletRepositoryType {
 				.flatMap(password1 -> accountKeystoreService.createAccount(password1));
 
 	}
+
+
+	public String getTickerPrice(){
+		return tickerService.fetchTickerPrice();
+	}
+
 
 	//产生 随机  password
 	public Single<String> generatePassword() {

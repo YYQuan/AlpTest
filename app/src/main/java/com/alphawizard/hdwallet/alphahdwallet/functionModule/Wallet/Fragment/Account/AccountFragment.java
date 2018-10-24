@@ -29,6 +29,9 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     @BindView(R.id.tv_balances)
     TextView mBalance;
 
+    @BindView(R.id.tv_values)
+    TextView mValues;
+
     @BindView(R.id.btn_send)
     Button  mSend;
 
@@ -60,8 +63,13 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         getmPresenter().takeView(this,viewModel);
         viewModel.defaultWallet().observe(this,this::defaultWalletBalanceChange);
         viewModel.defaultWalletBalance().observe(this,this::defaultWalletBalanceChange);
+        viewModel.ethValue().observe(this,this::ethValueChange);
         mPresenter.getDefaultWallet();
 
+    }
+
+    private void ethValueChange(String s) {
+        mValues.setText(s);
     }
 
     private void defaultWalletBalanceChange(Wallet wallet) {

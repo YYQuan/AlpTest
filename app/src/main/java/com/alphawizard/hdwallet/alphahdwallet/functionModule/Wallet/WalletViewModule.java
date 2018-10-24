@@ -23,6 +23,10 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class WalletViewModule extends BaseViewModel {
 
@@ -131,7 +135,28 @@ public class WalletViewModule extends BaseViewModel {
                 .doOnNext(l -> mGetBalanceInteract
                         .getBalance(defaultWallet.getValue())
                         .subscribe(defaultWalletBalance::postValue,  this::onGetDefaultBalanceError))
+                .doOnNext(l-> Single.just(mWalletRepositoryType
+                        .getTickerPrice())
+                        .observeOn(Schedulers.io())
+                        .subscribe(this::getTickerPriceSuccess,this::getTickerPriceError))
                 .subscribe();
+    }
+
+//    public void getTickerPrice(){
+//        mWalletRepositoryType
+//                .getTickerPrice()
+//                .subscribe(this::getTickerPriceSuccess,this::getTickerPriceError);
+//    }
+
+    private void getTickerPriceSuccess(String stringResponse) {
+
+        stringResponse = stringResponse.substring(stringResponse.indexOf("<span id='price'>"));
+        stringResponse = stringResponse.substring(17,stringResponse.indexOf("@"));
+        ethValue.postValue(stringResponse);
+    }
+
+    private void getTickerPriceError(Throwable throwable) {
+        exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     }
 
     public void openSendEth(Context context){
@@ -141,6 +166,8 @@ public class WalletViewModule extends BaseViewModel {
     public void openFirstLaunch(Context context){
         mFirstLaunchRouter.open(context);
     }
+
+
 
     private void onGetDefaultBalanceError(Throwable throwable) {
         exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));

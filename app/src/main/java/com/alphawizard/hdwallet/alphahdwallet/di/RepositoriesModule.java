@@ -7,7 +7,11 @@ import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.SharedPreferenceRepos
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepository;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
+import com.alphawizard.hdwallet.alphahdwallet.service.EthTickerService;
 import com.alphawizard.hdwallet.alphahdwallet.service.GethKeystoreAccountService;
+import com.alphawizard.hdwallet.alphahdwallet.service.TickerService;
+import com.google.gson.Gson;
+
 import java.io.File;
 
 import javax.inject.Singleton;
@@ -31,6 +35,13 @@ public class RepositoriesModule {
 		return new GethKeystoreAccountService(file);
 	}
 
+
+	@Singleton
+	@Provides
+	TickerService provideTickerService(OkHttpClient client , Gson  gson) {
+		return new EthTickerService(client,gson);
+	}
+
 //	@Singleton
 //	@Provides
 //	WalletRepositoryType provideWalletRepositoryType(OkHttpClient client) {
@@ -41,8 +52,9 @@ public class RepositoriesModule {
 	@Provides
 	WalletRepositoryType provideWalletRepositoryType(OkHttpClient httpClient,
 													 PreferenceRepositoryType preferenceRepositoryType,
-													 AccountKeystoreService accountKeystoreService) {
-		return new WalletRepository(httpClient,preferenceRepositoryType,accountKeystoreService);
+													 AccountKeystoreService accountKeystoreService,
+													 TickerService tickerService) {
+		return new WalletRepository(httpClient,preferenceRepositoryType,accountKeystoreService,tickerService);
 	}
 
 }
