@@ -7,6 +7,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportVi
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
@@ -29,14 +30,15 @@ public class ViewModuleModule {
                                                               FindDefaultWalletInteract findDefaultWalletInteract,
                                                               FetchWalletInteract  fetchWalletInteract,
                                                               GetBalanceInteract getBalanceInteract,
+                                                              FirstLaunchRouter firstLaunchRouter,
                                                               SendRouter sendRouter,
                                                               WalletRepositoryType walletRepositoryType){
-        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,sendRouter,walletRepositoryType);
+        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
     }
 
     @Provides
-    FirstLaunchViewModuleFactory providesFirstLaunchViewModule(CreateWalletInteract interact, WalletRouter walletRouter, ImportRouter importRouter){
-        return  new FirstLaunchViewModuleFactory(interact,walletRouter,importRouter);
+    FirstLaunchViewModuleFactory providesFirstLaunchViewModule(CreateWalletInteract interact,DefaultWalletInteract  defaultWalletInteract, WalletRouter walletRouter, ImportRouter importRouter){
+        return  new FirstLaunchViewModuleFactory(interact,defaultWalletInteract,walletRouter,importRouter);
     }
 
     @Provides

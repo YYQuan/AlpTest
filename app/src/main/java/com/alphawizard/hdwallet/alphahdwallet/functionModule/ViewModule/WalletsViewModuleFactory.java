@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
@@ -21,6 +22,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     private FindDefaultWalletInteract findDefaultWalletInteract;
     private GetBalanceInteract getBalanceInteract;
     private WalletRepositoryType walletRepositoryType;
+    private FirstLaunchRouter   firstLaunchRouter;
     private FetchWalletInteract  fetchWalletInteract;
     private SendRouter sendRouter;
 
@@ -29,6 +31,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     FindDefaultWalletInteract findDefaultWalletInteract,
                                     FetchWalletInteract  fetchWalletInteract,
                                     GetBalanceInteract getBalanceInteract,
+                                    FirstLaunchRouter   firstLaunchRouter,
                                     SendRouter  sendRouter,
                                     WalletRepositoryType walletRepositoryType) {
         this.createWalletInteract = createWalletInteract;
@@ -36,6 +39,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.findDefaultWalletInteract = findDefaultWalletInteract;
         this.getBalanceInteract = getBalanceInteract;
         this.fetchWalletInteract = fetchWalletInteract;
+        this.firstLaunchRouter =  firstLaunchRouter;
         this.walletRepositoryType =  walletRepositoryType;
         this.sendRouter = sendRouter;
     }
@@ -43,6 +47,6 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,sendRouter,walletRepositoryType);
+        return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
     }
 }

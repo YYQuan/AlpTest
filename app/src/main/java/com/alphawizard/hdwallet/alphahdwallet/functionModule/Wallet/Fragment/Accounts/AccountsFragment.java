@@ -3,6 +3,8 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Ac
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -122,9 +124,16 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
     }
 
 
+
+
     @Override
     public void defaultWalletChange(Wallet wallet) {
 
+    }
+
+    @Override
+    public void openFirstLaunch() {
+        viewModel.openFirstLaunch(getActivity());
     }
 
     @Override

@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivityContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
@@ -35,7 +34,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     @OnClick(R.id.btn_send)
     void clickBtnSend(){
-        viewModel.sendEth(getActivity());
+        viewModel.openSendEth(getActivity());
     }
 
     @Override

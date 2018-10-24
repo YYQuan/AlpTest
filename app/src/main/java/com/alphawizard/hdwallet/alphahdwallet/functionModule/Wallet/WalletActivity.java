@@ -92,6 +92,24 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_account_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_add_account: {
+               viewModel.openFirstLaunch(this);
+            }
+            break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
     public void showSendFragment() {
 
     }

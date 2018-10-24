@@ -22,6 +22,9 @@ import butterknife.OnClick;
 
 public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunchContract.Presenter,FirstLaunchViewModule> implements FirstLaunchContract.View {
 
+    //false :  有defaultWallet 的情况下 不跳转；true:反之
+    public final static String  FIRST_OPEN = "FirstOpen";
+
     @BindView(R.id.btn_create_account)
     Button btnCreate;
 
@@ -57,8 +60,19 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
         viewModel = ViewModelProviders.of(this, walletsViewModuleFactory)
                 .get(FirstLaunchViewModule.class);
         mPresenter.takeView(this,viewModel);
-
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
+        viewModel.defaultWallet().observe(this,this::onDefaultWallet);
+
+        if(getIntent().getBooleanExtra(FIRST_OPEN,true)){
+            viewModel.getDefaultWallet();
+        }
+
+
+    }
+
+    private void onDefaultWallet(Wallet wallet) {
+        viewModel.openWallet(this);
+        finish();
     }
 
     @Override

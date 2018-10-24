@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
@@ -34,11 +35,13 @@ public class WalletViewModule extends BaseViewModel {
     GetBalanceInteract mGetBalanceInteract;
     SendRouter  mSendRouter;
     FetchWalletInteract mFetchWalletInteract;
+    FirstLaunchRouter  mFirstLaunchRouter;
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
     private final MutableLiveData<ErrorEnvelope> createWalletError = new MutableLiveData<>();
     private final MutableLiveData<String> exportedStore = new MutableLiveData<>();
+    private final MutableLiveData<String>  ethValue = new MutableLiveData<>();
     private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
 
     private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
@@ -48,6 +51,7 @@ public class WalletViewModule extends BaseViewModel {
                             FindDefaultWalletInteract findDefaultWalletInteract,
                             FetchWalletInteract fetchWalletInteract,
                             GetBalanceInteract  getBalanceInteract,
+                            FirstLaunchRouter  firstLaunchRouter,
                             SendRouter  sendRouter,
                             WalletRepositoryType walletRepositoryType
                                 )
@@ -57,6 +61,7 @@ public class WalletViewModule extends BaseViewModel {
         mFindDefaultWalletInteract = findDefaultWalletInteract;
         mFetchWalletInteract = fetchWalletInteract;
         mWalletRepositoryType  =  walletRepositoryType;
+        mFirstLaunchRouter = firstLaunchRouter;
         mGetBalanceInteract =getBalanceInteract;
         mSendRouter = sendRouter;
     }
@@ -75,6 +80,10 @@ public class WalletViewModule extends BaseViewModel {
 
     public LiveData<String> defaultWalletBalance() {
         return defaultWalletBalance;
+    }
+
+    public LiveData<String> ethValue() {
+        return ethValue;
     }
 
     public void newWallet() {
@@ -96,6 +105,7 @@ public class WalletViewModule extends BaseViewModel {
                     wallets.postValue(accounts);
                 },this::onGetAccountsError);
     }
+
 
 
     public void setDefaultWallet(Wallet wallet) {
@@ -124,8 +134,12 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribe();
     }
 
-    public void sendEth(Context context){
+    public void openSendEth(Context context){
         mSendRouter.open(context);
+    }
+
+    public void openFirstLaunch(Context context){
+        mFirstLaunchRouter.open(context);
     }
 
     private void onGetDefaultBalanceError(Throwable throwable) {
