@@ -1,18 +1,25 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Account;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,6 +44,14 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     @BindView(R.id.btn_send)
     Button  mSend;
+
+    @BindView(R.id.place_holder)
+    EmptyLayout placeHolder;
+
+    @BindView(R.id.recyclerView_transactionBean)
+    RecyclerView recyclerView;
+
+    RecyclerAdapter<Transaction.TransactionBean> mAdapter;
 
     @OnClick(R.id.btn_send)
     void clickBtnSend(){
@@ -72,8 +87,38 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     }
 
+    @Override
+    public void initWidget(View view) {
+        super.initWidget(view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(mAdapter =new RecyclerAdapter<Transaction.TransactionBean>() {
+            @Override
+            public ViewHolder createViewHolder(View view, int type) {
+                return new AccountFragment.ActionViewHolder(view);
+            }
+
+            @Override
+            protected int getItemViewType(int position, Transaction.TransactionBean session) {
+                return R.layout.cell_account_list;
+            }
+        });
+        mAdapter.setListener(new RecyclerAdapter.HolderClickListenerImpl<Transaction.TransactionBean>() {
+            @Override
+            public void onClickListener(RecyclerAdapter.ViewHolder holder, Transaction.TransactionBean wallet) {
+                super.onClickListener(holder, wallet);
+            }
+        });
+        setPlaceHolderView(placeHolder);
+        placeHolder.bind(recyclerView);
+    }
+
     private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
         Log.d("transBeansChange");
+        mAdapter.add(transactionBeans);
+
+        mAdapter.notifyDataSetChanged();
+        mPresenter.refresh(  transactionBeans);
+        placeHolder.triggerOkOrEmpty(mAdapter.getDataList().size()>0);
     }
 
     private void ethValueChange(String s) {
@@ -90,12 +135,33 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     }
 
     @Override
-    public RecyclerAdapter<Wallet> getRecyclerViewAdapter() {
-        return null;
+    public RecyclerAdapter<Transaction.TransactionBean> getRecyclerViewAdapter() {
+        return mAdapter;
     }
 
     @Override
     public void onRecyclerChange() {
 
+    }
+
+    class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Transaction.TransactionBean> {
+
+        @BindView(R.id.txt_title)
+        TextView mTitle;
+
+        @BindView(R.id.txt_content)
+        TextView mContent;
+
+
+
+        ActionViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(Transaction.TransactionBean bean) {
+            mContent .setText("value   :"+bean.getValue());
+            mTitle.setText("to  :"+bean.getTo());
+        }
     }
 }

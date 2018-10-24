@@ -1,5 +1,7 @@
 package com.alphawizard.hdwallet.alphahdwallet.data.entiry;
 
+import com.alphawizard.hdwallet.common.util.DiffUtilCallback;
+
 import java.util.List;
 
 public class Transaction {
@@ -32,7 +34,7 @@ public class Transaction {
         this.result = mList;
     }
 
-    public static  class TransactionBean{
+    public static  class TransactionBean implements  DiffUtilCallback.DiffRule<TransactionBean>{
 
         String blockNumber;
         String timeStamp;
@@ -197,6 +199,16 @@ public class Transaction {
 
         public void setConfirmations(String confirmations) {
             this.confirmations = confirmations;
+        }
+
+        @Override
+        public boolean isSame(TransactionBean bean) {
+            return hash.equalsIgnoreCase(bean.getHash());
+        }
+
+        @Override
+        public boolean isChange(TransactionBean bean) {
+            return !hash.equalsIgnoreCase(bean.getHash());
         }
     }
 }
