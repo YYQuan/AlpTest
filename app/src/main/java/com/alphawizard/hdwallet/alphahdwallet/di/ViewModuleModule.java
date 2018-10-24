@@ -40,8 +40,8 @@ public class ViewModuleModule {
     }
 
     @Provides
-    SendViewModuleFactory providesSendViewModule(SendTransactionInteract interact){
-        return  new SendViewModuleFactory(interact);
+    SendViewModuleFactory providesSendViewModule(SendTransactionInteract interact,WalletRouter walletRouter){
+        return  new SendViewModuleFactory(interact,walletRouter);
     }
 
     @Provides

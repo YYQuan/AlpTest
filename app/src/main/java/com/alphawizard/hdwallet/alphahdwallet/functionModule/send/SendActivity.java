@@ -57,7 +57,15 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         super.initData();
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(SendViewModule.class);
+        viewModel.progress().observe(this,this::sendCallback);
+
         getmPresenter().takeView(this,viewModel);
+    }
+
+    private void sendCallback(Boolean aBoolean) {
+        if(aBoolean) {
+            viewModel.openWallet(this);
+        }
     }
 
     @OnClick(R.id.btn_send)
