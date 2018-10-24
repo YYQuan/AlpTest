@@ -43,8 +43,10 @@ public class SendTransactionInteract {
 //            long chainId);
 
 //    返回该交易的hash
-    public Single<String>  sendTransaction(Wallet from, String toAddress, String amount ){
+    public Single<String>  sendTransaction( String toAddress, String amount ){
 //        Wallet wallet = walletRepository.getDefaultWallet().
+        Wallet wallet = walletRepository.getDefaultWallet().blockingGet();
+
 
         BigInteger subunitAmount = BalanceUtils.baseToSubunit(amount, 18);
         BigInteger gasPriceMin = BigInteger.valueOf(1000000000L); //long GAS_PRICE_MIN = 1000000000L;
@@ -64,7 +66,7 @@ public class SendTransactionInteract {
 //      ethereum是根据nonce按顺序的把交易加入池中的，比如说最后一个nonce是121,如果发送一个nonce为123的交易，那么节点将会拒绝该交易入池（池都没入，那肯定没打包啦。）
 //      get the next available nonce   官网对于  ethGetTransactionCount()的注释
                 EthGetTransactionCount ethGetTransactionCount = web3j
-                    .ethGetTransactionCount(from.address, DefaultBlockParameterName.LATEST)
+                    .ethGetTransactionCount(wallet.address, DefaultBlockParameterName.LATEST)
                     .send();
 
                 return ethGetTransactionCount.getTransactionCount();
@@ -72,7 +74,7 @@ public class SendTransactionInteract {
                 .flatMap(new Function<BigInteger, SingleSource<? extends byte[]>>() {
                     @Override
                     public SingleSource<? extends byte[]> apply(BigInteger nonce) throws Exception {
-                        return walletRepository.signTransaction(from, password, toAddress, subunitAmount, gasPrice, gasLimit, nonce.longValue(), data, chainId);
+                        return walletRepository.signTransaction(wallet, password, toAddress, subunitAmount, gasPrice, gasLimit, nonce.longValue(), data, chainId);
                     }})
                 .flatMap(signedMessage -> Single.fromCallable( () -> {
                     EthSendTransaction raw = web3j

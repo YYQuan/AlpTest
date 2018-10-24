@@ -14,7 +14,7 @@ public class SendPresenter extends BasePresenter<SendContract.View,SendViewModul
     }
 
     @Override
-    public void sendTransaction(String from  ,String  to , String amount) {
-        getViewModule().sendTransaction(from ,to ,amount);
+    public void sendTransaction(String  to , String amount) {
+        getViewModule().sendTransaction(to ,amount);
     }
 }

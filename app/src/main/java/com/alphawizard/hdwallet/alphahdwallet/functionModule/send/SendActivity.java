@@ -65,7 +65,8 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     void onClickSend(){
         String address = mAddresss.getText().toString();
         String amounts = mAmount.getText().toString();
-        mPresenter.sendTransaction("aa",address,amounts);
+        mPresenter.sendTransaction(address,amounts);
     }
+
 }
 

@@ -13,7 +13,7 @@ public class SendViewModule extends BaseViewModel {
     }
 
 
-    public  void  sendTransaction(String from  ,String  to , String amount){
-        mSendTransactionInteract.sendTransaction(new Wallet(from),to,amount);
+    public  void  sendTransaction(String  to , String amount){
+        mSendTransactionInteract.sendTransaction(to,amount);
     }
 }

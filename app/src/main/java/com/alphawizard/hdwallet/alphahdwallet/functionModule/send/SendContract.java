@@ -11,6 +11,6 @@ public class SendContract {
     }
 
     interface Presenter extends BaseContract.BasePresenter<SendContract.View,SendViewModule> {
-        void sendTransaction(String from  ,String  to , String amount);
+        void sendTransaction(String  to , String amount);
     }
 }
