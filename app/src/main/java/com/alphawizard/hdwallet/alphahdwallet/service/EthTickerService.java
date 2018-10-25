@@ -51,6 +51,7 @@ public class EthTickerService implements TickerService {
         apiClient = retrofit.create(ApiClient.class);
     }
 
+    String result = "0.00";
     @Override
     public  String  fetchTickerPrice() {
         OkHttpClient okHttpClient = new OkHttpClient();
@@ -59,11 +60,16 @@ public class EthTickerService implements TickerService {
                 .build();
         okhttp3.Call call =  okHttpClient.newCall(request);
         okhttp3.Response response = null;
-        String result = null;
+
         try {
             response = call.execute();
-            result = response.body().string();
-            Log.d(result);
+            if(response!=null) {
+                result = response.body().string();
+                Log.d(result);
+            }else{
+                result = "0.00";
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

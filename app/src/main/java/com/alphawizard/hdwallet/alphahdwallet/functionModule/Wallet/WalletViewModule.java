@@ -38,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WalletViewModule extends BaseViewModel {
 
-    private static final long GET_BALANCE_INTERVAL = 8;
+    private static final long GET_BALANCE_INTERVAL = 20;
 
     CreateWalletInteract mCreateWalletInteract;
     DefaultWalletInteract mDefaultWalletInteract;
@@ -193,36 +193,66 @@ public class WalletViewModule extends BaseViewModel {
 //                .subscribe(this::getTickerPriceSuccess,this::getTickerPriceError);
 //    }
 
+
+    retrofit2.Call<Transaction> call ;
+    EthTickerService.ApiClient apiClient;
+    Retrofit retrofit = new Retrofit.Builder()
+            //使用自定义的mGsonConverterFactory
+//                            .addConverterFactory(GsonConverterFactory.create(buildGson()))
+            .addConverterFactory(GsonConverterFactory.create())
+//                            .baseUrl("http://apis.baidu.com/txapi/")
+            .baseUrl("https://rinkeby.etherscan.io/")
+            .build();
+    Call  callback = new Call(transactionBeans);
     private void getTickerPriceSuccess(String stringResponse) {
 
-        EthTickerService.ApiClient apiClient;
-        Retrofit retrofit = new Retrofit.Builder()
-                //使用自定义的mGsonConverterFactory
-//                            .addConverterFactory(GsonConverterFactory.create(buildGson()))
-                .addConverterFactory(GsonConverterFactory.create())
-//                            .baseUrl("http://apis.baidu.com/txapi/")
-                .baseUrl("https://rinkeby.etherscan.io/")
-                .build();
-        apiClient = retrofit.create(EthTickerService.ApiClient.class);
-        apiClient.getTransaction("account", "txlist",mWalletRepositoryType.getDefaultWalletAddress().blockingGet())
-                .enqueue(new Callback<Transaction>() {
-                    @Override
-                    public void onResponse(Call<Transaction> call, Response<Transaction> response) {
-                        Transaction body = response.body();
+        if(apiClient==null) {
+            apiClient = retrofit.create(EthTickerService.ApiClient.class);
+        }
+        if (call == null) {
+            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet());
+        }
 
-                        transactionBeans.postValue(body.result);
-                        Log.d("body ");
-                    }
+        if(call.isExecuted()) {
+//            if(call.isCanceled()) {
+//                Log.d("wait  cancel ");
+//            }
+//            call.cancel();
+//            while(!call.isCanceled()){
+//                Log.d("wait  cancel ");
+//            }
+        }else{
+            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet());
+            call.enqueue(callback);
 
-                    @Override
-                    public void onFailure(Call<Transaction> call, Throwable t) {
-                        Log.d("fail ");
-                    }
-                });
+        }
 
         stringResponse = stringResponse.substring(stringResponse.indexOf("<span id='price'>"));
         stringResponse = stringResponse.substring(17,stringResponse.indexOf("@"));
         ethValue.postValue(stringResponse);
+    }
+
+    static class Call implements retrofit2.Callback<Transaction>{
+
+        MutableLiveData<List<Transaction.TransactionBean>> transactionBeans;
+
+        public Call(MutableLiveData<List<Transaction.TransactionBean>> transactionBeans) {
+            this.transactionBeans = transactionBeans;
+        }
+
+        @Override
+        public void onResponse(retrofit2.Call<Transaction> call, Response<Transaction> response) {
+            Transaction body = response.body();
+
+            transactionBeans.postValue(body.result);
+
+            Log.d("body ");
+        }
+
+        @Override
+        public void onFailure(retrofit2.Call<Transaction> call, Throwable t) {
+
+        }
     }
 
     private void getTickerPriceError(Throwable throwable) {
