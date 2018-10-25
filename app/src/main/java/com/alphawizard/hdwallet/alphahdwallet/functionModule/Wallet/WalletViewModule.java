@@ -11,6 +11,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLa
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
@@ -20,6 +21,7 @@ import com.alphawizard.hdwallet.common.base.ViewModule.entity.C;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +50,7 @@ public class WalletViewModule extends BaseViewModel {
     SendRouter  mSendRouter;
     FetchWalletInteract mFetchWalletInteract;
     FirstLaunchRouter  mFirstLaunchRouter;
+    ExportWalletInteract mExportWalletInteract;
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
@@ -67,6 +70,7 @@ public class WalletViewModule extends BaseViewModel {
                             FindDefaultWalletInteract findDefaultWalletInteract,
                             FetchWalletInteract fetchWalletInteract,
                             GetBalanceInteract  getBalanceInteract,
+                            ExportWalletInteract exportWalletInteract,
                             FirstLaunchRouter  firstLaunchRouter,
                             SendRouter  sendRouter,
                             WalletRepositoryType walletRepositoryType
@@ -76,6 +80,7 @@ public class WalletViewModule extends BaseViewModel {
         mDefaultWalletInteract = defaultWalletInteract;
         mFindDefaultWalletInteract = findDefaultWalletInteract;
         mFetchWalletInteract = fetchWalletInteract;
+        mExportWalletInteract =exportWalletInteract;
         mWalletRepositoryType  =  walletRepositoryType;
         mFirstLaunchRouter = firstLaunchRouter;
         mGetBalanceInteract =getBalanceInteract;
@@ -100,6 +105,10 @@ public class WalletViewModule extends BaseViewModel {
 
     public LiveData<String> ethValue() {
         return ethValue;
+    }
+
+    public LiveData<String> exportedStore() {
+        return exportedStore;
     }
 
     public LiveData<List<Transaction.TransactionBean>> transactionBeans() {
@@ -169,14 +178,19 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribe();
     }
 
-
-
-
     public void fetchTransactions() {
-
 
     }
 
+    public void exportAccount(Wallet wallet,String password){
+        mWalletRepositoryType
+                .exportAccount(wallet,password)
+                .subscribe(this::exportAccountSuccess,this::exportAccountError);
+    }
+
+    private void exportAccountSuccess(String s) {
+        exportedStore.postValue(s);
+    }
 
 
     retrofit2.Call<Transaction> call ;
@@ -230,10 +244,9 @@ public class WalletViewModule extends BaseViewModel {
 
         @Override
         public void onResponse(retrofit2.Call<Transaction> call, Response<Transaction> response) {
+
             Transaction body = response.body();
-
             transactionBeans.postValue(body.result);
-
             Log.d("body ");
         }
 
@@ -241,6 +254,10 @@ public class WalletViewModule extends BaseViewModel {
         public void onFailure(retrofit2.Call<Transaction> call, Throwable t) {
 
         }
+    }
+
+    private void exportAccountError(Throwable throwable) {
+        exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     }
 
     private void getTickerPriceError(Throwable throwable) {

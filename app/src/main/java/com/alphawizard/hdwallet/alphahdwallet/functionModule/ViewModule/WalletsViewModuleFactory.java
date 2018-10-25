@@ -10,6 +10,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLa
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
@@ -21,6 +22,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     private DefaultWalletInteract defaultWalletInteract;
     private FindDefaultWalletInteract findDefaultWalletInteract;
     private GetBalanceInteract getBalanceInteract;
+    private ExportWalletInteract exportWalletInteract;
     private WalletRepositoryType walletRepositoryType;
     private FirstLaunchRouter   firstLaunchRouter;
     private FetchWalletInteract  fetchWalletInteract;
@@ -31,6 +33,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     FindDefaultWalletInteract findDefaultWalletInteract,
                                     FetchWalletInteract  fetchWalletInteract,
                                     GetBalanceInteract getBalanceInteract,
+                                    ExportWalletInteract ExportWalletInteract,
                                     FirstLaunchRouter   firstLaunchRouter,
                                     SendRouter  sendRouter,
                                     WalletRepositoryType walletRepositoryType) {
@@ -39,6 +42,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.findDefaultWalletInteract = findDefaultWalletInteract;
         this.getBalanceInteract = getBalanceInteract;
         this.fetchWalletInteract = fetchWalletInteract;
+        this.exportWalletInteract = ExportWalletInteract;
         this.firstLaunchRouter =  firstLaunchRouter;
         this.walletRepositoryType =  walletRepositoryType;
         this.sendRouter = sendRouter;
@@ -47,6 +51,6 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
+        return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,exportWalletInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
     }
 }

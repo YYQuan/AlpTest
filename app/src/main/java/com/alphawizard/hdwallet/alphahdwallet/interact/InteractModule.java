@@ -21,6 +21,13 @@ import okhttp3.OkHttpClient;
 @Module
 public class InteractModule {
 
+    /*
+
+    Interact
+
+
+     */
+
     @Provides
     static CreateWalletInteract  createWalletInteract(WalletRepositoryType walletRepositoryType ){
         return new CreateWalletInteract(walletRepositoryType);
@@ -56,6 +63,18 @@ public class InteractModule {
         return new ImportAccountInteract(walletRepositoryType);
     }
 
+    @Provides
+    static  ExportWalletInteract  exportWalletInteract(WalletRepositoryType walletRepositoryType){
+        return new ExportWalletInteract(walletRepositoryType);
+    }
+
+
+    /*
+
+    Router
+
+
+     */
     @Provides
     public static FirstLaunchRouter providesFirstLaunchRouter(){
         return new FirstLaunchRouter();

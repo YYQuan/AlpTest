@@ -1,21 +1,29 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.alphawizard.hdwallet.alphahdwallet.R;
 
+import com.alphawizard.hdwallet.alphahdwallet.App;
+import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivityContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
+import com.alphawizard.hdwallet.alphahdwallet.widget.BackupView;
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
@@ -49,6 +57,9 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
     RecyclerAdapter<Wallet> mAdapter;
 
+    private Dialog dialog;
+
+
     @Override
     public AccountsContract.Presenter initPresenter() {
         return mPresenter;
@@ -73,7 +84,13 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
         viewModel.wallets().observe(this,this::onGetWallets);
         viewModel.defaultWallet().observe(this,this::onDefaultWallet);
+        viewModel.exportedStore().observe(this,this::onExportWallet);
 
+    }
+
+    private void onExportWallet(String s) {
+        Log.d("keystore : "+s);
+        showBackupKeystoreDialog(s);
     }
 
     private void onDefaultWallet(Wallet wallet) {
@@ -118,6 +135,13 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
                 super.onClickListener(holder, wallet);
                 mPresenter.setDefaultWallet(wallet);
             }
+
+            @Override
+            public boolean onLongClickListener(RecyclerAdapter.ViewHolder holder, Wallet wallet) {
+//                viewModel.exportAccount(wallet,"123");
+                showBackupDialog(wallet);
+                return super.onLongClickListener(holder, wallet);
+            }
         });
         setPlaceHolderView(placeHolder);
         placeHolder.bind(recyclerView);
@@ -146,6 +170,60 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
         placeHolder.triggerOkOrEmpty(mAdapter.getItemCount()>=0);
     }
 
+
+
+    private void showBackupDialog(Wallet wallet) {
+        BackupView view = new BackupView(getActivity());
+        dialog = buildDialog()
+                .setView(view)
+                .setPositiveButton("ok",
+                        (dialogInterface, i) -> {
+                            viewModel.exportAccount(wallet, view.getPassword());
+                            KeyboardUtils.hideKeyboard(view.findViewById(R.id.password));
+                        })
+                .setNegativeButton("cancel", (dialogInterface, i) -> {
+                    KeyboardUtils.hideKeyboard(view.findViewById(R.id.password));
+                })
+                .setOnDismissListener(dialog -> KeyboardUtils.hideKeyboard(view.findViewById(R.id.password)))
+                .create();
+        dialog.show();
+    }
+
+    private void showBackupKeystoreDialog(String string) {
+//        BackupView view = new BackupView(getActivity());
+        View   view = View.inflate(getActivity(),R.layout.layout_dialog_copeboard,null);
+        TextView tv  = view.findViewById(R.id.tv_keystore);
+        tv.setText(string);
+        dialog = buildDialog()
+                .setView(view)
+                .setPositiveButton("copy",
+                        (dialogInterface, i) -> {
+                            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            // 将文本内容放到系统剪贴板里。
+                            cm.setText(tv.getText());
+                            KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));
+                            App.showToast("已复制 keystore");
+                        })
+                .setNegativeButton("cancel", (dialogInterface, i) -> {
+                    KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));
+                })
+                .setOnDismissListener(dialog -> KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore)))
+                .create();
+        dialog.show();
+    }
+
+
+    private AlertDialog.Builder buildDialog() {
+        hideDialog();
+        return new AlertDialog.Builder(getActivity());
+    }
+
+    private void hideDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
+    }
 
     class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Wallet> {
 

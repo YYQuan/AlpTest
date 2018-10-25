@@ -12,6 +12,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLa
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
@@ -30,10 +31,11 @@ public class ViewModuleModule {
                                                               FindDefaultWalletInteract findDefaultWalletInteract,
                                                               FetchWalletInteract  fetchWalletInteract,
                                                               GetBalanceInteract getBalanceInteract,
+                                                              ExportWalletInteract exportWalletInteract,
                                                               FirstLaunchRouter firstLaunchRouter,
                                                               SendRouter sendRouter,
                                                               WalletRepositoryType walletRepositoryType){
-        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
+        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,exportWalletInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
     }
 
     @Provides

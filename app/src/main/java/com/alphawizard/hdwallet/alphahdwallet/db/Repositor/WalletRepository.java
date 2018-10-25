@@ -107,6 +107,10 @@ public class WalletRepository implements WalletRepositoryType {
 		return accountKeystoreService.importKeystore(keystore,password,"123");
 	}
 
+	public Single<String> exportAccount(Wallet wallet, String newPassword){
+		return accountKeystoreService.exportAccount(wallet, "123", newPassword);
+	}
+
 	public Single<Wallet> getDefaultWallet(){
 		return Single.fromCallable(preferenceRepositoryType::getCurrentWalletAddress)
 				.flatMap(this::findWallet);

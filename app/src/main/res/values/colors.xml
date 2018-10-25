@@ -2,7 +2,9 @@
 <resources>
 
     <!--主色-->
-    <color name="colorPrimary">#31373d</color>
+    <!--<color name="colorPrimary">#31373d</color>-->
+    <color name="colorPrimary">#1572fc</color>
+
     <color name="colorPrimaryDark">#31373d</color>
     <color name="colorAccent">#1572fc</color>
     <color name="colorLight">@color/white</color>
