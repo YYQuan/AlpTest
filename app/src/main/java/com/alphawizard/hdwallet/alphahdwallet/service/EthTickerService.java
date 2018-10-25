@@ -56,7 +56,7 @@ public class EthTickerService implements TickerService {
     Request request = new Request.Builder()
             .url(API_URL)
             .build();
-    okhttp3.Call call= okHttpClient.newCall(request);;
+    okhttp3.Call call= okHttpClient.newCall(request);
     okhttp3.Response response = null;
     @Override
     public  String  fetchTickerPrice() {

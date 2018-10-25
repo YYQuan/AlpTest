@@ -14,7 +14,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 @ActivityScoped
-
 public class AccountsPresenter extends BaseRecyclerPresenter <Wallet,WalletViewModule,AccountsContract.View> implements AccountsContract.Presenter {
 
     private Wallet defaultWallet ;

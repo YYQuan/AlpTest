@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.widget.Toast;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.di.ActivityScoped;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendViewModule;
@@ -19,6 +20,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import javax.inject.Inject;
 
+@ActivityScoped
 public class DimensionPresenter extends BasePresenter<DimensionContract.View,WalletViewModule> implements DimensionContract.Presenter  {
 
 
