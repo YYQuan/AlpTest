@@ -87,7 +87,7 @@ public class EthTickerService implements TickerService {
                 .baseUrl("https://rinkeby.etherscan.io/")
                 .build();
         apiClient = retrofit.create(ApiClient.class);
-        apiClient.getTransaction("account", "txlist",address)
+        apiClient.getTransaction("account", "txlist",address,"desc")
                 .enqueue(new Callback<Transaction>() {
                     @Override
                     public void onResponse(Call<Transaction> call, Response<Transaction> response) {
@@ -108,7 +108,7 @@ public class EthTickerService implements TickerService {
 //        @GET("/")
 //        Observable<Response<String>> fetchTickerPrice();
         @GET("api")
-        Call<Transaction> getTransaction(@Query("module") String module, @Query("action") String action, @Query("address") String address);
+        Call<Transaction> getTransaction(@Query("module") String module, @Query("action") String action, @Query("address") String address,@Query("sort") String sort);
     }
 
 

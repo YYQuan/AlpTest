@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
+    <ImageView
+        android:layout_marginTop="@dimen/len_24"
+        android:id="@+id/qr_image"
+        app:srcCompat="@drawable/ic_add_white_24dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="@dimen/len_256"
+        android:layout_height="@dimen/len_256"
+        />
     <TextView
+        android:id="@+id/tv_address"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="@dimen/len_40"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/len_12"
         android:textColor="@color/colorPrimary"
+        android:gravity="center"
         android:text="@string/title_receiver"/>
 </LinearLayout>

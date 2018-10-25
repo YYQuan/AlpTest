@@ -3,6 +3,7 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Ac
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +21,9 @@ import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -52,6 +55,8 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     RecyclerView recyclerView;
 
     RecyclerAdapter<Transaction.TransactionBean> mAdapter;
+
+    String defaultWalletAddress;
 
     @OnClick(R.id.btn_send)
     void clickBtnSend(){
@@ -127,6 +132,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     private void defaultWalletBalanceChange(Wallet wallet) {
         mPresenter.getBalance();
+        defaultWalletAddress = wallet.address;
     }
 
     private void defaultWalletBalanceChange(String s) {
@@ -152,7 +158,8 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         @BindView(R.id.txt_content)
         TextView mContent;
 
-
+        @BindView(R.id.txt_time)
+        TextView mTime;
 
         ActionViewHolder(View itemView) {
             super(itemView);
@@ -160,8 +167,17 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
         @Override
         public void onBindViewHolder(Transaction.TransactionBean bean) {
+            if(bean.getTo().equalsIgnoreCase(defaultWalletAddress)){
+                mTitle.setText("receive  from  :"+bean.getFrom());
+            }else{
+                mTitle.setText("send   to  :"+bean.getTo());
+            }
+
             mContent .setText("value   :"+bean.getValue());
-            mTitle.setText("to  :"+bean.getTo());
+
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+            calendar.setTimeInMillis((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS);
+            mTime.setText("time :"+calendar.getTime() );
         }
     }
 }

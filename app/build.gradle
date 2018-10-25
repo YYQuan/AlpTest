@@ -92,5 +92,10 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:$rootProject.ext.lifecycleVersion"
     implementation "android.arch.lifecycle:extensions:$rootProject.ext.lifecycleVersion"
 
+    //zxing
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.google.android.gms:play-services-vision:11.8.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+
     implementation project(':common')
 }

@@ -142,6 +142,11 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribe(wallet -> onDefaultWalletChanged(wallet), this::onGetDefaultAccountsError);
     }
 
+
+    public String  getDefaultWalletAddress(){
+        return mDefaultWalletInteract.getDefaultWalletAddress().blockingGet();
+    }
+
     private void onDefaultWalletChanged(Wallet wallet) {
         progress.postValue(false);
         defaultWallet.postValue(wallet);
@@ -164,18 +169,7 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribe();
     }
 
-    private void getTransactionsSuccess(Single<Transaction> transactionSingle) {
-    }
 
-    private void getTransactionsSuccess(Observable<Transaction> transactionObservable) {
-        
-        Log.d("getTransactionsSuccess");
-    }
-
-
-    private void getTransactionsSuccess(List<Transaction> transactions) {
-        Log.d("getTransactionsSuccess");
-    }
 
 
     public void fetchTransactions() {
@@ -183,15 +177,6 @@ public class WalletViewModule extends BaseViewModel {
 
     }
 
-
-    public void getTransactions(){
-        mWalletRepositoryType.getTransactions(defaultWallet.getValue().address);
-    }
-//    public void getTickerPrice(){
-//        mWalletRepositoryType
-//                .getTickerPrice()
-//                .subscribe(this::getTickerPriceSuccess,this::getTickerPriceError);
-//    }
 
 
     retrofit2.Call<Transaction> call ;
@@ -210,7 +195,8 @@ public class WalletViewModule extends BaseViewModel {
             apiClient = retrofit.create(EthTickerService.ApiClient.class);
         }
         if (call == null) {
-            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet());
+            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
+            call.enqueue(callback);
         }
 
         if(call.isExecuted()) {
@@ -221,9 +207,12 @@ public class WalletViewModule extends BaseViewModel {
 //            while(!call.isCanceled()){
 //                Log.d("wait  cancel ");
 //            }
-        }else{
-            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet());
+
+            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
             call.enqueue(callback);
+        }else{
+//            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
+//            call.enqueue(callback);
 
         }
 

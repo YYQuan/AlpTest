@@ -37,7 +37,7 @@ public class Transaction {
     public static  class TransactionBean implements  DiffUtilCallback.DiffRule<TransactionBean>{
 
         String blockNumber;
-        String timeStamp;
+        long timeStamp;
         String hash;
         String nonce;
         String blockHash;
@@ -65,11 +65,11 @@ public class Transaction {
             this.blockNumber = blockNumber;
         }
 
-        public String getTimeStamp() {
+        public long getTimeStamp() {
             return timeStamp;
         }
 
-        public void setTimeStamp(String timeStamp) {
+        public void setTimeStamp(long timeStamp) {
             this.timeStamp = timeStamp;
         }
 

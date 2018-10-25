@@ -32,4 +32,8 @@ public class DefaultWalletInteract {
     }
 
 
+    public Single<String> getDefaultWalletAddress(){
+        return walletRepository.getDefaultWalletAddress();
+    }
+
 }
