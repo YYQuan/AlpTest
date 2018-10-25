@@ -38,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WalletViewModule extends BaseViewModel {
 
-    private static final long GET_BALANCE_INTERVAL = 20;
+    private static final long GET_BALANCE_INTERVAL = 10;
 
     CreateWalletInteract mCreateWalletInteract;
     DefaultWalletInteract mDefaultWalletInteract;
@@ -197,28 +197,27 @@ public class WalletViewModule extends BaseViewModel {
         if (call == null) {
             call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
             call.enqueue(callback);
-        }
-
-        if(call.isExecuted()) {
-//            if(call.isCanceled()) {
-//                Log.d("wait  cancel ");
-//            }
-//            call.cancel();
-//            while(!call.isCanceled()){
-//                Log.d("wait  cancel ");
-//            }
-
-            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
-            call.enqueue(callback);
         }else{
-//            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
-//            call.enqueue(callback);
 
+            if(call.isExecuted()) {
+//                call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
+//                call.enqueue(callback);
+                call.clone().enqueue(callback);
+
+//                call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
+//                call.enqueue(callback);
+            }else{
+
+            }
         }
 
-        stringResponse = stringResponse.substring(stringResponse.indexOf("<span id='price'>"));
-        stringResponse = stringResponse.substring(17,stringResponse.indexOf("@"));
-        ethValue.postValue(stringResponse);
+
+        if(stringResponse.indexOf("<span id='price'>")>=0) {
+
+            stringResponse = stringResponse.substring(stringResponse.indexOf("<span id='price'>"));
+            stringResponse = stringResponse.substring(17, stringResponse.indexOf("@"));
+            ethValue.postValue(stringResponse);
+        }
     }
 
     static class Call implements retrofit2.Callback<Transaction>{

@@ -52,19 +52,23 @@ public class EthTickerService implements TickerService {
     }
 
     String result = "0.00";
+    OkHttpClient okHttpClient = new OkHttpClient();
+    Request request = new Request.Builder()
+            .url(API_URL)
+            .build();
+    okhttp3.Call call= okHttpClient.newCall(request);;
+    okhttp3.Response response = null;
     @Override
     public  String  fetchTickerPrice() {
-        OkHttpClient okHttpClient = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(API_URL)
-                .build();
-        okhttp3.Call call =  okHttpClient.newCall(request);
-        okhttp3.Response response = null;
 
+
+//            call = okHttpClient.newCall(request);
         try {
-            response = call.execute();
+//            response = call.execute();
+            response = call.clone().execute();
             if(response!=null) {
                 result = response.body().string();
+//                call =null;
                 Log.d(result);
             }else{
                 result = "0.00";
@@ -73,6 +77,8 @@ public class EthTickerService implements TickerService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return result;
     }
 
