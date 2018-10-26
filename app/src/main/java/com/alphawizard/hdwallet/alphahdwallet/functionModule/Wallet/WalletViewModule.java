@@ -117,17 +117,6 @@ public class WalletViewModule extends BaseViewModel {
 
 
 
-    public void newWallet() {
-        progress.setValue(true);
-        mCreateWalletInteract
-                .create()
-//				create 过程中没有throw 就回调success ,如果有throw  异常的话，那么就会掉error
-                .subscribe(account -> {
-//                    fetchWallets();
-                    createdWallet.postValue(account);
-                }, this::onCreateWalletError);
-    }
-
     public void getAccounts(){
         progress.setValue(true);
         mFetchWalletInteract

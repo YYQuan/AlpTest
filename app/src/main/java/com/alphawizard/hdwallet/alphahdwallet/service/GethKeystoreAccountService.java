@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.ethereum.geth.Geth;
 import org.ethereum.geth.KeyStore;
+import org.web3j.crypto.Keys;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.AdminFactory;
 import org.web3j.protocol.http.HttpService;
@@ -16,8 +17,17 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.List;
 
+import io.github.novacrypto.bip32.ExtendedPrivateKey;
+import io.github.novacrypto.bip32.networks.Bitcoin;
+import io.github.novacrypto.bip39.MnemonicGenerator;
+import io.github.novacrypto.bip39.SeedCalculator;
+import io.github.novacrypto.bip39.Words;
+import io.github.novacrypto.bip39.wordlists.English;
+import io.github.novacrypto.bip44.AddressIndex;
+import io.github.novacrypto.bip44.BIP44;
 import io.reactivex.schedulers.Schedulers;
 
 import org.ethereum.geth.Accounts;
@@ -81,6 +91,72 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 //            return  wallet;
         })
                 .subscribeOn(Schedulers.io());
+    }
+
+    @Override
+    public Single<Wallet> createMnemonicsAccount(String  mnemonics,String password){
+        String  privateKey = getPrivateKey(mnemonics);
+
+        return importPrivateKey(privateKey,password);
+    }
+
+
+    /**
+     * generate a random group of mnemonics
+     * 生成一组随机的助记词
+     */
+    public Single<String> generateMnemonics() {
+        StringBuilder sb = new StringBuilder();
+        byte[] entropy = new byte[Words.TWELVE.byteLength()];
+        new SecureRandom().nextBytes(entropy);
+        new MnemonicGenerator(English.INSTANCE)
+                .createMnemonic(entropy, sb::append);
+        return Single.fromCallable(()->sb.toString())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * generate key pair to create eth wallet
+     * 生成KeyPair , 用于创建钱包
+     */
+    public String getPrivateKey(String mnemonics) {
+        // 1. we just need eth wallet for now
+        AddressIndex addressIndex = BIP44
+                .m()
+                .purpose44()
+                .coinType(60)
+                .account(0)
+                .external()
+                .address(0);
+        // 2. calculate seed from mnemonics , then get master/root key ; Note that the bip39 passphrase we set "" for common
+        ExtendedPrivateKey rootKey = ExtendedPrivateKey.fromSeed(new SeedCalculator().calculateSeed(mnemonics, ""), Bitcoin.MAIN_NET);
+//        Logger.i("mnemonics:" + mnemonics);
+        String extendedBase58 = rootKey.extendedBase58();
+//        Logger.i("extendedBase58:" + extendedBase58);
+
+        // 3. get child private key deriving from master/root key
+        ExtendedPrivateKey childPrivateKey = rootKey.derive(addressIndex, AddressIndex.DERIVATION);
+        String childExtendedBase58 = childPrivateKey.extendedBase58();
+//        Logger.i("childExtendedBase58:" + childExtendedBase58);
+//        Logger.i("childExtendedBase58:" + childExtendedBase58);
+
+        // 4. get key pair
+        byte[] privateKeyBytes = childPrivateKey.getKey();
+        ECKeyPair keyPair = ECKeyPair.create(privateKeyBytes);
+
+
+        // we 've gotten what we need
+        String privateKey = childPrivateKey.getPrivateKey();
+        String publicKey = childPrivateKey.neuter().getPublicKey();
+        String address = Keys.getAddress(keyPair);
+
+
+        return privateKey;
+//        Logger.i("privateKey:" + privateKey);
+//        Logger.i("publicKey:" + publicKey);
+//        Logger.i("address:" + Constant.PREFIX_16 + address);
+
+//        return keyPair;
     }
 
 
@@ -198,6 +274,10 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
             }
         });
     }
+
+
+
+
 
     @Override
     public Single<String> exportAccount(Wallet wallet, String password, String newPassword) {

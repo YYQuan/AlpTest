@@ -24,8 +24,45 @@ public class CreateWalletInteract {
 		this.walletRepository =  walletRepository;
 	}
 
-	public Single<Wallet> create() {
-		return walletRepository.createAccount();
+	public Single<Wallet> create(CreateWalletEntity entiry) {
+		return walletRepository.createAccount(entiry.mnenonics,entiry.password);
 	}
 
+	public Single<CreateWalletEntity>  generateMnenonics(String password){
+		return walletRepository.generateMnemonics()
+				.flatMap(s-> Single.just(new CreateWalletEntity(s,password)));
+	}
+
+	public Single<String>  generatePassword(){
+		return walletRepository.generatePassword();
+	}
+
+
+	public static class  CreateWalletEntity {
+		String   password ;
+		String  mnenonics ;
+
+
+		public CreateWalletEntity(String mnenonics , String  password) {
+			this.password = password;
+			this.mnenonics = mnenonics;
+		}
+
+		public String getPassword() {
+
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
+		}
+
+		public String getMnenonics() {
+			return mnenonics;
+		}
+
+		public void setMnenonics(String mnenonics) {
+			this.mnenonics = mnenonics;
+		}
+	}
 }

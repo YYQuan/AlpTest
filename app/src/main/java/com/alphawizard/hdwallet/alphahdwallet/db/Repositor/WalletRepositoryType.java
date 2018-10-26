@@ -16,7 +16,8 @@ import retrofit2.Response;
 public interface WalletRepositoryType {
 
 
-	Single createAccount() ;
+	Single createAccount(String mnenonics,String password) ;
+	Single<String>  generateMnemonics();
 	Single<BigInteger> balanceInWei(Wallet wallet);
 	Single<byte[]> signTransaction(Wallet signer,String signerPassword,String toAddress,
 								   BigInteger amount,
@@ -31,6 +32,7 @@ public interface WalletRepositoryType {
 
 	String getTickerPrice();
 	Call<Transaction> getTransactions(String address);
+	Single<String> generatePassword();
 
 	Single<Wallet>  getDefaultWallet();
 	Single<String>  getDefaultWalletAddress();

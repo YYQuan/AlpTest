@@ -62,12 +62,14 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
         mPresenter.takeView(this,viewModel);
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
         viewModel.defaultWallet().observe(this,this::onDefaultWallet);
-
+        viewModel.createWalletEntity().observe(this,this::onCreateWalletEntity);
         if(getIntent().getBooleanExtra(FIRST_OPEN,true)){
             viewModel.getDefaultWallet();
         }
+    }
 
-
+    private void onCreateWalletEntity(CreateWalletInteract.CreateWalletEntity createWalletEntity) {
+        Log.d("getMnenonics  :"+createWalletEntity.getMnenonics());
     }
 
     private void onDefaultWallet(Wallet wallet) {
@@ -88,7 +90,6 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
     @OnClick(R.id.btn_import_account)
     void onClickBtnImport(){
         viewModel.openImport(this);
-
     }
 
     @Override

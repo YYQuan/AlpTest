@@ -19,7 +19,9 @@ import com.alphawizard.hdwallet.common.util.Log;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import rx.Single;
 
 public class FirstLaunchViewModule extends BaseViewModel {
 
@@ -28,7 +30,12 @@ public class FirstLaunchViewModule extends BaseViewModel {
     ImportRouter importRouter;
     DefaultWalletInteract defaultWalletInteract;
 
+
+
+    CreateWalletInteract.CreateWalletEntity mEntity ;
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
+    private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
+    private final MutableLiveData<CreateWalletInteract.CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
 
     public FirstLaunchViewModule(CreateWalletInteract createWalletInteract,
                                  DefaultWalletInteract defaultWalletInteract,
@@ -45,7 +52,9 @@ public class FirstLaunchViewModule extends BaseViewModel {
         return defaultWallet;
     }
 
-    private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
+    public LiveData<CreateWalletInteract.CreateWalletEntity> createWalletEntity() {
+        return createWalletEntity;
+    }
 
     public LiveData<Wallet> createdWallet() {
         return createdWallet;
@@ -53,13 +62,20 @@ public class FirstLaunchViewModule extends BaseViewModel {
 
     public void newWallet() {
         progress.setValue(true);
+
+//        CreateWalletEntity
         createWalletInteract
-                .create()
-//				create 过程中没有throw 就回调success ,如果有throw  异常的话，那么就会掉error
-                .subscribe(account -> {
-//                    fetchWallets();
-                    createdWallet.postValue(account);
-                }, this::onCreateWalletError);
+                        .generatePassword()
+                        .flatMap(s->createWalletInteract.generateMnenonics(s))
+                        .flatMap(e-> {
+                            mEntity = e;
+                            createWalletEntity.postValue(mEntity);
+                            return createWalletInteract.create(e); })
+                    .subscribe(this::onCreateWallet,this::onCreateWalletError);
+    }
+
+    private void onCreateWallet(Wallet wallet) {
+        createdWallet.postValue(wallet);
     }
 
     public void getDefaultWallet(){
@@ -85,9 +101,20 @@ public class FirstLaunchViewModule extends BaseViewModel {
         importRouter.open(context);
     }
 
+
+    private void onGeneratePasswordError(Throwable throwable) {
+        Log.d("onGeneratePasswordError" +throwable.getMessage());
+    }
+
+    private void onGenerateMnenonicsError(Throwable throwable) {
+        Log.d("onGenerateMnenonicsError" +throwable.getMessage());
+    }
+
     private void onCreateWalletError(Throwable throwable) {
         Log.d("onCreateWalletError" +throwable.getMessage());
 
 //        createWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     }
+
+
 }

@@ -1,6 +1,9 @@
 package com.alphawizard.hdwallet.alphahdwallet.service;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+
+import org.web3j.crypto.ECKeyPair;
+
 import java.math.BigInteger;
 
 import io.reactivex.Completable;
@@ -14,6 +17,11 @@ public interface AccountKeystoreService {
 	 */
 	Single<Wallet> createAccount(String password);
 
+
+	Single<Wallet> createMnemonicsAccount(String  mnemonics,String password);
+
+    Single<String> generateMnemonics();
+
 	/**
 	 * Include new existing keystore
 	 * @param store store to include
@@ -22,6 +30,8 @@ public interface AccountKeystoreService {
 	 */
 	Single<Wallet> importKeystore(String store, String password, String newPassword);
     Single<Wallet> importPrivateKey(String privateKey, String newPassword);
+
+
 
 	/**
 	 * Export wallet to keystore

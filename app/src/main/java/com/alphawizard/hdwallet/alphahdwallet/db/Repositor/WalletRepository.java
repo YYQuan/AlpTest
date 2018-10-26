@@ -43,12 +43,14 @@ public class WalletRepository implements WalletRepositoryType {
 		this.tickerService =  tickerService;
 	}
 
-	public Single<Wallet>  createAccount(){
-		return generatePassword()
-				.flatMap(password1 -> accountKeystoreService.createAccount(password1));
-
+	public Single<Wallet>  createAccount(String  mnemonics,String password){
+		return accountKeystoreService.createMnemonicsAccount(mnemonics,password);
 	}
 
+	public  Single<String>  generateMnemonics(){
+		return accountKeystoreService
+				.generateMnemonics();
+	}
 
 	public String getTickerPrice(){
 
