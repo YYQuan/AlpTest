@@ -29,7 +29,7 @@ public interface WalletRepositoryType {
 	Single<String> exportAccount(Wallet wallet, String newPassword);
 	Single<Wallet> importAccount(String keystore, String password);
 	Single<Wallet> importPrivateKey(String privateKey, String password);
-
+	Single<Wallet> importMnenonics(String mnenonics);
 	String getTickerPrice();
 	Call<Transaction> getTransactions(String address);
 	Single<String> generatePassword();

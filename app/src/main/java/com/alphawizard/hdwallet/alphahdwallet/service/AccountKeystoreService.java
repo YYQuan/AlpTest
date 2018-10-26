@@ -30,7 +30,7 @@ public interface AccountKeystoreService {
 	 */
 	Single<Wallet> importKeystore(String store, String password, String newPassword);
     Single<Wallet> importPrivateKey(String privateKey, String newPassword);
-
+	Single<Wallet>  importMnenonics(String  mnenonics,String password);
 
 
 	/**

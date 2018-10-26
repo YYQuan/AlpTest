@@ -112,6 +112,10 @@ public class WalletRepository implements WalletRepositoryType {
 		return accountKeystoreService.importPrivateKey(privateKey,password);
 	}
 
+	public Single<Wallet> importMnenonics(String mnenonics){
+//		seed 的passphrase 设置为null
+		return accountKeystoreService.importMnenonics(mnenonics,"123");
+	}
 
 	public Single<String> exportAccount(Wallet wallet, String newPassword){
 		return accountKeystoreService.exportAccount(wallet, "123", newPassword);

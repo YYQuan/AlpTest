@@ -4,6 +4,7 @@ package com.alphawizard.hdwallet.alphahdwallet.service;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ServiceException;
+import com.alphawizard.hdwallet.common.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.ethereum.geth.Geth;
@@ -96,7 +97,6 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     @Override
     public Single<Wallet> createMnemonicsAccount(String  mnemonics,String password){
         String  privateKey = getPrivateKey(mnemonics);
-
         return importPrivateKey(privateKey,password);
     }
 
@@ -120,6 +120,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
      * 生成KeyPair , 用于创建钱包
      */
     public String getPrivateKey(String mnemonics) {
+//        mnemonics = "puppy puppy menu menu menu menu menu menu menu menu menu menu";
         // 1. we just need eth wallet for now
         AddressIndex addressIndex = BIP44
                 .m()
@@ -127,6 +128,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
                 .coinType(60)
                 .account(0)
                 .external()
+//                这个address就是 该助记词对应的hd seed 的第几个私钥
                 .address(0);
         // 2. calculate seed from mnemonics , then get master/root key ; Note that the bip39 passphrase we set "" for common
         ExtendedPrivateKey rootKey = ExtendedPrivateKey.fromSeed(new SeedCalculator().calculateSeed(mnemonics, ""), Bitcoin.MAIN_NET);
@@ -147,8 +149,11 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
         // we 've gotten what we need
         String privateKey = childPrivateKey.getPrivateKey();
+        Log.d("privateKey:" + privateKey);
         String publicKey = childPrivateKey.neuter().getPublicKey();
         String address = Keys.getAddress(keyPair);
+
+
 
 
         return privateKey;
@@ -276,6 +281,10 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     }
 
 
+    public Single<Wallet>  importMnenonics(String  mnenonics,String password){
+//        String  privateKey = getPrivateKey(mnemonics);
+        return importPrivateKey(getPrivateKey(mnenonics),password);
+    }
 
 
 

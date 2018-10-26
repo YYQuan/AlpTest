@@ -14,6 +14,7 @@ import android.widget.EditText;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importKeyStore.ImportKeyStoreFragment;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importMnenonics.ImportMnenonicsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importPrivateKey.ImportPrivateKeyFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
@@ -35,6 +36,7 @@ public class ImportActivity extends BasePresenterToolbarActivity<ImportContract.
 
     private static final int KEYSTORE_FORM_INDEX = 0;
     private static final int PRIVATE_KEY_FORM_INDEX = 1;
+    private static final int MNENONICS_FORM_INDEX = 1;
 
     @Inject
     ImportViewModuleFactory walletsViewModuleFactory;
@@ -100,6 +102,7 @@ public class ImportActivity extends BasePresenterToolbarActivity<ImportContract.
 
         pages.add(KEYSTORE_FORM_INDEX, new Pair<>("KEYSTORE", ImportKeyStoreFragment.create()));
         pages.add(PRIVATE_KEY_FORM_INDEX, new Pair<>("PRIVATE", ImportPrivateKeyFragment.create()));
+        pages.add(MNENONICS_FORM_INDEX, new Pair<>("MNENONICS", ImportMnenonicsFragment.create()));
         ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager(), pages));
         TabLayout tabLayout = findViewById(R.id.tabLayout);

@@ -63,7 +63,7 @@ public class FirstLaunchViewModule extends BaseViewModel {
     public void newWallet() {
         progress.setValue(true);
 
-//        CreateWalletEntity
+        //        CreateWalletEntity
         createWalletInteract
                         .generatePassword()
                         .flatMap(s->createWalletInteract.generateMnenonics(s))

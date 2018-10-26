@@ -39,6 +39,15 @@ public class ImportViewModule extends BaseViewModel {
 
     }
 
+    public  void importMnenonics(String mnenonics ){
+        mImportAccountInteract
+                .importMnenonics(mnenonics)
+//                必须 在主线程回调  否则 不能够  执行 progress.setValue(true);
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onWallet, this::onImportError);
+
+    }
+
     private void onImportError(Throwable throwable) {
         Log.d("import  fail ");
         App.showToast("import  fail");

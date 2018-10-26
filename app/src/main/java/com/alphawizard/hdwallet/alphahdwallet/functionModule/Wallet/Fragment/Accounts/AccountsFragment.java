@@ -199,7 +199,7 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
                 .setPositiveButton("copy",
                         (dialogInterface, i) -> {
                             ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-                            // 将文本内容放到系统剪贴板里。
+                             // 将文本内容放到系统剪贴板里。
                             cm.setText(tv.getText());
                             KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));
                             App.showToast("已复制 keystore");

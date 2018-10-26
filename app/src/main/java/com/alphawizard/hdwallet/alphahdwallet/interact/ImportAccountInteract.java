@@ -20,4 +20,8 @@ public class ImportAccountInteract {
     public Single<Wallet>  importPrivateKey(String privateKey ,String password){
         return mWalletRepositoryType.importPrivateKey(privateKey,password);
     }
+
+    public Single<Wallet>  importMnenonics(String privateKey){
+        return mWalletRepositoryType.importMnenonics(privateKey);
+    }
 }
