@@ -12,6 +12,7 @@ public interface ImportContract {
 
     interface Presenter extends BaseContract.BasePresenter<ImportContract.View,ImportViewModule> {
         void importKeystore(String keystore ,String password);
+        void importPrivateKey(String privateKey);
 
     }
 }

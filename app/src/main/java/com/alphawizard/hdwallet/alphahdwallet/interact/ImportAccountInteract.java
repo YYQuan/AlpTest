@@ -16,4 +16,8 @@ public class ImportAccountInteract {
     public Single<Wallet>  importKeystore(String keystore ,String password){
         return mWalletRepositoryType.importAccount(keystore,password);
     }
+
+    public Single<Wallet>  importPrivateKey(String privateKey ,String password){
+        return mWalletRepositoryType.importPrivateKey(privateKey,password);
+    }
 }

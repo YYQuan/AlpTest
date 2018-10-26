@@ -27,6 +27,7 @@ public interface WalletRepositoryType {
 								   long chainId);
 	Single<String> exportAccount(Wallet wallet, String newPassword);
 	Single<Wallet> importAccount(String keystore, String password);
+	Single<Wallet> importPrivateKey(String privateKey, String password);
 
 	String getTickerPrice();
 	Call<Transaction> getTransactions(String address);

@@ -88,11 +88,13 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
     @OnClick(R.id.btn_import_account)
     void onClickBtnImport(){
         viewModel.openImport(this);
+
     }
 
     @Override
     public void onCreatedWallet(Wallet wallet) {
         Log.d("onCreatedWallet");
         viewModel.openWallet(this);
+        finish();
     }
 }

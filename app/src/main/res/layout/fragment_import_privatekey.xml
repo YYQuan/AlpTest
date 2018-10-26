@@ -1,0 +1,46 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".functionModule.Wallet.WalletActivity">
+
+
+    <net.qiujuer.genius.ui.widget.EditText
+        android:id="@+id/ed_privatekey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:gravity="center_horizontal"
+        android:hint="Private Key"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:textColorHint="@color/black_alpha_128"
+        android:textColor="@color/blue_900"
+        android:textSize="@dimen/fontNameSize"
+        app:gHintTitle="none"
+        app:gLineColor="@color/blue_900"
+        app:gLineSize="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/len_24"/>
+
+    <Button
+        android:id="@+id/btn_import"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_44"
+        android:layout_marginTop="@dimen/len_24"
+        android:layout_marginRight="@dimen/len_12"
+        android:layout_marginLeft="@dimen/len_12"
+        android:text="import"
+        android:layout_gravity="right"
+        android:background="@color/textAccent"/>
+
+
+
+</LinearLayout>

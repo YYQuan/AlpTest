@@ -106,6 +106,10 @@ public class WalletRepository implements WalletRepositoryType {
 	public Single<Wallet> importAccount(String keystore, String password){
 		return accountKeystoreService.importKeystore(keystore,password,"123");
 	}
+	public Single<Wallet> importPrivateKey(String privateKey, String password){
+		return accountKeystoreService.importPrivateKey(privateKey,password);
+	}
+
 
 	public Single<String> exportAccount(Wallet wallet, String newPassword){
 		return accountKeystoreService.exportAccount(wallet, "123", newPassword);
