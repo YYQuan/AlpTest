@@ -40,12 +40,6 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
     private NavHelper<Integer> mHelper;
 
-    private TextView mTextMessage;
-
-    public static void show(Context context) {
-        context.startActivity(new Intent(context, WalletActivity.class));
-    }
-
     @Override
     public int getContentLayoutID() {
         return R.layout.activity_main;
@@ -86,7 +80,7 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
         mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.string.title_wallet))
                 .add(R.id.action_receive, new NavHelper.Tab<>(DimensionFragment.class, R.string.title_receiver))
                 .add(R.id.action_account, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_accounts));
-        mTextMessage = (TextView) findViewById(R.id.message);
+
 
         navigation.setOnNavigationItemSelectedListener(this);
     }

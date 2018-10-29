@@ -26,17 +26,34 @@
         android:layout_marginTop="@dimen/actionBarWithStatusBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </FrameLayout>
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="0dp"-->
+        <!--android:layout_marginStart="0dp"-->
+        <!--android:background="?android:attr/windowBackground"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:menu="@menu/navigation_items"-->
+         <!--/>-->
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:layout_marginStart="0dp"
-        android:background="?android:attr/windowBackground"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/defaultNavHeight"
+        app:menu="@menu/navigation_items"
+        android:elevation="@dimen/len_4"
+        android:outlineProvider="bounds"
+        android:translationZ="@dimen/len_8"
+        tools:targetApi="lollipop"
+        android:background="@color/white"
+        app:itemTextColor="@color/text_nav"
+        app:itemIconTint="@color/text_nav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation_items"
-         />
+    />
 
 </android.support.constraint.ConstraintLayout>

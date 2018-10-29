@@ -6,12 +6,14 @@
     <color name="colorPrimaryDark">#31373d</color>
     <color name="colorAccent">#1572fc</color>
     <color name="colorLight">@color/white</color>
+
     <color name="colorDark">@color/black</color>
     <color name="colorAccentAlpha">#801572fc</color>
 
     <!--背景主色-->
     <color name="windowsBackground">#f7f7f7</color>
     <color name="windowsBackgroundLight">#f8f8f8</color>
+
 
     <!--字体主色-->
     <color name="textPrimary">#4e5864</color>

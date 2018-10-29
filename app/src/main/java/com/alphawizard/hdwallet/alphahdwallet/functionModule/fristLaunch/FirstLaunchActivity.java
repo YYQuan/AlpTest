@@ -1,17 +1,24 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
@@ -37,6 +44,9 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
 
     @Inject
     FirstLaunchContract.Presenter mPresenter;
+
+    String  mnenonics ;
+    private Dialog dialog;
 
     @Override
     public int getContentLayoutID() {
@@ -70,6 +80,7 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
 
     private void onCreateWalletEntity(CreateWalletInteract.CreateWalletEntity createWalletEntity) {
         Log.d("getMnenonics  :"+createWalletEntity.getMnenonics());
+        mnenonics = createWalletEntity.getMnenonics();
     }
 
     private void onDefaultWallet(Wallet wallet) {
@@ -95,7 +106,47 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
     @Override
     public void onCreatedWallet(Wallet wallet) {
         Log.d("onCreatedWallet");
-        viewModel.openWallet(this);
-        finish();
+        showBackupMnenonicsDialog(mnenonics);
+
+    }
+
+
+    private void showBackupMnenonicsDialog(String string) {
+//        BackupView view = new BackupView(getActivity());
+        View view = View.inflate(this,R.layout.layout_dialog_copeboard,null);
+        TextView tv  = view.findViewById(R.id.tv_keystore);
+        tv.setText(string);
+        dialog = buildDialog()
+                .setView(view)
+                .setPositiveButton("copy",
+                        (dialogInterface, i) -> {
+                            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            // 将文本内容放到系统剪贴板里。
+                            cm.setText(tv.getText());
+                            KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));
+                            App.showToast("已复制 助记词");
+                            viewModel.openWallet(this);
+                            finish();
+                        })
+                .setNegativeButton("cancel", (dialogInterface, i) -> {
+                    KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));
+                    viewModel.openWallet(this);
+                    finish();
+                })
+                .setOnDismissListener(dialog -> KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore)))
+                .create();
+        dialog.show();
+    }
+
+    private AlertDialog.Builder buildDialog() {
+        hideDialog();
+        return new AlertDialog.Builder(this);
+    }
+
+    protected void hideDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 }
