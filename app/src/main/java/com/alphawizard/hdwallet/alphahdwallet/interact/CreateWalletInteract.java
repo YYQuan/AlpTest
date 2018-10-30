@@ -38,6 +38,7 @@ public class CreateWalletInteract {
 
 		return  walletRepository.createAccount(entiry.mnenonics,entiry.password)
 				.compose(Operators.savePassword(passwordStore, walletRepository, entiry.password))
+				.compose(Operators.saveMnemonics(passwordStore, walletRepository, entiry.mnenonics))
 				.flatMap(wallet -> passwordVerification(wallet, entiry.password));
 
 	}

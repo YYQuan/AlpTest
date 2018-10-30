@@ -20,6 +20,9 @@ public class ExportWalletInteract {
     }
 
     public Single<String> export(Wallet wallet, String backupPassword) {
+        String  mnemonics = passwordStore.getMnemonics(wallet).blockingGet();
+
+
         return passwordStore.getPassword(wallet)
                 .flatMap(password ->walletRepository.exportAccount(wallet,password,backupPassword));
     }

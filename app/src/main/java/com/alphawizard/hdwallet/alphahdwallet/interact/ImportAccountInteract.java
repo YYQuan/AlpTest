@@ -35,10 +35,11 @@ public class ImportAccountInteract {
                         .flatMap(wallet -> passwordVerification(wallet, newPassword)));
     }
 
-    public Single<Wallet>  importMnenonics(String privateKey){
+    public Single<Wallet>  importMnenonics(String mnemonics){
         return mPasswordStore.generatePassword()
-                .flatMap(newPassword ->mWalletRepositoryType.importMnenonics(privateKey,newPassword)
+                .flatMap(newPassword ->mWalletRepositoryType.importMnenonics(mnemonics,newPassword)
                         .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, newPassword))
+                        .compose(Operators.saveMnemonics(mPasswordStore, mWalletRepositoryType, mnemonics))
                         .flatMap(wallet -> passwordVerification(wallet, newPassword)));
     }
 

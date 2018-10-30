@@ -15,6 +15,11 @@ public class Operators {
         return new SavePasswordOperator(passwordStore, walletRepository, password);
     }
 
+    public static SingleTransformer<Wallet, Wallet> saveMnemonics(
+            PasswordStore passwordStore, WalletRepositoryType walletRepository, String mnemonics) {
+        return new SaveMnemonicsOperator(passwordStore, walletRepository, mnemonics);
+    }
+
     public static CompletableOperator completableErrorProxy(Throwable throwable) {
         return new CompletableErrorProxyOperator(throwable);
     }
