@@ -148,6 +148,17 @@ public class WalletViewModule extends BaseViewModel {
     private void onDefaultWalletChanged(Wallet wallet) {
         progress.postValue(false);
         defaultWallet.postValue(wallet);
+
+//        defaultWallet 变化 要立即改变balance 和transaction  record
+        if(call!=null) {
+//            getBalance();
+            Single.just(mGetBalanceInteract
+                    .getBalance(defaultWallet.getValue())
+                    .subscribe(defaultWalletBalance::postValue,  this::onGetDefaultBalanceError))
+                    .subscribe();
+            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(), "desc");
+            call.enqueue(callback);
+        }
     }
 
     public void getBalance() {
@@ -172,9 +183,11 @@ public class WalletViewModule extends BaseViewModel {
     }
 
     public void exportAccount(Wallet wallet,String password){
-        mWalletRepositoryType
-                .exportAccount(wallet,password)
+        mExportWalletInteract.export(wallet,password)
                 .subscribe(this::exportAccountSuccess,this::exportAccountError);
+//        mWalletRepositoryType
+//                .exportAccount(wallet,password)
+//                .subscribe(this::exportAccountSuccess,this::exportAccountError);
     }
 
     private void exportAccountSuccess(String s) {

@@ -2,6 +2,8 @@ package com.alphawizard.hdwallet.alphahdwallet.di;
 
 import android.content.Context;
 
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStoreRepository;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PreferenceRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.SharedPreferenceRepository;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepository;
@@ -56,5 +58,13 @@ public class RepositoriesModule {
 													 TickerService tickerService) {
 		return new WalletRepository(httpClient,preferenceRepositoryType,accountKeystoreService,tickerService);
 	}
+
+	@Singleton
+	@Provides
+	PasswordStore providePasswordStoreRepositoryType(Context context) {
+		return new PasswordStoreRepository(context);
+	}
+
+
 
 }

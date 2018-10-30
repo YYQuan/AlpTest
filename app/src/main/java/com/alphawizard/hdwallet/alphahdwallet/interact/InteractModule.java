@@ -1,6 +1,7 @@
 package com.alphawizard.hdwallet.alphahdwallet.interact;
 
 
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PreferenceRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepository;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
@@ -29,8 +30,8 @@ public class InteractModule {
      */
 
     @Provides
-    static CreateWalletInteract  createWalletInteract(WalletRepositoryType walletRepositoryType ){
-        return new CreateWalletInteract(walletRepositoryType);
+    static CreateWalletInteract  createWalletInteract(WalletRepositoryType walletRepositoryType, PasswordStore passwordStore ){
+        return new CreateWalletInteract(walletRepositoryType,passwordStore);
     }
 
     @Provides
@@ -49,8 +50,8 @@ public class InteractModule {
     }
 
     @Provides
-    static  SendTransactionInteract  sendTransactionInteract(WalletRepositoryType walletRepositoryType){
-        return new SendTransactionInteract(walletRepositoryType);
+    static  SendTransactionInteract  sendTransactionInteract(WalletRepositoryType walletRepositoryType,PasswordStore passwordStore){
+        return new SendTransactionInteract(walletRepositoryType,passwordStore);
     }
 
     @Provides
@@ -59,13 +60,15 @@ public class InteractModule {
     }
 
     @Provides
-    static  ImportAccountInteract  importAccountInteract(WalletRepositoryType walletRepositoryType){
-        return new ImportAccountInteract(walletRepositoryType);
+    static  ImportAccountInteract  importAccountInteract(WalletRepositoryType walletRepositoryType,
+                                                         PasswordStore passwordStore){
+        return new ImportAccountInteract(walletRepositoryType,passwordStore);
     }
 
     @Provides
-    static  ExportWalletInteract  exportWalletInteract(WalletRepositoryType walletRepositoryType){
-        return new ExportWalletInteract(walletRepositoryType);
+    static  ExportWalletInteract  exportWalletInteract(WalletRepositoryType walletRepositoryType,
+                                                       PasswordStore passwordStore){
+        return new ExportWalletInteract(walletRepositoryType,passwordStore);
     }
 
 

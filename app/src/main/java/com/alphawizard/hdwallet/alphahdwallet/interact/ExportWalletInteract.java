@@ -1,6 +1,7 @@
 package com.alphawizard.hdwallet.alphahdwallet.interact;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 
 import io.reactivex.Single;
@@ -8,14 +9,18 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class ExportWalletInteract {
 
-    private final WalletRepositoryType walletRepository;
+    private  WalletRepositoryType walletRepository;
+    PasswordStore passwordStore;
 
 
-    public ExportWalletInteract(WalletRepositoryType walletRepository) {
+    public ExportWalletInteract(WalletRepositoryType walletRepository,
+                                PasswordStore passwordStore) {
         this.walletRepository = walletRepository;
+        this.passwordStore =  passwordStore;
     }
 
     public Single<String> export(Wallet wallet, String backupPassword) {
-        return  walletRepository.exportAccount(wallet,backupPassword);
+        return passwordStore.getPassword(wallet)
+                .flatMap(password ->walletRepository.exportAccount(wallet,password,backupPassword));
     }
 }

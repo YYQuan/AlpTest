@@ -1,11 +1,13 @@
 package com.alphawizard.hdwallet.alphahdwallet.interact;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepository;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
 import com.alphawizard.hdwallet.alphahdwallet.utils.BalanceUtils;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ServiceException;
+import com.alphawizard.hdwallet.common.util.Log;
 
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
@@ -26,9 +28,12 @@ import io.reactivex.schedulers.Schedulers;
 public class SendTransactionInteract {
 
     WalletRepositoryType walletRepository;
+    PasswordStore passwordStore;
 
-    public SendTransactionInteract(WalletRepositoryType walletRepository) {
+    public SendTransactionInteract(WalletRepositoryType walletRepository,
+                                   PasswordStore passwordStore) {
         this.walletRepository =  walletRepository;
+        this.passwordStore = passwordStore;
     }
 
 //    Single<byte[]> signTransaction(
@@ -43,7 +48,7 @@ public class SendTransactionInteract {
 //            long chainId);
 
 //    返回该交易的hash
-    public Single<String>  sendTransaction( String toAddress, String amount ){
+    public Single<String>  sendTransaction(String toAddress, String amount ){
 //        Wallet wallet = walletRepository.getDefaultWallet().
         Wallet wallet = walletRepository.getDefaultWallet().blockingGet();
 
@@ -55,9 +60,9 @@ public class SendTransactionInteract {
         BigInteger gasLimitMin = BigInteger.valueOf(2100L);
         BigInteger gasLimit = BigInteger.valueOf(50000).add(gasLimitMin);
         byte[] data = null;
-        String password  = "123";
-
         long chainId  =4L ;//rinkeby 网络
+
+
 
 
         final Web3j web3j = Web3jFactory.build(new HttpService("https://rinkeby.infura.io/llyrtzQ3YhkdESt2Fzrk"));
@@ -74,7 +79,15 @@ public class SendTransactionInteract {
                 .flatMap(new Function<BigInteger, SingleSource<? extends byte[]>>() {
                     @Override
                     public SingleSource<? extends byte[]> apply(BigInteger nonce) throws Exception {
-                        return walletRepository.signTransaction(wallet, password, toAddress, subunitAmount, gasPrice, gasLimit, nonce.longValue(), data, chainId);
+                        return passwordStore.getPassword(wallet)
+                                .flatMap(new Function<String, SingleSource<? extends byte[]>>() {
+                                    @Override
+                                    public SingleSource<? extends byte[]> apply(String password) throws Exception {
+                                        Log.d("transaction  account password  is " + password );
+                                        return walletRepository.signTransaction(wallet, password, toAddress, subunitAmount, gasPrice, gasLimit, nonce.longValue(), data, chainId);
+                                    }
+                                });
+
                     }})
                 .flatMap(signedMessage -> Single.fromCallable( () -> {
                     EthSendTransaction raw = web3j

@@ -15,13 +15,5 @@ public class ImportPresenter extends BasePresenter<ImportContract.View,ImportVie
     public ImportPresenter() {
     }
 
-    @Override
-    public void importKeystore(String keystore, String password) {
-        getViewModule().importKeystore(keystore,password);
-    }
 
-    @Override
-    public void importPrivateKey(String privateKey ){
-        getViewModule().importPrivateKey(privateKey);
-    }
 }

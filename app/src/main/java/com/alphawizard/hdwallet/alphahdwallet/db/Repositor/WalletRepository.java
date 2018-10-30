@@ -15,6 +15,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
@@ -61,17 +62,8 @@ public class WalletRepository implements WalletRepositoryType {
 		return tickerService.fetchTransactions(address);
 	}
 
-	//产生 随机  password
-	public Single<String> generatePassword() {
-		return Single.fromCallable(() -> {
-			byte bytes[] = new byte[256];
-			SecureRandom random = new SecureRandom();
-			random.nextBytes(bytes);
-//			没做password  保存之前， 就先用123 作为 password
-			return "123";
-//			return new String(bytes);
-		});
-	}
+
+
 
 	//	查询账号余额
 	@Override
@@ -106,19 +98,22 @@ public class WalletRepository implements WalletRepositoryType {
 	}
 
 	public Single<Wallet> importAccount(String keystore, String password){
-		return accountKeystoreService.importKeystore(keystore,password,"123");
+
+		return accountKeystoreService.importKeystore(keystore,password,password);
 	}
 	public Single<Wallet> importPrivateKey(String privateKey, String password){
 		return accountKeystoreService.importPrivateKey(privateKey,password);
 	}
 
-	public Single<Wallet> importMnenonics(String mnenonics){
+	@Override
+	public Single<Wallet> importMnenonics(String mnenonics,String password){
 //		seed 的passphrase 设置为null
-		return accountKeystoreService.importMnenonics(mnenonics,"123");
+		return accountKeystoreService.importMnenonics(mnenonics,password);
 	}
 
-	public Single<String> exportAccount(Wallet wallet, String newPassword){
-		return accountKeystoreService.exportAccount(wallet, "123", newPassword);
+	@Override
+	public Single<String> exportAccount(Wallet wallet,String password, String newPassword){
+		return accountKeystoreService.exportAccount(wallet, password, newPassword);
 	}
 
 	public Single<Wallet> getDefaultWallet(){
@@ -130,6 +125,13 @@ public class WalletRepository implements WalletRepositoryType {
 		return Single.fromCallable(preferenceRepositoryType::getCurrentWalletAddress);
 
 	}
+
+
+	@Override
+	public Completable deleteWallet(String address, String password) {
+		return accountKeystoreService.deleteAccount(address, password);
+	}
+
 
 	public Single<Wallet> findWallet(String address) {
 		return fetchWallets()

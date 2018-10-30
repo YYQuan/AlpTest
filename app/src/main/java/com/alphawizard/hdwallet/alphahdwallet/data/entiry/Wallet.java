@@ -7,6 +7,8 @@ import com.alphawizard.hdwallet.common.util.DiffUtilCallback;
 
 import java.util.Objects;
 
+import io.reactivex.SingleSource;
+
 public class Wallet implements Parcelable ,DiffUtilCallback.DiffRule<Wallet>{
     public final String address;
 
@@ -53,4 +55,6 @@ public class Wallet implements Parcelable ,DiffUtilCallback.DiffRule<Wallet>{
 	public boolean isChange(Wallet old) {
 		return Objects.equals(address, old.address);
 	}
+
+
 }

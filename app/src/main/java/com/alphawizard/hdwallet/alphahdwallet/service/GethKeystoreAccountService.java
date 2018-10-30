@@ -174,8 +174,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     /**
      * web3j 创建账号
      */
-    private static String createNewAccount() {
-        String password = "123456789";
+    private static String createNewAccount(String  password) {
         String address = "";
         try {
             NewAccountIdentifier newAccountIdentifier = admin.personalNewAccount(password).send();
@@ -272,12 +271,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
                 return null;
             }
             return new ObjectMapper().writeValueAsString(walletFile);
-        }).compose(new SingleTransformer<String, Wallet>() {
-            @Override
-            public SingleSource<Wallet> apply(Single<String> upstream) {
-                return GethKeystoreAccountService.this.importKeystore(upstream.blockingGet(), newPassword, newPassword);
-            }
-        });
+        }).compose(upstream -> GethKeystoreAccountService.this.importKeystore(upstream.blockingGet(), newPassword, newPassword));
     }
 
 
