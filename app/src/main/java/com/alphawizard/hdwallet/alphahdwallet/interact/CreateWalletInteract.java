@@ -56,6 +56,8 @@ public class CreateWalletInteract {
 
 
 
+
+
 	public Single<CreateWalletEntity>  generateMnenonics(String password){
 		return walletRepository.generateMnemonics()
 				.flatMap(s-> Single.just(new CreateWalletEntity(s,password)));

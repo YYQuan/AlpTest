@@ -28,7 +28,7 @@ public interface WalletRepositoryType {
 								   byte[] data,
 								   long chainId);
 	Single<String> exportAccount(Wallet wallet,String password, String newPassword);
-	Single<Wallet> importAccount(String keystore, String password);
+	Single<Wallet> importKeystore(String keystore, String password,String newPassword);
 	Single<Wallet> importPrivateKey(String privateKey, String password);
 	Single<Wallet> importMnenonics(String mnenonics,String password);
 	String getTickerPrice();

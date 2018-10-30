@@ -97,9 +97,8 @@ public class WalletRepository implements WalletRepositoryType {
 		 		chainId);
 	}
 
-	public Single<Wallet> importAccount(String keystore, String password){
-
-		return accountKeystoreService.importKeystore(keystore,password,password);
+	public Single<Wallet> importKeystore(String keystore, String password,String newPassword){
+		return accountKeystoreService.importKeystore(keystore,password,newPassword);
 	}
 	public Single<Wallet> importPrivateKey(String privateKey, String password){
 		return accountKeystoreService.importPrivateKey(privateKey,password);
