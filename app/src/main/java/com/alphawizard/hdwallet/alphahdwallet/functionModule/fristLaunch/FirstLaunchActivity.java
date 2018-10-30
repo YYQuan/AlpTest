@@ -17,6 +17,7 @@ import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
@@ -84,7 +85,8 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
     }
 
     private void onDefaultWallet(Wallet wallet) {
-        viewModel.openWallet(this);
+        Web3Activity.show(this);
+//        viewModel.openWallet(this);
         finish();
     }
 

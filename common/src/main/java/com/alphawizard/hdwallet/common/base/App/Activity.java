@@ -26,9 +26,7 @@ public abstract class Activity extends DaggerAppCompatActivity {
 
     Unbinder unbinder;
 
-    public  static  void show(Context context){
-        context.startActivity(new Intent(context, Activity.class));
-    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

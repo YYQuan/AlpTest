@@ -37,6 +37,9 @@
         <activity
             android:name=".functionModule.Import.ImportActivity"
             android:label="@string/title_activity_import"></activity>
+        <activity
+            android:name=".functionModule.web3.Web3Activity"
+            android:label="@string/title_activity_first_launch" />
     </application>
 
 </manifest>

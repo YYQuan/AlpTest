@@ -6,6 +6,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLau
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.Web3ViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchViewModule;
@@ -51,6 +52,11 @@ public class ViewModuleModule {
     @Provides
     ImportViewModuleFactory importViewModuleFactory(ImportAccountInteract interact,WalletRouter walletRouter){
         return  new ImportViewModuleFactory(interact,walletRouter);
+    }
+
+    @Provides
+    Web3ViewModuleFactory web3ViewModuleFactory(DefaultWalletInteract defaultWalletInteract,SendTransactionInteract sendTransactionInteract, WalletRouter walletRouter){
+        return  new Web3ViewModuleFactory(defaultWalletInteract,sendTransactionInteract,walletRouter);
     }
 
 }

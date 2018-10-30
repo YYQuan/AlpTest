@@ -1,1 +1,1 @@
-include ':app', ':common', ':lang',  ':common'
+include ':app', ':common', ':lang',  ':common', ':web3lib'

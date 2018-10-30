@@ -97,10 +97,15 @@ dependencies {
     implementation 'com.google.android.gms:play-services-vision:11.8.0'
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
 
-//   助记词
+    //   助记词
     implementation 'io.github.novacrypto:BIP39:0.1.9'
     implementation 'com.lhalcyon:bip32:1.0.0'
     implementation 'io.github.novacrypto:BIP44:0.0.3'
 
+
+    implementation 'com.github.TrustWallet:TrustSdk-android:0.01.13'
+
+
     implementation project(':common')
+    implementation project(':web3lib')
 }
