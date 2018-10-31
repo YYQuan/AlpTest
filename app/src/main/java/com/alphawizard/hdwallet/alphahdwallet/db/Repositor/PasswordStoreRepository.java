@@ -80,8 +80,8 @@ public class PasswordStoreRepository implements PasswordStore {
             SecureRandom random = new SecureRandom();
             random.nextBytes(bytes);
 //			没做password  保存之前， 就先用123 作为 password
-//            return "123";
-			return new String(bytes);
+            return "123";
+//			return new String(bytes);
         });
     }
 }

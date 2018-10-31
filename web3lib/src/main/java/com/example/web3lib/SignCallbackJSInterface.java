@@ -2,12 +2,14 @@ package com.example.web3lib;
 
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import com.google.gson.Gson;
 
 import java.math.BigInteger;
+import java.util.Base64;
 
 import trust.core.entity.Address;
 import trust.core.entity.Message;
@@ -48,7 +50,8 @@ public class SignCallbackJSInterface {
             String nonce,
             String gasLimit,
             String gasPrice,
-            String payload) {
+            String payload)
+    {
         Transaction transaction = new Transaction(
                 TextUtils.isEmpty(recipient) ? Address.EMPTY : new Address(recipient),
                 null,
@@ -58,6 +61,7 @@ public class SignCallbackJSInterface {
                 Hex.hexToLong(nonce, -1),
                 payload,
                 callbackId);
+
         onSignTransactionListener.onSignTransaction(transaction);
 
     }

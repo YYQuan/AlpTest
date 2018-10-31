@@ -26,6 +26,8 @@ import com.example.web3lib.OnSignTypedMessageListener;
 import com.example.web3lib.Web3View;
 import com.google.gson.Gson;
 
+import java.math.BigInteger;
+
 import javax.inject.Inject;
 
 import trust.Call;
@@ -63,6 +65,7 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
     private Call<SignTypedMessageRequest> callSignTypedMessage;
     private Call<SignTransactionRequest> callSignTransaction;
 
+    Transaction mTransaction;
 
     @Override
     public int getContentLayoutID() {
@@ -93,13 +96,18 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
 
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(Web3ViewModule.class);
-
+        viewModel.transactionHash().observe(this,this::onTransactionChange);
         setupWeb3();
+    }
+
+    private void onTransactionChange(String s) {
+//        web3.onSignCancel(mTransaction);
+        web3.onSignTransactionSuccessful(mTransaction,s);
     }
 
     private void setupWeb3() {
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
-        web3.setChainId(1);
+        web3.setChainId(4);
         web3.setRpcUrl("https://mainnet.infura.io/llyrtzQ3YhkdESt2Fzrk");
 //        web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
         String address  = viewModel.getDefaultWalletAddress();
@@ -109,9 +117,9 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
                 callSignMessage = Trust.signMessage().message(message).call(this));
         web3.setOnSignPersonalMessageListener(message ->
                 callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(this));
-      web3.setOnSignTransactionListener(transaction ->
-                callSignTransaction = Trust.signTransaction().transaction(transaction).call(this));
-//        web3.setOnSignTransactionListener(this::onSignTransaction);
+//      web3.setOnSignTransactionListener(transaction ->
+//                callSignTransaction = Trust.signTransaction().transaction(transaction).call(this));
+        web3.setOnSignTransactionListener(this::onSignTransaction);
 
         web3.setOnSignTypedMessageListener(message ->
                 callSignTypedMessage = Trust.signTypedMessage().message(message).call(this));
@@ -146,10 +154,18 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
                 .append(transaction.nonce).append(" : ")
                 .append(transaction.payload).append(" : ")
                 .toString();
-        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
+
+        mTransaction = transaction;
 
 //        viewModel.sendTransaction(transaction.recipient.toString(),transaction.value,transaction.gasPrice,transaction.gasLimit,transaction.nonce);
-        web3.onSignCancel(transaction);
+//        viewModel.sendTransaction(transaction.recipient.toString(),"0.05",transaction.payload);
+        BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
+        viewModel.sendTransaction(transaction.recipient.toString(), transaction.value , transaction.gasPrice,gasLimit,transaction.nonce,transaction.payload,4);
+//        web3.onSignCancel(transaction);
+//        web3.onSignTransactionSuccessful(mTransaction,"0x667f451dc20e67169cc8eb9d45113f164f2f183dd4223a73dd5d4d6aaffce331");
+
+
     }
 
     @Override
