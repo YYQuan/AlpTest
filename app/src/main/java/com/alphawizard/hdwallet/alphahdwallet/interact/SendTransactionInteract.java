@@ -246,15 +246,15 @@ public class SendTransactionInteract {
         for(int i = 1,j=0;j<bytes1.length;i++,j++){
             int a=0,b = 0;
 
-            if (bytes[2 * i - 1] >= 'a') {
-                a = (int) (bytes[2 * i - 1] - 'a' + 10);
-            } else if(bytes[2 * i - 1] >= '0'){
-                    a = (int) (bytes[2 * i - 1] - '0');
-                            }
-            if (bytes[2 * i] >= 'a') {
-                b = (int) (bytes[2 * i] - 'a' + 10);
-            } else if(bytes[2 * i] >= '0'){
-                    b = (int) (bytes[2 * i] - '0');
+            if (bytes[2 * i ] >= 'a') {
+                a = (int) (bytes[2 * i ] - 'a' + 10);
+            } else if(bytes[2 * i ] >= '0'){
+                    a = (int) (bytes[2 * i ] - '0');
+            }
+            if (bytes[2 * i+1] >= 'a') {
+                b = (int) (bytes[2 * i+1] - 'a' + 10);
+            } else if(bytes[2 * i+1] >= '0'){
+                    b = (int) (bytes[2 * i+1] - '0');
             }
 
 
