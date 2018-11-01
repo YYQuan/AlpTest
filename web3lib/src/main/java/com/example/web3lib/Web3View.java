@@ -144,6 +144,7 @@ public class Web3View extends WebView {
     public void onSignTransactionSuccessful(Transaction transaction, String signHex) {
         long callbackId = transaction.leafPosition;
         callbackToJS(callbackId, JS_PROTOCOL_ON_SUCCESSFUL, signHex);
+        Log.d("YYQ","WEB_VIEW:  transaction  hash:"+signHex);
     }
 
     public void onSignMessageSuccessful(Message message, String signHex) {
@@ -163,12 +164,15 @@ public class Web3View extends WebView {
 
     public void onSignError(Message message, String error) {
         long callbackId = message.leafPosition;
+
         callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, error);
     }
 
     public void onSignCancel(Transaction transaction) {
         long callbackId = transaction.leafPosition;
-        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
+        Log.d("YYQ","signing a   onSignCancel callbackId :"+callbackId);
+//        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
+        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, "nimei");
     }
 
     public void onSignCancel(Message message) {

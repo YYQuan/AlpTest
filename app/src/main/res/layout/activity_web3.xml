@@ -23,13 +23,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
-    <Button
-        android:id="@+id/go"
-        android:text="@string/go"
-        android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/go"
+            android:text="@string/go"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <Button
+            android:id="@+id/cancel"
+            android:text="cancel"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <Button
+            android:id="@+id/success"
+            android:text="success"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+
     <com.example.web3lib.Web3View
         android:id="@+id/web3view"
         android:layout_below="@+id/go"

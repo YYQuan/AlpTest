@@ -61,7 +61,7 @@ public class SignCallbackJSInterface {
                 Hex.hexToLong(nonce, -1),
                 payload,
                 callbackId);
-
+        Log.d("YYQ","signing a  signTransaction   js injector");
         onSignTransactionListener.onSignTransaction(transaction);
 
     }

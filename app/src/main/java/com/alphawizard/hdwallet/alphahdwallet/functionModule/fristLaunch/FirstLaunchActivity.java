@@ -85,8 +85,8 @@ public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunc
     }
 
     private void onDefaultWallet(Wallet wallet) {
-        Web3Activity.show(this);
-//        viewModel.openWallet(this);
+//        Web3Activity.show(this);
+        viewModel.openWallet(this);
         finish();
     }
 

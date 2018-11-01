@@ -4,12 +4,16 @@ const rpcURL = "%2$s";
 const chainID = "%3$s";
 function executeCallback (id, error, value) {
   Trust.executeCallback(id, error, value)
+   console.log('signing a transaction   :executeCallback')
 }
 function onSignSuccessful(id, value) {
   Trust.executeCallback(id, null, value)
+   console.log('signing a transaction   :onSignSuccessful')
 }
 function onSignError(id, error) {
+  console.log('signing a transaction   :onSignError')
   Trust.executeCallback(id, error, null)
+
 }
 window.Trust.init(rpcURL, {
   getAccounts: function (cb) { cb(null, [addressHex]) },

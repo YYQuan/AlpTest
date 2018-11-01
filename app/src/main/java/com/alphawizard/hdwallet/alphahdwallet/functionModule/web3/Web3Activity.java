@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,8 @@ import java.math.BigInteger;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.OnClick;
 import trust.Call;
 import trust.SignMessageRequest;
 import trust.SignPersonalMessageRequest;
@@ -53,6 +56,25 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
     @Inject
     Web3ViewModuleFactory viewModuleFactory;
     Web3ViewModule viewModel;
+
+    @BindView(R.id.cancel)
+    Button cancel;
+
+    @BindView(R.id.success)
+    Button success;
+
+    String  hexSign =  "";
+
+    @OnClick(R.id.cancel)
+    void clickCancel(){
+        web3.onSignCancel(mTransaction);
+    }
+
+    @OnClick(R.id.success)
+    void clickSuccess(){
+
+        web3.onSignTransactionSuccessful(mTransaction,hexSign);
+    }
 
     public  static  void show(Context context){
         context.startActivity(new Intent(context, Web3Activity.class));
@@ -98,11 +120,15 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
                 .get(Web3ViewModule.class);
         viewModel.transactionHash().observe(this,this::onTransactionChange);
         setupWeb3();
+        web3.loadUrl(url.getText().toString());
+        web3.requestFocus();
     }
 
     private void onTransactionChange(String s) {
 //        web3.onSignCancel(mTransaction);
-        web3.onSignTransactionSuccessful(mTransaction,s);
+        hexSign  = s ;
+//        web3.onSignTransactionSuccessful(mTransaction,s);
+
     }
 
     private void setupWeb3() {
