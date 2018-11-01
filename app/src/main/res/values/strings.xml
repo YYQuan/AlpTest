@@ -7,4 +7,7 @@
     <string name="title_activity_send">SendActivity</string>
     <string name="title_activity_confirm_send">ConfirmSendActivity</string>
     <string name="title_activity_import">ImportActivity</string>
+    <string name="title_activity_backup_mnemonics">BackupMnemonicsActivity</string>
+    <string name="title_activity_verify_mnemonics">VerifyMnemonicsActivity</string>
+    <string name="title_activity_wallet_detail">WalletDetailActivity</string>
 </resources>

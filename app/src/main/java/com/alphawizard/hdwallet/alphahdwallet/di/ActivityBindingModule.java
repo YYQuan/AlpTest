@@ -9,10 +9,16 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivi
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupMnemonicsActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Module;
 
@@ -50,6 +56,18 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = Web3Module.class)
     abstract Web3Activity web3Activity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = BackupModule.class)
+    abstract BackupMnemonicsActivity backupMnemonicsActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = VerifyMnemonicsModule.class)
+    abstract VerifyMnemonicsActivity verifyMnemonicsActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = WalletDetailModule.class)
+    abstract WalletDetailActivity walletDetailActivity();
 
 //    @ActivityScoped
 //    @ContributesAndroidInjector(modules = ConfirmSendModule.class)

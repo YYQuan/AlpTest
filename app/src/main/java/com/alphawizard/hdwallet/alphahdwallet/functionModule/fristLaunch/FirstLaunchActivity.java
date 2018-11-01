@@ -20,6 +20,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
+import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
@@ -28,7 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class FirstLaunchActivity extends BasePresenterToolbarActivity<FirstLaunchContract.Presenter,FirstLaunchViewModule> implements FirstLaunchContract.View {
+public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContract.Presenter,FirstLaunchViewModule> implements FirstLaunchContract.View {
 
     //false :  有defaultWallet 的情况下 不跳转；true:反之
     public final static String  FIRST_OPEN = "FirstOpen";

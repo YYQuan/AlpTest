@@ -2,9 +2,12 @@ package com.alphawizard.hdwallet.alphahdwallet.di;
 
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.VerifyMnemonicsModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletDetailModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.Web3ViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
@@ -58,5 +61,25 @@ public class ViewModuleModule {
     Web3ViewModuleFactory web3ViewModuleFactory(DefaultWalletInteract defaultWalletInteract,SendTransactionInteract sendTransactionInteract, WalletRouter walletRouter){
         return  new Web3ViewModuleFactory(defaultWalletInteract,sendTransactionInteract,walletRouter);
     }
+
+    @Provides
+    BackupModuleFactory backupModuleFactory(){
+        return  new BackupModuleFactory();
+    }
+
+
+    @Provides
+    VerifyMnemonicsModuleFactory verifyMnemonicsModuleFactory(){
+        return  new VerifyMnemonicsModuleFactory();
+    }
+
+
+    @Provides
+    WalletDetailModuleFactory walletDetailModuleFactory(){
+        return  new WalletDetailModuleFactory();
+    }
+
+
+
 
 }
