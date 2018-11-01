@@ -1,13 +1,13 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.text.TextUtils;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
@@ -18,7 +18,6 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsV
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Account.AccountFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionFragment;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
 
@@ -40,6 +39,14 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
     @BindView(R.id.navigation)
     BottomNavigationView navigation;
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+
+
+
+    @BindView(R.id.tv_toolbar_title)
+    TextView mTitle;
 
     private NavHelper<Integer> mHelper;
 
@@ -76,13 +83,29 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
     }
 
+
+
     @Override
     public void initWidget() {
         super.initWidget();
         mHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
         mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.string.title_wallet))
-                .add(R.id.action_receive, new NavHelper.Tab<>(DimensionFragment.class, R.string.title_receiver))
-                .add(R.id.action_account, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_accounts));
+                .add(R.id.action_receive, new NavHelper.Tab<>(DimensionFragment.class, R.string.title_dapps))
+                .add(R.id.action_account, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
+
+
+
+
+        ActionBar actionBar = getSupportActionBar();
+
+//      隐藏toolbar上的 back btn
+        if(actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle("ETH");
+        }
+
+
+
 
 
         navigation.setOnNavigationItemSelectedListener(this);
@@ -90,18 +113,19 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_account_menu, menu);
+//        getMenuInflater().inflate(R.menu.add_account_menu, menu);
+        menu.removeItem(0);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add_account: {
-               viewModel.openFirstLaunch(this);
-            }
-            break;
-        }
+//        switch (item.getItemId()) {
+//            case R.id.action_add_account: {
+//               viewModel.openFirstLaunch(this);
+//            }
+//            break;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -134,6 +158,22 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
     @Override
     public void onMenuSucceed(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
+        mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.string.title_wallet))
+                .add(R.id.action_receive, new NavHelper.Tab<>(DimensionFragment.class, R.string.title_dapps))
+                .add(R.id.action_account, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
+        if(newTab.extra == R.string.title_wallet){
+            mToolbar.setVisibility(View.VISIBLE);
+            mTitle.setText("ETH");
+        }
+        else if(newTab.extra == R.string.title_dapps){
+            mToolbar.setVisibility(View.GONE);
+        }
+        else if(newTab.extra == R.string.title_setting){
+            mToolbar.setVisibility(View.VISIBLE);
+
+            mTitle.setText("设置");
+
+        }
 
     }
 

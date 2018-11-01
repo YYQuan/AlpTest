@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_start_svg" />
-                            <entry key="sourceFile" value="F:\工作笔记\dapp&amp;spvWallet\资源\启动页\图标.svg" />
+                            <entry key="outputName" value="ic_wallet" />
+                            <entry key="sourceFile" value="F:\工作笔记\dapp&amp;spvWallet\资源\wallet\钱包.svg" />
                           </map>
                         </option>
                       </PersistentState>

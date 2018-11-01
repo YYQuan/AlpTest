@@ -11,7 +11,7 @@ public class VerifyMnemonicsRouter {
 
 
     public void open(Context context) {
-        Intent intent = new Intent(context,BackupMnemonicsActivity.class);
+        Intent intent = new Intent(context,VerifyMnemonicsActivity.class);
 
         context.startActivity(intent);
     }

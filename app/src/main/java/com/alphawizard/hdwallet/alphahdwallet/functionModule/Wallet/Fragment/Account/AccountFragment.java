@@ -42,8 +42,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     @BindView(R.id.tv_balances)
     TextView mBalance;
 
-    @BindView(R.id.tv_values)
-    TextView mValues;
+
 
     @BindView(R.id.btn_send)
     Button  mSend;
@@ -127,7 +126,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     }
 
     private void ethValueChange(String s) {
-        mValues.setText(s);
+
     }
 
     private void defaultWalletBalanceChange(Wallet wallet) {
@@ -152,11 +151,11 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Transaction.TransactionBean> {
 
-        @BindView(R.id.txt_title)
-        TextView mTitle;
+        @BindView(R.id.txt_address)
+        TextView mAddress;
 
-        @BindView(R.id.txt_content)
-        TextView mContent;
+        @BindView(R.id.txt_value)
+        TextView mValue;
 
         @BindView(R.id.txt_time)
         TextView mTime;
@@ -168,12 +167,12 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         @Override
         public void onBindViewHolder(Transaction.TransactionBean bean) {
             if(bean.getTo().equalsIgnoreCase(defaultWalletAddress)){
-                mTitle.setText("receive  from  :"+bean.getFrom());
+                mAddress.setText(bean.getFrom());
             }else{
-                mTitle.setText("send   to  :"+bean.getTo());
+                mAddress.setText(bean.getTo());
             }
 
-            mContent .setText("value   :"+bean.getValue());
+            mValue .setText(bean.getValue());
 
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTimeInMillis((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS);
@@ -181,3 +180,4 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         }
     }
 }
+

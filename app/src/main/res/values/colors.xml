@@ -3,7 +3,7 @@
 
     <!--主色-->
     <!--<color name="colorPrimary">#31373d</color>-->
-    <color name="colorPrimary">#1572fc</color>
+    <color name="colorPrimary">#3574FA</color>
 
     <color name="colorPrimaryDark">#31373d</color>
     <color name="colorAccent">#1572fc</color>

@@ -25,7 +25,7 @@ import javax.inject.Inject;
 
 
 @ActivityScoped
-final class VerifyMnemonicsPresenter extends BasePresenter<BackupContract.View,BackupViewModule> implements BackupContract.Presenter {
+final class VerifyMnemonicsPresenter extends BasePresenter<VerifyMnemonicsContract.View,VerifyMnemonicsViewModule> implements VerifyMnemonicsContract.Presenter {
 
     @Inject
     VerifyMnemonicsPresenter() {

@@ -12,7 +12,7 @@ import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 
 import javax.inject.Inject;
 
-public class VerifyMnemonicsActivity extends BasePresenterActivity<BackupContract.Presenter,BackupViewModule> implements BackupContract.View {
+public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemonicsContract.Presenter,VerifyMnemonicsViewModule> implements VerifyMnemonicsContract.View {
 
     @Inject
     VerifyMnemonicsModuleFactory walletsViewModuleFactory;
@@ -28,12 +28,12 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<BackupContrac
     }
 
     @Override
-    public BackupContract.Presenter initPresenter() {
+    public VerifyMnemonicsContract.Presenter initPresenter() {
         return null;
     }
 
     @Override
-    public BackupViewModule initViewModule() {
+    public VerifyMnemonicsViewModule initViewModule() {
         return null;
     }
 

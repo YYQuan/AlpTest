@@ -182,6 +182,7 @@ public class Web3View extends WebView {
 
     private void callbackToJS(long callbackId, String function, String param) {
         String callback = String.format(function, callbackId, param);
+
         post(() -> evaluateJavascript(callback, value -> Log.d("WEB_VIEW", value)));
     }
 

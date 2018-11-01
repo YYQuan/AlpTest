@@ -25,7 +25,7 @@ import javax.inject.Inject;
 
 
 @ActivityScoped
-final class WalletDetailPresenter extends BasePresenter<BackupContract.View,BackupViewModule> implements BackupContract.Presenter {
+final class WalletDetailPresenter extends BasePresenter< WalletDetailContract.View, WalletDetailViewModule> implements  WalletDetailContract.Presenter {
 
     @Inject
     WalletDetailPresenter() {

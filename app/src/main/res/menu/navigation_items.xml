@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_wallet"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_wallet"
         android:title="@string/title_wallet"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_receive"
-        android:icon="@drawable/ic_group"
-        android:title="@string/title_receiver"
+        android:icon="@drawable/ic_dapp"
+        android:title="@string/title_dapps"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_account"
-        android:icon="@drawable/ic_contact"
-        android:title="@string/title_accounts"
+        android:icon="@drawable/ic_setting"
+        android:title="@string/title_setting"
         app:showAsAction="ifRoom" />
 </menu>

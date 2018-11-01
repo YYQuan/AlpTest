@@ -24,11 +24,11 @@ import com.alphawizard.hdwallet.common.presenter.BaseContract;
  */
 public interface WalletDetailContract {
 
-    interface View extends BaseContract.BaseView<Presenter,VerifyMnemonicsViewModule> {
+    interface View extends BaseContract.BaseView<Presenter,WalletDetailViewModule> {
 
     }
 
-    interface Presenter extends BaseContract.BasePresenter<View,VerifyMnemonicsViewModule> {
+    interface Presenter extends BaseContract.BasePresenter<View,WalletDetailViewModule> {
 
     }
 }

@@ -15,7 +15,7 @@ public abstract class VerifyMnemonicsModule {
 
     @ActivityScoped
     @Binds
-    abstract BackupContract.Presenter taskPresenter(VerifyMnemonicsPresenter presenter);
+    abstract VerifyMnemonicsContract.Presenter taskPresenter(VerifyMnemonicsPresenter presenter);
 
 //    请注意  和activity 关联的注解 要加上static
 

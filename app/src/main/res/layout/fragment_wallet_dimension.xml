@@ -20,5 +20,5 @@
         android:textSize="@dimen/len_12"
         android:textColor="@color/colorPrimary"
         android:gravity="center"
-        android:text="@string/title_receiver"/>
+        android:text="@string/title_dapps"/>
 </LinearLayout>

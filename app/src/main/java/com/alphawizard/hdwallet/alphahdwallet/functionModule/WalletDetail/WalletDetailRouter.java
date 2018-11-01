@@ -11,7 +11,7 @@ public class WalletDetailRouter {
 
 
     public void open(Context context) {
-        Intent intent = new Intent(context,BackupMnemonicsActivity.class);
+        Intent intent = new Intent(context, WalletDetailActivity.class);
 
         context.startActivity(intent);
     }

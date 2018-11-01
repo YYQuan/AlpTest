@@ -1,70 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/len_2"
-    android:layout_marginTop="@dimen/len_2"
+    android:layout_height="69dp"
+    android:layout_marginBottom="@dimen/len_6"
     android:orientation="horizontal"
     android:foreground="@drawable/ic_touch_fg"
-    android:paddingBottom="@dimen/len_10"
-    android:paddingEnd="@dimen/len_16"
-    android:paddingStart="@dimen/len_16"
-    android:paddingTop="@dimen/len_10">
+    android:paddingEnd="12dp"
+    android:paddingStart="12dp"
+    >
 
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="3">
-        <TextView
-            android:id="@+id/txt_title"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/len_24"
-            android:layout_gravity="start"
-            android:layout_marginEnd="@dimen/len_60"
-            android:layout_marginStart="@dimen/len_52"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/textPrimary"
-            android:textSize="@dimen/fontNameSize"
-            tools:text="Mary Harmon" />
+    <TextView
+        android:id="@+id/txt_address"
+        android:layout_width="179dp"
+        android:layout_height="18dp"
+        android:lines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/textPrimary"
+        android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="27dp"
+        tools:text="Mary Harmon"
+        />
+    <TextView
+        android:id="@+id/txt_time"
+        android:layout_width="73dp"
+        android:layout_height="15dp"
+        android:lines="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/textSecond"
+        android:textSize="12sp"
+        android:layout_below="@id/txt_address"
+        android:layout_alignLeft="@id/txt_address"
+        tools:text="Mary Harmon" />
+    <TextView
+        android:id="@+id/txt_sign"
+        android:layout_width="10dp"
+        android:layout_height="18dp"
 
-        <TextView
-            android:id="@+id/txt_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/len_52"
-            android:layout_marginTop="@dimen/len_24"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:maxLength="32"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/textSecond"
-            android:textSize="@dimen/font_12"
-            tools:text="Mary Harmon" />
-        <TextView
-            android:id="@+id/txt_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="@dimen/len_52"
-            android:layout_marginTop="@dimen/len_24"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:maxLength="32"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@color/textSecond"
-            android:textSize="@dimen/font_12"
-            tools:text="Mary Harmon" />
-    </LinearLayout>
+        android:layout_marginTop="25dp"
+        android:lines="1"
+        android:maxLength="32"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#00ff00"
+        android:textSize="15sp"
+        android:text="+"
+        tools:text="+"
+        android:layout_marginEnd="6dp"
+        android:layout_toLeftOf="@id/txt_value"/>
+    <TextView
+        android:id="@+id/txt_value"
+        android:layout_width="100dp"
+        android:layout_height="18dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="25dp"
+        android:lines="1"
+        android:maxLength="32"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/textSecond"
+        android:textSize="15sp"
+        tools:text="Mary Harmon"
+        android:layout_alignParentRight="true"
+        />
 
 
 
-</LinearLayout>
+
+
+</RelativeLayout>

@@ -42,7 +42,7 @@
         android:layout_width="335dp"
         android:layout_height="@dimen/len_48"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_start_create"
+        android:background="@drawable/bg_white"
         android:foreground="@drawable/ic_touch_fg"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="#3574FA"
