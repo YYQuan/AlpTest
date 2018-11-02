@@ -122,7 +122,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
         mAdapter.notifyDataSetChanged();
         mPresenter.refresh(  transactionBeans);
-        placeHolder.triggerOkOrEmpty(mAdapter.getDataList().size()>0);
+//        placeHolder.triggerOkOrEmpty(mAdapter.getDataList().size()>0);
     }
 
     private void ethValueChange(String s) {
@@ -176,7 +176,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
             Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
             calendar.setTimeInMillis((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS);
-            mTime.setText("time :"+calendar.getTime() );
+            mTime.setText(""+calendar.getTime() );
         }
     }
 }
