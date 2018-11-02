@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorWhite"
     tools:context=".functionModule.Wallet.WalletActivity">
 
 
@@ -30,7 +30,7 @@
         android:padding="0dp"
         android:text="balance"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@color/textAccent"
+        android:textColor="@color/colorTextBlue"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
         android:text="发送"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:textColor="@color/textLight"
-        android:textSize="@dimen/font_14"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_balances" />
 
@@ -62,6 +62,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/bg_blue"
         android:text="接收"
+        android:textColor="@color/colorTextWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_send"
         app:layout_constraintTop_toBottomOf="@+id/tv_balances" />
@@ -73,7 +74,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="32dp"
         android:text="交易详情"
-        android:textColor="#666666"
+        android:textColor="@color/colorTextGrey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_send" />
 
@@ -86,7 +87,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_white"
         android:text="全部"
-        android:textColor="#666666"
+        android:textColor="@color/colorTextGrey"
         app:layout_constraintEnd_toStartOf="@+id/btn_receive_transaction"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -99,7 +100,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_white"
         android:text="接收"
-        android:textColor="#666666"
+        android:textColor="@color/colorTextGrey"
         app:layout_constraintStart_toEndOf="@+id/btn_all_transaction"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -111,7 +112,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/bg_white"
         android:text="发送"
-        android:textColor="#666666"
+        android:textColor="@color/colorTextGrey"
         app:layout_constraintStart_toEndOf="@+id/btn_receive_transaction"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -120,7 +121,7 @@
         android:layout_width="79dp"
         android:layout_height="2dp"
         android:layout_marginStart="12dp"
-        android:background="#3574FA"
+        android:background="@color/colorBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_all_transaction" />
 
@@ -129,7 +130,7 @@
         android:layout_width="79dp"
         android:layout_height="2dp"
         android:layout_marginStart="8dp"
-        android:background="#3574FA"
+        android:background="@color/colorBlue"
         app:layout_constraintStart_toEndOf="@+id/iv_below_all_transaction"
         app:layout_constraintTop_toBottomOf="@+id/btn_receive_transaction" />
 
@@ -138,7 +139,7 @@
         android:layout_width="79dp"
         android:layout_height="2dp"
         android:layout_marginStart="8dp"
-        android:background="#3574FA"
+        android:background="@color/colorBlue"
         app:layout_constraintStart_toEndOf="@+id/iv_below_receive_transaction"
         app:layout_constraintTop_toBottomOf="@+id/btn_send_transaction" />
 
@@ -149,7 +150,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         app:layout_constraintTop_toBottomOf="@+id/btn_receive_transaction"
-        tools:layout_editor_absoluteX="56dp" />
+        tools:layout_editor_absoluteX="56dp"
+        tools:ignore="MissingConstraints" />
 
     <com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout
             android:id="@+id/place_holder"

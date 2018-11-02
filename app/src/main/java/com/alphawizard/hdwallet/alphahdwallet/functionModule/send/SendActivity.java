@@ -3,6 +3,7 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.send;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.ActionBar;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -60,6 +61,19 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         viewModel.progress().observe(this,this::sendCallback);
 
         getmPresenter().takeView(this,viewModel);
+    }
+
+    @Override
+    public void initWidget() {
+        super.initWidget();
+
+        ActionBar actionBar = getSupportActionBar();
+
+//      隐藏toolbar上的 back btn
+        if(actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setTitle("");
+        }
     }
 
     private void sendCallback(Boolean aBoolean) {

@@ -1,5 +1,7 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Account;
 
+import android.graphics.Bitmap;
+
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivityContract;
@@ -20,5 +22,6 @@ public interface AccountContract {
         void getBalance();
         void getTransactions();
         void refresh(List<Transaction.TransactionBean> list);
+        Bitmap createQRImage(String address, int imageSize);
     }
 }

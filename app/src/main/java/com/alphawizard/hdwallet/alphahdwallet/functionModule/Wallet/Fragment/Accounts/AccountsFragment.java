@@ -173,20 +173,20 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
 
     private void showBackupDialog(Wallet wallet) {
-        BackupView view = new BackupView(getActivity());
-        dialog = buildDialog()
-                .setView(view)
-                .setPositiveButton("ok",
-                        (dialogInterface, i) -> {
-                            viewModel.exportAccount(wallet, view.getPassword());
-                            KeyboardUtils.hideKeyboard(view.findViewById(R.id.password));
-                        })
-                .setNegativeButton("cancel", (dialogInterface, i) -> {
-                    KeyboardUtils.hideKeyboard(view.findViewById(R.id.password));
-                })
-                .setOnDismissListener(dialog -> KeyboardUtils.hideKeyboard(view.findViewById(R.id.password)))
-                .create();
-        dialog.show();
+//        BackupView view = new BackupView(getActivity());
+//        dialog = buildDialog()
+//                .setView(view)
+//                .setPositiveButton("ok",
+//                        (dialogInterface, i) -> {
+//                            viewModel.exportAccount(wallet, view.getPassword());
+//                            KeyboardUtils.hideKeyboard(view.findViewById(R.id.password));
+//                        })
+//                .setNegativeButton("cancel", (dialogInterface, i) -> {
+//                    KeyboardUtils.hideKeyboard(view.findViewById(R.id.password));
+//                })
+//                .setOnDismissListener(dialog -> KeyboardUtils.hideKeyboard(view.findViewById(R.id.password)))
+//                .create();
+//        dialog.show();
     }
 
     private void showBackupKeystoreDialog(String string) {

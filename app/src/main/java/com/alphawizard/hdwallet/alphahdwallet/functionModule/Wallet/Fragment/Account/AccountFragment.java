@@ -1,6 +1,10 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Account;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -15,6 +19,8 @@ import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
+import com.alphawizard.hdwallet.alphahdwallet.widget.BackupView;
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
@@ -32,6 +38,8 @@ import butterknife.OnClick;
 
 public class AccountFragment extends BasePresenterFragment<AccountContract.Presenter,WalletViewModule> implements  AccountContract.View{
 
+    private static final float QR_IMAGE_WIDTH_RATIO = 0.9f;
+
     @Inject
     AccountContract.Presenter mPresenter;
 
@@ -47,6 +55,9 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     @BindView(R.id.btn_send)
     Button  mSend;
 
+    @BindView(R.id.btn_receive)
+    Button  mReceive;
+
     @BindView(R.id.place_holder)
     EmptyLayout placeHolder;
 
@@ -57,9 +68,21 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     String defaultWalletAddress;
 
+    private Dialog dialog;
+
+
     @OnClick(R.id.btn_send)
     void clickBtnSend(){
         viewModel.openSendEth(getActivity());
+    }
+
+    @OnClick(R.id.btn_receive)
+    void clickBtnReceive(){
+        Point size = new Point();
+        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+        int imageSize = (int) (size.x * QR_IMAGE_WIDTH_RATIO);
+        Bitmap bitmap = getmPresenter().createQRImage(viewModel.getDefaultWalletAddress(),imageSize);
+        showCodeDialog("0x2fa986D54445a0c7e337A735Daf1121a4038474e",bitmap);
     }
 
     @Override
@@ -147,6 +170,28 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     @Override
     public void onRecyclerChange() {
 
+    }
+
+
+    private void showCodeDialog(String  address,Bitmap  bitmap) {
+        BackupView view = new BackupView(getActivity(),bitmap);
+        dialog = buildDialog()
+                .setView(view)
+                .create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+    }
+
+    private AlertDialog.Builder buildDialog() {
+        hideDialog();
+        return new AlertDialog.Builder(getActivity());
+    }
+
+    private void hideDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 
     class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Transaction.TransactionBean> {

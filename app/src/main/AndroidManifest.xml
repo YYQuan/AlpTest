@@ -27,10 +27,13 @@
         <activity
             android:name=".functionModule.Wallet.WalletActivity"
             android:label="@string/title_activity_first_launch"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.TransStatusBar.Base"/>
         <activity
             android:name=".functionModule.send.SendActivity"
-            android:label="@string/title_activity_send" />
+            android:label="@string/title_activity_send"
+            android:theme="@style/AppTheme.TransStatusBar.Base"
+            />
         <activity
             android:name=".functionModule.ConfirmSend.ConfirmSendActivity"
             android:label="@string/title_activity_confirm_send" />

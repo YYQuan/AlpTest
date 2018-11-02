@@ -12,4 +12,22 @@
     <color name="colorAccentAlpha">#801572fc</color>
 
 
+
+    <color name="colorGrey">#ff666666</color>
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorGreen">#ff20DC86</color>
+    <color name="colorRed">#ffDA3414</color>
+    <color name="colorBlue">#ff3574FA</color>
+
+
+    <color name="colorTextGrey">#ff666666</color>
+    <color name="colorTextWhite">#ffffffff</color>
+    <color name="colorTextGreen">#ff20DC86</color>
+    <color name="colorTextRed">#ffDA3414</color>
+    <color name="colorTextBlue">#ff3574FA</color>
+    <color name="colorTextGreySecond">#ffc8c8c8</color>
+    <color name="colorTextGreyThird">#ff9C9C9C</color>
+
+
+
 </resources>

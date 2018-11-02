@@ -101,7 +101,7 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 //      隐藏toolbar上的 back btn
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(false);
-            actionBar.setTitle("ETH");
+//            actionBar.setTitle("ETH");
         }
 
 
@@ -158,9 +158,7 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
     @Override
     public void onMenuSucceed(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
-        mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.string.title_wallet))
-                .add(R.id.action_receive, new NavHelper.Tab<>(DimensionFragment.class, R.string.title_dapps))
-                .add(R.id.action_account, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
+
         if(newTab.extra == R.string.title_wallet){
             mToolbar.setVisibility(View.VISIBLE);
             mTitle.setText("ETH");
