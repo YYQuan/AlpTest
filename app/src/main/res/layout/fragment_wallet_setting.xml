@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".functionModule.Wallet.WalletActivity"
+    android:layout_marginTop="20dp">
+
+    <LinearLayout
+        android:id="@+id/layout_manager_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingLeft="20dp">
+        <TextView
+            android:id="@+id/tv_manager_wallet"
+            android:layout_width="74dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center_vertical"
+            android:text="管理钱包"
+            android:textSize="18sp"
+            android:textColor="@color/colorTextGrey"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/iv_to_wallet"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:background="@drawable/ic_to"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginRight="20dp"/>
+    </LinearLayout>
+</LinearLayout>

@@ -18,6 +18,11 @@
     <color name="colorGreen">#ff20DC86</color>
     <color name="colorRed">#ffDA3414</color>
     <color name="colorBlue">#ff3574FA</color>
+    <color name="colorGreySecond">#F8F8F8</color>
+    <color name="colorGreyThird"> #8DA0C8</color>
+    <color name="colorGreyFourth"> #DCDCDC</color>
+
+
 
 
     <color name="colorTextBlack">#323232</color>
@@ -28,6 +33,7 @@
     <color name="colorTextBlue">#ff3574FA</color>
     <color name="colorTextGreySecond">#ffc8c8c8</color>
     <color name="colorTextGreyThird">#ff9C9C9C</color>
+    <color name="colorTextGreyFourth">#ff969696</color>
 
 
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!--android:title="@string/action_wallets"-->
+    <Preference
+        android:key="pref_wallet"
+        android:title="管理钱包" />
+
+
+</PreferenceScreen>

@@ -8,6 +8,7 @@ import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
@@ -54,6 +55,7 @@ public class WalletViewModule extends BaseViewModel {
     SendRouter  mSendRouter;
     FetchWalletInteract mFetchWalletInteract;
     FirstLaunchRouter  mFirstLaunchRouter;
+    ManagerAccountsRouter mManagerRouter;
     ExportWalletInteract mExportWalletInteract;
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -80,6 +82,7 @@ public class WalletViewModule extends BaseViewModel {
                             SendTransactionInteract sendTransactionInteract,
                             FirstLaunchRouter  firstLaunchRouter,
                             SendRouter  sendRouter,
+                            ManagerAccountsRouter managerRouter,
                             WalletRepositoryType walletRepositoryType
                                 )
     {
@@ -93,6 +96,7 @@ public class WalletViewModule extends BaseViewModel {
         mFirstLaunchRouter = firstLaunchRouter;
         mGetBalanceInteract =getBalanceInteract;
         mSendRouter = sendRouter;
+        mManagerRouter = managerRouter ;
     }
 
     public LiveData<Wallet[]> wallets() {
@@ -305,6 +309,12 @@ public class WalletViewModule extends BaseViewModel {
     public void openFirstLaunch(Context context){
         mFirstLaunchRouter.open(context);
     }
+
+    public void openManagerRouter(Context context){
+        mManagerRouter.open(context);
+    }
+
+
 
     private void getTransactionsError(Throwable throwable) {
         exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));

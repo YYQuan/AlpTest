@@ -1,4 +1,4 @@
-package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts;
+package com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
@@ -8,46 +8,42 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivityContract;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ManagerAccountsViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsContract;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupContract;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
-import com.alphawizard.hdwallet.alphahdwallet.widget.BackupView;
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
-import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
+import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
+import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
-import net.qiujuer.genius.ui.compat.UiCompat;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
-public class AccountsFragment extends BasePresenterFragment<AccountsContract.Presenter,WalletViewModule> implements AccountsContract.View {
+public class ManagerAccountsActivity extends BasePresenterToolbarActivity<ManagerAccountsContract.Presenter,ManagerAccountsViewModule> implements ManagerAccountsContract.View {
 
-    @Inject
-    AccountsContract.Presenter mPresenter;
 
     @Inject
-    WalletsViewModuleFactory viewModuleFactory;
-    WalletViewModule viewModel;
+    ManagerAccountsViewModuleFactory managerAccountsViewModuleFactory;
+    ManagerAccountsViewModule viewModel;
+
+    @Inject
+    ManagerAccountsContract.Presenter mPresenter;
 
     @BindView(R.id.place_holder)
     EmptyLayout placeHolder;
@@ -55,36 +51,36 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
     @BindView(R.id.recyclerView_accounts)
     RecyclerView recyclerView;
 
+
+
     RecyclerAdapter<Wallet> mAdapter;
 
     private Dialog dialog;
 
+    @Override
+    public int getContentLayoutID() {
+        return R.layout.activity_backup_mnemonics;
+    }
 
     @Override
-    public AccountsContract.Presenter initPresenter() {
+    public ManagerAccountsContract.Presenter initPresenter() {
         return mPresenter;
     }
 
     @Override
-    public WalletViewModule initViewModule() {
+    public ManagerAccountsViewModule initViewModule() {
         return viewModel;
-    }
-
-    @Override
-    public int getContentLayoutID() {
-        return R.layout.fragment_wallet_accounts;
     }
 
     @Override
     public void initData() {
         super.initData();
-        viewModel = ViewModelProviders.of(this, viewModuleFactory)
-                .get(WalletViewModule.class);
+        viewModel = ViewModelProviders.of(this, managerAccountsViewModuleFactory)
+                .get(ManagerAccountsViewModule.class);
         getmPresenter().takeView(this,viewModel);
 
         viewModel.wallets().observe(this,this::onGetWallets);
-        viewModel.defaultWallet().observe(this,this::onDefaultWallet);
-        viewModel.exportedStore().observe(this,this::onExportWallet);
+
 
     }
 
@@ -115,9 +111,9 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
     }
 
     @Override
-    public void initWidget(View view) {
-        super.initWidget(view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+    public void initWidget() {
+        super.initWidget();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter =new RecyclerAdapter<Wallet>() {
             @Override
             public ViewHolder createViewHolder(View view, int type) {
@@ -134,6 +130,7 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
             public void onClickListener(RecyclerAdapter.ViewHolder holder, Wallet wallet) {
                 super.onClickListener(holder, wallet);
                 mPresenter.setDefaultWallet(wallet);
+                viewModel.openWalletDetail(ManagerAccountsActivity.this);
             }
 
             @Override
@@ -150,15 +147,7 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
 
 
-    @Override
-    public void defaultWalletChange(Wallet wallet) {
 
-    }
-
-    @Override
-    public void openFirstLaunch() {
-        viewModel.openFirstLaunch(getActivity());
-    }
 
     @Override
     public RecyclerAdapter<Wallet> getRecyclerViewAdapter() {
@@ -191,14 +180,14 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
     private void showBackupKeystoreDialog(String string) {
 //        BackupView view = new BackupView(getActivity());
-        View   view = View.inflate(getActivity(),R.layout.layout_dialog_copeboard,null);
+        View   view = View.inflate(this,R.layout.layout_dialog_copeboard,null);
         TextView tv  = view.findViewById(R.id.tv_keystore);
         tv.setText(string);
         dialog = buildDialog()
                 .setView(view)
                 .setPositiveButton("copy",
                         (dialogInterface, i) -> {
-                            ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipboardManager cm = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
                             // 将文本内容放到系统剪贴板里。
                             cm.setText(tv.getText());
                             KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));
@@ -215,23 +204,23 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
     private AlertDialog.Builder buildDialog() {
         hideDialog();
-        return new AlertDialog.Builder(getActivity());
+        return new AlertDialog.Builder(this);
     }
 
-    private void hideDialog() {
+    public  void hideDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
             dialog = null;
         }
     }
 
-    class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Wallet> {
-
-
+    class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Wallet> implements  View.OnClickListener {
 
         @BindView(R.id.tv_eth_address)
         TextView mContent;
 
+        @BindView(R.id.im_to)
+        ImageView imageTo;
 
         ActionViewHolder(View itemView) {
             super(itemView);
@@ -239,9 +228,13 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
         @Override
         public void onBindViewHolder(Wallet wallet) {
-
-
             mContent.setText(wallet.address);
+            imageTo.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            viewModel.openWalletDetail(ManagerAccountsActivity.this);
         }
     }
 }

@@ -21,6 +21,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Acc
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp.DappFragment;
+
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.setting.SettingFragment;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
 
@@ -98,10 +100,8 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
         mHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
         mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.string.title_wallet))
                 .add(R.id.action_dapp, new NavHelper.Tab<>(DappFragment.class, R.string.title_dapps))
-                .add(R.id.action_setting, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
-
-
-
+//                .add(R.id.action_setting, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
+                .add(R.id.action_setting, new NavHelper.Tab<>(SettingFragment.class, R.string.title_setting));
 
         ActionBar actionBar = getSupportActionBar();
 

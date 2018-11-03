@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
@@ -29,6 +30,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     private FetchWalletInteract  fetchWalletInteract;
     private SendTransactionInteract sendTransactionInteract;
     private SendRouter sendRouter;
+    private ManagerAccountsRouter managerAccountsRouter;
 
     public WalletsViewModuleFactory(CreateWalletInteract createWalletInteract,
                                     DefaultWalletInteract defaultWalletInteract,
@@ -39,6 +41,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     SendTransactionInteract sendTransactionInteract,
                                     FirstLaunchRouter   firstLaunchRouter,
                                     SendRouter  sendRouter,
+                                    ManagerAccountsRouter managerAccountsRouter,
                                     WalletRepositoryType walletRepositoryType) {
         this.createWalletInteract = createWalletInteract;
         this.defaultWalletInteract = defaultWalletInteract;
@@ -50,11 +53,12 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.firstLaunchRouter =  firstLaunchRouter;
         this.walletRepositoryType =  walletRepositoryType;
         this.sendRouter = sendRouter;
+        this.managerAccountsRouter =  managerAccountsRouter;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,exportWalletInteract,sendTransactionInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
+        return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,exportWalletInteract,sendTransactionInteract,firstLaunchRouter,sendRouter,managerAccountsRouter,walletRepositoryType);
     }
 }

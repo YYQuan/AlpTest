@@ -88,8 +88,8 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
 
     private void onDefaultWallet(Wallet wallet) {
 //        Web3Activity.show(this);
-        ImportActivity.show(this);
-//        viewModel.openWallet(this);
+//        ImportActivity.show(this);
+        viewModel.openWallet(this);
         finish();
     }
 

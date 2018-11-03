@@ -1,9 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".functionModule.WalletDetail.WalletDetailActivity">
+    tools:context=".functionModule.WalletDetail.WalletDetailActivity"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="@color/colorAccent"
+        android:paddingTop="@dimen/statusBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        android:layout_gravity="center"
+        app:titleTextAppearance="@style/TextAppearance.Title">
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:layout_marginBottom="6dp"
+            />
+    </android.support.v7.widget.Toolbar>
+
+    <ImageView
+        android:layout_width="31dp"
+        android:layout_height="31dp"
+        android:background="@drawable/ic_eth"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginTop="14dp"
+        android:textColor="@color/colorTextBlack"
+        android:layout_gravity="center_horizontal"
+        android:text="0.4546773333 ETH"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginTop="7dp"
+        android:text="0xe56…efwfrwds"
+        android:textColor="@color/colorTextGreyFourth"
+        android:layout_gravity="center_horizontal"/>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="59dp"
+        android:paddingLeft="40dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:text="钱包名"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextGreyFourth"
+            android:layout_gravity="center_vertical"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <EditText
+            android:id="@+id/ed_wallet_name"
+            android:layout_width="104dp"
+            android:layout_height="22dp"
+            android:text="ETH-Wallet"
+            android:textColor="@color/colorTextBlack"
+            android:layout_marginEnd="40dp"
+            />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="58dp"
+        android:paddingLeft="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:text="导出私钥"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextGreyFourth"
+            android:layout_gravity="center_vertical"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/im_import_privateKey"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:background="@drawable/ic_to"
+            android:layout_marginEnd="40dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="39dp"
+        android:paddingLeft="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:text="导出Keystore"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextGreyFourth"
+            android:layout_gravity="center_vertical"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/im_import_keystore"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:background="@drawable/ic_to"
+            android:layout_marginEnd="40dp"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGreyFourth"
+        android:layout_marginTop="19dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="19dp"
+        android:paddingLeft="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:text="导出助记词"
+            android:textSize="16sp"
+            android:textColor="@color/colorTextGreyFourth"
+            android:layout_gravity="center_vertical"/>
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/im_import_mnemonics"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:background="@drawable/ic_to"
+            android:layout_marginEnd="40dp"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
