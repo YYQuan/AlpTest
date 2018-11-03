@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
+import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
@@ -15,12 +16,14 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 import com.alphawizard.hdwallet.alphahdwallet.service.EthTickerService;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.C;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +50,7 @@ public class WalletViewModule extends BaseViewModel {
     FindDefaultWalletInteract mFindDefaultWalletInteract;
     WalletRepositoryType  mWalletRepositoryType;
     GetBalanceInteract mGetBalanceInteract;
+    SendTransactionInteract mSendTransactionInteract;
     SendRouter  mSendRouter;
     FetchWalletInteract mFetchWalletInteract;
     FirstLaunchRouter  mFirstLaunchRouter;
@@ -58,6 +62,8 @@ public class WalletViewModule extends BaseViewModel {
     private final MutableLiveData<String> exportedStore = new MutableLiveData<>();
     private final MutableLiveData<String>  ethValue = new MutableLiveData<>();
     private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
+
+    private final MutableLiveData<String> transactionHash = new MutableLiveData<>();
 
     private final MutableLiveData<List<Transaction.TransactionBean>> transactionBeans = new MutableLiveData<>();
 
@@ -71,6 +77,7 @@ public class WalletViewModule extends BaseViewModel {
                             FetchWalletInteract fetchWalletInteract,
                             GetBalanceInteract  getBalanceInteract,
                             ExportWalletInteract exportWalletInteract,
+                            SendTransactionInteract sendTransactionInteract,
                             FirstLaunchRouter  firstLaunchRouter,
                             SendRouter  sendRouter,
                             WalletRepositoryType walletRepositoryType
@@ -81,6 +88,7 @@ public class WalletViewModule extends BaseViewModel {
         mFindDefaultWalletInteract = findDefaultWalletInteract;
         mFetchWalletInteract = fetchWalletInteract;
         mExportWalletInteract =exportWalletInteract;
+        mSendTransactionInteract = sendTransactionInteract;
         mWalletRepositoryType  =  walletRepositoryType;
         mFirstLaunchRouter = firstLaunchRouter;
         mGetBalanceInteract =getBalanceInteract;
@@ -109,6 +117,10 @@ public class WalletViewModule extends BaseViewModel {
 
     public LiveData<String> exportedStore() {
         return exportedStore;
+    }
+
+    public LiveData<String> transactionHash() {
+        return transactionHash;
     }
 
     public LiveData<List<Transaction.TransactionBean>> transactionBeans() {
@@ -256,6 +268,26 @@ public class WalletViewModule extends BaseViewModel {
         public void onFailure(retrofit2.Call<Transaction> call, Throwable t) {
 
         }
+    }
+
+
+    public void  sendTransaction(String toAddress, BigInteger amount , BigInteger gasPrice, BigInteger gasLimit, long nonce, String dataString, long chainId){
+
+
+        mSendTransactionInteract
+                .sendTransaction(toAddress,amount,gasPrice,gasLimit,nonce,dataString,chainId)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::sendSuccess,this::sendError);
+    }
+
+
+    private void sendError(Throwable throwable) {
+        App.showToast("send fail");
+    }
+
+    private void sendSuccess(String s) {
+        transactionHash.postValue(s);
+        App.showToast("send success");
     }
 
     private void exportAccountError(Throwable throwable) {

@@ -183,15 +183,8 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
 //        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
 
         mTransaction = transaction;
-
-//        viewModel.sendTransaction(transaction.recipient.toString(),transaction.value,transaction.gasPrice,transaction.gasLimit,transaction.nonce);
-//        viewModel.sendTransaction(transaction.recipient.toString(),"0.05",transaction.payload);
         BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
         viewModel.sendTransaction(transaction.recipient.toString(), transaction.value , transaction.gasPrice,gasLimit,transaction.nonce,transaction.payload,4);
-//        web3.onSignCancel(transaction);
-//        web3.onSignTransactionSuccessful(mTransaction,"0x667f451dc20e67169cc8eb9d45113f164f2f183dd4223a73dd5d4d6aaffce331");
-
-
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
@@ -18,6 +20,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsV
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Account.AccountFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionFragment;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp.DappFragment;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
 
@@ -43,12 +46,16 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
+    @BindView(R.id.lay_container)
+    FrameLayout mFrameLayout;
 
 
     @BindView(R.id.tv_toolbar_title)
     TextView mTitle;
 
     private NavHelper<Integer> mHelper;
+
+
 
     @Override
     public int getContentLayoutID() {
@@ -90,8 +97,8 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
         super.initWidget();
         mHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
         mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.string.title_wallet))
-                .add(R.id.action_receive, new NavHelper.Tab<>(DimensionFragment.class, R.string.title_dapps))
-                .add(R.id.action_account, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
+                .add(R.id.action_dapp, new NavHelper.Tab<>(DappFragment.class, R.string.title_dapps))
+                .add(R.id.action_setting, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
 
 
 
@@ -156,27 +163,41 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
         return mHelper.performClickMenu(item.getItemId());
     }
 
+
     @Override
     public void onMenuSucceed(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
 
         if(newTab.extra == R.string.title_wallet){
             mToolbar.setVisibility(View.VISIBLE);
             mTitle.setText("ETH");
+
+            int size = (int)getResources().getDimension(R.dimen.actionBarWithStatusBarSize);
+            mFrameLayout.setPadding(0, size,0,0);
         }
         else if(newTab.extra == R.string.title_dapps){
             mToolbar.setVisibility(View.GONE);
+//            mToolbar.getChildAt(0).setVisibility(View.GONE);
+
+
+            int size = (int)getResources().getDimension(R.dimen.statusBarSize);
+            size+=dp2px(8);
+            mFrameLayout.setPadding(0, size,0,0);
         }
         else if(newTab.extra == R.string.title_setting){
             mToolbar.setVisibility(View.VISIBLE);
-
             mTitle.setText("设置");
-
+            int size = (int)getResources().getDimension(R.dimen.actionBarWithStatusBarSize);
+            mFrameLayout.setPadding(0, size,0,0);
         }
-
     }
 
     @Override
     public void onMenuRefresh(NavHelper.Tab<Integer> newTab) {
 
+    }
+
+    private int dp2px(float dpValue){
+        float scale=getResources().getDisplayMetrics().density;
+        return (int)(dpValue*scale+0.5f);
     }
 }

@@ -31,7 +31,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
     @BindView(R.id.ed_keystore )
     EditText mKeystore;
 
-    @BindView(R.id.ed_password )
+    @BindView(R.id.ed_wallet_password)
     EditText mPassword;
 
     @BindView(R.id.btn_import )

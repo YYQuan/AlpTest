@@ -11,6 +11,9 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Acc
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionPresenter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp.DappContract;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp.DappFragment;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp.DappPresenter;
 
 import dagger.Binds;
 import dagger.Module;
@@ -35,6 +38,9 @@ public abstract class WalletModule {
     @ActivityScoped
     @Binds abstract DimensionContract.Presenter dimensionPresenter(DimensionPresenter presenter);
 
+    @ActivityScoped
+    @Binds abstract DappContract.Presenter dappPresenter(DappPresenter presenter);
+
     @FragmentScoped
     @ContributesAndroidInjector
     abstract AccountFragment accountFragment();
@@ -46,4 +52,8 @@ public abstract class WalletModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract DimensionFragment dimensionFragment();
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract DappFragment dappFragment();
 }

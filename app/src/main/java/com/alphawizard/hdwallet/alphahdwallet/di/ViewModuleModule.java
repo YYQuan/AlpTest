@@ -36,10 +36,11 @@ public class ViewModuleModule {
                                                               FetchWalletInteract  fetchWalletInteract,
                                                               GetBalanceInteract getBalanceInteract,
                                                               ExportWalletInteract exportWalletInteract,
+                                                              SendTransactionInteract sendTransactionInteract,
                                                               FirstLaunchRouter firstLaunchRouter,
                                                               SendRouter sendRouter,
                                                               WalletRepositoryType walletRepositoryType){
-        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,exportWalletInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
+        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,exportWalletInteract,sendTransactionInteract,firstLaunchRouter,sendRouter,walletRepositoryType);
     }
 
     @Provides

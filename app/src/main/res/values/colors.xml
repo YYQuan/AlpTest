@@ -20,6 +20,7 @@
     <color name="colorBlue">#ff3574FA</color>
 
 
+    <color name="colorTextBlack">#323232</color>
     <color name="colorTextGrey">#ff666666</color>
     <color name="colorTextWhite">#ffffffff</color>
     <color name="colorTextGreen">#ff20DC86</color>

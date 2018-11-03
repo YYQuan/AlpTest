@@ -7,12 +7,12 @@
         android:title="@string/title_wallet"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_receive"
+        android:id="@+id/action_dapp"
         android:icon="@drawable/ic_dapp"
         android:title="@string/title_dapps"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_account"
+        android:id="@+id/action_setting"
         android:icon="@drawable/ic_setting"
         android:title="@string/title_setting"
         app:showAsAction="ifRoom" />

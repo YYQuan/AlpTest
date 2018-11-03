@@ -31,8 +31,6 @@
             android:textSize="20sp"
             android:layout_marginBottom="6dp"
             />
-
-
     </android.support.v7.widget.Toolbar>
 
 
@@ -42,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/len_52"
-        android:layout_marginTop="@dimen/actionBarWithStatusBarSize"
+        android:paddingTop="@dimen/actionBarWithStatusBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </FrameLayout>
 

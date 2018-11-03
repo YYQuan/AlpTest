@@ -1,20 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/root"
-    android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <include layout="@layout/layout_app_bar_with_tab" />
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context=".functionModule.Wallet.WalletActivity">
+
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="@color/colorAccent"
+        android:paddingTop="@dimen/statusBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        android:layout_gravity="center"
+        app:titleTextAppearance="@style/TextAppearance.Title">
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:layout_marginBottom="6dp"
+            />
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_mnemonics"
+            android:layout_width="100dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="助记词"
+            android:textColor="@color/colorTextGrey"
+            android:background="@drawable/bg_black_side"
+
+            />
+
+
+        <Button
+            android:id="@+id/btn_keystore"
+            android:layout_width="100dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Keystore"
+            android:textColor="@color/colorTextGrey"
+            android:background="@drawable/bg_black_side"
+            />
+
+        <Button
+            android:id="@+id/btn_privateKey"
+            android:layout_width="100dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="私钥"
+            android:textColor="@color/colorTextGrey"
+            android:background="@drawable/bg_black_side"
+            />
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/lay_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
-</android.support.design.widget.CoordinatorLayout>
+        >
+
+    </FrameLayout>
+</LinearLayout>
 
 
 <!--<?xml version="1.0" encoding="utf-8"?>-->

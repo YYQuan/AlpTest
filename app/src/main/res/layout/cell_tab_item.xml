@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    android:layout_height="44dp"
+    android:layout_marginBottom="@dimen/len_6"
+    android:background="@drawable/bg_black_side"
+    >
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_item_content"
+        android:layout_width="60dp"
+        android:layout_height="25dp"
+        android:lines="1"
+        android:textColor="@color/textPrimary"
+        android:textSize="18sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="27dp"
+        tools:text="Mary Harmon"
+        android:gravity="center"
+       android:layout_centerInParent="true"
+
+        />
+
+
+
+
+</RelativeLayout>

@@ -6,17 +6,46 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".functionModule.Wallet.WalletActivity">
+    tools:context=".functionModule.Wallet.WalletActivity"
+    android:paddingTop="40dp">
 
 
     <net.qiujuer.genius.ui.widget.EditText
         android:id="@+id/ed_mnenonics"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:gravity="center_horizontal"
+        android:layout_height="210dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:gravity="left"
+        android:padding="20dp"
         android:hint="MNENONICS"
+        android:inputType="textMultiLine"
+        android:maxLines="2"
+        android:textSize="18sp"
+        app:gHintTitle="none"
+        app:gLineColor="@color/blue_900"
+        app:gLineSize="1dp"
+
+        android:background="@drawable/bg_grey_third"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:textSize="12sp"
+        android:textColor="@color/colorTextBlack"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:text="通常是12个（有时是24个）用单个空格分隔的单词"/>
+
+
+
+    <net.qiujuer.genius.ui.widget.EditText
+        android:id="@+id/ed_wallet_name"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:hint="Wallet Name"
         android:inputType="textMultiLine"
         android:maxLines="2"
         android:textColorHint="@color/black_alpha_128"
@@ -28,19 +57,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/len_24"/>
-
+        android:background="@drawable/bg_grey_third"
+        android:gravity="left"
+        android:paddingTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="30dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
     <Button
         android:id="@+id/btn_import"
         android:layout_width="match_parent"
         android:layout_height="@dimen/len_44"
-        android:layout_marginTop="@dimen/len_24"
-        android:layout_marginRight="@dimen/len_12"
-        android:layout_marginLeft="@dimen/len_12"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:text="import"
         android:layout_gravity="right"
         android:background="@color/textAccent"/>
-
-
-
 </LinearLayout>

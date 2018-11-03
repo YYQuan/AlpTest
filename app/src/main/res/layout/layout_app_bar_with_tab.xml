@@ -16,10 +16,14 @@
         />
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
-        android:background="@color/colorAccent"
+        android:background="@color/colorWhite"
         android:elevation="8dp"
-        app:tabIndicatorColor="@color/white"
+        app:tabIndicatorColor="@color/trans"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+
+        app:tabIndicatorHeight="0dp"
+        >
+
+    </android.support.design.widget.TabLayout>
 </android.support.design.widget.AppBarLayout>
