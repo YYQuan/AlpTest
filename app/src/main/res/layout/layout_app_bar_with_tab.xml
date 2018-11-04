@@ -4,25 +4,26 @@
     android:id="@+id/app_bar"
     android:theme="@style/AppTheme.Main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="44dp"
     >
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="8dp"
-        app:popupTheme="@style/AppTheme.Main"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/len_72"
-        />
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:background="@color/colorBlue"-->
+        <!--android:elevation="8dp"-->
+        <!--app:popupTheme="@style/AppTheme.Main"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--/>-->
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
-        android:background="@color/colorWhite"
+        android:background="@color/white"
         android:elevation="8dp"
-        app:tabIndicatorColor="@color/trans"
+        app:tabIndicatorColor="@color/colorBlue"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:tabIndicatorHeight="0dp"
+        android:layout_height="44dp"
+        app:tabTextColor="@color/colorTextGrey"
+        app:tabTextAppearance="@style/TabLayoutTextStyle"
+        app:tabIndicatorHeight="1dp"
         >
 
     </android.support.design.widget.TabLayout>

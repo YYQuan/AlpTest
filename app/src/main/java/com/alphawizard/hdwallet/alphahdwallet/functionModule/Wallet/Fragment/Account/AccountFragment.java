@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
@@ -36,7 +38,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AccountFragment extends BasePresenterFragment<AccountContract.Presenter,WalletViewModule> implements  AccountContract.View{
+public class AccountFragment extends BasePresenterFragment<AccountContract.Presenter,WalletViewModule> implements  AccountContract.View, TabLayout.BaseOnTabSelectedListener {
 
     private static final float QR_IMAGE_WIDTH_RATIO = 0.9f;
 
@@ -137,6 +139,15 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         });
         setPlaceHolderView(placeHolder);
         placeHolder.bind(recyclerView);
+
+
+        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+
+        tabLayout.addTab(tabLayout.newTab().setText("全部"),0);
+        tabLayout.addTab(tabLayout.newTab().setText("接收"),1);
+        tabLayout.addTab(tabLayout.newTab().setText("发送"),2);
+
+        tabLayout.addOnTabSelectedListener(this);
     }
 
     private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
@@ -192,6 +203,21 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
             dialog.dismiss();
             dialog = null;
         }
+    }
+
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        App.showToast(" tab is"+tab.getText());
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
     }
 
     class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Transaction.TransactionBean> {
