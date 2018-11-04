@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:textSize="12sp"
-        android:textColor="@color/colorTextBlack"
+        android:textColor="@color/textBlack"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:text="通常是12个（有时是24个）用单个空格分隔的单词"/>

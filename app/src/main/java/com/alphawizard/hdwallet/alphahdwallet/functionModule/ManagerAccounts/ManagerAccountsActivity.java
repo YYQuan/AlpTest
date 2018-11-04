@@ -59,7 +59,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     @Override
     public int getContentLayoutID() {
-        return R.layout.activity_backup_mnemonics;
+        return R.layout.activity_manager_accounts;
     }
 
     @Override

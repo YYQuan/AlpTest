@@ -25,15 +25,16 @@
 
 
 
-    <color name="colorTextBlack">#323232</color>
-    <color name="colorTextGrey">#ff666666</color>
-    <color name="colorTextWhite">#ffffffff</color>
-    <color name="colorTextGreen">#ff20DC86</color>
-    <color name="colorTextRed">#ffDA3414</color>
-    <color name="colorTextBlue">#ff3574FA</color>
-    <color name="colorTextGreySecond">#ffc8c8c8</color>
-    <color name="colorTextGreyThird">#ff9C9C9C</color>
-    <color name="colorTextGreyFourth">#ff969696</color>
+    <color name="textBlack">#323232</color>
+    <color name="textGrey">#ff666666</color>
+    <color name="textWhite">#ffffffff</color>
+    <color name="textGreen">#ff20DC86</color>
+    <color name="textRed">#ffDA3414</color>
+    <color name="textBlue">#ff3574FA</color>
+    <color name="textBlueSecond">#108EE9</color>
+    <color name="textGreySecond">#ffc8c8c8</color>
+    <color name="textGreyThird">#ff9C9C9C</color>
+    <color name="textGreyFourth">#ff969696</color>
 
 
 

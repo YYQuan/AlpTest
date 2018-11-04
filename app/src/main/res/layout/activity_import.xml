@@ -43,7 +43,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:text="助记词"
-            android:textColor="@color/colorTextGrey"
+            android:textColor="@color/textGrey"
             android:background="@drawable/bg_black_side"
 
             />
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Keystore"
-            android:textColor="@color/colorTextGrey"
+            android:textColor="@color/textGrey"
             android:background="@drawable/bg_black_side"
             />
 
@@ -72,7 +72,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="私钥"
-            android:textColor="@color/colorTextGrey"
+            android:textColor="@color/textGrey"
             android:background="@drawable/bg_black_side"
             />
     </LinearLayout>

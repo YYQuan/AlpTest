@@ -1,11 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".functionModule.Wallet.WalletActivity">
+    tools:context=".functionModule.backupMnemonics.BackupMnemonicsActivity">+
+    <android.support.v7.widget.Toolbar
 
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="@color/colorAccent"
+        android:paddingTop="@dimen/statusBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        android:layout_gravity="center"
+        app:titleTextAppearance="@style/TextAppearance.Title">
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:layout_marginBottom="6dp"
+            />
+    </android.support.v7.widget.Toolbar>
     <com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout
         android:id="@+id/place_holder"
         android:layout_width="match_parent"
@@ -14,8 +37,31 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_accounts"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_weight="1"
+        android:layout_height="0dp">
 
     </android.support.v7.widget.RecyclerView>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_create_account"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/colorGreyThird"
+            android:text="导入钱包"
+            android:textSize="20sp"
+            android:textColor="@color/textWhite"/>
+        <Button
+            android:id="@+id/btn_import_account"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@color/colorBlue"
+            android:text="创建钱包"
+            android:textSize="20sp"
+            android:textColor="@color/textWhite"/>
+    </LinearLayout>
 </LinearLayout>

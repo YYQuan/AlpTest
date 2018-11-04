@@ -37,7 +37,7 @@
             android:layout_width="177dp"
             android:layout_height="16dp"
             android:text="ETH地址"
-            android:textColor="@color/colorTextGrey"
+            android:textColor="@color/textGrey"
             android:layout_marginTop="20dp"
             />
 
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:text="0x2fa986D54445a0c7e337A735Daf1121a4038474e"
-            android:textColor="@color/colorTextGrey"
+            android:textColor="@color/textGrey"
             android:layout_marginTop="20dp"
             />
         
@@ -69,7 +69,7 @@
            android:layout_gravity="center_horizontal"
            android:text="复制"
            android:textSize="15sp"
-           android:textColor="@color/colorTextWhite"
+           android:textColor="@color/textWhite"
            android:layout_marginTop="20dp"/>
     </LinearLayout>
 

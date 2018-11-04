@@ -30,7 +30,7 @@
         android:padding="0dp"
         android:text="balance"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="@color/colorTextBlue"
+        android:textColor="@color/textBlue"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/bg_blue"
         android:text="接收"
-        android:textColor="@color/colorTextWhite"
+        android:textColor="@color/textWhite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_send"
         app:layout_constraintTop_toBottomOf="@+id/tv_balances" />
@@ -75,7 +75,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="32dp"
         android:text="交易详情"
-        android:textColor="@color/colorTextGrey"
+        android:textColor="@color/textGrey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_send" />
 

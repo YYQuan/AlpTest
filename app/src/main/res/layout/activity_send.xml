@@ -36,7 +36,7 @@
                 android:layout_width="33dp"
                 android:layout_height="23dp"
                 android:textSize="16sp"
-                android:textColor="@color/colorTextWhite"
+                android:textColor="@color/textWhite"
                 android:text="返回"/>
 
         </FrameLayout>
@@ -141,7 +141,7 @@
             android:textSize="12sp"
             android:layout_marginLeft="3dp"
             android:text="可用ETH ： 152.5"
-            android:textColor="@color/colorTextGreySecond"
+            android:textColor="@color/textGreySecond"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
     <View
@@ -154,7 +154,7 @@
         android:layout_height="54dp"
         android:text="发送"
         android:textSize="18sp"
-        android:textColor="@color/colorTextWhite"
+        android:textColor="@color/textWhite"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="40dp"
         android:background="@color/textAccent"

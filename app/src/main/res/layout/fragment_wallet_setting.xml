@@ -19,7 +19,7 @@
             android:layout_gravity="center_vertical"
             android:text="管理钱包"
             android:textSize="18sp"
-            android:textColor="@color/colorTextGrey"
+            android:textColor="@color/textGrey"
             />
         <View
             android:layout_width="0dp"

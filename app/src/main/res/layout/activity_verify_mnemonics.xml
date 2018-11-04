@@ -1,9 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".functionModule.verifyMnemonics.VerifyMnemonicsActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="16dp">
+        <ImageView
+                android:layout_width="13dp"
+                android:layout_height="18dp"
+            android:layout_gravity="center"
+                android:background="@drawable/ic_title_back_blue"/>
+        <TextView
+            android:layout_width="33dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:text="返回"
+            android:textSize="16sp"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/textBlueSecond" />
+
+    </LinearLayout>
+    
+    <ImageView
+        android:layout_width="27dp"
+        android:layout_height="31dp"
+        android:background="@drawable/ic_verify"
+        android:layout_marginTop="57dp"
+        android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:text="验证助记词"
+        android:textSize="18sp"
+        android:textColor="@color/textBlack"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:text="点击单词，把它们按正确的顺序放在一起"
+        android:textSize="14sp"
+
+        android:textColor="@color/textGreyFourth"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"/>
+
+
+    <FrameLayout
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
+            android:id="@+id/mnemonicsView_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_white"
+            >
+        </com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView>
+        <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
+            android:id="@+id/mnemonicsView_no_select"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_white"
+            android:layout_marginTop="110dp"
+            >
+
+        </com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView>
+    </FrameLayout>
+</LinearLayout>
