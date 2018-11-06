@@ -9,16 +9,16 @@ import io.reactivex.SingleSource;
 import io.reactivex.SingleTransformer;
 import io.reactivex.observers.DisposableCompletableObserver;
 
-public class SaveMnemonicsOperator implements SingleTransformer<Wallet, Wallet> {
+public class SaveWalletNameOperator implements SingleTransformer<Wallet, Wallet> {
 
     private final PasswordStore passwordStore;
-    private final String mnemonics;
+    private final String name;
     private final WalletRepositoryType walletRepository;
 
-    public SaveMnemonicsOperator(
-            PasswordStore passwordStore, WalletRepositoryType walletRepository, String mnemonics) {
+    public SaveWalletNameOperator(
+            PasswordStore passwordStore, WalletRepositoryType walletRepository, String name) {
         this.passwordStore = passwordStore;
-        this.mnemonics = mnemonics;
+        this.name = name;
         this.walletRepository = walletRepository;
     }
 
@@ -26,7 +26,7 @@ public class SaveMnemonicsOperator implements SingleTransformer<Wallet, Wallet> 
     public SingleSource<Wallet> apply(Single<Wallet> upstream) {
         Wallet wallet = upstream.blockingGet();
         return passwordStore
-                .setMnemonics(wallet, mnemonics)
+                .setWalletName(wallet, name)
                 .toSingle(() -> wallet);
     }
 }

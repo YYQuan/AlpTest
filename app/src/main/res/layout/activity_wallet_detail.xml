@@ -19,17 +19,41 @@
         app:contentInsetStart="0dp"
         android:layout_gravity="center"
         app:titleTextAppearance="@style/TextAppearance.Title">
-
-        <TextView
-            android:id="@+id/tv_toolbar_title"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            android:layout_marginBottom="6dp"
-            />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/ic_title_back_white"
+                android:layout_gravity="center_vertical" />
+            <TextView
+                android:id="@+id/tv_toolbar_title"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="28dp"
+                android:gravity="center"
+                android:text="ETH-Wallet"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:id="@+id/txt_save"
+                android:layout_width="33dp"
+                android:layout_height="23dp"
+                android:text="保存"
+                android:layout_marginEnd="16dp"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="@color/textWhite"
+                />
+        </LinearLayout>
+
     </android.support.v7.widget.Toolbar>
 
     <ImageView
@@ -39,14 +63,17 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"/>
     <TextView
+        android:id="@+id/txt_eth_balance"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_marginTop="14dp"
         android:textColor="@color/textBlack"
         android:layout_gravity="center_horizontal"
-        android:text="0.4546773333 ETH"/>
+        android:gravity="center_horizontal"
+        android:text="0ETH"/>
 
     <TextView
+        android:id="@+id/txt_address"
         android:layout_width="wrap_content"
         android:layout_height="15dp"
         android:layout_marginTop="7dp"
@@ -79,12 +106,18 @@
             android:layout_height="22dp"
             android:text="ETH-Wallet"
             android:textColor="@color/textBlack"
+            android:textSize="16sp"
             android:layout_marginEnd="40dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:textCursorDrawable="@null"
+            android:background="@null"
             />
         
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lay_export_private_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -114,6 +147,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/lay_export_keystore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -150,6 +184,7 @@
         android:paddingLeft="40dp"
         android:paddingRight="40dp"/>
     <LinearLayout
+        android:id="@+id/lay_export_mnemonics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

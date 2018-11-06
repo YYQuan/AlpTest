@@ -80,4 +80,7 @@ public interface AccountKeystoreService {
 	 * @return wallets
 	 */
 	Single<Wallet[]> fetchAccounts();
+
+	Single<String>  getPrivateKeyFromKeystore(String keystore,String password);
+
 }

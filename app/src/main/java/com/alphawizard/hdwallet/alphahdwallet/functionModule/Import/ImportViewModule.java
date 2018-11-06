@@ -22,28 +22,28 @@ public class ImportViewModule extends BaseViewModel {
         this.walletRouter = walletRouter;
     }
 
-    public  void importKeystore(String keystore,String password){
+    public  void importKeystore(String keystore,String password,String name){
 
         mImportAccountInteract
-                .importKeystore(keystore,password)
+                .importKeystore(keystore,password,name)
 //                必须 在主线程回调  否则 不能够  执行 progress.setValue(true);
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onWallet, this::onImportError);
 
     }
 
-    public  void importPrivateKey(String privateKey){
+    public  void importPrivateKey(String privateKey,String name){
         mImportAccountInteract
-                .importPrivateKey(privateKey)
+                .importPrivateKey(privateKey,name)
 //                必须 在主线程回调  否则 不能够  执行 progress.setValue(true);
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onWallet, this::onImportError);
 
     }
 
-    public  void importMnenonics(String mnenonics ){
+    public  void importMnenonics(String mnenonics ,String name){
         mImportAccountInteract
-                .importMnenonics(mnenonics)
+                .importMnenonics(mnenonics,name)
 //                必须 在主线程回调  否则 不能够  执行 progress.setValue(true);
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onWallet, this::onImportError);

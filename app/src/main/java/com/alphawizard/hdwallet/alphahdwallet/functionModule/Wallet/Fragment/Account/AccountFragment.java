@@ -28,6 +28,7 @@ import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -41,6 +42,9 @@ import butterknife.OnClick;
 public class AccountFragment extends BasePresenterFragment<AccountContract.Presenter,WalletViewModule> implements  AccountContract.View, TabLayout.BaseOnTabSelectedListener {
 
     private static final float QR_IMAGE_WIDTH_RATIO = 0.9f;
+    private static final int  TAB_ALL = 0;
+    private static final int  TAB_RECEIVE = 1;
+    private static final int  TAB_SEND = 2;
 
     @Inject
     AccountContract.Presenter mPresenter;
@@ -51,8 +55,6 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     @BindView(R.id.tv_balances)
     TextView mBalance;
-
-
 
     @BindView(R.id.btn_send)
     Button  mSend;
@@ -67,8 +69,14 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     RecyclerView recyclerView;
 
     RecyclerAdapter<Transaction.TransactionBean> mAdapter;
+    RecyclerAdapter<Transaction.TransactionBean> mReceiveAdapter;
+    RecyclerAdapter<Transaction.TransactionBean> mSendAdapter;
 
     String defaultWalletAddress;
+
+
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
 
     private Dialog dialog;
 
@@ -84,7 +92,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
         int imageSize = (int) (size.x * QR_IMAGE_WIDTH_RATIO);
         Bitmap bitmap = getmPresenter().createQRImage(viewModel.getDefaultWalletAddress(),imageSize);
-        showCodeDialog("0x2fa986D54445a0c7e337A735Daf1121a4038474e",bitmap);
+        showCodeDialog(defaultWalletAddress,bitmap);
     }
 
     @Override
@@ -114,13 +122,9 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         viewModel.transactionBeans().observe(this,this::transBeansChange);
         mPresenter.getDefaultWallet();
 
-    }
 
-    @Override
-    public void initWidget(View view) {
-        super.initWidget(view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(mAdapter =new RecyclerAdapter<Transaction.TransactionBean>() {
+        mAdapter =new RecyclerAdapter<Transaction.TransactionBean>() {
             @Override
             public ViewHolder createViewHolder(View view, int type) {
                 return new AccountFragment.ActionViewHolder(view);
@@ -130,34 +134,117 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
             protected int getItemViewType(int position, Transaction.TransactionBean session) {
                 return R.layout.cell_account_list;
             }
-        });
+        };
+
+        mReceiveAdapter =new RecyclerAdapter<Transaction.TransactionBean>() {
+            @Override
+            public ViewHolder createViewHolder(View view, int type) {
+                return new AccountFragment.ActionViewHolder(view);
+            }
+
+            @Override
+            protected int getItemViewType(int position, Transaction.TransactionBean session) {
+                return R.layout.cell_account_list;
+            }
+        };
+
+        mSendAdapter =new RecyclerAdapter<Transaction.TransactionBean>() {
+            @Override
+            public ViewHolder createViewHolder(View view, int type) {
+                return new AccountFragment.ActionViewHolder(view);
+            }
+
+            @Override
+            protected int getItemViewType(int position, Transaction.TransactionBean session) {
+                return R.layout.cell_account_list;
+            }
+        };
+
+        recyclerView.setAdapter(mAdapter);
+
         mAdapter.setListener(new RecyclerAdapter.HolderClickListenerImpl<Transaction.TransactionBean>() {
             @Override
             public void onClickListener(RecyclerAdapter.ViewHolder holder, Transaction.TransactionBean wallet) {
                 super.onClickListener(holder, wallet);
             }
         });
-        setPlaceHolderView(placeHolder);
-        placeHolder.bind(recyclerView);
 
+        mSendAdapter.setListener(new RecyclerAdapter.HolderClickListenerImpl<Transaction.TransactionBean>() {
+            @Override
+            public void onClickListener(RecyclerAdapter.ViewHolder holder, Transaction.TransactionBean wallet) {
+                super.onClickListener(holder, wallet);
+            }
+        });
 
-        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+        mReceiveAdapter.setListener(new RecyclerAdapter.HolderClickListenerImpl<Transaction.TransactionBean>() {
+            @Override
+            public void onClickListener(RecyclerAdapter.ViewHolder holder, Transaction.TransactionBean wallet) {
+                super.onClickListener(holder, wallet);
+            }
+        });
 
-        tabLayout.addTab(tabLayout.newTab().setText("全部"),0);
-        tabLayout.addTab(tabLayout.newTab().setText("接收"),1);
-        tabLayout.addTab(tabLayout.newTab().setText("发送"),2);
+    }
+
+    @Override
+    public void initWidget(View view) {
+        super.initWidget(view);
+//        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
+//        .setCustomView(R.layout.cell_tab_item)
+        tabLayout.addTab(tabLayout.newTab().setText("全部"),TAB_ALL);
+        tabLayout.addTab(tabLayout.newTab().setText("接收"),TAB_RECEIVE);
+        tabLayout.addTab(tabLayout.newTab().setText("发送"),TAB_SEND);
 
         tabLayout.addOnTabSelectedListener(this);
+
+        setPlaceHolderView(placeHolder);
+        placeHolder.bind(recyclerView);
     }
 
     private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
         Log.d("transBeansChange");
-        mAdapter.add(transactionBeans);
 
-        mAdapter.notifyDataSetChanged();
-        mPresenter.refresh(  transactionBeans);
+
+        mAdapter.replace(transactionBeans);
+        mReceiveAdapter.replace(filterReceiveTransaction(transactionBeans));
+        mSendAdapter.replace(filterSendTransaction(transactionBeans));
+
+        switch (tabLayout.getSelectedTabPosition()){
+            case TAB_ALL:
+                mAdapter.notifyDataSetChanged();
+                break;
+            case TAB_RECEIVE:
+                mReceiveAdapter.notifyDataSetChanged();
+                break;
+            case TAB_SEND:
+                mSendAdapter.notifyDataSetChanged();
+                break;
+            default:
+                break;
+        }
+        mPresenter.refresh(transactionBeans);
 //        placeHolder.triggerOkOrEmpty(mAdapter.getDataList().size()>0);
     }
+
+    private List<Transaction.TransactionBean> filterReceiveTransaction(List<Transaction.TransactionBean> list){
+        List<Transaction.TransactionBean> receiveList = new ArrayList<>();
+        for(Transaction.TransactionBean bean:list){
+            if(bean.getTo().equalsIgnoreCase(defaultWalletAddress)){
+                receiveList.add(bean);
+            }
+        }
+        return  receiveList;
+    }
+
+    private List<Transaction.TransactionBean> filterSendTransaction(List<Transaction.TransactionBean> list){
+        List<Transaction.TransactionBean> receiveList = new ArrayList<>();
+        for(Transaction.TransactionBean bean:list){
+            if(bean.getFrom().equalsIgnoreCase(defaultWalletAddress)){
+                receiveList.add(bean);
+            }
+        }
+        return  receiveList;
+    }
+
 
     private void ethValueChange(String s) {
 
@@ -170,7 +257,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     private void defaultWalletBalanceChange(String s) {
         Log.d(" balance : "+s);
-        mBalance.setText(s);
+        mBalance.setText(s + "ETH");
     }
 
     @Override
@@ -208,6 +295,21 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         App.showToast(" tab is"+tab.getText());
+        switch(tab.getPosition()){
+            case TAB_ALL:
+                mAdapter.notifyDataSetChanged();
+                recyclerView.setAdapter(mAdapter);
+                break;
+            case TAB_RECEIVE:
+                recyclerView.setAdapter(mReceiveAdapter);
+                break;
+            case TAB_SEND:
+                recyclerView.setAdapter(mSendAdapter);
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override
@@ -231,6 +333,10 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         @BindView(R.id.txt_time)
         TextView mTime;
 
+        @BindView(R.id.txt_sign)
+        TextView mSign;
+
+
         ActionViewHolder(View itemView) {
             super(itemView);
         }
@@ -238,9 +344,15 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         @Override
         public void onBindViewHolder(Transaction.TransactionBean bean) {
             if(bean.getTo().equalsIgnoreCase(defaultWalletAddress)){
+//                接收
                 mAddress.setText(bean.getFrom());
+                mSign.setText("+");
+                mSign.setTextColor(getResources().getColor(R.color.colorGreen));
             }else{
+//                发送
                 mAddress.setText(bean.getTo());
+                mSign.setText("-");
+                mSign.setTextColor(getResources().getColor(R.color.colorRed));
             }
 
             mValue .setText(bean.getValue());

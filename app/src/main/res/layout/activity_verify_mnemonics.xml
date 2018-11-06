@@ -3,19 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context=".functionModule.verifyMnemonics.VerifyMnemonicsActivity">
 
     <LinearLayout
+        android:id="@+id/lay_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="9dp"
         android:layout_marginLeft="16dp">
         <ImageView
-                android:layout_width="13dp"
-                android:layout_height="18dp"
+            android:layout_width="13dp"
+            android:layout_height="18dp"
             android:layout_gravity="center"
-                android:background="@drawable/ic_title_back_blue"/>
+            android:background="@drawable/ic_title_back_blue"/>
         <TextView
             android:layout_width="33dp"
             android:layout_height="24dp"
@@ -56,27 +58,74 @@
 
 
     <FrameLayout
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
 
-        <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
-            android:id="@+id/mnemonicsView_select"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_white"
-            >
-        </com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView>
+
         <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
             android:id="@+id/mnemonicsView_no_select"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_white"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="120dp"
+            />
+
+        <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
+            android:id="@+id/mnemonicsView_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_white"
+            />
+
+        <LinearLayout
+            android:id="@+id/layout_correct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="216dp"
             >
 
-        </com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/iv_correct"
+                android:background="@drawable/ic_correct"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:visibility="gone"
+                />
+            <TextView
+                android:id="@+id/txt_correct"
+                android:layout_width="wrap_content"
+                android:layout_height="26dp"
+                android:text="正确"
+                android:textSize="18sp"
+                android:gravity="center"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/textBlack"
+                android:visibility="gone"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
     </FrameLayout>
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_blue"
+        android:text="完成"
+        android:textColor="@color/textWhite"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="40dp"
+        />
 </LinearLayout>

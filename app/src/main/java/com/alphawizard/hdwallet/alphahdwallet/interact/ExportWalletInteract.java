@@ -19,11 +19,23 @@ public class ExportWalletInteract {
         this.passwordStore =  passwordStore;
     }
 
-    public Single<String> export(Wallet wallet, String backupPassword) {
-        String  mnemonics = passwordStore.getMnemonics(wallet).blockingGet();
-
-
+    public Single<String> exportKeystore(Wallet wallet, String backupPassword) {
+//        String  mnemonics = passwordStore.getMnemonics(wallet).blockingGet();
         return passwordStore.getPassword(wallet)
                 .flatMap(password ->walletRepository.exportAccount(wallet,password,backupPassword));
     }
+
+    public Single<String> exportMnemonics(Wallet wallet) {
+
+        return passwordStore.getMnemonics(wallet);
+
+    }
+
+    public Single<String> exportPrivateKey(Wallet wallet) {
+
+        return passwordStore.getPrivateKey(wallet);
+
+
+    }
+
 }

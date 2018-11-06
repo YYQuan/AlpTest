@@ -11,5 +11,10 @@ public interface PasswordStore {
 	Single<String> getMnemonics(Wallet wallet);
 	Completable setPassword(Wallet wallet, String password);
 	Completable setMnemonics(Wallet wallet, String mnemonics);
+	Completable setWalletName(Wallet wallet, String name);
 	Single<String> generatePassword();
+	Single<String> generateWalletName();
+	Single<String> getPrivateKey(Wallet   wallet );
+	Single<String> getWalletName(Wallet wallet);
+
 }

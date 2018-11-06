@@ -27,6 +27,10 @@ import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -92,8 +96,8 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
 //        Web3Activity.show(this);
 //        ImportActivity.show(this);
 //        BackupMnemonicsActivity.show(this);
-        VerifyMnemonicsActivity.show(this);
-//        viewModel.openWallet(this);
+//        VerifyMnemonicsActivity.show(this);
+        viewModel.openWallet(this);
         finish();
     }
 
@@ -115,8 +119,22 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
     @Override
     public void onCreatedWallet(Wallet wallet) {
         Log.d("onCreatedWallet");
-        showBackupMnenonicsDialog(mnenonics);
+//        showBackupMnenonicsDialog(mnenonics);
 
+        viewModel.openBackup(this,string2StringList(mnenonics));
+        finish();
+    }
+
+    private ArrayList<String>  string2StringList(String mnenonics){
+        ArrayList<String> list = new ArrayList<>();
+        String patternStr = "(\\s*=\\s*)|(\\s*,\\s*)|(\\s*;\\s*)|(\\s+)";
+        Pattern pattern = Pattern.compile(patternStr);
+        String[] dataArr = pattern.split(mnenonics);
+
+        for(int i = 0 ; i<dataArr.length;i++){
+            list.add(dataArr[i]);
+        }
+        return list;
     }
 
 

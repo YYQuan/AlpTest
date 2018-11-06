@@ -10,8 +10,10 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
 
 import dagger.Module;
@@ -109,5 +111,17 @@ public class InteractModule {
     public static ManagerAccountsRouter managerAccountsRouter(){
         return new ManagerAccountsRouter();
     }
+
+    @Provides
+    public static BackupRouter backupRouter(){
+        return new BackupRouter();
+    }
+
+    @Provides
+    public static VerifyMnemonicsRouter verifyMnemonicsRouter(){
+        return new VerifyMnemonicsRouter();
+    }
+
+
 
 }

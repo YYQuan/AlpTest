@@ -25,7 +25,7 @@ public class ImportKeyStorePresenter extends BasePresenter<ImportKeyStoreContrac
     }
 
     @Override
-    public void importKeyStore(String keyStore,String password) {
-        getViewModule().importKeystore(keyStore,password);
+    public void importKeyStore(String keyStore,String password,String name) {
+        getViewModule().importKeystore(keyStore,password,name);
     }
 }

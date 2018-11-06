@@ -4,7 +4,8 @@
     android:id="@+id/app_bar"
     android:theme="@style/AppTheme.Main"
     android:layout_width="match_parent"
-    android:layout_height="44dp"
+    android:layout_height="33dp"
+    app:elevation="0dp"
     >
     <!--<android.support.v7.widget.Toolbar-->
         <!--android:id="@+id/toolbar"-->
@@ -17,13 +18,14 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:background="@color/white"
-        android:elevation="8dp"
+        android:elevation="0dp"
         app:tabIndicatorColor="@color/colorBlue"
+
         android:layout_width="match_parent"
-        android:layout_height="44dp"
+        android:layout_height="wrap_content"
         app:tabTextColor="@color/textGrey"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabIndicatorHeight="1dp"
+        app:tabIndicatorHeight="2dp"
         >
 
     </android.support.design.widget.TabLayout>

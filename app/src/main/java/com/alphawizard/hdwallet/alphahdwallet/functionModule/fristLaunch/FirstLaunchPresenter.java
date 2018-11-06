@@ -52,7 +52,7 @@ final class FirstLaunchPresenter extends BasePresenter<FirstLaunchContract.View,
     @Override
     public void createWallet() {
 
-        getViewModule().newWallet();
+        getViewModule().newWallet("Wallet");
     }
 
 

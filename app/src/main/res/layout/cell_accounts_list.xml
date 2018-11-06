@@ -26,8 +26,11 @@
            android:layout_height="22dp"
            android:text="ETH-Wallet"
            android:textSize="16sp"
+           android:singleLine="true"
+           android:ellipsize="middle"
            android:textColor="@color/textBlack"
            android:layout_gravity="center_vertical"
+           android:gravity="center_vertical"
            android:layout_marginStart="10dp"/>
        <View
            android:layout_width="wrap_content"
@@ -49,6 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="22dp"
         android:layout_marginBottom="20dp"
+        android:singleLine="true"
+        android:ellipsize="middle"
         android:textColor="@color/textGreyThird"
         android:textSize="14sp"
         android:layout_gravity="center_horizontal"

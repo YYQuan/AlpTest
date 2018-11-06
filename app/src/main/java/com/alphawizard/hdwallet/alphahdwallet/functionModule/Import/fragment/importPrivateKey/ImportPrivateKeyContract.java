@@ -15,6 +15,6 @@ public interface ImportPrivateKeyContract {
     }
 
     interface Presenter extends BaseContract.BasePresenter<ImportPrivateKeyContract.View,ImportViewModule> {
-        void importPrivateKey(String privateKey);
+        void importPrivateKey(String privateKey,String  name);
     }
 }

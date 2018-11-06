@@ -27,7 +27,7 @@ public class ImportPrivateKeyPresenter extends BasePresenter<ImportPrivateKeyCon
 
 
     @Override
-    public void importPrivateKey(String privateKey) {
-        getViewModule().importPrivateKey(privateKey);
+    public void importPrivateKey(String privateKey,String  name) {
+        getViewModule().importPrivateKey(privateKey,name);
     }
 }

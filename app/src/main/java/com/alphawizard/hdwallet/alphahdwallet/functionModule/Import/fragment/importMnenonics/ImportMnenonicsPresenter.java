@@ -16,7 +16,7 @@ public class ImportMnenonicsPresenter extends BasePresenter<ImportMnenonicsContr
     }
 
     @Override
-    public void importMnenonics(String mnenonics) {
-        getViewModule().importMnenonics(mnenonics);
+    public void importMnenonics(String mnenonics,String name) {
+        getViewModule().importMnenonics(mnenonics,name);
     }
 }

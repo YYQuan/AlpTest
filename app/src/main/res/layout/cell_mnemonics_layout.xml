@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="32dp"
-    android:background="@drawable/bg_grey_side_fourth"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
     xmlns:tools="http://schemas.android.com/tools"
     >
+    <View
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 
     <TextView
         android:id="@+id/txt_cell_mnemonic"
-        android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_grey_side_fourth"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:textSize="15sp"
-        android:textColor="@color/textGreyFourth"/>
+        android:textColor="@color/textGreyFourth"
+        android:singleLine="true"
+        android:ellipsize="middle"
+
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"/>
+    <View
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
 </LinearLayout>

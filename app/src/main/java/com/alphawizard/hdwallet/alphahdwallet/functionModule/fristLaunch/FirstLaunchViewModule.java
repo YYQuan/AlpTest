@@ -10,12 +10,15 @@ import com.alphawizard.hdwallet.alphahdwallet.data.Local;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.C;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
 import com.alphawizard.hdwallet.common.util.Log;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -29,7 +32,7 @@ public class FirstLaunchViewModule extends BaseViewModel {
     WalletRouter  walletRouter;
     ImportRouter importRouter;
     DefaultWalletInteract defaultWalletInteract;
-
+    BackupRouter backupRouter;
 
 
     CreateWalletInteract.CreateWalletEntity mEntity ;
@@ -40,11 +43,13 @@ public class FirstLaunchViewModule extends BaseViewModel {
     public FirstLaunchViewModule(CreateWalletInteract createWalletInteract,
                                  DefaultWalletInteract defaultWalletInteract,
                                  WalletRouter  walletRouter,
+                                 BackupRouter backupRouter,
                                  ImportRouter importRouter)
     {
         this.createWalletInteract = createWalletInteract;
         this.defaultWalletInteract = defaultWalletInteract;
         this.walletRouter = walletRouter;
+        this.backupRouter =  backupRouter;
         this.importRouter = importRouter;
     }
 
@@ -60,13 +65,13 @@ public class FirstLaunchViewModule extends BaseViewModel {
         return createdWallet;
     }
 
-    public void newWallet() {
+    public void newWallet(String name) {
         progress.setValue(true);
 
         //        CreateWalletEntity
         createWalletInteract
                         .generatePassword()
-                        .flatMap(s->createWalletInteract.generateMnenonics(s))
+                        .flatMap(s->createWalletInteract.generateMnenonics(s,name))
                         .flatMap(e-> {
                             mEntity = e;
                             createWalletEntity.postValue(mEntity);
@@ -99,6 +104,10 @@ public class FirstLaunchViewModule extends BaseViewModel {
 
     public void openImport(Context context){
         importRouter.open(context);
+    }
+
+    public void openBackup(Context context,ArrayList<String> strings){
+        backupRouter.open(context,strings);
     }
 
 

@@ -87,7 +87,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="56dp" />
+        tools:layout_editor_absoluteX="56dp"
+        android:paddingBottom="@dimen/defaultNavHeight" />
 
     <com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout
         android:id="@+id/place_holder"

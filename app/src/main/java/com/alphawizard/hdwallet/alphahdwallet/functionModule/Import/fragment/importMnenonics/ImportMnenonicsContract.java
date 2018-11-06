@@ -11,6 +11,6 @@ public interface ImportMnenonicsContract {
     }
 
     interface Presenter extends BaseContract.BasePresenter<ImportMnenonicsContract.View,ImportViewModule> {
-        void  importMnenonics(String mnenonics);
+        void  importMnenonics(String mnenonics,String name);
     }
 }

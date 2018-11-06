@@ -199,7 +199,7 @@ public class WalletViewModule extends BaseViewModel {
     }
 
     public void exportAccount(Wallet wallet,String password){
-        mExportWalletInteract.export(wallet,password)
+        mExportWalletInteract.exportKeystore(wallet,password)
                 .subscribe(this::exportAccountSuccess,this::exportAccountError);
 //        mWalletRepositoryType
 //                .exportAccount(wallet,password)

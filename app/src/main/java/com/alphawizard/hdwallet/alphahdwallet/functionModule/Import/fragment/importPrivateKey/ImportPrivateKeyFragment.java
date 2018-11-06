@@ -34,7 +34,7 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
 
     @OnClick(R.id.btn_import)
     void onClickImport(){
-        getmPresenter().importPrivateKey(mPrivatekey.getText().toString());
+        getmPresenter().importPrivateKey(mPrivatekey.getText().toString(),"Wallet");
     }
 
     public static ImportPrivateKeyFragment create() {

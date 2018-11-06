@@ -42,6 +42,7 @@
         android:layout_marginTop="6dp"/>
 
     <TextView
+        android:id="@+id/txt_mnemonics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="right  straegy  nerve  afraid  fancy  pigeon  fatal  tone  rather  cross  little  cry"
@@ -56,6 +57,7 @@
         android:gravity="center"/>
 
     <TextView
+        android:id="@+id/txt_copy"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:text="复制"
@@ -70,6 +72,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"/>
     <Button
+        android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginEnd="20dp"

@@ -9,7 +9,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.ethereum.geth.Geth;
 import org.ethereum.geth.KeyStore;
+import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Keys;
+import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.AdminFactory;
 import org.web3j.protocol.http.HttpService;
@@ -367,5 +369,33 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
             }
         }
         throw new ServiceException("Wallet with address: " + address + " not found");
+    }
+
+
+    /**
+     * 通过keystore  获取私钥
+     */
+    public Single<String>  getPrivateKeyFromKeystore(String keystore,String password){
+
+        return Single.fromCallable(()-> {
+            String privateKey = null;
+            ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
+            try {
+                WalletFile walletFile = objectMapper.readValue(keystore, WalletFile.class);
+                ECKeyPair ecKeyPair = null;
+                ecKeyPair = org.web3j.crypto.Wallet.decrypt(password, walletFile);
+                privateKey = ecKeyPair.getPrivateKey().toString(16);
+                System.out.println(privateKey);
+            } catch (CipherException e) {
+                if ("Invalid password provided".equals(e.getMessage())) {
+                    System.out.println("密码错误");
+                }
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return privateKey;
+        });
     }
 }

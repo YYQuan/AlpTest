@@ -61,8 +61,9 @@ public class RepositoriesModule {
 
 	@Singleton
 	@Provides
-	PasswordStore providePasswordStoreRepositoryType(Context context) {
-		return new PasswordStoreRepository(context);
+	PasswordStore providePasswordStoreRepositoryType(Context context,
+													 AccountKeystoreService accountKeystoreService) {
+		return new PasswordStoreRepository(context,accountKeystoreService);
 	}
 
 

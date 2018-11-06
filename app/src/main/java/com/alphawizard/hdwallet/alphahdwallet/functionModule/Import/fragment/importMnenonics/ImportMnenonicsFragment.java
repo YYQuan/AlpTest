@@ -35,7 +35,7 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     @OnClick(R.id.btn_import)
     void onClickImport(){
 
-        getmPresenter().importMnenonics(mMnenonics.getText().toString());
+        getmPresenter().importMnenonics(mMnenonics.getText().toString(),"Wallet");
     }
 
     public static ImportMnenonicsFragment create() {

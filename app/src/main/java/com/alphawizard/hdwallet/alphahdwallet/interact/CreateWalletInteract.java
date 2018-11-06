@@ -39,6 +39,7 @@ public class CreateWalletInteract {
 		return  walletRepository.createAccount(entiry.mnenonics,entiry.password)
 				.compose(Operators.savePassword(passwordStore, walletRepository, entiry.password))
 				.compose(Operators.saveMnemonics(passwordStore, walletRepository, entiry.mnenonics))
+				.compose(Operators.saveWalletName(passwordStore, walletRepository, entiry.walletName))
 				.flatMap(wallet -> passwordVerification(wallet, entiry.password));
 
 	}
@@ -59,9 +60,9 @@ public class CreateWalletInteract {
 
 
 
-	public Single<CreateWalletEntity>  generateMnenonics(String password){
+	public Single<CreateWalletEntity>  generateMnenonics(String password,String walletName){
 		return walletRepository.generateMnemonics()
-				.flatMap(s-> Single.just(new CreateWalletEntity(s,password)));
+				.flatMap(s-> Single.just(new CreateWalletEntity(s,password,walletName)));
 	}
 
 	public Single<String>  generatePassword(){
@@ -72,16 +73,26 @@ public class CreateWalletInteract {
 	public static class  CreateWalletEntity {
 		String   password ;
 		String  mnenonics ;
+		String walletName;
 
 
-		public CreateWalletEntity(String mnenonics , String  password) {
+		public CreateWalletEntity(String mnenonics , String  password,String walletName) {
 			this.password = password;
 			this.mnenonics = mnenonics;
+			this.walletName = walletName;
 		}
 
 		public String getPassword() {
 
 			return password;
+		}
+
+		public String getWalletName() {
+			return walletName;
+		}
+
+		public void setWalletName(String walletName) {
+			this.walletName = walletName;
 		}
 
 		public void setPassword(String password) {

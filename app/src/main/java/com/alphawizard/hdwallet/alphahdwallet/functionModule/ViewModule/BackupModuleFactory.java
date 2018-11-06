@@ -8,20 +8,21 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 
 public class BackupModuleFactory implements ViewModelProvider.Factory{
 
+    VerifyMnemonicsRouter verifyMnemonicsRouter;
 
-
-    public BackupModuleFactory() {
-
+    public BackupModuleFactory(VerifyMnemonicsRouter verifyMnemonicsRouter) {
+        this.verifyMnemonicsRouter = verifyMnemonicsRouter;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new BackupViewModule();
+        return (T)new BackupViewModule( verifyMnemonicsRouter);
     }
 }

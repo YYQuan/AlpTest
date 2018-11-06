@@ -4,20 +4,21 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsViewModule;
 
 public class VerifyMnemonicsModuleFactory implements ViewModelProvider.Factory{
 
+    WalletRouter mWalletRouter;
 
-
-    public VerifyMnemonicsModuleFactory() {
-
+    public VerifyMnemonicsModuleFactory(WalletRouter walletRouter) {
+        mWalletRouter = walletRouter;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new VerifyMnemonicsViewModule();
+        return (T)new VerifyMnemonicsViewModule(mWalletRouter);
     }
 }

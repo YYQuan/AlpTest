@@ -39,7 +39,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
 
     @OnClick(R.id.btn_import)
     void onClickImport(){
-        getmPresenter().importKeyStore(mKeystore.getText().toString(),mPassword.getText().toString());
+        getmPresenter().importKeyStore(mKeystore.getText().toString(),mPassword.getText().toString(),"Wallet");
     }
 
     public static ImportKeyStoreFragment create() {

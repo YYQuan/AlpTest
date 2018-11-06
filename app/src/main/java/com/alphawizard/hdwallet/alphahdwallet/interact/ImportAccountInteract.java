@@ -19,27 +19,30 @@ public class ImportAccountInteract {
         mPasswordStore =  passwordStore;
     }
 
-    public Single<Wallet>  importKeystore(String keystore,String password){
+    public Single<Wallet>  importKeystore(String keystore,String password,String name){
         return mPasswordStore.generatePassword()
                 .flatMap(newPassword->mWalletRepositoryType.importKeystore(keystore,password,newPassword)
                         .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, newPassword))
+                        .compose(Operators.saveWalletName(mPasswordStore, mWalletRepositoryType,name))
                         .flatMap(wallet -> passwordVerification(wallet, newPassword)));
 
 
     }
 
-    public Single<Wallet>  importPrivateKey(String privateKey){
+    public Single<Wallet>  importPrivateKey(String privateKey,String name){
         return mPasswordStore.generatePassword()
                 .flatMap(newPassword ->mWalletRepositoryType.importPrivateKey(privateKey,newPassword)
                         .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, newPassword))
+                        .compose(Operators.saveWalletName(mPasswordStore, mWalletRepositoryType,name))
                         .flatMap(wallet -> passwordVerification(wallet, newPassword)));
     }
 
-    public Single<Wallet>  importMnenonics(String mnemonics){
+    public Single<Wallet>  importMnenonics(String mnemonics,String name){
         return mPasswordStore.generatePassword()
                 .flatMap(newPassword ->mWalletRepositoryType.importMnenonics(mnemonics,newPassword)
                         .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, newPassword))
                         .compose(Operators.saveMnemonics(mPasswordStore, mWalletRepositoryType, mnemonics))
+                        .compose(Operators.saveWalletName(mPasswordStore, mWalletRepositoryType,name))
                         .flatMap(wallet -> passwordVerification(wallet, newPassword)));
     }
 

@@ -15,6 +15,6 @@ public interface ImportKeyStoreContract {
     }
 
     interface Presenter extends BaseContract.BasePresenter<ImportKeyStoreContract.View,ImportViewModule> {
-        void  importKeyStore(String keyStore,String password);
+        void  importKeyStore(String keyStore,String password,String name);
     }
 }
