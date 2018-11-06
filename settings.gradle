@@ -1,1 +1,1 @@
-include ':app', ':common', ':lang',  ':common', ':web3lib'
+include ':app', ':common', ':lang',  ':common', ':web3lib', ':lib-zxing'

@@ -101,11 +101,8 @@ dependencies {
     implementation 'io.github.novacrypto:BIP39:0.1.9'
     implementation 'com.lhalcyon:bip32:1.0.0'
     implementation 'io.github.novacrypto:BIP44:0.0.3'
-
-
     implementation 'com.github.TrustWallet:TrustSdk-android:0.01.13'
-
-
     implementation project(':common')
     implementation project(':web3lib')
+    implementation project(':lib-zxing')
 }

@@ -83,7 +83,20 @@
             app:gHintTitle="none"
             app:gLineSize="0dp"
             android:layout_toRightOf="@id/v_placeholder1"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"/>
+        
+        <ImageView
+            android:id="@+id/iv_code"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_code_icon"
+            android:backgroundTint="#D4D4D4"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:layout_marginEnd="12dp"
+            />
 
     </RelativeLayout>
 
