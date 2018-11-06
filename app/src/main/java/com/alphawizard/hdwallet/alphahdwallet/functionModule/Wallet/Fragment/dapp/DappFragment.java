@@ -25,6 +25,7 @@ import java.math.BigInteger;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import trust.Call;
 import trust.SignMessageRequest;
 import trust.SignPersonalMessageRequest;
@@ -78,6 +79,18 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
     @BindView(R.id.web3view)
     Web3View web3;
+
+    @OnClick(R.id.btn_success)
+    void onClickSuccess(){
+//        web3.onSignCancel(mTransaction);
+        web3.onSignTransactionSuccessful(mTransaction,null);
+    }
+    @OnClick(R.id.btn_fail)
+    void onClickFail(){
+        web3.onSignCancel(mTransaction);
+//        web3.onSignTransactionSuccessful(mTransaction,null);
+    }
+
 
     @Override
     public void initWidget(View view) {
@@ -160,12 +173,13 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
         mTransaction = transaction;
 
-//        viewModel.sendTransaction(transaction.recipient.toString(),transaction.value,transaction.gasPrice,transaction.gasLimit,transaction.nonce);
+//        viewModel.sendTran
+// saction(transaction.recipient.toString(),transaction.value,transaction.gasPrice,transaction.gasLimit,transaction.nonce);
 //        viewModel.sendTransaction(transaction.recipient.toString(),"0.05",transaction.payload);
         BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
         viewModel.sendTransaction(transaction.recipient.toString(), transaction.value , transaction.gasPrice,gasLimit,transaction.nonce,transaction.payload,4);
 //        web3.onSignCancel(transaction);
-//        web3.onSignTransactionSuccessful(mTransaction,"0x667f451dc20e67169cc8eb9d45113f164f2f183dd4223a73dd5d4d6aaffce331");
+//        web3.onSignTransactionSuccessful(mTransaction,null);
 
 
     }

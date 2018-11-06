@@ -142,9 +142,11 @@ public class Web3View extends WebView {
     }
 
     public void onSignTransactionSuccessful(Transaction transaction, String signHex) {
-        long callbackId = transaction.leafPosition;
-        callbackToJS(callbackId, JS_PROTOCOL_ON_SUCCESSFUL, signHex);
-        Log.d("YYQ","WEB_VIEW:  transaction  hash:"+signHex);
+//        long callbackId = transaction.leafPosition;
+//        callbackToJS(callbackId, JS_PROTOCOL_ON_SUCCESSFUL, signHex);
+//        Log.d("YYQ","WEB_VIEW:  transaction  hash:"+signHex);
+
+        callbackToJS( "window.hd.betSuccess()");
     }
 
     public void onSignMessageSuccessful(Message message, String signHex) {
@@ -169,10 +171,12 @@ public class Web3View extends WebView {
     }
 
     public void onSignCancel(Transaction transaction) {
-        long callbackId = transaction.leafPosition;
-        Log.d("YYQ","signing a   onSignCancel callbackId :"+callbackId);
+//        long callbackId = transaction.leafPosition;
+//        Log.d("YYQ","signing a   onSignCancel callbackId :"+callbackId);
 //        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
-        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, "nimei");
+
+//        "onSignError(%1$s, \"%2$s\")"
+        callbackToJS( "window.hd.betFailed()");
     }
 
     public void onSignCancel(Message message) {
@@ -182,6 +186,12 @@ public class Web3View extends WebView {
 
     private void callbackToJS(long callbackId, String function, String param) {
         String callback = String.format(function, callbackId, param);
+
+        post(() -> evaluateJavascript(callback, value -> Log.d("WEB_VIEW", value)));
+    }
+
+    private void callbackToJS( String function) {
+        String callback = String.format(function);
 
         post(() -> evaluateJavascript(callback, value -> Log.d("WEB_VIEW", value)));
     }
