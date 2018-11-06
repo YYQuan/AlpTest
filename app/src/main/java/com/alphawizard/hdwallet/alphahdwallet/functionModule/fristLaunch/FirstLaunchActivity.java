@@ -108,6 +108,7 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
 
     @OnClick(R.id.btn_create_account)
     void onClickBtnCreate(){
+        showLoading();
         mPresenter.createWallet();
     }
 
@@ -118,6 +119,7 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
 
     @Override
     public void onCreatedWallet(Wallet wallet) {
+        hideLoading();
         Log.d("onCreatedWallet");
 //        showBackupMnenonicsDialog(mnenonics);
 

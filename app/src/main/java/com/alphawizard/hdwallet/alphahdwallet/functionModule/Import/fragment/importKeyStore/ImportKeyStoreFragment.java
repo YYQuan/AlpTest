@@ -12,6 +12,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportVi
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Account.AccountContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 
 import javax.inject.Inject;
@@ -36,6 +37,9 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
 
     @BindView(R.id.btn_import )
     Button mImport;
+
+
+
 
     @OnClick(R.id.btn_import)
     void onClickImport(){
@@ -72,6 +76,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
 
     private void importCallback(Boolean aBoolean) {
         if(aBoolean){
+
             viewModel.openWallet(getActivity());
             getActivity().finish();
         }

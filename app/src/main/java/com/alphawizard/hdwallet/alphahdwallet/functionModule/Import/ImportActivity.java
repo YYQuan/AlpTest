@@ -72,7 +72,6 @@ public class ImportActivity extends BasePresenterToolbarActivity<ImportContract.
     @OnClick({R.id.btn_privateKey,R.id.btn_keystore,R.id.btn_mnemonics})
     void onClickImportBTN(Button  itemID){
         Log.d("  now  " + itemID.getId());
-
         switch (itemID.getId()){
             case R.id.btn_mnemonics:
                 mHelper.performClickMenu(MNENONICS_FORM_INDEX);
