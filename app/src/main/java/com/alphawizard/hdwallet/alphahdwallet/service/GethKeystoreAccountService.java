@@ -213,10 +213,17 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
         String addressStr ="\"address\"";
         int addressIndex = store.indexOf(addressStr);
         int crypToIndex = store.indexOf("\"crypto\"");
-        String subStore = store.substring(addressIndex+addressStr.length(),crypToIndex);
+        int idIndex = store.indexOf("\"id\"");
+        int clientIndex = store.indexOf("\"client\"");
+        int versionIndex = store.indexOf("\"version\"");
+
+        String subStore = store.substring(addressIndex+addressStr.length());
+//        String subStore = store.substring(addressIndex+addressStr.length(),crypToIndex);
+
         int firstIndex = subStore.indexOf("\"");
-        int lastIndex = subStore.lastIndexOf("\"");
-        String address = subStore.substring(firstIndex+1,lastIndex);
+        subStore = subStore.substring(firstIndex+1);
+        firstIndex = subStore.indexOf("\"");
+        String address = subStore.substring(0,firstIndex);
 
         return address;
     }
@@ -227,7 +234,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
      * @param accounts      geth 管理的账户集合
      * @return
      */
-    private  boolean isEnableImportKeyStore(String address, Accounts accounts){
+    private  boolean  isEnableImportKeyStore(String address, Accounts accounts){
 
         address = "0x"+address;
 

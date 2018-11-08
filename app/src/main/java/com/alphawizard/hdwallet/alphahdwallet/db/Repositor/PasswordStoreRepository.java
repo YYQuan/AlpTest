@@ -40,13 +40,13 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
 	public Single<String> getPassword(Wallet wallet) {
 		return Single.fromCallable(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 String password =  new String(KS.get(context,wallet.address));
                 return password;
             } else {
-
-                    throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
-
+                String password = SharedPreferenceRepository.getPassword(wallet.address);
+//                    throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+                return password;
             }
         });
 	}
@@ -54,11 +54,14 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
     public Single<String> getMnemonics(Wallet wallet) {
         return Single.fromCallable(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 String mnemonics =  new String(KS.get(context,MNEMONICS_TAG + wallet.address));
                 return mnemonics;
             } else {
-                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+
+                String mnemonics = SharedPreferenceRepository.getMnemonics(wallet.address);
+                return mnemonics;
+//                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
             }
         });
     }
@@ -67,11 +70,12 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
 	public Completable setPassword(Wallet wallet, String password) {
         return Completable.fromAction(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                  KS.put(context, wallet.address, password);
 
             } else {
-                    throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+                SharedPreferenceRepository.setPassword(wallet.address,password);
+//                    throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
             }
         });
 	}
@@ -79,11 +83,12 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
     public Completable setMnemonics(Wallet wallet, String mnemonics) {
         return Completable.fromAction(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 KS.put(context, MNEMONICS_TAG + wallet.address, mnemonics);
 
             } else {
-                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+                SharedPreferenceRepository.setMnemonics(wallet.address,mnemonics);
+//                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
             }
         });
     }
@@ -91,11 +96,12 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
     public Completable setWalletName(Wallet wallet, String name) {
         return Completable.fromAction(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 KS.put(context, WALLET_NAME_TAG + wallet.address, name);
 
             } else {
-                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+                SharedPreferenceRepository.setName(wallet.address,name);
+//                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
             }
         });
     }
@@ -103,11 +109,13 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
     public Single<String> getWalletName(Wallet wallet) {
         return Single.fromCallable(() -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 String name =  new String(KS.get(context,WALLET_NAME_TAG + wallet.address));
                 return name;
             } else {
-                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+                String name =SharedPreferenceRepository.getName(wallet.address);
+                return  name;
+//                throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
             }
         });
     }
@@ -117,7 +125,9 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
     public Single<String> generatePassword() {
         return Single.fromCallable(() -> {
-            byte bytes[] = new byte[256];
+//            byte bytes[] = new byte[256];
+//          aes加密算法 长度不能长过128
+            byte bytes[] = new byte[128];
             SecureRandom random = new SecureRandom();
             random.nextBytes(bytes);
 //			没做password  保存之前， 就先用123 作为 password
