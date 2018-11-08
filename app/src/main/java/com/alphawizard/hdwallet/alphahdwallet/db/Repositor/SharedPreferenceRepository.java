@@ -111,16 +111,16 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
 
 	public static  String setMnemonics(String addresss,String mnemonics){
 		String key = getAESPrivatekey();
-//		mnemonics = AESUtils.encrypt(mnemonics,key);
+		mnemonics = AESUtils.encrypt(key,mnemonics);
 		pref.edit().putString(WALLET_MNEMONICS_KEY+addresss, mnemonics).apply();
 		return mnemonics;
 	}
 
 	public static  String getMnemonics(String address){
-		return pref.getString(WALLET_MNEMONICS_KEY+address, null);
-//		String  encode = pref.getString(WALLET_MNEMONICS_KEY+address, null);
-//				String key = getAESPrivatekey();
-//		return AESUtils.decrypt(encode,key);
+//		return pref.getString(WALLET_MNEMONICS_KEY+address, null);
+		String  encode = pref.getString(WALLET_MNEMONICS_KEY+address, null);
+				String key = getAESPrivatekey();
+		return AESUtils.decrypt(key,encode);
 	}
 
 }
