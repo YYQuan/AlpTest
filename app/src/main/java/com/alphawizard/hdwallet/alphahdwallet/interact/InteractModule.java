@@ -3,22 +3,18 @@ package com.alphawizard.hdwallet.alphahdwallet.interact;
 
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PreferenceRepositoryType;
-import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepository;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
-import com.alphawizard.hdwallet.alphahdwallet.di.ActivityScoped;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsRouter;
-import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.OkHttpClient;
 
 /**
  * provides  interact and     router
@@ -83,8 +79,8 @@ public class InteractModule {
 
      */
     @Provides
-    public static FirstLaunchRouter providesFirstLaunchRouter(){
-        return new FirstLaunchRouter();
+    public static CreateOrImportRouter providesFirstLaunchRouter(){
+        return new CreateOrImportRouter();
     }
 
     @Provides

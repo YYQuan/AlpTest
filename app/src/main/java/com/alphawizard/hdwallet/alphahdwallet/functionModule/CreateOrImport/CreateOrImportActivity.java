@@ -1,10 +1,9 @@
-package com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch;
+package com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
@@ -15,20 +14,13 @@ import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupMnemonicsActivity;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsActivity;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
-import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -36,7 +28,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContract.Presenter,FirstLaunchViewModule> implements FirstLaunchContract.View {
+public class CreateOrImportActivity extends BasePresenterActivity<CreateOrImportContract.Presenter,CreateOrImportViewModule> implements CreateOrImportContract.View {
 
     //false :  有defaultWallet 的情况下 不跳转；true:反之
     public final static String  FIRST_OPEN = "FirstOpen";
@@ -49,10 +41,10 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
 
     @Inject
     FirstLaunchViewModuleFactory walletsViewModuleFactory;
-    FirstLaunchViewModule viewModel;
+    CreateOrImportViewModule viewModel;
 
     @Inject
-    FirstLaunchContract.Presenter mPresenter;
+    CreateOrImportContract.Presenter mPresenter;
 
     String  mnenonics ;
     private Dialog dialog;
@@ -63,12 +55,12 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
     }
 
     @Override
-    public FirstLaunchContract.Presenter initPresenter() {
+    public CreateOrImportContract.Presenter initPresenter() {
         return mPresenter;
     }
 
     @Override
-    public FirstLaunchViewModule initViewModule() {
+    public CreateOrImportViewModule initViewModule() {
         return viewModel;
     }
 
@@ -77,7 +69,7 @@ public class FirstLaunchActivity extends BasePresenterActivity<FirstLaunchContra
         super.initData();
 
         viewModel = ViewModelProviders.of(this, walletsViewModuleFactory)
-                .get(FirstLaunchViewModule.class);
+                .get(CreateOrImportViewModule.class);
         mPresenter.takeView(this,viewModel);
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
         viewModel.defaultWallet().observe(this,this::onDefaultWallet);

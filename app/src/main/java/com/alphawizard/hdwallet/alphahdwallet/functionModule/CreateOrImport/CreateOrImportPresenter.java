@@ -14,29 +14,22 @@
  * limitations under the License.
  */
 
-package com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch;
+package com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport;
 
-import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.di.ActivityScoped;
 
-import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
-import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
-import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.presenter.BasePresenter;
-import com.alphawizard.hdwallet.common.util.Log;
 
 import java.security.SecureRandom;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-
 
 @ActivityScoped
-final class FirstLaunchPresenter extends BasePresenter<FirstLaunchContract.View,FirstLaunchViewModule> implements FirstLaunchContract.Presenter {
+final class CreateOrImportPresenter extends BasePresenter<CreateOrImportContract.View,CreateOrImportViewModule> implements CreateOrImportContract.Presenter {
 
     @Inject
-    FirstLaunchPresenter() {
+    CreateOrImportPresenter() {
     }
 
     //产生 随机  password

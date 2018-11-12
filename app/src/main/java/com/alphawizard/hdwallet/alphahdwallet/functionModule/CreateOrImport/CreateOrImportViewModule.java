@@ -1,12 +1,10 @@
-package com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch;
+package com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.widget.Toast;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
-import com.alphawizard.hdwallet.alphahdwallet.data.Local;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
@@ -14,19 +12,13 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.Bac
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
-import com.alphawizard.hdwallet.common.base.ViewModule.entity.C;
-import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
-import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import rx.Single;
 
-public class FirstLaunchViewModule extends BaseViewModel {
+public class CreateOrImportViewModule extends BaseViewModel {
 
     CreateWalletInteract createWalletInteract ;
     WalletRouter  walletRouter;
@@ -40,11 +32,11 @@ public class FirstLaunchViewModule extends BaseViewModel {
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
     private final MutableLiveData<CreateWalletInteract.CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
 
-    public FirstLaunchViewModule(CreateWalletInteract createWalletInteract,
-                                 DefaultWalletInteract defaultWalletInteract,
-                                 WalletRouter  walletRouter,
-                                 BackupRouter backupRouter,
-                                 ImportRouter importRouter)
+    public CreateOrImportViewModule(CreateWalletInteract createWalletInteract,
+                                    DefaultWalletInteract defaultWalletInteract,
+                                    WalletRouter  walletRouter,
+                                    BackupRouter backupRouter,
+                                    ImportRouter importRouter)
     {
         this.createWalletInteract = createWalletInteract;
         this.defaultWalletInteract = defaultWalletInteract;

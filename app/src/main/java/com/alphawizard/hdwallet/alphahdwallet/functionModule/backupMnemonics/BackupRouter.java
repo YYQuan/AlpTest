@@ -3,10 +3,7 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics;
 import android.content.Context;
 import android.content.Intent;
 
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchActivity;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class BackupRouter {
 

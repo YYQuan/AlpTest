@@ -2,9 +2,7 @@ package com.alphawizard.hdwallet.alphahdwallet.di;
 
 
 
-import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendActivity;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsActivity;
@@ -15,8 +13,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.Wallet
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupMnemonicsActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupModule;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchActivity;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsActivity;
@@ -40,8 +37,8 @@ public abstract class ActivityBindingModule {
 
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = FirstLaunchModule.class)
-    abstract FirstLaunchActivity firstLaunchActivity();
+    @ContributesAndroidInjector(modules = CreateOrImportModule.class)
+    abstract CreateOrImportActivity firstLaunchActivity();
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = WalletModule.class)

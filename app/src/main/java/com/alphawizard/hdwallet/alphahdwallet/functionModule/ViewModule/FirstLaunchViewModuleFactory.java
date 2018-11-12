@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 
@@ -34,6 +34,6 @@ public class FirstLaunchViewModuleFactory  implements ViewModelProvider.Factory{
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T)new FirstLaunchViewModule(mInteract,mDefaultWalletInteract,mWalletRouter,mBackupRouter,mImportRouter);
+        return (T)new CreateOrImportViewModule(mInteract,mDefaultWalletInteract,mWalletRouter,mBackupRouter,mImportRouter);
     }
 }

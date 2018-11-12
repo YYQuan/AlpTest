@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-package com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch;
+package com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
-import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.presenter.BaseContract;
-
-import io.reactivex.Single;
 
 /**
  * This specifies the contract between the view and the presenter.
  */
-public interface FirstLaunchContract {
+public interface CreateOrImportContract {
 
-    interface View extends BaseContract.BaseView<Presenter,FirstLaunchViewModule> {
+    interface View extends BaseContract.BaseView<Presenter,CreateOrImportViewModule> {
         void onCreatedWallet(Wallet wallet);
     }
 
-    interface Presenter extends BaseContract.BasePresenter<View,FirstLaunchViewModule> {
+    interface Presenter extends BaseContract.BasePresenter<View,CreateOrImportViewModule> {
         void  createWallet();
 
     }

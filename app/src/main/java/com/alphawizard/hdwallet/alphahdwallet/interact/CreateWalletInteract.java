@@ -2,23 +2,10 @@ package com.alphawizard.hdwallet.alphahdwallet.interact;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
-import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PreferenceRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
-import com.alphawizard.hdwallet.alphahdwallet.di.ActivityScoped;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchActivity;
-import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
-import com.alphawizard.hdwallet.alphahdwallet.service.GethKeystoreAccountService;
 import com.alphawizard.hdwallet.alphahdwallet.utils.rx.Operators;
-import com.alphawizard.hdwallet.common.util.Log;
-
-import java.security.SecureRandom;
-import java.util.List;
-
-import javax.inject.Inject;
 
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.functions.Function;
 
 import static com.alphawizard.hdwallet.alphahdwallet.utils.rx.Operators.completableErrorProxy;
 

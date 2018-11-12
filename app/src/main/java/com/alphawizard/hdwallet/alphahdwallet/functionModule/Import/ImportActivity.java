@@ -1,43 +1,20 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Import;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.app.Activity;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
 
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importKeyStore.ImportKeyStoreFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importMnenonics.ImportMnenonicsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importPrivateKey.ImportPrivateKeyFragment;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Account.AccountFragment;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp.DappFragment;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchContract;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchViewModule;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
-import com.alphawizard.hdwallet.alphahdwallet.utils.Adapter.TabPagerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
 import com.alphawizard.hdwallet.common.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

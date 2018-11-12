@@ -8,8 +8,8 @@ import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
@@ -25,19 +25,13 @@ import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -54,7 +48,7 @@ public class WalletViewModule extends BaseViewModel {
     SendTransactionInteract mSendTransactionInteract;
     SendRouter  mSendRouter;
     FetchWalletInteract mFetchWalletInteract;
-    FirstLaunchRouter  mFirstLaunchRouter;
+    CreateOrImportRouter mCreateOrImportRouter;
     ManagerAccountsRouter mManagerRouter;
     ExportWalletInteract mExportWalletInteract;
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
@@ -80,7 +74,7 @@ public class WalletViewModule extends BaseViewModel {
                             GetBalanceInteract  getBalanceInteract,
                             ExportWalletInteract exportWalletInteract,
                             SendTransactionInteract sendTransactionInteract,
-                            FirstLaunchRouter  firstLaunchRouter,
+                            CreateOrImportRouter createOrImportRouter,
                             SendRouter  sendRouter,
                             ManagerAccountsRouter managerRouter,
                             WalletRepositoryType walletRepositoryType
@@ -93,7 +87,7 @@ public class WalletViewModule extends BaseViewModel {
         mExportWalletInteract =exportWalletInteract;
         mSendTransactionInteract = sendTransactionInteract;
         mWalletRepositoryType  =  walletRepositoryType;
-        mFirstLaunchRouter = firstLaunchRouter;
+        mCreateOrImportRouter = createOrImportRouter;
         mGetBalanceInteract =getBalanceInteract;
         mSendRouter = sendRouter;
         mManagerRouter = managerRouter ;
@@ -307,7 +301,7 @@ public class WalletViewModule extends BaseViewModel {
     }
 
     public void openFirstLaunch(Context context){
-        mFirstLaunchRouter.open(context);
+        mCreateOrImportRouter.open(context);
     }
 
     public void openManagerRouter(Context context){

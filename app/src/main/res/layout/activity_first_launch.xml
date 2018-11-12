@@ -9,7 +9,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#3574FA"
-    tools:context=".functionModule.fristLaunch.FirstLaunchActivity"
+    tools:context=".functionModule.CreateOrImport.CreateOrImportActivity"
 
     >
 

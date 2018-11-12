@@ -4,24 +4,16 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.app.Activity;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchContract;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchViewModule;
-import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

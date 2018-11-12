@@ -1,8 +1,6 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.send;
 
 import com.alphawizard.hdwallet.alphahdwallet.di.ActivityScoped;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchContract;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.fristLaunch.FirstLaunchViewModule;
 import com.alphawizard.hdwallet.common.presenter.BasePresenter;
 
 import javax.inject.Inject;
