@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -19,7 +19,9 @@
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp"
         android:layout_gravity="center"
+        android:layout_alignParentTop="true"
         app:titleTextAppearance="@style/TextAppearance.Title">
+
 
         <TextView
             android:id="@+id/tv_toolbar_title"
@@ -34,31 +36,63 @@
     </android.support.v7.widget.Toolbar>
 
 
-
     <FrameLayout
         android:id="@+id/lay_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/defaultNavHeight"
         android:paddingTop="@dimen/actionBarWithStatusBarSize"
+        android:paddingBottom="@dimen/defaultNavHeight"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </FrameLayout>
 
-    <android.support.design.widget.BottomNavigationView
+
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/defaultNavHeight"-->
+        <!--app:menu="@menu/navigation_items"-->
+        <!--android:elevation="@dimen/len_4"-->
+        <!--android:outlineProvider="bounds"-->
+        <!--android:translationZ="@dimen/len_8"-->
+        <!--tools:targetApi="lollipop"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:background="@color/white"-->
+        <!--app:itemTextColor="@color/text_nav"-->
+        <!--app:itemIconTint="@color/text_nav"-->
+
+    <!--/>-->
+
+
+    <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="@dimen/defaultNavHeight"
         app:menu="@menu/navigation_items"
         android:elevation="@dimen/len_4"
         android:outlineProvider="bounds"
-        android:translationZ="@dimen/len_8"
         tools:targetApi="lollipop"
-        android:background="@color/white"
+        android:layout_alignParentBottom="true"
+        android:background="#10101A"
         app:itemTextColor="@color/text_nav"
         app:itemIconTint="@color/text_nav"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-    />
+        />
 
-</android.support.constraint.ConstraintLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:src="#10101A"
+        android:background="#10101A"
+        android:backgroundTint="#10101A"
+        android:foreground="@mipmap/dapp"
+        app:borderWidth="0dp"
+        app:elevation="9dp"/>
+
+</RelativeLayout>

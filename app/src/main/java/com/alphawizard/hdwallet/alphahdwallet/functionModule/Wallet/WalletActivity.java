@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -54,6 +55,9 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
     @BindView(R.id.tv_toolbar_title)
     TextView mTitle;
+
+    @BindView(R.id.fab)
+    FloatingActionButton floatingActionButton;
 
     private NavHelper<Integer> mHelper;
 
@@ -189,6 +193,15 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
             int size = (int)getResources().getDimension(R.dimen.actionBarWithStatusBarSize);
             mFrameLayout.setPadding(0, size,0,0);
         }
+
+        if ( newTab.extra == R.string.title_dapps) {
+            floatingActionButton.setImageResource(R.drawable.bg_blue);
+
+        } else {
+            floatingActionButton.setImageResource(R.drawable.bg_black_side);
+
+        }
+
     }
 
     @Override
