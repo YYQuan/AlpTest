@@ -118,8 +118,9 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 
 
 
-
+//        mHelper.performClickMenu();
         navigation.setOnNavigationItemSelectedListener(this);
+//        navigation.setSelectedItemId(R.id.action_dapp);
     }
 
     @Override

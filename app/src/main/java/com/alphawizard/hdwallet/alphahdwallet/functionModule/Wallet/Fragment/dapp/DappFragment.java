@@ -1,13 +1,23 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.util.Property;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Launch.LaunchActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
@@ -19,6 +29,8 @@ import com.example.web3lib.OnSignTransactionListener;
 import com.example.web3lib.OnSignTypedMessageListener;
 import com.example.web3lib.Web3View;
 import com.google.gson.Gson;
+
+import net.qiujuer.genius.ui.compat.UiCompat;
 
 import java.math.BigInteger;
 
@@ -74,31 +86,33 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
     }
 
 
-    @BindView(R.id.url)
-    TextView url;
+//    @BindView(R.id.url)
+//    TextView url;
 
     @BindView(R.id.web3view)
     Web3View web3;
 
-    @OnClick(R.id.btn_success)
-    void onClickSuccess(){
-//        web3.onSignCancel(mTransaction);
-        web3.onSignTransactionSuccessful(mTransaction,null);
-    }
-    @OnClick(R.id.btn_fail)
-    void onClickFail(){
-        web3.onSignCancel(mTransaction);
+//    @OnClick(R.id.btn_success)
+//    void onClickSuccess(){
+////        web3.onSignCancel(mTransaction);
 //        web3.onSignTransactionSuccessful(mTransaction,null);
-    }
+//    }
+//    @OnClick(R.id.btn_fail)
+//    void onClickFail(){
+//        web3.onSignCancel(mTransaction);
+////        web3.onSignTransactionSuccessful(mTransaction,null);
+//    }
 
 
     @Override
     public void initWidget(View view) {
         super.initWidget(view);
-        url = view.findViewById(R.id.url);
+//        url = view.findViewById(R.id.url);
         web3 = view.findViewById(R.id.web3view);
 //        view.findViewById(R.id.go).setOnClickListener(this);
     }
+
+
 
     @Override
     public void initData() {
@@ -107,11 +121,43 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(WalletViewModule.class);
         viewModel.transactionHash().observe(this,this::onTransactionChange);
-        setupWeb3();
-        web3.loadUrl(url.getText().toString());
-        web3.requestFocus();
+        viewModel.defaultWallet().observe(this,this::defaultWalletChange);
+        viewModel.getDefaultWallet();
+
+        if(defaultWalletAddress== null){
+            setupWeb3();
+            web3.loadUrl("http://192.168.150.84:8080/");
+            web3.requestFocus();
+        }
+
+
+
+//        new Thread(
+//        new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                try {
+//                    Thread.sleep(3000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                viewModel.openWeb3Router(DappFragment.this.getActivity());
+//            }
+//        }).start();
+
+
     }
 
+    String defaultWalletAddress;
+    private void defaultWalletChange(Wallet wallet) {
+        if(defaultWalletAddress!=wallet.address){
+            defaultWalletAddress = wallet.address;
+            setupWeb3();
+            web3.loadUrl("http://192.168.150.84:8080/");
+            web3.requestFocus();
+        }
+    }
 
 
     private void onTransactionChange(String s) {
@@ -125,8 +171,9 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
         web3.setChainId(4);
         web3.setRpcUrl("https://mainnet.infura.io/llyrtzQ3YhkdESt2Fzrk");
-        String address  = viewModel.getDefaultWalletAddress();
-        web3.setWalletAddress(new Address(address));
+        if(defaultWalletAddress!=null) {
+            web3.setWalletAddress(new Address(defaultWalletAddress));
+        }
 
         web3.setOnSignMessageListener(message ->
                 callSignMessage = Trust.signMessage().message(message).call(getActivity()));
@@ -192,8 +239,11 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
     @Override
     public void onClick(View v) {
-        web3.loadUrl(url.getText().toString());
+//        web3.loadUrl(url.getText().toString());
         web3.requestFocus();
     }
+
+
+
 
 }

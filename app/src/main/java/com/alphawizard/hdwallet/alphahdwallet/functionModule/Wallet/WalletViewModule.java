@@ -11,6 +11,7 @@ import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Router;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
@@ -50,6 +51,7 @@ public class WalletViewModule extends BaseViewModel {
     FetchWalletInteract mFetchWalletInteract;
     CreateOrImportRouter mCreateOrImportRouter;
     ManagerAccountsRouter mManagerRouter;
+    Web3Router mWeb3Router;
     ExportWalletInteract mExportWalletInteract;
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -77,6 +79,7 @@ public class WalletViewModule extends BaseViewModel {
                             CreateOrImportRouter createOrImportRouter,
                             SendRouter  sendRouter,
                             ManagerAccountsRouter managerRouter,
+                            Web3Router web3Router,
                             WalletRepositoryType walletRepositoryType
                                 )
     {
@@ -90,6 +93,7 @@ public class WalletViewModule extends BaseViewModel {
         mCreateOrImportRouter = createOrImportRouter;
         mGetBalanceInteract =getBalanceInteract;
         mSendRouter = sendRouter;
+        mWeb3Router= web3Router;
         mManagerRouter = managerRouter ;
     }
 
@@ -148,11 +152,6 @@ public class WalletViewModule extends BaseViewModel {
         disposable = mFindDefaultWalletInteract
                 .find()
                 .subscribe(wallet -> onDefaultWalletChanged(wallet), this::onGetDefaultAccountsError);
-    }
-
-
-    public String  getDefaultWalletAddress(){
-        return mDefaultWalletInteract.getDefaultWalletAddress().blockingGet();
     }
 
     private void onDefaultWalletChanged(Wallet wallet) {
@@ -307,6 +306,11 @@ public class WalletViewModule extends BaseViewModel {
     public void openManagerRouter(Context context){
         mManagerRouter.open(context);
     }
+
+    public void openWeb3Router(Context context){
+        mWeb3Router.open(context);
+    }
+
 
 
 

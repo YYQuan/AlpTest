@@ -5,6 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".functionModule.Wallet.WalletActivity">
 
 
@@ -18,7 +19,7 @@
         android:paddingTop="@dimen/statusBarSize"
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp"
-        android:layout_gravity="center"
+
         android:layout_alignParentTop="true"
         app:titleTextAppearance="@style/TextAppearance.Title">
 
@@ -45,24 +46,7 @@
         android:paddingBottom="@dimen/defaultNavHeight"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </FrameLayout>
-
-
-
-    <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:id="@+id/navigation"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="@dimen/defaultNavHeight"-->
-        <!--app:menu="@menu/navigation_items"-->
-        <!--android:elevation="@dimen/len_4"-->
-        <!--android:outlineProvider="bounds"-->
-        <!--android:translationZ="@dimen/len_8"-->
-        <!--tools:targetApi="lollipop"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="@color/white"-->
-        <!--app:itemTextColor="@color/text_nav"-->
-        <!--app:itemIconTint="@color/text_nav"-->
-
-    <!--/>-->
+    <!--android:paddingTop="@dimen/actionBarWithStatusBarSize"-->
 
 
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx

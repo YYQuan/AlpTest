@@ -4,38 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/bg_blue"
     >
 
-    <Button
-        android:id="@+id/btn_success"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="success"/>
-    <Button
-        android:id="@+id/btn_fail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fail"/>
-    <FrameLayout
-        android:layout_width="320dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_grey_side"
-        android:layout_marginBottom="2dp">
-        <TextView
-            android:id="@+id/url"
-            android:inputType="textUri"
-            android:text="http://192.168.150.84:8080/"
-            android:layout_toStartOf="@+id/go"
-            android:textColorHint="@color/black_alpha_128"
-            android:textColor="@color/blue_900"
-            android:textSize="12sp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center_horizontal|center_vertical"
-            />
-    </FrameLayout>
+
+    <!--<FrameLayout-->
+        <!--android:layout_width="320dp"-->
+        <!--android:layout_height="24dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:background="@drawable/bg_grey_side"-->
+        <!--android:layout_marginBottom="2dp">-->
+        <!--<TextView-->
+            <!--android:id="@+id/url"-->
+            <!--android:inputType="textUri"-->
+            <!--android:text="http://192.168.150.84:8080/"-->
+            <!--android:layout_toStartOf="@+id/go"-->
+            <!--android:textColorHint="@color/black_alpha_128"-->
+            <!--android:textColor="@color/blue_900"-->
+            <!--android:textSize="12sp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:gravity="center_horizontal|center_vertical"-->
+            <!--/>-->
+    <!--</FrameLayout>-->
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->

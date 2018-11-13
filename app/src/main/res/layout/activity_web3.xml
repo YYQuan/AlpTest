@@ -10,8 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
         android:background="@color/colorAccent"
-        android:paddingTop="@dimen/statusBarSize"
+
+        android:visibility="gone"
         />
+    <!--android:paddingTop="@dimen/statusBarSize"-->
     <EditText
         android:id="@+id/url"
         android:inputType="textUri"
@@ -22,11 +24,13 @@
         android:textSize="@dimen/fontNameSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
         <Button
             android:id="@+id/go"
             android:text="@string/go"

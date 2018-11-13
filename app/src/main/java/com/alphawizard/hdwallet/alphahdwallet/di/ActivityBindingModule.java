@@ -5,6 +5,8 @@ package com.alphawizard.hdwallet.alphahdwallet.di;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Launch.LaunchActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Launch.LaunchModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivity;
@@ -71,5 +73,10 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = ManagerAccountsModule.class)
     abstract ManagerAccountsActivity managerAccountsActivity();
+
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = LaunchModule.class)
+    abstract LaunchActivity launchActivity();
 
 }

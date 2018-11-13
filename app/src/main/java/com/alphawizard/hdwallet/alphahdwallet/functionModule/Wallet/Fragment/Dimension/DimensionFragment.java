@@ -62,17 +62,23 @@ public class DimensionFragment extends BasePresenterFragment<DimensionContract.P
         viewModel.defaultWallet().observe(this,this::defaultWalletChange);
 
 
-        Point size = new Point();
-        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-        imageSize = (int) (size.x * QR_IMAGE_WIDTH_RATIO);
-        mCode.setImageBitmap(getmPresenter().createQRImage(viewModel.getDefaultWalletAddress(),imageSize));
-        mAddress.setText(viewModel.getDefaultWalletAddress());
+
+        if(defaultWalletAddress!=null) {
+            Point size = new Point();
+            getActivity().getWindowManager().getDefaultDisplay().getSize(size);
+            imageSize = (int) (size.x * QR_IMAGE_WIDTH_RATIO);
+            mCode.setImageBitmap(getmPresenter().createQRImage(defaultWalletAddress, imageSize));
+            mAddress.setText(defaultWalletAddress);
+        }
 
     }
 
+
+    String defaultWalletAddress;
     private void defaultWalletChange(Wallet wallet) {
         mCode.setImageBitmap(getmPresenter().createQRImage(wallet.address,imageSize));
         mAddress.setText(wallet.address);
+        defaultWalletAddress  = wallet.address;
     }
 
     @Override

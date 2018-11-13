@@ -81,6 +81,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     private Dialog dialog;
 
 
+
     @OnClick(R.id.btn_send)
     void clickBtnSend(){
         viewModel.openSendEth(getActivity());
@@ -91,8 +92,10 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         Point size = new Point();
         getActivity().getWindowManager().getDefaultDisplay().getSize(size);
         int imageSize = (int) (size.x * QR_IMAGE_WIDTH_RATIO);
-        Bitmap bitmap = getmPresenter().createQRImage(viewModel.getDefaultWalletAddress(),imageSize);
-        showCodeDialog(defaultWalletAddress,bitmap);
+        if(defaultWalletAddress!=null){
+            Bitmap bitmap = getmPresenter().createQRImage(defaultWalletAddress,imageSize);
+            showCodeDialog(defaultWalletAddress,bitmap);
+        }
     }
 
     @Override

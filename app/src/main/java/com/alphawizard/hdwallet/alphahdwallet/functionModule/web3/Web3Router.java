@@ -8,7 +8,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendActivity;
 public class Web3Router {
 
     public void open(Context context) {
-        Intent intent = new Intent(context, Web3Contract.class);
+        Intent intent = new Intent(context, Web3Activity.class);
         context.startActivity(intent);
     }
 

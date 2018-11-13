@@ -6,12 +6,14 @@ import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PreferenceRepositoryT
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Launch.LaunchRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Router;
 
 import dagger.Module;
 import dagger.Provides;
@@ -117,7 +119,14 @@ public class InteractModule {
     public static VerifyMnemonicsRouter verifyMnemonicsRouter(){
         return new VerifyMnemonicsRouter();
     }
+    @Provides
+    public static Web3Router web3Router(){
+        return new Web3Router();
+    }
 
-
+    @Provides
+    public static LaunchRouter launchRouter(){
+        return new LaunchRouter();
+    }
 
 }
