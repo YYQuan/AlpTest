@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
@@ -27,10 +28,10 @@ public class CreateOrImportViewModule extends BaseViewModel {
     BackupRouter backupRouter;
 
 
-    CreateWalletInteract.CreateWalletEntity mEntity ;
+
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
-    private final MutableLiveData<CreateWalletInteract.CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
+    private final MutableLiveData<CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
 
     public CreateOrImportViewModule(CreateWalletInteract createWalletInteract,
                                     DefaultWalletInteract defaultWalletInteract,
@@ -49,7 +50,7 @@ public class CreateOrImportViewModule extends BaseViewModel {
         return defaultWallet;
     }
 
-    public LiveData<CreateWalletInteract.CreateWalletEntity> createWalletEntity() {
+    public LiveData<CreateWalletEntity> createWalletEntity() {
         return createWalletEntity;
     }
 
@@ -65,8 +66,7 @@ public class CreateOrImportViewModule extends BaseViewModel {
                         .generatePassword()
                         .flatMap(s->createWalletInteract.generateMnenonics(s,name))
                         .flatMap(e-> {
-                            mEntity = e;
-                            createWalletEntity.postValue(mEntity);
+                            createWalletEntity.postValue(e);
                             return createWalletInteract.create(e); })
                     .subscribe(this::onCreateWallet,this::onCreateWalletError);
     }

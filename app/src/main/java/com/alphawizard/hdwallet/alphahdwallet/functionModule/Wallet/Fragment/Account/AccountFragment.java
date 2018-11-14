@@ -28,9 +28,11 @@ import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -304,9 +306,11 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
                 recyclerView.setAdapter(mAdapter);
                 break;
             case TAB_RECEIVE:
+                mAdapter.notifyDataSetChanged();
                 recyclerView.setAdapter(mReceiveAdapter);
                 break;
             case TAB_SEND:
+                mAdapter.notifyDataSetChanged();
                 recyclerView.setAdapter(mSendAdapter);
                 break;
             default:
@@ -358,12 +362,31 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
                 mSign.setTextColor(getResources().getColor(R.color.colorRed));
             }
 
-            mValue .setText(bean.getValue());
+//            int i = Integer.parseInt(bean.getValue());
+            String value  = "";
+            if(bean.getValue().length()>14){
+                value = bean.getValue().substring(0,bean.getValue().length()-14);
+                int i = Integer.parseInt(value);
+                int ethNum = i/10000;
+                int ethPoint = i%10000;
+                mValue.setText(ethNum+"."+ethPoint+"ETH");
+            }
 
-            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-            calendar.setTimeInMillis((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS);
-            mTime.setText(""+calendar.getTime() );
+
+//            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+//            calendar.setTimeInMillis((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS);
+//            "yyyy-MM-dd HH:mm:ss"
+            String  time  =getDateToString((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS
+                    , "yyyy MM dd HH:mm");
+            mTime.setText("" +time );
         }
     }
+
+    public static String getDateToString(long milSecond, String pattern) {
+        Date date = new Date(milSecond);
+        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        return format.format(date);
+    }
+
 }
 

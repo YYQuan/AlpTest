@@ -120,7 +120,8 @@ public class Web3Activity extends BasePresenterToolbarActivity implements View.O
                 .get(Web3ViewModule.class);
         viewModel.transactionHash().observe(this,this::onTransactionChange);
         setupWeb3();
-        web3.loadUrl(url.getText().toString());
+//        web3.loadUrl(url.getText().toString());
+        web3.loadUrl("https://www.baidu.com/");
         web3.requestFocus();
     }
 

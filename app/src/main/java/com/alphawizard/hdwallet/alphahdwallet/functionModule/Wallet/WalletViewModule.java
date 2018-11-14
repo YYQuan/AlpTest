@@ -5,11 +5,14 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Router;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
@@ -26,6 +29,7 @@ import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +56,9 @@ public class WalletViewModule extends BaseViewModel {
     CreateOrImportRouter mCreateOrImportRouter;
     ManagerAccountsRouter mManagerRouter;
     Web3Router mWeb3Router;
+    ImportRouter mImportRouter;
+    BackupRouter mBackupRouter;
+
     ExportWalletInteract mExportWalletInteract;
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
@@ -64,7 +71,7 @@ public class WalletViewModule extends BaseViewModel {
     private final MutableLiveData<String> transactionHash = new MutableLiveData<>();
 
     private final MutableLiveData<List<Transaction.TransactionBean>> transactionBeans = new MutableLiveData<>();
-
+    private final MutableLiveData<CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
 
 
     private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
@@ -80,6 +87,8 @@ public class WalletViewModule extends BaseViewModel {
                             SendRouter  sendRouter,
                             ManagerAccountsRouter managerRouter,
                             Web3Router web3Router,
+                            BackupRouter backupRouter,
+                            ImportRouter importRouter,
                             WalletRepositoryType walletRepositoryType
                                 )
     {
@@ -94,6 +103,8 @@ public class WalletViewModule extends BaseViewModel {
         mGetBalanceInteract =getBalanceInteract;
         mSendRouter = sendRouter;
         mWeb3Router= web3Router;
+        mBackupRouter =  backupRouter;
+        mImportRouter = importRouter;
         mManagerRouter = managerRouter ;
     }
 
@@ -129,6 +140,9 @@ public class WalletViewModule extends BaseViewModel {
         return transactionBeans;
     }
 
+    public LiveData<CreateWalletEntity> createWalletEntity() {
+        return createWalletEntity;
+    }
 
 
     public void getAccounts(){
@@ -169,6 +183,25 @@ public class WalletViewModule extends BaseViewModel {
             call.enqueue(callback);
         }
     }
+
+    public void newWallet(String name) {
+        progress.setValue(true);
+
+        //        CreateWalletEntity
+        mCreateWalletInteract
+                .generatePassword()
+                .flatMap(s->mCreateWalletInteract.generateMnenonics(s,name))
+                .flatMap(e-> {
+                    createWalletEntity.postValue(e);
+                    return mCreateWalletInteract.create(e); })
+                .subscribe(this::onCreateWallet,this::onCreateWalletError);
+    }
+    private void onCreateWallet(Wallet wallet) {
+        createdWallet.postValue(wallet);
+    }
+
+
+
 
     public void getBalance() {
 
@@ -311,8 +344,13 @@ public class WalletViewModule extends BaseViewModel {
         mWeb3Router.open(context);
     }
 
+    public void openBackup(Context context,ArrayList<String> strings){
+        mBackupRouter.open(context,strings);
+    }
 
-
+    public void openImportRouter(Context context){
+        mImportRouter.open(context);
+    }
 
     private void getTransactionsError(Throwable throwable) {
         exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));

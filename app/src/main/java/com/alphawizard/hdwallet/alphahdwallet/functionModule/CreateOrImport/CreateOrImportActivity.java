@@ -13,10 +13,12 @@ import android.widget.TextView;
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
+import com.alphawizard.hdwallet.alphahdwallet.utils.String2StringList;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
@@ -79,7 +81,7 @@ public class CreateOrImportActivity extends BasePresenterActivity<CreateOrImport
         }
     }
 
-    private void onCreateWalletEntity(CreateWalletInteract.CreateWalletEntity createWalletEntity) {
+    private void onCreateWalletEntity(CreateWalletEntity createWalletEntity) {
         Log.d("getMnenonics  :"+createWalletEntity.getMnenonics());
         mnenonics = createWalletEntity.getMnenonics();
     }
@@ -115,21 +117,11 @@ public class CreateOrImportActivity extends BasePresenterActivity<CreateOrImport
         Log.d("onCreatedWallet");
 //        showBackupMnenonicsDialog(mnenonics);
 
-        viewModel.openBackup(this,string2StringList(mnenonics));
+        viewModel.openBackup(this, String2StringList.string2StringList(mnenonics));
         finish();
     }
 
-    private ArrayList<String>  string2StringList(String mnenonics){
-        ArrayList<String> list = new ArrayList<>();
-        String patternStr = "(\\s*=\\s*)|(\\s*,\\s*)|(\\s*;\\s*)|(\\s+)";
-        Pattern pattern = Pattern.compile(patternStr);
-        String[] dataArr = pattern.split(mnenonics);
 
-        for(int i = 0 ; i<dataArr.length;i++){
-            list.add(dataArr[i]);
-        }
-        return list;
-    }
 
 
     private void showBackupMnenonicsDialog(String string) {

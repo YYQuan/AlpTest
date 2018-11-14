@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ManagerAccountsViewModuleFactory;
@@ -128,7 +129,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         return list;
     }
 
-    private void onCreateWalletEntity(CreateWalletInteract.CreateWalletEntity createWalletEntity) {
+    private void onCreateWalletEntity(CreateWalletEntity createWalletEntity) {
         mnenonics = createWalletEntity.getMnenonics();
     }
 

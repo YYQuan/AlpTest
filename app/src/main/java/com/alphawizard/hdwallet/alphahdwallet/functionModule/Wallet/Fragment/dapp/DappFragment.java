@@ -132,30 +132,32 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
 
 
-//        new Thread(
-//        new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                viewModel.openWeb3Router(DappFragment.this.getActivity());
-//            }
-//        }).start();
 
 
     }
 
     String defaultWalletAddress;
     private void defaultWalletChange(Wallet wallet) {
-        if(defaultWalletAddress!=wallet.address){
+        if(! wallet.address.equalsIgnoreCase(defaultWalletAddress)){
             defaultWalletAddress = wallet.address;
             setupWeb3();
             web3.loadUrl("http://192.168.150.84:8080/");
             web3.requestFocus();
+
+
+//        new Thread(
+//                new Runnable() {
+//                    @Override
+//                    public void run() {
+//
+//                        try {
+//                            Thread.sleep(10000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                        viewModel.openWeb3Router(DappFragment.this.getActivity());
+//                    }
+//                }).start();
         }
     }
 

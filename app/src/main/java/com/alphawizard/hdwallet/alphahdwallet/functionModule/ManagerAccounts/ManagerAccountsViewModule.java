@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
@@ -30,10 +31,10 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
-    private final MutableLiveData<CreateWalletInteract.CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
+    private final MutableLiveData<CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
 
 
-    CreateWalletInteract.CreateWalletEntity mEntity ;
+    CreateWalletEntity mEntity ;
     public ManagerAccountsViewModule(DefaultWalletInteract defaultWalletInteract,
                                      FindDefaultWalletInteract findDefaultWalletInteract,
                                      FetchWalletInteract fetchWalletInteract,
@@ -61,7 +62,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
         return createdWallet;
     }
 
-    public LiveData<CreateWalletInteract.CreateWalletEntity> createWalletEntity() {
+    public LiveData<CreateWalletEntity> createWalletEntity() {
         return createWalletEntity;
     }
 

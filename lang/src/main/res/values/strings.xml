@@ -2,7 +2,8 @@
     <string name="app_name">lang</string>
     <string name="title_wallet">钱包</string>
     <string name="title_dapps">Dapps</string>
-    <string name="title_setting">设置</string>
+    <string name="title_mine">我的</string>
+    <string name="title_no_default_account">创建导入</string>
 
 
     <string name="go">GO</string>

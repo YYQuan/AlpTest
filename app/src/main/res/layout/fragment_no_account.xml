@@ -25,15 +25,34 @@
             android:layout_marginTop="101dp"
             android:layout_centerHorizontal="true"
             android:background="@mipmap/ic_logo"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="第一个跨区块链生态的“利润分享型”游戏系统"
-            android:textColor="#ffcae4ff"
-            android:textSize="15sp"
-            android:layout_marginBottom="40dp"
-            android:layout_centerHorizontal="true"
+
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="128dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="创建钱包"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            android:background="@drawable/bg_gradient_blue"/>
+
+        <Button
+            android:id="@+id/btn_import"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="导入钱包"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            android:background="@drawable/bg_gradient_blue_second"
             />
     </RelativeLayout>
 

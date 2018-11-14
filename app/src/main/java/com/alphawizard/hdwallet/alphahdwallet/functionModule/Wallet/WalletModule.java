@@ -8,6 +8,9 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Acc
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsPresenter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.CreateOrImport.CreateOrImportContract;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.CreateOrImport.CreateOrImportFragment;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.CreateOrImport.CreateOrImportPresenter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Dimension.DimensionPresenter;
@@ -28,7 +31,10 @@ import dagger.android.ContributesAndroidInjector;
  */
 @Module
 public abstract class WalletModule {
-
+    /*
+     *  presenter
+     *
+     */
     @ActivityScoped
     @Binds abstract WalletActivityContract.Presenter walletPresenter(WalletActivityPresenter presenter);
 
@@ -46,6 +52,17 @@ public abstract class WalletModule {
 
     @ActivityScoped
     @Binds abstract SettingContract.Presenter settingPresenter(SettingPresenter presenter);
+
+    @ActivityScoped
+    @Binds abstract CreateOrImportContract.Presenter createOrImportPresenter(CreateOrImportPresenter presenter);
+
+
+
+
+    /*
+     * fragment
+     *
+     */
 
     @FragmentScoped
     @ContributesAndroidInjector
@@ -66,4 +83,8 @@ public abstract class WalletModule {
     @FragmentScoped
     @ContributesAndroidInjector
     abstract SettingFragment settingFragment();
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    abstract CreateOrImportFragment createOrImportFragment();
 }

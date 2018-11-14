@@ -1,5 +1,6 @@
 package com.alphawizard.hdwallet.alphahdwallet.interact;
 
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
@@ -23,11 +24,11 @@ public class CreateWalletInteract {
 
 	public Single<Wallet> create(CreateWalletEntity entiry) {
 
-		return  walletRepository.createAccount(entiry.mnenonics,entiry.password)
-				.compose(Operators.savePassword(passwordStore, walletRepository, entiry.password))
-				.compose(Operators.saveMnemonics(passwordStore, walletRepository, entiry.mnenonics))
-				.compose(Operators.saveWalletName(passwordStore, walletRepository, entiry.walletName))
-				.flatMap(wallet -> passwordVerification(wallet, entiry.password));
+		return  walletRepository.createAccount(entiry.getMnenonics(),entiry.getPassword())
+				.compose(Operators.savePassword(passwordStore, walletRepository, entiry.getPassword()))
+				.compose(Operators.saveMnemonics(passwordStore, walletRepository, entiry.getMnenonics()))
+				.compose(Operators.saveWalletName(passwordStore, walletRepository, entiry.getWalletName()))
+				.flatMap(wallet -> passwordVerification(wallet, entiry.getPassword()));
 
 	}
 
@@ -57,41 +58,41 @@ public class CreateWalletInteract {
 	}
 
 
-	public static class  CreateWalletEntity {
-		String   password ;
-		String  mnenonics ;
-		String walletName;
-
-
-		public CreateWalletEntity(String mnenonics , String  password,String walletName) {
-			this.password = password;
-			this.mnenonics = mnenonics;
-			this.walletName = walletName;
-		}
-
-		public String getPassword() {
-
-			return password;
-		}
-
-		public String getWalletName() {
-			return walletName;
-		}
-
-		public void setWalletName(String walletName) {
-			this.walletName = walletName;
-		}
-
-		public void setPassword(String password) {
-			this.password = password;
-		}
-
-		public String getMnenonics() {
-			return mnenonics;
-		}
-
-		public void setMnenonics(String mnenonics) {
-			this.mnenonics = mnenonics;
-		}
-	}
+//	public static class  CreateWalletEntity {
+//		String   password ;
+//		String  mnenonics ;
+//		String walletName;
+//
+//
+//		public CreateWalletEntity(String mnenonics , String  password,String walletName) {
+//			this.password = password;
+//			this.mnenonics = mnenonics;
+//			this.walletName = walletName;
+//		}
+//
+//		public String getPassword() {
+//
+//			return password;
+//		}
+//
+//		public String getWalletName() {
+//			return walletName;
+//		}
+//
+//		public void setWalletName(String walletName) {
+//			this.walletName = walletName;
+//		}
+//
+//		public void setPassword(String password) {
+//			this.password = password;
+//		}
+//
+//		public String getMnenonics() {
+//			return mnenonics;
+//		}
+//
+//		public void setMnenonics(String mnenonics) {
+//			this.mnenonics = mnenonics;
+//		}
+//	}
 }

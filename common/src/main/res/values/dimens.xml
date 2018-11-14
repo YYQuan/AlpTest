@@ -21,6 +21,6 @@
     <dimen name="defaultFloatButtonSize">@dimen/len_52</dimen>
 
     <!--底部导航栏的默认高度-->
-    <dimen name="defaultNavHeight">@dimen/len_52</dimen>
+    <dimen name="defaultNavHeight">50dp</dimen>
 
 </resources>

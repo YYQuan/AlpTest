@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_wallet"
-        android:icon="@drawable/ic_wallet"
+        android:icon="@mipmap/ic_wallet"
         android:title="@string/title_wallet"
         app:showAsAction="ifRoom" />
     <item
@@ -13,8 +13,8 @@
     <!--android:icon="@drawable/ic_dapp"-->
     <!--android:title="@string/title_dapps"-->
     <item
-        android:id="@+id/action_setting"
-        android:icon="@drawable/ic_setting"
-        android:title="@string/title_setting"
+        android:id="@+id/action_mine"
+        android:icon="@mipmap/ic_mine"
+        android:title="@string/title_mine"
         app:showAsAction="ifRoom" />
 </menu>

@@ -6,7 +6,7 @@
     </style>
 
     <style name="TabLayoutTextStyle">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/textGrey</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#C9C9C9</item>
     </style>
 </resources>

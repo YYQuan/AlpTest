@@ -48,8 +48,12 @@ public class ViewModuleModule {
                                                               SendRouter sendRouter,
                                                               ManagerAccountsRouter managerAccountsRouter,
                                                               Web3Router web3Router,
+                                                              BackupRouter backupRouter,
+                                                              ImportRouter importRouter,
                                                               WalletRepositoryType walletRepositoryType){
-        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,exportWalletInteract,sendTransactionInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,walletRepositoryType);
+        return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,
+                exportWalletInteract,sendTransactionInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,backupRouter,
+                importRouter,walletRepositoryType);
     }
 
     @Provides

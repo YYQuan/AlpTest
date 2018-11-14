@@ -123,7 +123,7 @@ public class ImportActivity extends BasePresenterToolbarActivity<ImportContract.
         mHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
         mHelper.add(KEYSTORE_FORM_INDEX, new NavHelper.Tab<>(ImportKeyStoreFragment.class, R.string.title_wallet))
                 .add(PRIVATE_KEY_FORM_INDEX, new NavHelper.Tab<>(ImportPrivateKeyFragment.class, R.string.title_dapps))
-                .add(MNENONICS_FORM_INDEX, new NavHelper.Tab<>(ImportMnenonicsFragment.class, R.string.title_setting));
+                .add(MNENONICS_FORM_INDEX, new NavHelper.Tab<>(ImportMnenonicsFragment.class, R.string.title_mine));
 
         mHelper.performClickMenu(1);
 //        ViewPager viewPager = findViewById(R.id.viewPager);

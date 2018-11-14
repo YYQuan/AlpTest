@@ -53,6 +53,11 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     }
 
+    @OnClick(R.id.iv_back)
+    void onClickBack(){
+       onBackPressed();
+    }
+
     @Override
     public SendContract.Presenter initPresenter() {
         return mPresenter;
