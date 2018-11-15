@@ -16,6 +16,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.Wallet
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupMnemonicsActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.receiver.ReceiverActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.receiver.ReceiverModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsActivity;
@@ -79,4 +81,8 @@ public abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = LaunchModule.class)
     abstract LaunchActivity launchActivity();
 
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ReceiverModule.class)
+    abstract ReceiverActivity receiverActivity();
 }

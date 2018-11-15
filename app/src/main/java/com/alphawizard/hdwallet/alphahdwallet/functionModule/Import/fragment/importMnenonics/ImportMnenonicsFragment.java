@@ -1,14 +1,17 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importMnenonics;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importKeyStore.ImportKeyStoreContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
+import com.alphawizard.hdwallet.common.util.Log;
 
 import javax.inject.Inject;
 
@@ -57,6 +60,9 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
         return R.layout.fragment_import_mnenonics;
     }
 
+
+    String  mScanContent;
+
     @Override
     public void initData() {
         super.initData();
@@ -64,6 +70,18 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
                 .get(ImportViewModule.class);
         getmPresenter().takeView(this,viewModel);
         viewModel.progress().observe(this,this::importCallback);
+
+        Log.d("init  data    ImportMnemonicsFragment");
+        if(((ImportActivity)getActivity()).getScanContent()!=null){
+            mScanContent = ((ImportActivity)getActivity()).getScanContent();
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMnenonics.setText(mScanContent);
     }
 
     private void importCallback(Boolean aBoolean) {

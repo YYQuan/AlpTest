@@ -73,7 +73,7 @@
             android:maxLines="2"
             android:background="@drawable/bg_color_131422_side"
             android:textColorHint="#4E4F6C"
-            android:textColor="#4E4F6C"
+            android:textColor="@color/textWhite"
             android:textSize="16sp"
             app:gHintTitle="none"
             app:gLineSize="0dp"

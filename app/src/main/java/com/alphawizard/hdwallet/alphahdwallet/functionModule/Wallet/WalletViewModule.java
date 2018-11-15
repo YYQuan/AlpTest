@@ -13,6 +13,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.Crea
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.receiver.ReceiverRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Router;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
@@ -58,6 +59,7 @@ public class WalletViewModule extends BaseViewModel {
     Web3Router mWeb3Router;
     ImportRouter mImportRouter;
     BackupRouter mBackupRouter;
+    ReceiverRouter mReceiverRouter;
 
     ExportWalletInteract mExportWalletInteract;
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
@@ -89,6 +91,7 @@ public class WalletViewModule extends BaseViewModel {
                             Web3Router web3Router,
                             BackupRouter backupRouter,
                             ImportRouter importRouter,
+                            ReceiverRouter receiverRouter,
                             WalletRepositoryType walletRepositoryType
                                 )
     {
@@ -105,6 +108,7 @@ public class WalletViewModule extends BaseViewModel {
         mWeb3Router= web3Router;
         mBackupRouter =  backupRouter;
         mImportRouter = importRouter;
+        mReceiverRouter = receiverRouter;
         mManagerRouter = managerRouter ;
     }
 
@@ -346,6 +350,10 @@ public class WalletViewModule extends BaseViewModel {
 
     public void openBackup(Context context,ArrayList<String> strings){
         mBackupRouter.open(context,strings);
+    }
+
+    public void openReceiver(Context context){
+        mReceiverRouter.open(context);
     }
 
     public void openImportRouter(Context context){

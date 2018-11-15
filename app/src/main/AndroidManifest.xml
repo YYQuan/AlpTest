@@ -61,6 +61,12 @@
             android:label="@string/title_activity_first_launch"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.TransStatusBar.Base"/>
+        <activity
+            android:name=".functionModule.receiver.ReceiverActivity"
+            android:label="@string/title_activity_first_launch"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.TransStatusBar.Base"
+            />
     </application>
 
 </manifest>

@@ -5,8 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#191A2A"
     tools:context=".functionModule.backupMnemonics.BackupMnemonicsActivity">
 
+    <android.support.v7.widget.Toolbar
+
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="#010110"
+        android:paddingTop="@dimen/statusBarSize"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetStart="0dp"
+        app:titleTextColor="@color/white"
+        android:layout_alignParentTop="true"
+        app:titleTextAppearance="@style/TextAppearance.Title">
+        <FrameLayout
+            android:id="@+id/layout_toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="9dp"
+                android:layout_height="15dp"
+                android:background="@drawable/ic_title_back_white"/>
+        </FrameLayout>
+    </android.support.v7.widget.Toolbar>
     <ImageView
         android:layout_width="29dp"
         android:layout_height="32dp"
@@ -18,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="22dp"
         android:text="备份助记词"
-        android:textColor="@color/textBlack"
+        android:textColor="@color/textWhite"
         android:textSize="18sp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical"
@@ -28,16 +53,16 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:text="这12个单词是恢复AllBet钱包的唯一方法。"
-        android:textColor="@color/textGreyFourth"
-        android:textSize="14sp"
+        android:textColor="#C4E5FF"
+        android:textSize="13sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="51dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:text="请将他们保存在安全和隐密额地方。"
-        android:textColor="@color/textGreyFourth"
-        android:textSize="14sp"
+        android:textColor="#C4E5FF"
+        android:textSize="13sp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="6dp"/>
 
@@ -45,6 +70,8 @@
         android:id="@+id/txt_mnemonics"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#111224"
+
         android:text="right  straegy  nerve  afraid  fancy  pigeon  fatal  tone  rather  cross  little  cry"
         android:textColor="@color/textBlack"
         android:textSize="14sp"
@@ -78,9 +105,12 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/bg_blue"
-        android:textColor="@color/textWhite"
+        android:background="@drawable/bg_gradient_blue"
         android:text="下一步"
-        android:textSize="18sp"
+        android:textColor="#ffffffff"
+        android:textSize="16sp"
+
+
         />
+
 </LinearLayout>

@@ -9,6 +9,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLau
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.LaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ManagerAccountsViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ReceiverViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.VerifyMnemonicsModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletDetailModuleFactory;
@@ -18,6 +19,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.receiver.ReceiverRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Router;
@@ -50,10 +52,11 @@ public class ViewModuleModule {
                                                               Web3Router web3Router,
                                                               BackupRouter backupRouter,
                                                               ImportRouter importRouter,
+                                                              ReceiverRouter receiverRouter,
                                                               WalletRepositoryType walletRepositoryType){
         return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,
                 exportWalletInteract,sendTransactionInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,backupRouter,
-                importRouter,walletRepositoryType);
+                importRouter,receiverRouter,walletRepositoryType);
     }
 
     @Provides
@@ -114,6 +117,12 @@ public class ViewModuleModule {
     LaunchViewModuleFactory launchViewModuleFactory(WalletRouter walletRouter){
         return  new LaunchViewModuleFactory(walletRouter);
     }
+
+    @Provides
+    ReceiverViewModuleFactory receiverViewModuleFactory( DefaultWalletInteract defaultWalletInteract){
+        return  new ReceiverViewModuleFactory( defaultWalletInteract);
+    }
+
 
 
 }

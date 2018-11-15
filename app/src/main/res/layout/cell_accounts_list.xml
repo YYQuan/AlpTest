@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="121dp"
+    android:layout_height="101dp"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="20dp"
+
     android:paddingRight="20dp"
     android:paddingLeft="20dp"
+    android:layout_marginBottom="10dp"
+    android:background="#202234"
     >
 
    <LinearLayout
@@ -16,21 +18,23 @@
        android:orientation="horizontal">
 
        <ImageView
-           android:layout_width="31dp"
-           android:layout_height="31dp"
-           android:background="@drawable/ic_eth"
+           android:layout_width="15dp"
+           android:layout_height="15dp"
+           android:layout_marginTop="1dp"
+           android:background="@mipmap/ic_select_unactivity"
            android:layout_gravity="center_vertical"/>
 
        <TextView
            android:layout_width="wrap_content"
            android:layout_height="22dp"
-           android:text="ETH-Wallet"
-           android:textSize="16sp"
+           android:text="Wallet"
+           android:textSize="18sp"
            android:singleLine="true"
            android:ellipsize="middle"
-           android:textColor="@color/textBlack"
-           android:layout_gravity="center_vertical"
+           android:textColor="#FEFEFE"
+
            android:gravity="center_vertical"
+           android:layout_gravity="center_vertical"
            android:layout_marginStart="10dp"/>
        <View
            android:layout_width="wrap_content"
@@ -46,19 +50,27 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/colorGreySecond"/>
+        android:background="#191A2A"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
     <TextView
         android:id="@+id/tv_eth_address"
         android:layout_width="match_parent"
-        android:layout_height="22dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"
         android:singleLine="true"
         android:ellipsize="middle"
         android:textColor="@color/textGreyThird"
         android:textSize="14sp"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_vertical"
         android:text="0xe567hjfi5fkjio000fajlkdjfsdiefljfaaefwfrwds"
         />
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
 
 </LinearLayout>

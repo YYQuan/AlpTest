@@ -5,28 +5,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".functionModule.backupMnemonics.BackupMnemonicsActivity">+
+    android:background="#191A2A"
+    tools:context=".functionModule.backupMnemonics.BackupMnemonicsActivity">
     <android.support.v7.widget.Toolbar
-
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="@color/colorAccent"
+        android:background="#010110"
         android:paddingTop="@dimen/statusBarSize"
-        android:minHeight="?attr/actionBarSize"
-        app:contentInsetStart="0dp"
-        android:layout_gravity="center"
         app:titleTextAppearance="@style/TextAppearance.Title">
+
+        <FrameLayout
+            android:id="@+id/layout_toolbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="12dp"
+                android:layout_height="17dp"
+                android:background="@drawable/ic_title_back_white"/>
+
+
+        </FrameLayout>
+
 
         <TextView
             android:id="@+id/tv_toolbar_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:gravity="center"
-            android:text="管理钱包"
+            android:layout_gravity="center"
+            android:text="发送ETH"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
-            android:layout_marginBottom="6dp"
+
             />
     </android.support.v7.widget.Toolbar>
     <com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout
@@ -52,18 +64,21 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:background="@color/colorGreyThird"
+            android:background="@drawable/bg_color_393a50"
             android:text="导入钱包"
-            android:textSize="20sp"
-            android:textColor="@color/textWhite"/>
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+           />
         <Button
             android:id="@+id/btn_create_account"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:background="@color/colorBlue"
+            android:background="@drawable/bg_color_6a89c4"
             android:text="创建钱包"
-            android:textSize="20sp"
-            android:textColor="@color/textWhite"/>
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            />
+
     </LinearLayout>
 </LinearLayout>

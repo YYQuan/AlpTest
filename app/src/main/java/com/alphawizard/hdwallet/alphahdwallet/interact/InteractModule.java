@@ -11,6 +11,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.Man
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.receiver.ReceiverRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Router;
@@ -127,6 +128,11 @@ public class InteractModule {
     @Provides
     public static LaunchRouter launchRouter(){
         return new LaunchRouter();
+    }
+
+    @Provides
+    public static ReceiverRouter receiverRouter(){
+        return new ReceiverRouter();
     }
 
 }

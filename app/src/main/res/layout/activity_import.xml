@@ -4,76 +4,104 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
+    android:background="#191A2A"
     android:orientation="vertical"
     tools:context=".functionModule.Wallet.WalletActivity">
-
-    <android.support.v7.widget.Toolbar
-
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="@color/colorAccent"
+        android:background="#010110"
         android:paddingTop="@dimen/statusBarSize"
-        android:minHeight="?attr/actionBarSize"
-        app:contentInsetStart="0dp"
-        android:layout_gravity="center"
-        app:titleTextAppearance="@style/TextAppearance.Title">
-
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="21dp"
+            android:background="@drawable/ic_title_back_white"/>
         <TextView
             android:id="@+id/tv_toolbar_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="28dp"
+            android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/app_name"
+            android:layout_gravity="center_vertical"
+            android:text="导入ETH"
             android:textColor="@color/colorWhite"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginBottom="6dp"
             />
-    </android.support.v7.widget.Toolbar>
+        <ImageView
+            android:id="@+id/iv_saoma"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@mipmap/ic_saoma"/>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
         <Button
             android:id="@+id/btn_mnemonics"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_weight="1"
-            android:layout_marginStart="20dp"
+            android:layout_weight="5"
             android:layout_marginTop="20dp"
             android:text="助记词"
-            android:textColor="@color/textGrey"
-            android:background="@drawable/bg_black_side"
-
+            android:textColor="@color/textWhite"
+            android:background="@drawable/bg_color_6a89c4"
+            android:textSize="18sp"
             />
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
 
         <Button
             android:id="@+id/btn_keystore"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginStart="18dp"
+            android:layout_weight="5"
             android:layout_marginTop="20dp"
-            android:layout_weight="1"
+
             android:gravity="center"
             android:text="Keystore"
-            android:textColor="@color/textGrey"
-            android:background="@drawable/bg_black_side"
+            android:textAllCaps="false"
+            android:textColor="@color/textWhite"
+            android:background="@drawable/bg_color_393a50"
+            android:textSize="18sp"
             />
-
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
         <Button
             android:id="@+id/btn_privateKey"
-            android:layout_width="100dp"
+            android:layout_width="0dp"
             android:layout_height="44dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="18dp"
+            android:layout_weight="5"
             android:layout_marginTop="20dp"
-            android:layout_weight="1"
             android:gravity="center"
             android:text="私钥"
-            android:textColor="@color/textGrey"
-            android:background="@drawable/bg_black_side"
+            android:textColor="@color/textWhite"
+            android:background="@drawable/bg_color_393a50"
+            android:textSize="18sp"
+            />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             />
     </LinearLayout>
     <FrameLayout

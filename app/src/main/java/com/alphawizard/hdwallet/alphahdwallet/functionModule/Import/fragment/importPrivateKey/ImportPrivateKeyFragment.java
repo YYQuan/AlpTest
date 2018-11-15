@@ -1,10 +1,12 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importPrivateKey;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importKeyStore.ImportKeyStoreContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
@@ -56,6 +58,17 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
         return R.layout.fragment_import_privatekey;
     }
 
+
+    String  mScanContent;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mScanContent = ((ImportActivity) activity).getScanContent();
+    }
+
+
+
     @Override
     public void initData() {
         super.initData();
@@ -63,6 +76,13 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
                 .get(ImportViewModule.class);
         getmPresenter().takeView(this,viewModel);
         viewModel.progress().observe(this,this::importCallback);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPrivatekey.setText(mScanContent);
     }
 
     private void importCallback(Boolean aBoolean) {
