@@ -5,10 +5,9 @@
     android:layout_height="101dp"
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
-
-    android:paddingRight="20dp"
-    android:paddingLeft="20dp"
     android:layout_marginBottom="10dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
     android:background="#202234"
     >
 
@@ -40,6 +39,17 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_weight="1"/>
+
+       <TextView
+           android:id="@+id/txt_eth_balance"
+           android:layout_width="55dp"
+           android:layout_height="wrap_content"
+           android:text="0.001ETH"
+           android:textColor="#fffefefe"
+           android:textSize="12sp"
+           android:layout_gravity="center_vertical"
+           android:layout_marginRight="10dp"
+           />
        <ImageView
            android:id="@+id/im_to"
            android:layout_width="9dp"
@@ -57,7 +67,7 @@
         android:layout_weight="1"
         />
     <TextView
-        android:id="@+id/tv_eth_address"
+        android:id="@+id/txt_eth_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:singleLine="true"

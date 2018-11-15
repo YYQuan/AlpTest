@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ import com.alphawizard.hdwallet.common.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -108,8 +110,28 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         viewModel.wallets().observe(this,this::onGetWallets);
         viewModel.createWalletEntity().observe(this,this::onCreateWalletEntity);
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
+        viewModel.accountsBalance().observe(this,this::onGetAccountBalance);
+
+        viewModel.getAccountsBalance();
 
 
+    }
+
+
+    private HashMap<String, String> mAccountsBalanceMap = new HashMap<>();
+    private void onGetAccountBalance(HashMap<String, String> walletStringHashMap) {
+        if(walletStringHashMap!=null&&!walletStringHashMap.equals(mAccountsBalanceMap)) {
+            mAccountsBalanceMap = walletStringHashMap;
+        }
+        Log.d("onGetAccountBalance mAccountsBalanceMap   size  = "+mAccountsBalanceMap.size());
+        Log.d("onGetAccountBalance walletStringHashMap  size  = "+walletStringHashMap.size());
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.notifyDataSetChanged();
+            }
+        },1000);
     }
 
     private void onCreatedWallet(Wallet wallet) {
@@ -167,7 +189,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         //      隐藏toolbar上的 back btn
         if(actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(false);
-//            actionBar.setTitle("ETH");
+            actionBar.setTitle("");
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter =new RecyclerAdapter<Wallet>() {
@@ -192,12 +214,17 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             @Override
             public boolean onLongClickListener(RecyclerAdapter.ViewHolder holder, Wallet wallet) {
 //                viewModel.exportAccount(wallet,"123");
-                showBackupDialog(wallet);
                 return super.onLongClickListener(holder, wallet);
             }
         });
+
+
+
         setPlaceHolderView(placeHolder);
         placeHolder.bind(recyclerView);
+
+
+
     }
 
 
@@ -272,8 +299,11 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Wallet> implements  View.OnClickListener {
 
-        @BindView(R.id.tv_eth_address)
+        @BindView(R.id.txt_eth_address)
         TextView mContent;
+
+        @BindView(R.id.txt_eth_balance)
+        TextView mBalance;
 
         @BindView(R.id.im_to)
         ImageView imageTo;
@@ -287,6 +317,13 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             address = wallet.address;
             mContent.setText(address);
             imageTo.setOnClickListener(this);
+
+            String valueBalance = mAccountsBalanceMap.get(wallet.address);
+            if(valueBalance!=null) {
+                mBalance.setText(valueBalance + "ETH");
+            }else{
+                mBalance.setText( "11111ETH");
+            }
         }
 
         @Override

@@ -14,6 +14,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 
 public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Factory {
@@ -22,7 +23,7 @@ public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Facto
     FindDefaultWalletInteract mFindDefaultWalletInteract;
     FetchWalletInteract mFetchWalletInteract;
     CreateWalletInteract mCreateWalletInteract;
-
+    GetBalanceInteract mGetBalanceInteract;
     WalletDetailRouter mWalletDetailRouter;
     ImportRouter mImportRouter;
     BackupRouter mBackupRouter;
@@ -30,6 +31,7 @@ public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Facto
                                             FindDefaultWalletInteract findDefaultWalletInteract,
                                             FetchWalletInteract fetchWalletInteract,
                                             CreateWalletInteract createWalletInteract,
+                                            GetBalanceInteract getBalanceInteract,
                                             WalletDetailRouter walletDetailRouter,
                                             ImportRouter importRouter,
                                             BackupRouter backupRouter) {
@@ -38,6 +40,7 @@ public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Facto
         mFetchWalletInteract = fetchWalletInteract;
         mWalletDetailRouter =  walletDetailRouter;
         mCreateWalletInteract = createWalletInteract;
+        mGetBalanceInteract = getBalanceInteract;
         mImportRouter= importRouter;
         mBackupRouter = backupRouter;
     }
@@ -45,6 +48,6 @@ public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Facto
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new ManagerAccountsViewModule(mDefaultWalletInteract,mFindDefaultWalletInteract,mFetchWalletInteract,mCreateWalletInteract,mWalletDetailRouter,mImportRouter,mBackupRouter);
+        return (T) new ManagerAccountsViewModule(mDefaultWalletInteract,mFindDefaultWalletInteract,mFetchWalletInteract,mCreateWalletInteract,mGetBalanceInteract,mWalletDetailRouter,mImportRouter,mBackupRouter);
     }
 }

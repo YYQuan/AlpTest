@@ -229,7 +229,7 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
 
 
-        @BindView(R.id.tv_eth_address)
+        @BindView(R.id.txt_eth_address)
         TextView mContent;
 
 

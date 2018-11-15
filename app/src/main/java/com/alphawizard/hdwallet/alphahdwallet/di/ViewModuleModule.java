@@ -104,11 +104,12 @@ public class ViewModuleModule {
                                                                       FindDefaultWalletInteract findDefaultWalletInteract,
                                                                       FetchWalletInteract fetchWalletInteract,
                                                                       CreateWalletInteract createWalletInteract,
+                                                                      GetBalanceInteract getBalanceInteract,
                                                                       WalletDetailRouter walletDetailRouter,
                                                                       ImportRouter importRouter,
                                                                       BackupRouter backupRouter){
         return  new ManagerAccountsViewModuleFactory(defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,
-                createWalletInteract,walletDetailRouter,importRouter,backupRouter);
+                createWalletInteract,getBalanceInteract,walletDetailRouter,importRouter,backupRouter);
     }
 
 

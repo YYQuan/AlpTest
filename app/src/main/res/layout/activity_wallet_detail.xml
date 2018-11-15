@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".functionModule.WalletDetail.WalletDetailActivity"
+    android:background="#191A2A"
+
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -13,7 +15,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="@color/colorAccent"
+        android:background="#010110"
         android:paddingTop="@dimen/statusBarSize"
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp"
@@ -39,7 +41,7 @@
                 android:gravity="center"
                 android:text="ETH-Wallet"
                 android:textColor="@color/colorWhite"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 />
             <TextView
                 android:id="@+id/txt_save"
@@ -49,7 +51,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
-                android:textSize="16sp"
+                android:textSize="12sp"
                 android:textColor="@color/textWhite"
                 />
         </LinearLayout>
@@ -80,14 +82,17 @@
         android:text="0xe56…efwfrwds"
         android:textColor="@color/textGreyFourth"
         android:layout_gravity="center_horizontal"/>
-    
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
+        android:background="#202234"
         android:orientation="horizontal"
         android:layout_marginTop="59dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:paddingLeft="40dp">
-        
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="22dp"
@@ -105,7 +110,7 @@
             android:layout_width="104dp"
             android:layout_height="22dp"
             android:text="ETH-Wallet"
-            android:textColor="@color/textBlack"
+            android:textColor="@color/textWhite"
             android:textSize="16sp"
             android:layout_marginEnd="40dp"
             android:layout_gravity="center_vertical"
@@ -113,106 +118,123 @@
             android:textCursorDrawable="@null"
             android:background="@null"
             />
-        
+
     </LinearLayout>
+
 
     <LinearLayout
-        android:id="@+id/lay_export_private_key"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="58dp"
-        android:paddingLeft="40dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="#202234">
+        <LinearLayout
+            android:id="@+id/lay_export_private_key"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="23dp"
+            android:paddingLeft="40dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:text="导出私钥"
-            android:textSize="16sp"
-            android:textColor="@color/textGreyFourth"
-            android:layout_gravity="center_vertical"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:text="导出私钥"
+                android:textSize="16sp"
+                android:textColor="@color/textGreyFourth"
+                android:layout_gravity="center_vertical"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/im_import_privateKey"
+                android:layout_width="9dp"
+                android:layout_height="15dp"
+                android:background="@drawable/ic_to"
+                android:layout_marginEnd="40dp"
+                />
+
+        </LinearLayout>
+
         <View
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_weight="1"/>
+            android:background="#111221"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <LinearLayout
+            android:id="@+id/lay_export_keystore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="22dp"
+            android:paddingLeft="40dp">
 
-        <ImageView
-            android:id="@+id/im_import_privateKey"
-            android:layout_width="9dp"
-            android:layout_height="15dp"
-            android:background="@drawable/ic_to"
-            android:layout_marginEnd="40dp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:text="导出Keystore"
+                android:textSize="16sp"
+                android:textColor="@color/textGreyFourth"
+                android:layout_gravity="center_vertical"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/im_import_keystore"
+                android:layout_width="9dp"
+                android:layout_height="15dp"
+                android:background="@drawable/ic_to"
+                android:layout_marginEnd="40dp"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#111221"
+            android:layout_marginTop="22dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+        <LinearLayout
+            android:id="@+id/lay_export_mnemonics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="19dp"
+            android:layout_marginBottom="22dp"
+            android:paddingLeft="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:text="导出助记词"
+                android:textSize="16sp"
+                android:textColor="@color/textGreyFourth"
+                android:layout_gravity="center_vertical"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/im_import_mnemonics"
+                android:layout_width="9dp"
+                android:layout_height="15dp"
+                android:background="@drawable/ic_to"
+                android:layout_marginEnd="40dp"
+                />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lay_export_keystore"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="39dp"
-        android:paddingLeft="40dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:text="导出Keystore"
-            android:textSize="16sp"
-            android:textColor="@color/textGreyFourth"
-            android:layout_gravity="center_vertical"/>
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        <ImageView
-            android:id="@+id/im_import_keystore"
-            android:layout_width="9dp"
-            android:layout_height="15dp"
-            android:background="@drawable/ic_to"
-            android:layout_marginEnd="40dp"
-            />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorGreyFourth"
-        android:layout_marginTop="19dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"/>
-    <LinearLayout
-        android:id="@+id/lay_export_mnemonics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="19dp"
-        android:paddingLeft="40dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:text="导出助记词"
-            android:textSize="16sp"
-            android:textColor="@color/textGreyFourth"
-            android:layout_gravity="center_vertical"/>
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
-
-        <ImageView
-            android:id="@+id/im_import_mnemonics"
-            android:layout_width="9dp"
-            android:layout_height="15dp"
-            android:background="@drawable/ic_to"
-            android:layout_marginEnd="40dp"
-            />
-
-    </LinearLayout>
-
-
 
 </LinearLayout>
