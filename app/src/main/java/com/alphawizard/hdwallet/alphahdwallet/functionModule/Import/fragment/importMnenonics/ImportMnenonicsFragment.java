@@ -2,6 +2,8 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.im
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -30,7 +32,8 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     @BindView(R.id.ed_mnenonics )
     EditText mMnenonics;
 
-
+    @BindView(R.id.ed_wallet_name )
+    EditText mName;
 
     @BindView(R.id.btn_import )
     Button mImport;
@@ -38,7 +41,7 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     @OnClick(R.id.btn_import)
     void onClickImport(){
 
-        getmPresenter().importMnenonics(mMnenonics.getText().toString(),"Wallet");
+        getmPresenter().importMnenonics(mMnenonics.getText().toString(),mName.getText().toString());
     }
 
     public static ImportMnenonicsFragment create() {
@@ -62,6 +65,8 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
 
 
     String  mScanContent;
+    boolean isInputMnemonics =false;
+    boolean isInputName =false;
 
     @Override
     public void initData() {
@@ -76,6 +81,68 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
             mScanContent = ((ImportActivity)getActivity()).getScanContent();
         }
 
+        mImport.setEnabled(false);
+        mImport.setBackgroundColor(0xff393A50);
+
+        mMnenonics.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mMnenonics.getText().length()>0){
+                    isInputMnemonics =true;
+                    if(isInputName){
+                        mImport.setEnabled(true);
+                        mImport.setBackgroundResource(R.drawable.bg_gradient_blue);
+                    }
+                }else{
+                    isInputMnemonics =false;
+                    mImport.setEnabled(false);
+                    mImport.setBackgroundColor(0xff393A50);
+                }
+
+
+
+            }
+        });
+        mName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mName.getText().length()>0){
+                    isInputName =true;
+                    if(isInputMnemonics){
+
+                        mImport.setEnabled(true);
+                        mImport.setBackgroundResource(R.drawable.bg_gradient_blue);
+                    }
+                }else{
+                    isInputName =false;
+
+                    mImport.setEnabled(false);
+                    mImport.setBackgroundColor(0xff393A50);
+                }
+            }
+        });
     }
 
     @Override

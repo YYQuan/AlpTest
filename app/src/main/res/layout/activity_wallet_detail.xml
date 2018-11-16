@@ -20,43 +20,48 @@
         android:minHeight="?attr/actionBarSize"
         app:contentInsetStart="0dp"
         android:layout_gravity="center"
-        app:titleTextAppearance="@style/TextAppearance.Title">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        app:titleTextAppearance="@style/TextAppearance.Title"
+        android:visibility="gone">
 
-            <ImageView
-                android:layout_width="13dp"
-                android:layout_height="18dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/ic_title_back_white"
-                android:layout_gravity="center_vertical" />
-            <TextView
-                android:id="@+id/tv_toolbar_title"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="28dp"
-                android:gravity="center"
-                android:text="ETH-Wallet"
-                android:textColor="@color/colorWhite"
-                android:textSize="18sp"
-                />
-            <TextView
-                android:id="@+id/txt_save"
-                android:layout_width="33dp"
-                android:layout_height="23dp"
-                android:text="保存"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:textColor="@color/textWhite"
-                />
-        </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="#010110"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/statusBarSize">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+
+            android:layout_marginStart="21dp"
+            android:background="@drawable/ic_title_back_white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wallet"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/txt_save"
+            android:layout_width="33dp"
+            android:layout_height="23dp"
+            android:text="保存"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/textWhite"
+            />
+    </RelativeLayout>
+
 
     <ImageView
         android:layout_width="31dp"
@@ -67,11 +72,12 @@
     <TextView
         android:id="@+id/txt_eth_balance"
         android:layout_width="wrap_content"
-        android:layout_height="15dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:textColor="@color/textBlack"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
+        android:textColor="#ffffffff"
+        android:textSize="18sp"
         android:text="0ETH"/>
 
     <TextView

@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
@@ -27,6 +28,7 @@ public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Facto
     WalletDetailRouter mWalletDetailRouter;
     ImportRouter mImportRouter;
     BackupRouter mBackupRouter;
+    PasswordStore mPasswordStore;
     public ManagerAccountsViewModuleFactory(DefaultWalletInteract defaultWalletInteract,
                                             FindDefaultWalletInteract findDefaultWalletInteract,
                                             FetchWalletInteract fetchWalletInteract,
@@ -34,7 +36,8 @@ public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Facto
                                             GetBalanceInteract getBalanceInteract,
                                             WalletDetailRouter walletDetailRouter,
                                             ImportRouter importRouter,
-                                            BackupRouter backupRouter) {
+                                            BackupRouter backupRouter,
+                                            PasswordStore passwordStore) {
         mDefaultWalletInteract = defaultWalletInteract;
         mFindDefaultWalletInteract = findDefaultWalletInteract;
         mFetchWalletInteract = fetchWalletInteract;
@@ -43,11 +46,12 @@ public class ManagerAccountsViewModuleFactory implements ViewModelProvider.Facto
         mGetBalanceInteract = getBalanceInteract;
         mImportRouter= importRouter;
         mBackupRouter = backupRouter;
+        mPasswordStore =  passwordStore;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new ManagerAccountsViewModule(mDefaultWalletInteract,mFindDefaultWalletInteract,mFetchWalletInteract,mCreateWalletInteract,mGetBalanceInteract,mWalletDetailRouter,mImportRouter,mBackupRouter);
+        return (T) new ManagerAccountsViewModule(mDefaultWalletInteract,mFindDefaultWalletInteract,mFetchWalletInteract,mCreateWalletInteract,mGetBalanceInteract,mWalletDetailRouter,mImportRouter,mBackupRouter,mPasswordStore);
     }
 }

@@ -22,6 +22,7 @@ public class WalletDetailViewModule extends BaseViewModel {
     private final MutableLiveData<String> exportMnemonics = new MutableLiveData<>();
     private final MutableLiveData<String> walletName = new MutableLiveData<>();
     private final MutableLiveData<Boolean> hasMnemonics = new MutableLiveData<>();
+    private final MutableLiveData<String> passwordString = new MutableLiveData<>();
 
 
     public WalletDetailViewModule(GetBalanceInteract getBalanceInteract,
@@ -51,6 +52,9 @@ public class WalletDetailViewModule extends BaseViewModel {
 
     public LiveData<Boolean> hasMnemonicsString() {
         return hasMnemonics;
+    }
+    public LiveData<String> passwordString() {
+        return passwordString;
     }
 
 
@@ -97,6 +101,13 @@ public class WalletDetailViewModule extends BaseViewModel {
                 .subscribe(this::saveWalletNameSuccess ,this::saveWalletNameError);
     }
 
+    public void getPassword(Wallet wallet){
+        mPasswordStore.getPassword(wallet)
+                .subscribe(s->passwordString.setValue(s),this::getPasswordError);
+    }
+
+    private void getPasswordError(Throwable throwable) {
+    }
 
 
     private void saveWalletNameSuccess() {

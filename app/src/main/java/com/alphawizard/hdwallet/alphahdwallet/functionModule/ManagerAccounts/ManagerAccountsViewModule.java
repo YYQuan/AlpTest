@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailRouter;
@@ -38,11 +39,14 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     GetBalanceInteract mGetBalanceInteract;
     ImportRouter mImportRouter;
     BackupRouter mBackupRouter;
+    PasswordStore mPasswordStore;
 
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
+    private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
     private final MutableLiveData<CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
     private final MutableLiveData< HashMap<String,String>> accountsBalance = new MutableLiveData<>();
+    private final MutableLiveData< HashMap<String,String>> accountsName = new MutableLiveData<>();
 
 
     CreateWalletEntity mEntity ;
@@ -53,7 +57,8 @@ public class ManagerAccountsViewModule extends BaseViewModel {
                                      GetBalanceInteract getBalanceInteract,
                                      WalletDetailRouter walletDetailRouter,
                                      ImportRouter importRouter,
-                                     BackupRouter backupRouter)
+                                     BackupRouter backupRouter,
+                                     PasswordStore passwordStore)
     {
         
         mDefaultWalletInteract = defaultWalletInteract;
@@ -64,6 +69,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
          mWalletDetailRouter = walletDetailRouter;
         mImportRouter =  importRouter;
         mBackupRouter =  backupRouter;
+        mPasswordStore = passwordStore;
     }
 
     public LiveData<Wallet[]> wallets() {
@@ -74,13 +80,19 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     public LiveData<Wallet> createdWallet() {
         return createdWallet;
     }
-
+    public LiveData<Wallet> defaultWallet() {
+        return defaultWallet;
+    }
     public LiveData<CreateWalletEntity> createWalletEntity() {
         return createWalletEntity;
     }
 
     public LiveData< HashMap<String,String>> accountsBalance() {
         return accountsBalance;
+    }
+
+    public LiveData< HashMap<String,String>> accountsName() {
+        return accountsName;
     }
 
 
@@ -96,8 +108,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
 
     private HashMap<String,String>  accountsBalanceMap = new HashMap<>();
-
-
+    private HashMap<String,String>  accountsNameMap = new HashMap<>();
     public void getAccountsBalance(){
         mFetchWalletInteract
                 .fetchAccounts()
@@ -124,6 +135,37 @@ public class ManagerAccountsViewModule extends BaseViewModel {
                         accountsBalance.setValue(map),this::getBalanceError);
     }
 
+
+    public void getAccountsName(){
+        mFetchWalletInteract
+                .fetchAccounts()
+                .flatMap(w ->{
+                    int i = 0;
+                    for (;i<w.length;i++){
+                        int finalI = i;
+
+                        mPasswordStore.getWalletName(w[i])
+                                .subscribe(value->{
+                                    accountsNameMap.put(w[finalI].address,value);
+                                },this::getBalanceError);
+//                        accountsBalance.setValue(accountsBalanceMap);
+                    }
+                    while (accountsNameMap.get(w[w.length-1].address)==null){
+                        Log.d("getAccountsBalance  running");
+                    }
+                    return Single.just(accountsNameMap);
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(map->
+                        accountsName.setValue(map),this::getNameError);
+
+    }
+
+    private void getNameError(Throwable throwable) {
+    }
+
+
     private void getBalanceError(Throwable throwable) {
     }
 
@@ -138,6 +180,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     }
 
     private void onDefaultWalletChanged(Wallet wallet) {
+        defaultWallet.setValue(wallet) ;
     }
 
 
@@ -169,6 +212,10 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
     private void onCreateWallet(Wallet wallet) {
         createdWallet.postValue(wallet);
+    }
+
+    private void onDefaultWallet(Wallet wallet) {
+        defaultWallet.postValue(wallet);
     }
 
     public void  openWalletDetail(Context context,String address ){

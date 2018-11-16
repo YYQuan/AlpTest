@@ -57,6 +57,10 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
     @BindView(R.id.btn_privateKey)
     Button  mPrivateKey;
 
+    @OnClick(R.id.iv_back)
+    void onClickBack(){
+        onBackPressed();
+    }
 
     String scanContent;
 
@@ -151,9 +155,9 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
         super.initWidget();
 
         mHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
-        mHelper.add(KEYSTORE_FORM_INDEX, new NavHelper.Tab<>(ImportKeyStoreFragment.class, R.string.title_wallet))
-                .add(PRIVATE_KEY_FORM_INDEX, new NavHelper.Tab<>(ImportPrivateKeyFragment.class, R.string.title_dapps))
-                .add(MNENONICS_FORM_INDEX, new NavHelper.Tab<>(ImportMnenonicsFragment.class, R.string.title_mine));
+        mHelper.add(KEYSTORE_FORM_INDEX, new NavHelper.Tab<>(ImportKeyStoreFragment.class, "Keystore"))
+                .add(PRIVATE_KEY_FORM_INDEX, new NavHelper.Tab<>(ImportPrivateKeyFragment.class, "private"))
+                .add(MNENONICS_FORM_INDEX, new NavHelper.Tab<>(ImportMnenonicsFragment.class, "mnemonics"));
 
         mHelper.performClickMenu(MNENONICS_FORM_INDEX);
 //        ViewPager viewPager = findViewById(R.id.viewPager);

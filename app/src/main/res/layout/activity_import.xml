@@ -7,40 +7,39 @@
     android:background="#191A2A"
     android:orientation="vertical"
     tools:context=".functionModule.Wallet.WalletActivity">
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
         android:background="#010110"
-        android:paddingTop="@dimen/statusBarSize"
-        android:orientation="horizontal">
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/statusBarSize">
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="9dp"
             android:layout_height="15dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="21dp"
+
+            android:layout_marginStart="21dp"
             android:background="@drawable/ic_title_back_white"/>
+
         <TextView
-            android:id="@+id/tv_toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="导入ETH"
-            android:textColor="@color/colorWhite"
+            android:textColor="#ffffffff"
             android:textSize="18sp"
-            android:layout_marginBottom="6dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
             />
         <ImageView
             android:id="@+id/iv_saoma"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_alignParentEnd="true"
             android:layout_gravity="center_vertical"
             android:background="@mipmap/ic_saoma"/>
-    </LinearLayout>
-
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

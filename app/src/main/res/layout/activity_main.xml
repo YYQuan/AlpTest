@@ -6,35 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#010110"
-    tools:context=".functionModule.Wallet.WalletActivity">
+    tools:context=".functionModule.Wallet.WalletActivity"
+    android:paddingTop="@dimen/statusBarSize"
+    >
 
 
 
-    <android.support.v7.widget.Toolbar
 
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="#010110"
-        android:paddingTop="@dimen/statusBarSize"
-        android:minHeight="?attr/actionBarSize"
-        app:contentInsetStart="0dp"
-        app:titleTextColor="@color/white"
-        android:layout_alignParentTop="true"
-        app:titleTextAppearance="@style/TextAppearance.Title">
-
-
-        <TextView
-            android:id="@+id/tv_toolbar_title"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:layout_marginBottom="6dp"
-            />
-    </android.support.v7.widget.Toolbar>
 
 
     <FrameLayout

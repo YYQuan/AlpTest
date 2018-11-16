@@ -13,23 +13,8 @@
         android:layout_height="@dimen/actionBarWithStatusBarSize"
         android:background="#010110"
         android:paddingTop="@dimen/statusBarSize"
-        app:titleTextAppearance="@style/TextAppearance.Title">
-
-        <FrameLayout
-            android:id="@+id/layout_toolbar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="12dp"
-                android:layout_height="17dp"
-                android:background="@drawable/ic_title_back_white"/>
-
-
-        </FrameLayout>
-
-
+        app:titleTextAppearance="@style/TextAppearance.Title"
+        android:visibility="gone">
         <TextView
             android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
@@ -38,9 +23,32 @@
             android:text="HD钱包设置"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
-
             />
     </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="#010110"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/statusBarSize">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+
+            android:layout_marginStart="21dp"
+            android:background="@drawable/ic_title_back_white"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="HD钱包设置"
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            />
+    </RelativeLayout>
     <com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout
         android:id="@+id/place_holder"
         android:layout_width="match_parent"

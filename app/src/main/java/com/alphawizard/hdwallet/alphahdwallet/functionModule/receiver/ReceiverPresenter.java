@@ -33,7 +33,9 @@ public class ReceiverPresenter extends BasePresenter<ReceiverContract.View,Recei
                     imageSize,
                     imageSize,
                     null);
+
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+
             return barcodeEncoder.createBitmap(bitMatrix);
         } catch (Exception e) {
 

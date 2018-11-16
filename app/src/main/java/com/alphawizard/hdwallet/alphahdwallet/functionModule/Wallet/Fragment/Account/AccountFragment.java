@@ -86,7 +86,8 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     @OnClick(R.id.btn_send)
     void clickBtnSend(){
-        viewModel.openSendEth(getActivity());
+        float i=Float.parseFloat(mBalanceString);
+        viewModel.openSendEth(getActivity(),i);
     }
 
     @OnClick(R.id.btn_receive)
@@ -99,6 +100,11 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 //            Bitmap bitmap = getmPresenter().createQRImage(defaultWalletAddress,imageSize);
 //            showCodeDialog(defaultWalletAddress,bitmap);
 //        }
+    }
+
+    @OnClick(R.id.iv_setting)
+    void onClickSetting(){
+        viewModel.openManagerRouter(getActivity());
     }
 
     @Override
@@ -261,8 +267,10 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         defaultWalletAddress = wallet.address;
     }
 
+    String mBalanceString = "0";
     private void defaultWalletBalanceChange(String s) {
         Log.d(" balance : "+s);
+        mBalanceString = s;
         mBalance.setText(s + "ETH");
     }
 

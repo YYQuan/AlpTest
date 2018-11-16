@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -64,6 +65,10 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     void onClickBack(){
         onBackPressed();
     }
+
+
+    @BindView(R.id.btn_next)
+    Button mNext;
 
     @OnClick(R.id.btn_next)
     void onClickNext(){
@@ -138,7 +143,8 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                 listSelect.add(mnemonics);
                 mMnemonicsViewSelect.replace(listSelect);
                 mMnemonicsViewNoSelect.replace(listNoSelect);
-
+                mNext.setEnabled(false);
+                mNext.setBackgroundResource(R.drawable.bg_color_393a50);
                 if(listNoSelect.size()<=0){
                     int i = 0 ;
                     for(String str:mList){
@@ -147,9 +153,12 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                             if(i==(mList.size())) {
                                 App.showToast(" 正确");
                                 showCorrect(true);
+                                mNext.setEnabled(true);
+                                mNext.setBackgroundResource(R.drawable.bg_gradient_blue);
                             }
                         }else{
                             App.showToast(" 错误");
+
                             break;
                         }
 

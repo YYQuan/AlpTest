@@ -49,9 +49,14 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
         App.showToast("已复制 助记词");
     }
 
-
     @BindView(R.id.btn_next)
     Button mNext;
+
+    @OnClick(R.id.iv_back)
+    public void clickBack(){
+        onBackPressed();
+    }
+
 
     @OnClick(R.id.btn_next)
     public void clickNext(){

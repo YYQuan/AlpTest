@@ -332,8 +332,8 @@ public class WalletViewModule extends BaseViewModel {
         exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     }
 
-    public void openSendEth(Context context){
-        mSendRouter.open(context);
+    public void openSendEth(Context context,float value){
+        mSendRouter.open(context,value);
     }
 
     public void openFirstLaunch(Context context){

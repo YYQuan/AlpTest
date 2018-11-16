@@ -79,11 +79,17 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         viewModel.openImport(this);
     }
 
+    @OnClick(R.id.iv_back)
+    void onClickBack(){
+        onBackPressed();
+    }
+
+
     RecyclerAdapter<Wallet> mAdapter;
 
     private Dialog dialog;
     String  mnenonics ;
-
+    String defaultAddress = "";
 
     @Override
     public int getContentLayoutID() {
@@ -111,10 +117,25 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         viewModel.createWalletEntity().observe(this,this::onCreateWalletEntity);
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
         viewModel.accountsBalance().observe(this,this::onGetAccountBalance);
+        viewModel.accountsName().observe(this,this::onGetAccountName);
+        viewModel.defaultWallet().observe(this,this::onGetDefaultWallet);
 
-        viewModel.getAccountsBalance();
+
+    }
 
 
+
+    private HashMap<String, String> mAccountsNameMap = new HashMap<>();
+    private void onGetAccountName(HashMap<String, String> stringStringHashMap) {
+        if(stringStringHashMap!=null&&!stringStringHashMap.equals(mAccountsBalanceMap)) {
+            mAccountsNameMap = stringStringHashMap;
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+
+    private void onGetDefaultWallet(Wallet wallet) {
+        defaultAddress = wallet.address;
     }
 
 
@@ -122,16 +143,9 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     private void onGetAccountBalance(HashMap<String, String> walletStringHashMap) {
         if(walletStringHashMap!=null&&!walletStringHashMap.equals(mAccountsBalanceMap)) {
             mAccountsBalanceMap = walletStringHashMap;
+            mAdapter.notifyDataSetChanged();
         }
-        Log.d("onGetAccountBalance mAccountsBalanceMap   size  = "+mAccountsBalanceMap.size());
-        Log.d("onGetAccountBalance walletStringHashMap  size  = "+walletStringHashMap.size());
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.notifyDataSetChanged();
-            }
-        },1000);
     }
 
     private void onCreatedWallet(Wallet wallet) {
@@ -173,6 +187,8 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         super.onResume();
         mPresenter.getWallets();
         mPresenter.getDefaultWallet();
+        viewModel.getAccountsBalance();
+        viewModel.getAccountsName();
     }
 
     private void onGetWallets(Wallet[] wallets) {
@@ -302,6 +318,14 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         @BindView(R.id.txt_eth_address)
         TextView mContent;
 
+        @BindView(R.id.txt_name)
+        TextView mName;
+
+
+        @BindView(R.id.iv_is_default_wallet)
+        ImageView imageDefault;
+
+
         @BindView(R.id.txt_eth_balance)
         TextView mBalance;
 
@@ -318,11 +342,24 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             mContent.setText(address);
             imageTo.setOnClickListener(this);
 
+            String valueName = mAccountsNameMap.get(wallet.address);
+            if(valueName!=null) {
+                mName.setText(valueName);
+            }else{
+                mName.setText( "Wallet");
+            }
+
             String valueBalance = mAccountsBalanceMap.get(wallet.address);
+
+            if(address.equalsIgnoreCase(defaultAddress)){
+                imageDefault.setBackgroundResource(R.mipmap.ic_select_activity);
+            }else{
+                imageDefault.setBackgroundResource(R.mipmap.ic_select_unactivity);
+            }
             if(valueBalance!=null) {
                 mBalance.setText(valueBalance + "ETH");
             }else{
-                mBalance.setText( "11111ETH");
+                mBalance.setText( "0.000ETH");
             }
         }
 

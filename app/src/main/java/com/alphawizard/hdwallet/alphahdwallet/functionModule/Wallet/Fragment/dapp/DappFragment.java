@@ -176,7 +176,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         if(defaultWalletAddress!=null) {
             web3.setWalletAddress(new Address(defaultWalletAddress));
         }
-
+        web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
         web3.setOnSignMessageListener(message ->
                 callSignMessage = Trust.signMessage().message(message).call(getActivity()));
         web3.setOnSignPersonalMessageListener(message ->

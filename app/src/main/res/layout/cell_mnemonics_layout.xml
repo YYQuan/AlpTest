@@ -6,12 +6,13 @@
     android:layout_height="32dp"
     android:layout_marginTop="10dp"
     android:orientation="horizontal"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#191A2A"
     >
     <View
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="0dp"/>
+
 
     <TextView
         android:id="@+id/txt_cell_mnemonic"
@@ -20,11 +21,12 @@
         android:background="@drawable/bg_grey_side_fourth"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:textSize="15sp"
-        android:textColor="@color/textGreyFourth"
+
         android:singleLine="true"
         android:ellipsize="middle"
-
+        android:text="strategy"
+        android:textColor="#ffffffff"
+        android:textSize="13sp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="6dp"

@@ -19,35 +19,34 @@
         android:layout_height="@dimen/actionBarWithStatusBarSize"
         android:background="#010110"
         android:paddingTop="@dimen/statusBarSize"
-        app:titleTextAppearance="@style/TextAppearance.Title">
+        app:titleTextAppearance="@style/TextAppearance.Title"
+        android:visibility="gone">
 
-        <FrameLayout
-            android:id="@+id/layout_toolbar_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="12dp"
-                android:layout_height="17dp"
-                android:background="@drawable/ic_title_back_white"/>
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        android:background="#010110"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/statusBarSize">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
 
-
-        </FrameLayout>
-
+            android:layout_marginStart="21dp"
+            android:background="@drawable/ic_title_back_white"/>
 
         <TextView
-            android:id="@+id/tv_toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="发送ETH"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-
+            android:textColor="#ffffffff"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
             />
-    </android.support.v7.widget.Toolbar>
-
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="335dp"
@@ -65,12 +64,13 @@
 
         <net.qiujuer.genius.ui.widget.EditText
             android:id="@+id/ed_eth_address"
-            android:layout_width="138dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:hint="接收地址"
+            android:layout_marginEnd="60dp"
             android:inputType="textMultiLine"
-            android:maxLength="64"
-            android:maxLines="2"
+            android:maxLength="128"
+            android:singleLine="true"
             android:background="@drawable/bg_color_131422_side"
             android:textColorHint="#4E4F6C"
             android:textColor="@color/textWhite"
@@ -116,7 +116,6 @@
             android:layout_width="138dp"
             android:layout_height="40dp"
             android:hint="ETH数量"
-            android:inputType="textMultiLine"
             android:maxLength="64"
             android:maxLines="2"
             android:textColorHint="#4E4F6C"
@@ -125,6 +124,7 @@
             android:background="@drawable/bg_color_131422_side"
             app:gHintTitle="none"
             app:gLineSize="0dp"
+            android:inputType="number|numberDecimal"
             android:layout_toRightOf="@id/v_placeholder2"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
@@ -144,13 +144,18 @@
             android:background="@mipmap/ic_tip_grey"
             android:layout_gravity="center_vertical"/>
         <TextView
+            android:id="@+id/txt_eth_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+
             android:layout_marginLeft="3dp"
-            android:text="可用ETH ： 152.5"
-            android:textColor="#4E4F6C"
+
+
+            android:text="可用：12.455ETH"
+            android:textColor="#ff4e4f6c"
+            android:textSize="10sp"
             android:layout_gravity="center_vertical"/>
+
     </LinearLayout>
     <View
         android:layout_width="wrap_content"

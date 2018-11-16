@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
@@ -22,6 +25,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter.WALLET_BALANCE;
 
 public class SendActivity extends BasePresenterToolbarActivity<SendContract.Presenter,SendViewModule> implements SendContract.View{
 
@@ -58,6 +63,12 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
        onBackPressed();
     }
 
+    @BindView(R.id.txt_eth_balance)
+    TextView mBalance;
+
+    boolean isInputAddress =false;
+    boolean isInputAmounts =false;
+
     @Override
     public SendContract.Presenter initPresenter() {
         return mPresenter;
@@ -73,6 +84,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         return R.layout.activity_send;
     }
 
+    float balance = 0f;
     @Override
     public void initData() {
         super.initData();
@@ -81,6 +93,92 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         viewModel.progress().observe(this,this::sendCallback);
 
         getmPresenter().takeView(this,viewModel);
+
+        balance = getIntent().getFloatExtra(WALLET_BALANCE,0);
+        mBalance.setText("可用："+balance+"ETH");
+
+        mAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mAmount.getText().length()>0){
+                    isInputAmounts =true;
+                    if(isInputAddress){
+                        checkInput();
+                    }
+                }else{
+                    isInputAmounts =false;
+                    enableNext(false);
+                }
+
+
+
+            }
+        });
+        mAddresss.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mAddresss.getText().length()>0){
+                    isInputAddress =true;
+                    if(isInputAmounts){
+                        checkInput();
+                    }
+                }else{
+                    isInputAddress =false;
+                    enableNext(false);
+                }
+            }
+        });
+
+
+    }
+
+    private void checkInput(){
+        float inputValue = Float.parseFloat(mAmount.getText().toString());
+
+        if(balance<=inputValue){
+            enableNext(false);
+            return ;
+        }
+        if(mAddresss.getText().toString().length()<15){
+            return;
+        }
+        String subAddress = mAddresss.getText().toString().substring(0,2);
+
+        if("0x".equalsIgnoreCase(subAddress)){
+            enableNext(true);
+        }
+    }
+
+    private void enableNext(boolean isEnable){
+        if(!isEnable) {
+            mSend.setBackgroundResource(R.drawable.bg_color_393a50);
+            mSend.setEnabled(false);
+        }else {
+            mSend.setBackgroundResource(R.drawable.bg_gradient_blue);
+            mSend.setEnabled(true);
+        }
     }
 
     @Override
@@ -94,6 +192,8 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setTitle("");
         }
+
+        mSend.setEnabled(false);
     }
 
     private void sendCallback(Boolean aBoolean) {

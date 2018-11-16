@@ -1,17 +1,21 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.VerifyMnemonicsModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletDetailModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
@@ -19,6 +23,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.Bac
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.widget.MyDialog;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 
@@ -72,15 +77,23 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     @OnClick(R.id.lay_export_keystore)
     void onClickKeystore(){
-        viewModel.exportKeystore(address);
+
+//        viewModel.exportKeystore(address);
+
+        showBackupKeystoreDialog(password);
+
     }
 
+    @OnClick(R.id.iv_back)
+    void onClickBack(){
+        onBackPressed();
+    }
     @OnClick(R.id.lay_export_mnemonics)
     void onClickMnemonics(){
         viewModel.exportMnemonics(address);
     }
 
-
+    String password;
 
 
     @Override
@@ -113,11 +126,17 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         viewModel.walletNameString().observe(this ,this::walletNameString);
         viewModel.progress().observe(this,this::saveWalletNameSuccess);
         viewModel.hasMnemonicsString().observe(this,this::hasMnemonics);
+        viewModel.passwordString().observe(this,this::getPassword);
         viewModel.getBalance(address);
         viewModel.getWalletName(address);
         viewModel.hasMnemonics(address);
         mAddress.setText(address);
+        viewModel.getPassword(new Wallet(address));
 
+    }
+
+    private void getPassword(String s) {
+        password = s;
     }
 
     private void hasMnemonics(Boolean aBoolean) {
@@ -165,6 +184,73 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     private void walletBalanceChange(String s) {
         mBalance.setText(s+"EHT");
+    }
+
+    Dialog dialog ;
+
+    public void showBackupKeystoreDialog(String password) {
+
+//        BackupView view = new BackupView(getActivity());
+        View view = View.inflate(this, R.layout.dialog_verify_password,null);
+        EditText editPassword = view.findViewById(R.id.edit_keystore_password);
+        Button isOk = view.findViewById(R.id.btn_ok);
+        Button isCancle = view.findViewById(R.id.btn_cancel);
+
+        isCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        isOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(password.equalsIgnoreCase(editPassword.getText().toString())){
+                    App.showToast(" password is true ");
+                    viewModel.exportKeystore(address);
+                    return ;
+                }
+                showBackupKeystoreErrorDialog();
+            }
+        });
+
+        dialog = buildDialog()
+                .setView(view)
+//                .setOnDismissListener(dialog -> KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore)))
+                .create();
+        dialog.show();
+    }
+
+    public void showBackupKeystoreErrorDialog() {
+        if(dialog.isShowing()){
+            dialog.dismiss();
+        }
+//        BackupView view = new BackupView(getActivity());
+        View view = View.inflate(this, R.layout.dialog_verify_password_error,null);
+        TextView tv = view.findViewById(R.id.txt_sure);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog = buildDialog()
+                .setView(view)
+//                .setOnDismissListener(dialog -> KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore)))
+                .create();
+        dialog.show();
+    }
+
+    private AlertDialog.Builder buildDialog() {
+        hideDialog();
+        return new AlertDialog.Builder(this);
+    }
+
+    public  void hideDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 
 

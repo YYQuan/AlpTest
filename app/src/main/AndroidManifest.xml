@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -48,7 +50,8 @@
             android:label="@string/title_activity_first_launch" />
         <activity
             android:name=".functionModule.backupMnemonics.BackupMnemonicsActivity"
-            android:label="@string/title_activity_backup_mnemonics" />
+            android:label="@string/title_activity_backup_mnemonics"
+            android:theme="@style/AppTheme.TransStatusBar.Base"/>
         <activity
             android:name=".functionModule.verifyMnemonics.VerifyMnemonicsActivity"
             android:label="@string/title_activity_verify_mnemonics" />

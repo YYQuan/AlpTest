@@ -2,6 +2,8 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.im
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -29,7 +31,8 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
 
     @BindView(R.id.ed_privatekey )
     EditText  mPrivatekey;
-
+    @BindView(R.id.ed_wallet_name )
+    EditText  mName;
     @BindView(R.id.btn_import )
     Button  mImport;
 
@@ -67,6 +70,8 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
         mScanContent = ((ImportActivity) activity).getScanContent();
     }
 
+    boolean isInputPrivateKey =false;
+    boolean isInputName =false;
 
 
     @Override
@@ -77,6 +82,68 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
         getmPresenter().takeView(this,viewModel);
         viewModel.progress().observe(this,this::importCallback);
 
+        mImport.setEnabled(false);
+        mImport.setBackgroundColor(0xff393A50);
+
+        mPrivatekey.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mPrivatekey.getText().length()>0){
+                    isInputPrivateKey =true;
+                    if(isInputName){
+                        mImport.setEnabled(true);
+                        mImport.setBackgroundResource(R.drawable.bg_gradient_blue);
+                    }
+                }else{
+                    isInputPrivateKey =false;
+                    mImport.setEnabled(false);
+                    mImport.setBackgroundColor(0xff393A50);
+                }
+
+
+
+            }
+        });
+        mName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mName.getText().length()>0){
+                    isInputName =true;
+                    if(isInputPrivateKey){
+
+                        mImport.setEnabled(true);
+                        mImport.setBackgroundResource(R.drawable.bg_gradient_blue);
+                    }
+                }else{
+                    isInputName =false;
+
+                    mImport.setEnabled(false);
+                    mImport.setBackgroundColor(0xff393A50);
+                }
+            }
+        });
     }
 
     @Override

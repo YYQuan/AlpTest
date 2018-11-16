@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -40,15 +42,18 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
     @BindView(R.id.ed_wallet_password)
     EditText mPassword;
 
+
+    @BindView(R.id.ed_wallet_name)
+    EditText mName;
+
+
     @BindView(R.id.btn_import )
     Button mImport;
 
 
-
-
     @OnClick(R.id.btn_import)
     void onClickImport(){
-        getmPresenter().importKeyStore(mKeystore.getText().toString(),mPassword.getText().toString(),"Wallet");
+        getmPresenter().importKeyStore(mKeystore.getText().toString(),mPassword.getText().toString(),mName.getText().toString());
     }
 
     public static ImportKeyStoreFragment create() {
@@ -73,7 +78,9 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
 
 
     String  mScanContent;
-
+    boolean isInputKeystore =false;
+    boolean isInputName =false;
+    boolean isInputPassword =false;
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -88,6 +95,99 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
                 .get(ImportViewModule.class);
         getmPresenter().takeView(this,viewModel);
         viewModel.progress().observe(this,this::importCallback);
+
+        mImport.setEnabled(false);
+        mImport.setBackgroundColor(0xff393A50);
+
+        mKeystore.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mKeystore.getText().length()>0){
+                    isInputKeystore =true;
+                    if(isInputName&&isInputPassword){
+                        mImport.setEnabled(true);
+                        mImport.setBackgroundResource(R.drawable.bg_gradient_blue);
+                    }
+                }else{
+                    isInputKeystore =false;
+                    mImport.setEnabled(false);
+                    mImport.setBackgroundColor(0xff393A50);
+                }
+
+
+
+            }
+        });
+        mName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mName.getText().length()>0){
+                    isInputName =true;
+                    if(isInputKeystore&&isInputPassword){
+
+                        mImport.setEnabled(true);
+                        mImport.setBackgroundResource(R.drawable.bg_gradient_blue);
+                    }
+                }else{
+                    isInputName =false;
+
+                    mImport.setEnabled(false);
+                    mImport.setBackgroundColor(0xff393A50);
+                }
+            }
+        });
+
+        mPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(mPassword.getText().length()>0){
+                    isInputPassword =true;
+                    if(isInputKeystore&&isInputName){
+
+                        mImport.setEnabled(true);
+                        mImport.setBackgroundResource(R.drawable.bg_gradient_blue);
+                    }
+                }else{
+                    isInputPassword =false;
+
+                    mImport.setEnabled(false);
+                    mImport.setBackgroundColor(0xff393A50);
+                }
+            }
+        });
     }
     @Override
     public void onResume() {
@@ -101,4 +201,5 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
             getActivity().finish();
         }
     }
+
 }

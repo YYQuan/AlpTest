@@ -26,6 +26,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dap
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.setting.SettingFragment;
 import com.alphawizard.hdwallet.alphahdwallet.utils.BottomNavigationViewHelper;
 import com.alphawizard.hdwallet.alphahdwallet.utils.Dp2px;
+import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
@@ -33,8 +34,9 @@ import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityContract.Presenter,WalletViewModule> implements WalletActivityContract.View,
+public class WalletActivity extends BasePresenterActivity<WalletActivityContract.Presenter,WalletViewModule> implements WalletActivityContract.View,
         BottomNavigationView.OnNavigationItemSelectedListener,
         NavHelper.OnMenuSelector<Integer>{
 
@@ -49,15 +51,10 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
     @BindView(R.id.navigation)
     BottomNavigationViewEx navigation;
 
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+
 
     @BindView(R.id.lay_container)
     FrameLayout mFrameLayout;
-
-
-    @BindView(R.id.tv_toolbar_title)
-    TextView mTitle;
 
     @BindView(R.id.fab)
     FloatingActionButton floatingActionButton;
@@ -132,7 +129,7 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
 //        float scale= App.getInstance().getResources().getDisplayMetrics().density;
         navigation.setOnNavigationItemSelectedListener(this);
 
-        mToolbar.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -188,15 +185,14 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
     @Override
     public void onMenuSucceed(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
 
-        int size = (int)getResources().getDimension(R.dimen.statusBarSize);
+
         int  height = (int)getResources().getDimension(R.dimen.defaultNavHeight);
 
-        mToolbar.setVisibility(View.GONE);
+
         if(newTab.extra == R.string.title_wallet){
             if(defaultWalletAddress!=null) {
-                size =  (int)getResources().getDimension(R.dimen.actionBarWithStatusBarSize);
-                mToolbar.setVisibility(View.VISIBLE);
-                mTitle.setText("ETH");
+
+
             }
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
 
@@ -277,7 +273,7 @@ public class WalletActivity extends BasePresenterToolbarActivity<WalletActivityC
             }
         }
 
-        mFrameLayout.setPadding(0, size,0,height);
+        mFrameLayout.setPadding(0, 0,0,height);
 
         if ( newTab.extra == R.string.title_dapps) {
             floatingActionButton.setImageResource(R.drawable.bg_blue);
