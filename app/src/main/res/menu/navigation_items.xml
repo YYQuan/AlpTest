@@ -5,16 +5,17 @@
         android:id="@+id/action_wallet"
         android:icon="@mipmap/ic_wallet"
         android:title="@string/title_wallet"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/action_dapp"
-        android:title=""
-        app:showAsAction="ifRoom" />
-    <!--android:icon="@drawable/ic_dapp"-->
-    <!--android:title="@string/title_dapps"-->
+        app:showAsAction="always"
+        android:title=""/>
+        <!--android:icon="@drawable/ic_dapp"-->
+
     <item
         android:id="@+id/action_mine"
         android:icon="@mipmap/ic_mine"
+        
         android:title="@string/title_mine"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

@@ -116,11 +116,13 @@ public class NavHelper<T> {
     public static class Tab<T>{
         public Class<?> mClass;
         public T   extra;
-        private Fragment mFragment;
+        public Fragment mFragment;
         public Tab(Class<?> mClass, T extra) {
             this.mClass = mClass;
             this.extra = extra;
         }
+
+
     }
 
     public interface   OnMenuSelector<T>{

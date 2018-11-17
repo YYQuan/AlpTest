@@ -92,6 +92,7 @@ public class WalletViewModule extends BaseViewModel {
                             BackupRouter backupRouter,
                             ImportRouter importRouter,
                             ReceiverRouter receiverRouter,
+
                             WalletRepositoryType walletRepositoryType
                                 )
     {
@@ -334,6 +335,10 @@ public class WalletViewModule extends BaseViewModel {
 
     public void openSendEth(Context context,float value){
         mSendRouter.open(context,value);
+    }
+
+    public void openSendEthHasInfo(Context context, String address , String amount , float value, trust.core.entity.Transaction transaction){
+        mSendRouter.open(context,address,amount,value,transaction);
     }
 
     public void openFirstLaunch(Context context){

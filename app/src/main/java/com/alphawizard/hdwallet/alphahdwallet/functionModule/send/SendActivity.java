@@ -10,10 +10,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivityContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
@@ -21,12 +24,18 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 
+import java.math.BigInteger;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import trust.core.entity.Transaction;
 
 import static com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter.WALLET_BALANCE;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter.WALLET_SEND2ADDRESS;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter.WALLET_SEND_AMOUNT;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendRouter.WALLET_SEND_TRANSACTION;
 
 public class SendActivity extends BasePresenterToolbarActivity<SendContract.Presenter,SendViewModule> implements SendContract.View{
 
@@ -50,7 +59,10 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     @BindView(R.id.btn_send)
     Button mSend;
 
+    @BindView(R.id.iv_code)
+    ImageView mCode;
 
+    Transaction transaction;
 
     @OnClick(R.id.iv_code)
     void onClickCode(){
@@ -85,6 +97,8 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     }
 
     float balance = 0f;
+    String amount  = "";
+    String address = "";
     @Override
     public void initData() {
         super.initData();
@@ -97,16 +111,39 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         balance = getIntent().getFloatExtra(WALLET_BALANCE,0);
         mBalance.setText("可用："+balance+"ETH");
 
+        amount = getIntent().getStringExtra(WALLET_SEND_AMOUNT);
+        address = getIntent().getStringExtra(WALLET_SEND2ADDRESS);
+
+        transaction = getIntent().getParcelableExtra(WALLET_SEND_TRANSACTION);
+        if(transaction !=null){
+
+        }
+
+
+        if(address!=null&&address.length()>5){
+            mAddresss.setText(address);
+
+            WalletActivity.isTransaction =true;
+
+            if(amount!=null&&amount.length()>0){
+                mAmount.setText(amount);
+                mAddresss.setEnabled(false);
+                mAmount.setEnabled(false);
+                mCode.setClickable(false);
+            }
+        }
+
+
         mAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                checkInput();
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-
+                checkInput();
             }
 
             @Override
@@ -128,13 +165,13 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         mAddresss.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                checkInput();
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-
+                checkInput();
             }
 
             @Override
@@ -150,11 +187,13 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
                 }
             }
         });
-
+        checkInput();
 
     }
 
     private void checkInput(){
+        if(mAmount.getText().toString().length()<=0)
+            return;
         float inputValue = Float.parseFloat(mAmount.getText().toString());
 
         if(balance<=inputValue){
@@ -198,15 +237,27 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
 
     private void sendCallback(Boolean aBoolean) {
         if(aBoolean) {
+            if(WalletActivity.isTransaction){
+                WalletActivity.transactionResult = true;
+                onBackPressed();
+                return ;
+            }
             viewModel.openWallet(this);
+
         }
     }
 
     @OnClick(R.id.btn_send)
     void onClickSend(){
-        String address = mAddresss.getText().toString();
-        String amounts = mAmount.getText().toString();
-        mPresenter.sendTransaction(address,amounts);
+        if(transaction!=null) {
+            BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
+            viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);
+            transaction = null;
+        }else {
+            String address = mAddresss.getText().toString();
+            String amounts = mAmount.getText().toString();
+            mPresenter.sendTransaction(address, amounts);
+        }
     }
 
     @Override
@@ -231,4 +282,5 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         }
     }
 }
+
 

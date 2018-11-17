@@ -20,7 +20,10 @@ import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Launch.LaunchActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsContract;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.utils.BalanceUtils;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.example.web3lib.BuildConfig;
 import com.example.web3lib.OnSignMessageListener;
@@ -122,18 +125,21 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
                 .get(WalletViewModule.class);
         viewModel.transactionHash().observe(this,this::onTransactionChange);
         viewModel.defaultWallet().observe(this,this::defaultWalletChange);
+        viewModel.defaultWalletBalance().observe(this,this::getBalance);
+        viewModel.getBalance();
         viewModel.getDefaultWallet();
 
-        if(defaultWalletAddress== null){
+        if(defaultWalletAddress== null&&!web3.isShown()){
+
             setupWeb3();
             web3.loadUrl("http://192.168.150.84:8080/");
             web3.requestFocus();
         }
+    }
 
-
-
-
-
+    float balance  = 0f;
+    private void getBalance(String s) {
+        balance = Float.parseFloat(s);
     }
 
     String defaultWalletAddress;
@@ -173,16 +179,26 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
         web3.setChainId(4);
         web3.setRpcUrl("https://mainnet.infura.io/llyrtzQ3YhkdESt2Fzrk");
+
+//        web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
         if(defaultWalletAddress!=null) {
-            web3.setWalletAddress(new Address(defaultWalletAddress));
+//            web3.setWalletAddress(new Address(defaultWalletAddress));
+            web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
+//            web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
         }
-        web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
+
+        web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
+
         web3.setOnSignMessageListener(message ->
                 callSignMessage = Trust.signMessage().message(message).call(getActivity()));
-        web3.setOnSignPersonalMessageListener(message ->
-                callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(getActivity()));
-//      web3.setOnSignTransactionListener(transaction ->
-//                callSignTransaction = Trust.signTransaction().transaction(transaction).call(this));
+        web3.setOnSignPersonalMessageListener(new OnSignPersonalMessageListener() {
+            @Override
+            public void onSignPersonalMessage(Message<String> message) {
+                callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(DappFragment.this.getActivity());
+            }
+        });
+      web3.setOnSignTransactionListener(transaction ->
+                callSignTransaction = Trust.signTransaction().transaction(transaction).call(getActivity()));
         web3.setOnSignTransactionListener(this::onSignTransaction);
 
         web3.setOnSignTypedMessageListener(message ->
@@ -225,18 +241,63 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 //        viewModel.sendTran
 // saction(transaction.recipient.toString(),transaction.value,transaction.gasPrice,transaction.gasLimit,transaction.nonce);
 //        viewModel.sendTransaction(transaction.recipient.toString(),"0.05",transaction.payload);
-        BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
-        viewModel.sendTransaction(transaction.recipient.toString(), transaction.value , transaction.gasPrice,gasLimit,transaction.nonce,transaction.payload,4);
+
+//        BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
+//        viewModel.sendTransaction(transaction.recipient.toString(), transaction.value , transaction.gasPrice,gasLimit,transaction.nonce,transaction.payload,4);
 //        web3.onSignCancel(transaction);
 //        web3.onSignTransactionSuccessful(mTransaction,null);
+        String  value = "";
+        try {
+            value = BalanceUtils.weiToEth(transaction.value,5);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        viewModel.openSendEthHasInfo(getActivity(),transaction.recipient.toString(),value,balance,transaction);
+
+    }
+
+    public void  onSignCancel(){
+        web3.onSignCancel(mTransaction);
+        mTransaction= null;
+//        web3.onSignTransactionSuccessful(mTransaction,null);
+    }
 
 
+    public void  onSignSuccessful(){
+//        web3.onSignCancel(mTransaction);
+        web3.onSignTransactionSuccessful(mTransaction,null);
+        mTransaction= null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(WalletActivity.isTransaction){
+            if(WalletActivity.transactionResult){
+                onSignSuccessful();
+            }else{
+                onSignCancel();
+            }
+
+        }else{
+
+        }
+        WalletActivity.isTransaction = false;
+        WalletActivity.transactionResult = false;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if(requestCode== WalletRouter.RESULT_CODE_FOR_TRANSACTION) {
+            boolean result = data.getBooleanExtra(WalletRouter.RESULT_FOR_TRANSACTION,false)  ;
+            if(result){
+                web3.onSignTransactionSuccessful(mTransaction,null);
+            }else{
+                web3.onSignCancel(mTransaction);
+            }
+        }
     }
 
     @Override
@@ -245,7 +306,21 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         web3.requestFocus();
     }
 
+    public void jump2Mine(){
+        if(web3!=null&&web3.isShown()){
+            setupWeb3();
+            web3.loadUrl("http://192.168.150.84:8080/my");
 
+        }
+    }
+
+    public void jump2WebMain(){
+        if(web3!=null&&web3.isShown()){
+            setupWeb3();
+            web3.loadUrl("http://192.168.150.84:8080/");
+
+        }
+    }
 
 
 }

@@ -24,23 +24,25 @@
     <!--android:paddingTop="@dimen/actionBarWithStatusBarSize"-->
     <!--android:paddingBottom="@dimen/defaultNavHeight"-->
 
+
+
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="@dimen/defaultNavHeight"
         app:menu="@menu/navigation_items"
-
-        android:elevation="@dimen/len_4"
-        android:outlineProvider="bounds"
         tools:targetApi="lollipop"
         android:layout_alignParentBottom="true"
         android:background="#10101A"
         app:itemIconSize="16dp"
-
         app:itemTextAppearanceInactive="@style/TextAppearance.TitleTextSize"
         app:itemTextAppearanceActive="@style/TextAppearance.TitleTextSize"
         app:itemTextColor="@color/text_nav"
         app:itemIconTint="@color/text_nav"
+
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
         />
 
 

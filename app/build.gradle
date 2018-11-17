@@ -106,6 +106,7 @@ dependencies {
 //
 //    implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.2'
+    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
 
     implementation project(':common')
     implementation project(':web3lib')
