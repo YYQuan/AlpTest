@@ -219,6 +219,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
 
         if(balance<=inputValue){
             enableNext(false);
+            mSend.setText("ETH 余额不足");
             return ;
         }
         if(mAddresss.getText().toString().length()<15){
@@ -232,6 +233,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     }
 
     private void enableNext(boolean isEnable){
+        mSend.setText("发送");
         if(!isEnable) {
             mSend.setBackgroundResource(R.drawable.bg_color_393a50);
             mSend.setEnabled(false);
