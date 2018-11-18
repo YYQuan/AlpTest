@@ -8,6 +8,7 @@ import android.animation.ValueAnimator;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -86,6 +87,11 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
 
     @OnClick(R.id.iv_share)
     void onClickShare(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "eth地址");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
 
     }
     @OnClick(R.id.btn_share_pic)

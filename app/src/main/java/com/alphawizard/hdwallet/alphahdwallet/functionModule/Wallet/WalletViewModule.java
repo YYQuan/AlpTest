@@ -258,7 +258,8 @@ public class WalletViewModule extends BaseViewModel {
             apiClient = retrofit.create(EthTickerService.ApiClient.class);
         }
         if (call == null) {
-            call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(),"desc");
+            String  address = mWalletRepositoryType.getDefaultWalletAddress().blockingGet();
+            call = apiClient.getTransaction("account", "txlist",address,"desc");
             call.enqueue(callback);
         }else{
 

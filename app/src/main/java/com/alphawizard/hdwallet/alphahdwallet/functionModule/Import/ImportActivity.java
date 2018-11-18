@@ -4,8 +4,12 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -37,6 +41,8 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
     private static final int PRIVATE_KEY_FORM_INDEX = 1;
     private static final int MNENONICS_FORM_INDEX = 2;
 
+
+    private static final int CAMERA_OK = 1;
 
     private static final int BARCODE_READER_REQUEST_CODE = 1;
 
@@ -112,8 +118,26 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
 
     @OnClick(R.id.iv_saoma)
     void  onClickScan(){
+
+        if (Build.VERSION.SDK_INT>22){
+            if (ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+                //先判断有没有权限 ，没有就在这里进行权限的申请
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.CAMERA},CAMERA_OK);
+
+            }else {
+                //说明已经获取到摄像头权限了 想干嘛干嘛
+            }
+        }else {
+                //这个说明系统版本在6.0之下，不需要动态获取权限。
+
+        }
+
+
         Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
         startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+
     }
 
     public  static  void show(Context context){

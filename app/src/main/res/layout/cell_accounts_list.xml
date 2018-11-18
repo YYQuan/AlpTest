@@ -44,11 +44,12 @@
 
        <TextView
            android:id="@+id/txt_eth_balance"
-           android:layout_width="55dp"
+           android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="0.001ETH"
            android:textColor="#fffefefe"
            android:textSize="12sp"
+           android:singleLine="true"
            android:layout_gravity="center_vertical"
            android:layout_marginRight="10dp"
            />

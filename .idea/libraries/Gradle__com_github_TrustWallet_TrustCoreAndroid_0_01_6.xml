@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.TrustWallet:TrustCoreAndroid-0.01.6">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TrustCoreAndroid-0.01.6.aar/04a1c785af770e32df7cebfb71b1a5b8/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TrustCoreAndroid-0.01.6.aar/04a1c785af770e32df7cebfb71b1a5b8/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.TrustWallet/TrustCoreAndroid/0.01.6/cf3d2a4b826ee2409c52d069b713af29fb9e7cd2/TrustCoreAndroid-0.01.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
