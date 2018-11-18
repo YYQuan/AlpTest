@@ -2,9 +2,11 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
@@ -14,7 +16,7 @@ public class WalletDetailViewModule extends BaseViewModel {
     GetBalanceInteract mGetBalanceInteract;
     ExportWalletInteract mExportWalletInteract;
     PasswordStore mPasswordStore;
-
+    WalletRouter mWalletRouter;
     private final MutableLiveData<String> walletBalance = new MutableLiveData<>();
 
     private final MutableLiveData<String> exportPrivateKey = new MutableLiveData<>();
@@ -27,11 +29,13 @@ public class WalletDetailViewModule extends BaseViewModel {
 
     public WalletDetailViewModule(GetBalanceInteract getBalanceInteract,
                                   ExportWalletInteract exportWalletInteract,
+                                  WalletRouter walletRouter,
                                   PasswordStore passwordStore)
     {
         mGetBalanceInteract =  getBalanceInteract;
         mExportWalletInteract = exportWalletInteract;
         mPasswordStore = passwordStore;
+        mWalletRouter = walletRouter;
     }
 
     public LiveData<String> walletBalance() {
@@ -124,4 +128,9 @@ public class WalletDetailViewModule extends BaseViewModel {
 
     private void exportError(Throwable throwable) {
     }
+
+    public void openWallet(Context context){
+        mWalletRouter.openWalletPage(context);
+    }
+
 }

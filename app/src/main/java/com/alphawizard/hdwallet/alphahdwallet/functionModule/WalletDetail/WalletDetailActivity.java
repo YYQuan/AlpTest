@@ -2,6 +2,7 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.ActionBar;
@@ -149,25 +150,34 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     private void saveWalletNameSuccess(Boolean aBoolean) {
         if(aBoolean){
-            App.showToast(" save  success");
+            viewModel.openWallet(this);
         }
     }
 
     private void walletNameString(String s) {
-        App.showToast(s);
+//        App.showToast(s);
         mName.setText(s);
     }
 
     private void exportMnemonicsString(String s) {
-        App.showToast(s);
+        shareTextIntent(s);
     }
 
     private void exportPrivateKeyString(String s) {
-        App.showToast(s);
+        shareTextIntent(s);
     }
 
     private void exportKeyStoreString(String s) {
-        App.showToast(s);
+        shareTextIntent(s);
+    }
+
+    private void shareTextIntent(String s) {
+        //        文本分享
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, s);
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
     }
 
     @Override

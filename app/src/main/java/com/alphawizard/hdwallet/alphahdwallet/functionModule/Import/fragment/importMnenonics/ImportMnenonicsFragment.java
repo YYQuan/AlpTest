@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importKeyStore.ImportKeyStoreContract;
@@ -75,7 +76,8 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
                 .get(ImportViewModule.class);
         getmPresenter().takeView(this,viewModel);
         viewModel.progress().observe(this,this::importCallback);
-
+        viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
+        viewModel.importWallet().observe(this,this::importWallet);
         Log.d("init  data    ImportMnemonicsFragment");
         if(((ImportActivity)getActivity()).getScanContent()!=null){
             mScanContent = ((ImportActivity)getActivity()).getScanContent();
@@ -151,10 +153,24 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
         mMnenonics.setText(mScanContent);
     }
 
-    private void importCallback(Boolean aBoolean) {
+    Wallet importWallet ;
+    private void importWallet(Wallet wallet) {
+        importWallet = wallet;
+    }
+
+    private void defaultWalletChange(Boolean aBoolean) {
         if(aBoolean){
             viewModel.openWallet(getActivity());
             getActivity().finish();
+        }
+    }
+
+    private void importCallback(Boolean aBoolean) {
+        if(aBoolean){
+            if(importWallet!=null) {
+                viewModel.setDefaultWallet(importWallet);
+            }
+
         }
     }
 }

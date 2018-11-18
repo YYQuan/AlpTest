@@ -60,6 +60,9 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     @BindView(R.id.txt_correct)
     TextView mTxtCorrect;
 
+    @BindView(R.id.txt_input_error)
+    TextView mTxError;
+
 
     @OnClick(R.id.lay_back)
     void onClickBack(){
@@ -119,7 +122,7 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
         Log.d("initData  listNoSelect.toString() :"+listNoSelect.toString());
 
 
-
+        showCorrect(false);
         mMnemonicsViewSelect.replace(listSelect);
         mMnemonicsViewSelect.setColor(0x111224);
         mMnemonicsViewNoSelect.replace(listNoSelect);
@@ -132,9 +135,14 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                 mMnemonicsViewSelect.replace(listSelect);
                 mMnemonicsViewNoSelect.replace(listNoSelect);
 
+
+                mNext.setEnabled(false);
+                mNext.setBackgroundResource(R.drawable.bg_color_393a50);
+
                 if(View.VISIBLE ==mImageCorrect.getVisibility()){
                     showCorrect(false);
                 }
+
             }
         });
 
@@ -147,6 +155,10 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                 mMnemonicsViewNoSelect.replace(listNoSelect);
                 mNext.setEnabled(false);
                 mNext.setBackgroundResource(R.drawable.bg_color_393a50);
+
+
+
+
                 if(listNoSelect.size()<=0){
                     int i = 0 ;
                     for(String str:mList){
@@ -157,15 +169,28 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                                 showCorrect(true);
                                 mNext.setEnabled(true);
                                 mNext.setBackgroundResource(R.drawable.bg_gradient_blue);
+                                break;
                             }
                         }else{
                             App.showToast(" 错误");
-
                             break;
                         }
 
+
+
                     }
+                }else{
+                    showError(false);
+                    for(int  i= 0; i<listSelect.size();i++){
+                        if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
+                            showError(true);
+                            break;
+                        }
+                    }
+
+
                 }
+
             }
         });
     }
@@ -180,12 +205,29 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     }
 
     void showCorrect(boolean isShow){
+
         if(isShow) {
+
             mImageCorrect.setVisibility(View.VISIBLE);
             mTxtCorrect.setVisibility(View.VISIBLE);
         }else{
-            mImageCorrect.setVisibility(View.INVISIBLE);
-            mTxtCorrect.setVisibility(View.INVISIBLE);
+
+            mImageCorrect.setVisibility(View.GONE);
+            mTxtCorrect.setVisibility(View.GONE);
+        }
+
+    }
+
+    void showError(boolean isShow){
+
+
+        if(isShow) {
+
+
+            mTxError.setVisibility(View.VISIBLE);
+
+        }else{
+            mTxError.setVisibility(View.GONE);
         }
 
     }

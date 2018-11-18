@@ -111,15 +111,18 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
                 .get(WalletViewModule.class);
         mPresenter.takeView(this,viewModel);
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
+        viewModel.defaultWallet().observe(this,this::defaultWallet);
         viewModel.createWalletEntity().observe(this,this::onCreateWalletEntity);
+    }
+
+    private void defaultWallet(Wallet wallet) {
+        viewModel.openBackup(getActivity(), String2StringList.string2StringList(mnenonics));
     }
 
     private void onCreatedWallet(Wallet wallet) {
         Log.d("onCreatedWallet");
 //        showBackupMnenonicsDialog(mnenonics);
-
-        viewModel.openBackup(getActivity(), String2StringList.string2StringList(mnenonics));
-
+        viewModel.setDefaultWallet(wallet);
     }
 
     private void onCreateWalletEntity(CreateWalletEntity createWalletEntity) {

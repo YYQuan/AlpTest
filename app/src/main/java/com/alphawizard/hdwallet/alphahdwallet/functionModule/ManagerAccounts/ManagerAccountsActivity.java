@@ -119,10 +119,14 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         viewModel.accountsBalance().observe(this,this::onGetAccountBalance);
         viewModel.accountsName().observe(this,this::onGetAccountName);
         viewModel.defaultWallet().observe(this,this::onGetDefaultWallet);
+        viewModel.newAccountDefaultWallet().observe(this,this::onNewAccountDefaultWallet);
 
 
     }
 
+    private void onNewAccountDefaultWallet(Wallet wallet) {
+        viewModel.openBackup(this,string2StringList(mnenonics));
+    }
 
 
     private HashMap<String, String> mAccountsNameMap = new HashMap<>();
@@ -136,6 +140,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     private void onGetDefaultWallet(Wallet wallet) {
         defaultAddress = wallet.address;
+        mAdapter.notifyDataSetChanged();
     }
 
 
@@ -149,7 +154,8 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     }
 
     private void onCreatedWallet(Wallet wallet) {
-        viewModel.openBackup(this,string2StringList(mnenonics));
+
+        viewModel.setNewAccountDefaultWallet(wallet);
     }
 
 
@@ -224,7 +230,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             public void onClickListener(RecyclerAdapter.ViewHolder holder, Wallet wallet) {
                 super.onClickListener(holder, wallet);
                 mPresenter.setDefaultWallet(wallet);
-                viewModel.openWalletDetail(ManagerAccountsActivity.this,wallet.address);
+//                viewModel.openWalletDetail(ManagerAccountsActivity.this,wallet.address);
             }
 
             @Override
@@ -332,6 +338,11 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         @BindView(R.id.im_to)
         ImageView imageTo;
 
+
+        @OnClick(R.id.im_to)
+        void  onCLickImTO(){
+            viewModel.openWalletDetail(ManagerAccountsActivity.this,address);
+        }
         ActionViewHolder(View itemView) {
             super(itemView);
         }

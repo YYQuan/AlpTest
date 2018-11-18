@@ -87,9 +87,10 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
 
     @OnClick(R.id.iv_share)
     void onClickShare(){
+//        文本分享
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "eth地址");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, defaultAddress);
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
 

@@ -22,10 +22,21 @@ public class BackupViewModule extends BaseViewModel {
 
     VerifyMnemonicsRouter verifyMnemonicsRouter;
 
+
+
+
     public BackupViewModule(VerifyMnemonicsRouter verifyMnemonicsRouter)
     {
         this.verifyMnemonicsRouter =verifyMnemonicsRouter;
+
     }
+
+
+
+
+
+
+
 
 
     public void openVerify(Context context, ArrayList<String> strings){

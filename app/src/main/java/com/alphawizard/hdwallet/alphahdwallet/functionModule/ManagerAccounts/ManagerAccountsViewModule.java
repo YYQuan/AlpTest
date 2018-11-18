@@ -44,6 +44,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
+    private final MutableLiveData<Wallet> newAccountDefaultWallet = new MutableLiveData<>();
     private final MutableLiveData<CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
     private final MutableLiveData< HashMap<String,String>> accountsBalance = new MutableLiveData<>();
     private final MutableLiveData< HashMap<String,String>> accountsName = new MutableLiveData<>();
@@ -83,6 +84,11 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     public LiveData<Wallet> defaultWallet() {
         return defaultWallet;
     }
+
+    public LiveData<Wallet> newAccountDefaultWallet() {
+        return newAccountDefaultWallet;
+    }
+
     public LiveData<CreateWalletEntity> createWalletEntity() {
         return createWalletEntity;
     }
@@ -177,6 +183,12 @@ public class ManagerAccountsViewModule extends BaseViewModel {
         disposable = mDefaultWalletInteract
                 .setDefaultWallet(wallet)
                 .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
+    }
+
+    public void setNewAccountDefaultWallet(Wallet wallet) {
+        disposable = mDefaultWalletInteract
+                .setDefaultWallet(wallet)
+                .subscribe(() -> newAccountDefaultWallet.setValue(wallet), this::onError);
     }
 
     private void onDefaultWalletChanged(Wallet wallet) {

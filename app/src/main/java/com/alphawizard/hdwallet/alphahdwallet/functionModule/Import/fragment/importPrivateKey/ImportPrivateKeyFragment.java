@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importKeyStore.ImportKeyStoreContract;
@@ -39,7 +40,7 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
 
     @OnClick(R.id.btn_import)
     void onClickImport(){
-        getmPresenter().importPrivateKey(mPrivatekey.getText().toString(),"Wallet");
+        getmPresenter().importPrivateKey(mPrivatekey.getText().toString(),mName.getText().toString());
     }
 
     public static ImportPrivateKeyFragment create() {
@@ -81,7 +82,8 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
                 .get(ImportViewModule.class);
         getmPresenter().takeView(this,viewModel);
         viewModel.progress().observe(this,this::importCallback);
-
+        viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
+        viewModel.importWallet().observe(this,this::importWallet);
         mImport.setEnabled(false);
         mImport.setBackgroundColor(0xff393A50);
 
@@ -152,10 +154,24 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
         mPrivatekey.setText(mScanContent);
     }
 
-    private void importCallback(Boolean aBoolean) {
+    Wallet importWallet ;
+    private void importWallet(Wallet wallet) {
+        importWallet = wallet;
+    }
+
+    private void defaultWalletChange(Boolean aBoolean) {
         if(aBoolean){
             viewModel.openWallet(getActivity());
             getActivity().finish();
+        }
+    }
+
+    private void importCallback(Boolean aBoolean) {
+        if(aBoolean){
+            if(importWallet!=null) {
+                viewModel.setDefaultWallet(importWallet);
+            }
+
         }
     }
 }

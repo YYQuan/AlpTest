@@ -171,7 +171,11 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
         mPresenter.takeView(this,viewModel);
 
         viewModel.progress().observe(this,this::importCallback);
+
+
     }
+
+
 
     @SuppressLint("ResourceType")
     @Override

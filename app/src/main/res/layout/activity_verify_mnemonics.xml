@@ -131,6 +131,19 @@
         </LinearLayout>
 
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/txt_input_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="顺序不正确，请重试！"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:textColor="#ff0000"
+        android:textSize="16sp"
+        android:visibility="gone"
+        />
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"

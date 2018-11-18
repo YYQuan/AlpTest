@@ -91,7 +91,7 @@ public class CreateOrImportViewModule extends BaseViewModel {
     }
 
     public void openWallet(Context context){
-        walletRouter.open(context);
+        walletRouter.openWalletPage(context);
     }
 
     public void openImport(Context context){

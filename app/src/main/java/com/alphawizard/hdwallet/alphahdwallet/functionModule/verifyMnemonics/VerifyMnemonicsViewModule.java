@@ -16,7 +16,7 @@ public class VerifyMnemonicsViewModule extends BaseViewModel {
 
 
     public void openWallet(Context context){
-        walletRouter.open(context);
+        walletRouter.openWalletPage(context);
     }
 
 

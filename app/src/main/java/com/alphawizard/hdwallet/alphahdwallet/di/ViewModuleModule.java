@@ -70,8 +70,10 @@ public class ViewModuleModule {
     }
 
     @Provides
-    ImportViewModuleFactory importViewModuleFactory(ImportAccountInteract interact,WalletRouter walletRouter){
-        return  new ImportViewModuleFactory(interact,walletRouter);
+    ImportViewModuleFactory importViewModuleFactory(ImportAccountInteract interact,
+                                                    DefaultWalletInteract defaultWalletInteract,
+                                                    WalletRouter walletRouter){
+        return  new ImportViewModuleFactory(interact,defaultWalletInteract,walletRouter);
     }
 
     @Provides
@@ -94,8 +96,9 @@ public class ViewModuleModule {
     @Provides
     WalletDetailModuleFactory walletDetailModuleFactory(GetBalanceInteract getBalanceInteract,
                                                         ExportWalletInteract exportWalletInteract,
+                                                        WalletRouter walletRouter,
                                                         PasswordStore passwordStore){
-        return  new WalletDetailModuleFactory(getBalanceInteract,exportWalletInteract,passwordStore);
+        return  new WalletDetailModuleFactory(getBalanceInteract,exportWalletInteract,walletRouter,passwordStore);
     }
 
 

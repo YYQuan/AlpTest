@@ -9,7 +9,9 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportViewModule;
@@ -95,7 +97,8 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
                 .get(ImportViewModule.class);
         getmPresenter().takeView(this,viewModel);
         viewModel.progress().observe(this,this::importCallback);
-
+        viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
+        viewModel.importWallet().observe(this,this::importWallet);
         mImport.setEnabled(false);
         mImport.setBackgroundColor(0xff393A50);
 
@@ -189,16 +192,29 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
             }
         });
     }
+
+    Wallet importWallet ;
+    private void importWallet(Wallet wallet) {
+        importWallet = wallet;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         mKeystore.setText(mScanContent);
     }
-
-    private void importCallback(Boolean aBoolean) {
+    private void defaultWalletChange(Boolean aBoolean) {
         if(aBoolean){
             viewModel.openWallet(getActivity());
             getActivity().finish();
+        }
+    }
+
+    private void importCallback(Boolean aBoolean) {
+        if(aBoolean){
+            if(importWallet!=null) {
+                viewModel.setDefaultWallet(importWallet);
+            }
         }
     }
 

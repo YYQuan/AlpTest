@@ -1,25 +1,54 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.Import;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
+import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.ImportAccountInteract;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.util.Log;
+
+import java.util.HashMap;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class ImportViewModule extends BaseViewModel {
 
     ImportAccountInteract  mImportAccountInteract ;
+    DefaultWalletInteract defaultWalletInteract ;
     WalletRouter walletRouter;
 
-    public ImportViewModule(ImportAccountInteract mImportAccountInteract, WalletRouter walletRouter) {
+    private final MutableLiveData<Boolean> isOkchangeDefaultWallet = new MutableLiveData<>();
+    private final MutableLiveData<Wallet> importWallet = new MutableLiveData<>();
+
+    public ImportViewModule(ImportAccountInteract mImportAccountInteract,
+                            DefaultWalletInteract defaultWalletInteract,
+                            WalletRouter walletRouter
+                            ) {
         this.mImportAccountInteract = mImportAccountInteract;
         this.walletRouter = walletRouter;
+        this.defaultWalletInteract = defaultWalletInteract;
+    }
+
+    public LiveData< Boolean> changeDefaultWallet() {
+        return isOkchangeDefaultWallet;
+    }
+    public LiveData< Wallet> importWallet() {
+        return importWallet;
+    }
+
+    public void setDefaultWallet(Wallet wallet){
+        defaultWalletInteract.setDefaultWallet(wallet)
+                .subscribe(()->isOkchangeDefaultWallet.postValue(true),this::changeDefaultWalletError);
+    }
+
+    private void changeDefaultWalletError(Throwable throwable) {
+
     }
 
     public  void importKeystore(String keystore,String password,String name){
@@ -51,14 +80,16 @@ public class ImportViewModule extends BaseViewModel {
 
     private void onImportError(Throwable throwable) {
         Log.d("import  fail ");
-        App.showToast("import  fail");
+        App.showToast("填入信息有误");
     }
 
     private void onWallet(Wallet wallet) {
+        importWallet.setValue(wallet);
         progress.setValue(true);
+        App.showToast("导入成功");
     }
 
     public void  openWallet(Context context){
-        walletRouter.open(context);
+        walletRouter.openWalletPage(context);
     }
 }
