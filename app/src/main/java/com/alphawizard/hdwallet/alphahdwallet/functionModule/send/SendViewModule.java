@@ -24,9 +24,6 @@ public class SendViewModule extends BaseViewModel {
         mWalletRouter = walletRouter;
     }
 
-
-
-
     private void sendError(Throwable throwable) {
         App.showToast("send  Error");
         progress.postValue(false);

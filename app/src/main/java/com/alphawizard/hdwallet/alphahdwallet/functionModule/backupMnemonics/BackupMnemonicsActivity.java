@@ -112,4 +112,8 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
     }
 
 
+    @Override
+    public void onBackPressed() {
+        viewModel.openWalletPage(this);
+    }
 }

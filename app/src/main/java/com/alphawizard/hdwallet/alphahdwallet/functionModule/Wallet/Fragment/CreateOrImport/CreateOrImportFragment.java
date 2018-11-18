@@ -15,6 +15,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dap
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.String2StringList;
+import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
 import com.example.web3lib.BuildConfig;
@@ -24,6 +25,8 @@ import com.example.web3lib.OnSignTransactionListener;
 import com.example.web3lib.OnSignTypedMessageListener;
 import com.example.web3lib.Web3View;
 import com.google.gson.Gson;
+
+import net.qiujuer.genius.ui.widget.Loading;
 
 import java.math.BigInteger;
 
@@ -53,8 +56,22 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
 
 
     String  mnenonics ;
+
+
+    @BindView(R.id.loading)
+    Loading loading;
+
+    @BindView(R.id.btn_import)
+    Button mImport;
+
+    @BindView(R.id.btn_create)
+    Button mCreate;
+
     @OnClick(R.id.btn_create)
     void onClickCreate(){
+        loading.start();
+        mImport.setEnabled(false);
+        mCreate.setEnabled(false);
         viewModel.newWallet("Wallet");
     }
 
@@ -106,13 +123,17 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
     @Override
     public void initData() {
         super.initData();
-
+        mImport.setEnabled(true);
+        mCreate.setEnabled(true);
+        loading.stop();
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(WalletViewModule.class);
         mPresenter.takeView(this,viewModel);
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
         viewModel.defaultWallet().observe(this,this::defaultWallet);
         viewModel.createWalletEntity().observe(this,this::onCreateWalletEntity);
+
+
     }
 
     private void defaultWallet(Wallet wallet) {
@@ -120,6 +141,7 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
     }
 
     private void onCreatedWallet(Wallet wallet) {
+
         Log.d("onCreatedWallet");
 //        showBackupMnenonicsDialog(mnenonics);
         viewModel.setDefaultWallet(wallet);

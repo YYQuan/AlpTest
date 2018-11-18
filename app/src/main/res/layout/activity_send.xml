@@ -162,6 +162,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>
+    <net.qiujuer.genius.ui.widget.Loading
+        android:id="@+id/loading"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/len_32"
+        android:layout_height="@dimen/len_32"
+        app:gBackgroundColor="@color/trans"
+        app:gForegroundColor="@color/white"
+        android:layout_marginBottom="10dp"
+        app:gAutoRun="false"/>
     <Button
         android:id="@+id/btn_send"
         android:layout_width="335dp"

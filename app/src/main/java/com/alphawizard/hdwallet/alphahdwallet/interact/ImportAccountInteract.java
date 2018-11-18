@@ -21,10 +21,10 @@ public class ImportAccountInteract {
 
     public Single<Wallet>  importKeystore(String keystore,String password,String name){
         return mPasswordStore.generatePassword()
-                .flatMap(newPassword->mWalletRepositoryType.importKeystore(keystore,password,newPassword)
-                        .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, newPassword))
+                .flatMap(newPassword->mWalletRepositoryType.importKeystore(keystore,password,password)
+                        .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, password))
                         .compose(Operators.saveWalletName(mPasswordStore, mWalletRepositoryType,name))
-                        .flatMap(wallet -> passwordVerification(wallet, newPassword)));
+                        .flatMap(wallet -> passwordVerification(wallet, password)));
 
 
     }

@@ -24,6 +24,7 @@ public class WalletDetailViewModule extends BaseViewModel {
     private final MutableLiveData<String> exportMnemonics = new MutableLiveData<>();
     private final MutableLiveData<String> walletName = new MutableLiveData<>();
     private final MutableLiveData<Boolean> hasMnemonics = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isFailExport = new MutableLiveData<>();
     private final MutableLiveData<String> passwordString = new MutableLiveData<>();
 
 
@@ -57,6 +58,10 @@ public class WalletDetailViewModule extends BaseViewModel {
     public LiveData<Boolean> hasMnemonicsString() {
         return hasMnemonics;
     }
+    public LiveData<Boolean> isFailExportContent() {
+        return isFailExport;
+    }
+
     public LiveData<String> passwordString() {
         return passwordString;
     }
@@ -127,6 +132,7 @@ public class WalletDetailViewModule extends BaseViewModel {
     }
 
     private void exportError(Throwable throwable) {
+        isFailExport.setValue(false);
     }
 
     public void openWallet(Context context){

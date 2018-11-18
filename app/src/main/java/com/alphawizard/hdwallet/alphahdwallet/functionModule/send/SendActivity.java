@@ -28,6 +28,8 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import java.math.BigInteger;
 
 import javax.inject.Inject;
@@ -102,6 +104,9 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     boolean isInputAddress =false;
     boolean isInputAmounts =false;
 
+    @BindView(R.id.loading)
+    Loading loading;
+
     @Override
     public SendContract.Presenter initPresenter() {
         return mPresenter;
@@ -123,6 +128,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     @Override
     public void initData() {
         super.initData();
+        loading.stop();
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(SendViewModule.class);
         viewModel.progress().observe(this,this::sendCallback);
@@ -267,11 +273,20 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
             }
             viewModel.openWallet(this);
 
+        }else{
+            loading.stop();
+            mSend.setEnabled(true);
+            mAddresss.setEnabled(true);
+            mAmount.setEnabled(true);
         }
     }
 
     @OnClick(R.id.btn_send)
     void onClickSend(){
+        loading.start();
+        mSend.setEnabled(false);
+        mAddresss.setEnabled(false);
+        mAmount.setEnabled(false);
         if(transaction!=null) {
             BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
             viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);

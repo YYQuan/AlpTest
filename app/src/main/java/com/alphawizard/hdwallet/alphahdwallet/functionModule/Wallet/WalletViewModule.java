@@ -171,6 +171,8 @@ public class WalletViewModule extends BaseViewModel {
         disposable = mFindDefaultWalletInteract
                 .find()
                 .subscribe(wallet -> onDefaultWalletChanged(wallet), this::onGetDefaultAccountsError);
+
+
     }
 
     private void onDefaultWalletChanged(Wallet wallet) {

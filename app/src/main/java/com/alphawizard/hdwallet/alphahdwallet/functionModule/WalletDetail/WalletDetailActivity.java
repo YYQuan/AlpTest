@@ -28,6 +28,8 @@ import com.alphawizard.hdwallet.alphahdwallet.widget.MyDialog;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -73,6 +75,10 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     @OnClick(R.id.lay_export_private_key)
     void onClickPrivateKey(){
+        loading.start();
+        mPrivatekey.setEnabled(false);
+        mAKeystore.setEnabled(false);
+        mMnemonics.setEnabled(false);
         viewModel.exportPrivatekey(address);
     }
 
@@ -91,11 +97,17 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     }
     @OnClick(R.id.lay_export_mnemonics)
     void onClickMnemonics(){
+        loading.start();
+        mPrivatekey.setEnabled(false);
+        mAKeystore.setEnabled(false);
+        mMnemonics.setEnabled(false);
         viewModel.exportMnemonics(address);
     }
 
     String password;
 
+    @BindView(R.id.loading)
+    Loading loading;
 
     @Override
     public int getContentLayoutID() {
@@ -126,6 +138,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         viewModel.exportMnemonicsString().observe(this,this::exportMnemonicsString);
         viewModel.walletNameString().observe(this ,this::walletNameString);
         viewModel.progress().observe(this,this::saveWalletNameSuccess);
+        viewModel.isFailExportContent().observe(this,this::isFailExport);
         viewModel.hasMnemonicsString().observe(this,this::hasMnemonics);
         viewModel.passwordString().observe(this,this::getPassword);
         viewModel.getBalance(address);
@@ -134,6 +147,15 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         mAddress.setText(address);
         viewModel.getPassword(new Wallet(address));
 
+    }
+
+    private void isFailExport(Boolean aBoolean) {
+        if(!aBoolean){
+            loading.stop();
+            mPrivatekey.setEnabled(true);
+            mAKeystore.setEnabled(true);
+            mMnemonics.setEnabled(true);
+        }
     }
 
     private void getPassword(String s) {
@@ -160,14 +182,26 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     }
 
     private void exportMnemonicsString(String s) {
+        loading.stop();
+        mPrivatekey.setEnabled(true);
+        mAKeystore.setEnabled(true);
+        mMnemonics.setEnabled(true);
         shareTextIntent(s);
     }
 
     private void exportPrivateKeyString(String s) {
+        loading.stop();
+        mPrivatekey.setEnabled(true);
+        mAKeystore.setEnabled(true);
+        mMnemonics.setEnabled(true);
         shareTextIntent(s);
     }
 
     private void exportKeyStoreString(String s) {
+        loading.stop();
+        mPrivatekey.setEnabled(true);
+        mAKeystore.setEnabled(true);
+        mMnemonics.setEnabled(true);
         shareTextIntent(s);
     }
 
@@ -217,10 +251,15 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
             public void onClick(View v) {
                 if(password.equalsIgnoreCase(editPassword.getText().toString())){
                     App.showToast(" password is true ");
+                    loading.start();
+                    mPrivatekey.setEnabled(false);
+                    mAKeystore.setEnabled(false);
+                    mMnemonics.setEnabled(false);
                     viewModel.exportKeystore(address);
                     return ;
                 }
                 showBackupKeystoreErrorDialog();
+
             }
         });
 

@@ -108,12 +108,15 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
     @Override
     protected void onResume() {
         super.onResume();
-
+        viewModel.getDefaultWallet();
     }
 
     private void defaultWalletChange(Wallet wallet) {
-        if(! wallet.address.equalsIgnoreCase(defaultWalletAddress)){
+        if(!wallet.address.equalsIgnoreCase(defaultWalletAddress)){
             defaultWalletAddress = wallet.address;
+            if((int)mHelper.getCurrentTab().extra ==R.id.action_no_default_account ) {
+                mHelper.performClickMenu(R.id.action_wallet);
+            }
         }
     }
 
@@ -128,11 +131,11 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
     public void initWidget() {
         super.initWidget();
         mHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
-        mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.string.title_wallet))
-                .add(R.id.action_dapp, new NavHelper.Tab<>(DappFragment.class, R.string.title_dapps))
+        mHelper.add(R.id.action_wallet, new NavHelper.Tab<>(AccountFragment.class, R.id.action_wallet))
+                .add(R.id.action_dapp, new NavHelper.Tab<>(DappFragment.class, R.id.action_dapp))
 //                .add(R.id.action_setting, new NavHelper.Tab<>(AccountsFragment.class, R.string.title_setting));
-                .add(R.id.action_mine, new NavHelper.Tab<>(SettingFragment.class, R.string.title_mine))
-                .add(R.id.action_no_default_account, new NavHelper.Tab<>(CreateOrImportFragment.class, R.string.title_no_default_account));
+                .add(R.id.action_mine, new NavHelper.Tab<>(SettingFragment.class, R.id.action_mine))
+                .add(R.id.action_no_default_account, new NavHelper.Tab<>(CreateOrImportFragment.class, R.id.action_no_default_account));
 
         ActionBar actionBar = getSupportActionBar();
 
@@ -154,12 +157,9 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
         navigation.setTextSize(8);
         navigation.setIconsMarginTop(50);
 
-        int resultInt = getIntent().getIntExtra(WalletRouter.OPEN_WALLET_PAGE,-1);
-        if(resultInt == WalletRouter.RESULT_CODE_FOR_TRANSACTION){
-            navigation.setCurrentItem( WalletRouter.RESULT_CODE_FOR_TRANSACTION);
-        }else{
-            navigation.setCurrentItem(1);
-        }
+
+        navigation.setCurrentItem(1);
+
 
     }
 
@@ -205,6 +205,11 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.action_wallet){
+            Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                floatingActionButton.setForeground(drawable);
+            }
             if(defaultWalletAddress==null){
                 return mHelper.performClickMenu(R.id.action_no_default_account);
             }

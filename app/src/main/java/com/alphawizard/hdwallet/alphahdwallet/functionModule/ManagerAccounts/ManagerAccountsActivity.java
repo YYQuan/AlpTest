@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
@@ -34,6 +35,8 @@ import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -54,8 +57,8 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     @Inject
     ManagerAccountsContract.Presenter mPresenter;
 
-    @BindView(R.id.place_holder)
-    EmptyLayout placeHolder;
+//    @BindView(R.id.place_holder)
+//    EmptyLayout placeHolder;
 
     @BindView(R.id.recyclerView_accounts)
     RecyclerView recyclerView;
@@ -68,14 +71,26 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     @BindView(R.id.btn_import_account)
     Button  btnImport;
 
+    @BindView(R.id.layout_manager_wallet)
+    LinearLayout mLayout;
 
     @OnClick(R.id.btn_create_account)
     void onClickCreate(){
+        loading.start();
+        mLayout.setEnabled(false);
+
+        btnImport.setEnabled(false);
+        btnCreate.setEnabled(false);
         viewModel.newWallet("Wallet");
     }
 
     @OnClick(R.id.btn_import_account)
     void onClickImport(){
+        loading.start();
+        mLayout.setEnabled(false);
+
+        btnImport.setEnabled(false);
+        btnCreate.setEnabled(false);
         viewModel.openImport(this);
     }
 
@@ -90,6 +105,9 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     private Dialog dialog;
     String  mnenonics ;
     String defaultAddress = "";
+
+    @BindView(R.id.loading)
+    Loading loading;
 
     @Override
     public int getContentLayoutID() {
@@ -109,6 +127,11 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     @Override
     public void initData() {
         super.initData();
+        loading.stop();
+
+//        loading.setAutoRun(true);
+//        loading.start();
+
         viewModel = ViewModelProviders.of(this, managerAccountsViewModuleFactory)
                 .get(ManagerAccountsViewModule.class);
         getmPresenter().takeView(this,viewModel);
@@ -199,7 +222,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     private void onGetWallets(Wallet[] wallets) {
         if(wallets.length>0){
-            placeHolder.triggerOkOrEmpty(true);
+//            placeHolder.triggerOkOrEmpty(true);
         }
         mPresenter.refresh( Arrays.asList(wallets));
     }
@@ -242,8 +265,8 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
 
 
-        setPlaceHolderView(placeHolder);
-        placeHolder.bind(recyclerView);
+//        setPlaceHolderView(placeHolder);
+//        placeHolder.bind(recyclerView);
 
 
 
@@ -261,7 +284,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     @Override
     public void onRecyclerChange() {
-        placeHolder.triggerOkOrEmpty(mAdapter.getItemCount()>=0);
+//        placeHolder.triggerOkOrEmpty(mAdapter.getItemCount()>=0);
     }
 
 

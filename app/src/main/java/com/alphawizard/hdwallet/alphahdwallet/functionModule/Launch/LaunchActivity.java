@@ -67,6 +67,7 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
             @Override
             public void run() {
                 viewModel.openWallet(LaunchActivity.this);
+                LaunchActivity.this.finish();
             }
         });
 

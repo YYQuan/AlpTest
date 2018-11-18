@@ -21,14 +21,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class BackupViewModule extends BaseViewModel {
 
     VerifyMnemonicsRouter verifyMnemonicsRouter;
+    WalletRouter walletRouter;
 
 
 
-
-    public BackupViewModule(VerifyMnemonicsRouter verifyMnemonicsRouter)
+    public BackupViewModule(VerifyMnemonicsRouter verifyMnemonicsRouter,
+                            WalletRouter walletRouter)
     {
         this.verifyMnemonicsRouter =verifyMnemonicsRouter;
-
+        this.walletRouter = walletRouter;
     }
 
 
@@ -43,5 +44,10 @@ public class BackupViewModule extends BaseViewModel {
         verifyMnemonicsRouter.open(context,strings);
     }
 
+
+    public void openWalletPage(Context context){
+//        walletRouter.openWalletPage(context);
+        walletRouter.open(context);
+    }
 
 }

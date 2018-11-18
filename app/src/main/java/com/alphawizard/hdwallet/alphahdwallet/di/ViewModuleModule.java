@@ -82,8 +82,8 @@ public class ViewModuleModule {
     }
 
     @Provides
-    BackupModuleFactory backupModuleFactory(VerifyMnemonicsRouter verifyMnemonicsRouter){
-        return  new BackupModuleFactory( verifyMnemonicsRouter);
+    BackupModuleFactory backupModuleFactory(VerifyMnemonicsRouter verifyMnemonicsRouter,WalletRouter walletRouter){
+        return  new BackupModuleFactory( verifyMnemonicsRouter,walletRouter);
     }
 
 
