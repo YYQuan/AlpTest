@@ -121,7 +121,9 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
 
 
         mMnemonicsViewSelect.replace(listSelect);
+        mMnemonicsViewSelect.setColor(0x111224);
         mMnemonicsViewNoSelect.replace(listNoSelect);
+        mMnemonicsViewNoSelect.setColor(0x191A2A);
         mMnemonicsViewSelect.setmListener(new MnemonicsView.OnItemCountListener() {
             @Override
             public void onCountChange(String mnemonics) {
@@ -172,7 +174,8 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     public void initWidget() {
         super.initWidget();
 
-
+        mNext.setEnabled(false);
+        mNext.setBackgroundResource(R.drawable.bg_color_393a50);
 
     }
 

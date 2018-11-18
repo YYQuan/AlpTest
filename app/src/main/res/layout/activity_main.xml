@@ -29,7 +29,7 @@
     <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/defaultNavHeight"
+        android:layout_height="wrap_content"
         app:menu="@menu/navigation_items"
         tools:targetApi="lollipop"
         android:layout_alignParentBottom="true"
@@ -39,10 +39,9 @@
         app:itemTextAppearanceActive="@style/TextAppearance.TitleTextSize"
         app:itemTextColor="@color/text_nav"
         app:itemIconTint="@color/text_nav"
-
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        android:paddingTop="10dp"
+
         />
 
 

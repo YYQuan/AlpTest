@@ -150,11 +150,11 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
         navigation.setOnNavigationItemSelectedListener(this);
 
-
         navigation.setIconSize(16);
         navigation.setTextSize(8);
+        navigation.setIconsMarginTop(50);
 
-
+        navigation.setCurrentItem(1);
     }
 
     @Override
@@ -202,19 +202,31 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
             if(defaultWalletAddress==null){
                 return mHelper.performClickMenu(R.id.action_no_default_account);
             }
+
         }else if(item.getItemId() == R.id.action_mine){
 
             mHelper.performClickMenu( R.id.action_dapp );
             if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
                 DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
                 dappFragment.jump2Mine();
+                Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    floatingActionButton.setForeground(drawable);
+                }
                 return true;
             }
-        }else if(item.getItemId() == R.id.action_mine){
+
+        }else if(item.getItemId() == R.id.action_dapp){
             mHelper.performClickMenu( R.id.action_dapp );
             if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
                 DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
                 dappFragment.jump2WebMain();
+                Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_active);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    floatingActionButton.setForeground(drawable);
+                }
                 return true;
             }
         }

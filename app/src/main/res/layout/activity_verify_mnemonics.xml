@@ -56,31 +56,46 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+       >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#111224"/>
-
-        <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
-            android:id="@+id/mnemonicsView_no_select"
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:background="#111224"/>-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginTop="120dp"
-            android:background="#191A2A"
-            />
+            android:orientation="vertical">
 
 
-        <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
-            android:id="@+id/mnemonicsView_select"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#191A2A"
-            />
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#111224">
+                <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
+                    android:id="@+id/mnemonicsView_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="100dp"
+                    android:background="#111224"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    />
+            </FrameLayout>
+            <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
+                android:id="@+id/mnemonicsView_no_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#191A2A"
+                android:paddingTop="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/layout_correct"
             android:layout_width="match_parent"

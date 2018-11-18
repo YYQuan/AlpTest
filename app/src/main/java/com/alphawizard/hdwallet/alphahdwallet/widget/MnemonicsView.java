@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
@@ -24,7 +25,7 @@ public class MnemonicsView extends RecyclerView {
 
     private  Adapter<String> adapter ;
     private  List<String> strings = new LinkedList<>();
-
+    int color ;
 
 
     private OnItemCountListener mListener;
@@ -48,6 +49,7 @@ public class MnemonicsView extends RecyclerView {
 
     private void init() {
         adapter = new Adapter();
+        this.color = color;
         setLayoutManager(new GridLayoutManager(getContext(), 5));
         setAdapter(adapter);
         adapter.setListener(new RecyclerAdapter.HolderClickListenerImpl<String>() {
@@ -100,10 +102,21 @@ public class MnemonicsView extends RecyclerView {
 
 
 
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+    }
+
     private  class Adapter<Data> extends RecyclerAdapter<Data> {
 
         @Override
         public ViewHolder createViewHolder(View view, int type) {
+            if(color>0) {
+                return new MnemonicsViewHolder(view, color);
+            }
             return new MnemonicsViewHolder(view);
         }
 
@@ -116,13 +129,28 @@ public class MnemonicsView extends RecyclerView {
     private class MnemonicsViewHolder extends RecyclerAdapter.ViewHolder<String>{
 
         TextView mTextView;
+        LinearLayout  layout ;
+        int color ;
+
         public MnemonicsViewHolder(View itemView) {
             super(itemView);
             mTextView = itemView.findViewById(R.id.txt_cell_mnemonic);
+            layout= itemView.findViewById(R.id.layout_mnemonics);
+
+        }
+
+        public MnemonicsViewHolder(View itemView,int color) {
+            super(itemView);
+            mTextView = itemView.findViewById(R.id.txt_cell_mnemonic);
+            layout= itemView.findViewById(R.id.layout_mnemonics);
+            this.color = color;
         }
 
         @Override
         public void onBindViewHolder(String data) {
+            if(color>0) {
+                layout.setBackgroundColor(color);
+            }
             mTextView.setText(data);
         }
     }
