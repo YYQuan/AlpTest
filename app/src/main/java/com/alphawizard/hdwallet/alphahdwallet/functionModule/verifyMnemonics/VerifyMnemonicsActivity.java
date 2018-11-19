@@ -142,6 +142,13 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                 if(View.VISIBLE ==mImageCorrect.getVisibility()){
                     showCorrect(false);
                 }
+                showError(false);
+                for(int  i= 0; i<listSelect.size();i++){
+                    if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
+                        showError(true);
+                        break;
+                    }
+                }
 
             }
         });

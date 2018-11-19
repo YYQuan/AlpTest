@@ -14,7 +14,6 @@ public class PercentLinearlayout extends LinearLayout {
     public PercentLinearlayout(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-
         mPercentLayoutHelper = new PercentLayoutHelper(this);
     }
 

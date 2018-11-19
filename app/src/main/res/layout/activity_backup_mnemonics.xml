@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -40,34 +41,37 @@
         android:layout_height="32dp"
         android:background="@drawable/ic_backup"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="17dp"
+
+        app:layout_marginTopPercent="4%"
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="22dp"
+        android:layout_height="wrap_content"
         android:text="备份助记词"
         android:textColor="@color/textWhite"
         android:textSize="18sp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="10dp"/>
+        app:layout_marginTopPercent="3%"
+
+        />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:text="这12个单词是恢复AllBet钱包的唯一方法。"
         android:textColor="#C4E5FF"
         android:textSize="13sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="51dp"/>
+        app:layout_marginTopPercent="9%"/>
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:text="请将他们保存在安全和隐密额地方。"
         android:textColor="#C4E5FF"
         android:textSize="13sp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="6dp"/>
+        app:layout_marginTopPercent="2%"/>
 
     <TextView
         android:id="@+id/txt_mnemonics"
@@ -77,13 +81,15 @@
         android:text="right  straegy  nerve  afraid  fancy  pigeon  fatal  tone  rather  cross  little  cry"
         android:textColor="@color/textWhite"
         android:textSize="13sp"
+        android:lineSpacingExtra = "20dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="35dp"
+        app:layout_marginTopPercent="4%"
         android:paddingLeft="38dp"
         android:paddingRight="38dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:gravity="center"/>
+
 
     <TextView
         android:id="@+id/txt_copy"
@@ -92,7 +98,7 @@
         android:text="复制"
         android:textColor="@color/colorBlue"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
+        app:layout_marginTopPercent="4%"
         />
 
 
@@ -104,15 +110,13 @@
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="40dp"
+        app:layout_marginBottomPercent="6%"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginRightPercent="5%"
         android:background="@drawable/bg_gradient_blue"
         android:text="下一步"
         android:textColor="#ffffffff"
         android:textSize="16sp"
-
-
         />
 
-</LinearLayout>
+</com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>

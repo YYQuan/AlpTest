@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
@@ -13,7 +13,8 @@
         android:layout_height="@dimen/actionBarWithStatusBarSize"
         android:background="#010110"
         android:gravity="center_vertical"
-        android:paddingTop="@dimen/statusBarSize">
+        android:paddingTop="@dimen/statusBarSize"
+        >
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="9dp"
@@ -39,21 +40,22 @@
             android:layout_alignParentEnd="true"
             android:background="@mipmap/ic_share"/>
     </RelativeLayout>
-    <LinearLayout
+    <com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#131422"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp">
+         android:layout_gravity="center_horizontal"
+
+        app:layout_marginTopPercent="3%"
+        app:layout_widthPercent="90%">
         <ImageView
             android:id="@+id/iv_address_code"
             android:layout_width="195dp"
             android:layout_height="195dp"
             android:layout_gravity="center_horizontal"
             android:background="@color/textBlack"
-            android:layout_marginTop="40dp"/>
+            app:layout_marginTopPercent="6%"/>
 
 
         <Button
@@ -62,10 +64,9 @@
             android:layout_height="30dp"
             android:textSize="12sp"
             android:textColor="#393A50"
-            android:layout_marginTop="20dp"
             android:background="@drawable/bg_black_393a50_side"
             android:text="保存二维码"
-
+            app:layout_marginTopPercent="3%"
             android:layout_gravity="center_horizontal"/>
 
 
@@ -80,7 +81,7 @@
             android:layout_height="16dp"
             android:text="ETH接收地址"
             android:textColor="#494A60"
-            android:layout_marginTop="40dp"
+            app:layout_marginTopPercent="6%"
             />
 
         <TextView
@@ -92,7 +93,8 @@
             android:layout_height="20dp"
             android:text="0x2fa986D54445a0c7e337A735Daf1121a4038474e"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="20dp"
+            app:layout_marginTopPercent="3%"
+
             />
 
 
@@ -107,10 +109,10 @@
             android:textSize="12sp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/bg_black_393a50_side"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp"
+            app:layout_marginTopPercent="3%"
+            app:layout_marginBottomPercent="4%"
             />
-    </LinearLayout>
+    </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
 
     <TextView
         android:layout_width="331dp"
@@ -118,8 +120,8 @@
         android:text="温馨提示：请勿向上述地址充值任何非 ETH 资产，否则资产将不可找回。"
         android:textColor="#ff595a6e"
         android:textSize="12sp"
-        android:layout_marginTop="20dp"
+        app:layout_marginTopPercent="3%"
         android:layout_gravity="center_horizontal"
         />
 
-</LinearLayout>
+</com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>

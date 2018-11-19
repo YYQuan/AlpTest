@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,7 +9,7 @@
     android:orientation="vertical"
     tools:context=".functionModule.Wallet.WalletActivity">
 
-    <RelativeLayout
+    <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
         android:background="#010110"
@@ -39,22 +40,23 @@
             android:layout_alignParentEnd="true"
             android:layout_gravity="center_vertical"
             android:background="@mipmap/ic_saoma"/>
-    </RelativeLayout>
-    <LinearLayout
+    </android.support.percent.PercentRelativeLayout>
+    <com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            app:layout_widthPercent="5%"
             />
         <Button
             android:id="@+id/btn_mnemonics"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="5"
-            android:layout_marginTop="20dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="27%"
+            app:layout_heightPercent="7%"
+            app:layout_marginTopPercent="4%"
             android:text="助记词"
             android:textColor="@color/textWhite"
             android:background="@drawable/bg_color_6a89c4"
@@ -63,15 +65,17 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            app:layout_widthPercent="5%"
             />
 
         <Button
             android:id="@+id/btn_keystore"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="5"
+            android:layout_height="0dp"
+            app:layout_widthPercent="26%"
+            app:layout_heightPercent="7%"
             android:layout_marginTop="20dp"
+            app:layout_marginTopPercent="4%"
 
             android:gravity="center"
             android:text="Keystore"
@@ -83,14 +87,15 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            app:layout_widthPercent="5%"
             />
         <Button
             android:id="@+id/btn_privateKey"
             android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="5"
-            android:layout_marginTop="20dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="27%"
+            app:layout_heightPercent="7%"
+            app:layout_marginTopPercent="4%"
             android:gravity="center"
             android:text="私钥"
             android:textColor="@color/textWhite"
@@ -100,9 +105,9 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            app:layout_widthPercent="5%"
             />
-    </LinearLayout>
+    </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
     <FrameLayout
         android:id="@+id/lay_container"
         android:layout_width="match_parent"
@@ -110,7 +115,7 @@
         >
 
     </FrameLayout>
-</LinearLayout>
+</com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
 
 
 <!--<?xml version="1.0" encoding="utf-8"?>-->

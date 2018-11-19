@@ -30,7 +30,7 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     ImportViewModuleFactory viewModuleFactory;
     ImportViewModule viewModel;
 
-    @BindView(R.id.ed_mnenonics )
+    @BindView(R.id.ed_mnemonics )
     EditText mMnenonics;
 
     @BindView(R.id.ed_wallet_name )
