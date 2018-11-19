@@ -35,8 +35,6 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
     @Inject
     LaunchContract.Presenter mPresenter;
 
-
-
     @BindView(R.id.lay_background)
     View root ;
 
@@ -107,7 +105,7 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
 
 
         ValueAnimator animator = ObjectAnimator.ofObject(this,property,argbEvaluator,endColor);
-        animator.setDuration(500);
+        animator.setDuration(3000);
         animator.setIntValues(mDrawable.getColor(),endColor);
         animator.addListener(new AnimatorListenerAdapter() {
             @Override

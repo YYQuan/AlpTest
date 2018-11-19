@@ -148,6 +148,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
             defaultWalletAddress = wallet.address;
             setupWeb3();
             web3.loadUrl("http://192.168.150.84:8080/");
+
             web3.requestFocus();
 
 
@@ -177,17 +178,19 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
     private void setupWeb3() {
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
+
         web3.setChainId(4);
+
         web3.setRpcUrl("https://mainnet.infura.io/llyrtzQ3YhkdESt2Fzrk");
 
 //        web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
         if(defaultWalletAddress!=null) {
-//            web3.setWalletAddress(new Address(defaultWalletAddress));
-            web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
+            web3.setWalletAddress(new Address(defaultWalletAddress));
+//            web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
 //            web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
         }
 
-        web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
+//        web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
 
         web3.setOnSignMessageListener(message ->
                 callSignMessage = Trust.signMessage().message(message).call(getActivity()));
@@ -204,6 +207,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         web3.setOnSignTypedMessageListener(message ->
                 callSignTypedMessage = Trust.signTypedMessage().message(message).call(getActivity()));
     }
+
+
 
     @Override
     public void onSignMessage(Message<String> message) {
@@ -308,16 +313,21 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
     public void jump2Mine(){
         if(web3!=null&&web3.isShown()){
-            setupWeb3();
-            web3.loadUrl("http://192.168.150.84:8080/my");
-
+            if(web3.getUrl() !="http://192.168.150.84:8080/my") {
+                setupWeb3();
+                web3.loadUrl("http://192.168.150.84:8080/my");
+            }
         }
     }
 
     public void jump2WebMain(){
         if(web3!=null&&web3.isShown()){
-            setupWeb3();
-            web3.loadUrl("http://192.168.150.84:8080/");
+            if(!"http://192.168.150.84:8080/dice".equalsIgnoreCase(web3.getUrl())) {
+                setupWeb3();
+                web3.loadUrl("http://192.168.150.84:8080/dice");
+            }
+
+
 
         }
     }

@@ -165,14 +165,14 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                         if(str.equalsIgnoreCase(listSelect.get(i))){
                             i++;
                             if(i==(mList.size())) {
-                                App.showToast(" 正确");
+//                                App.showToast(" 正确");
                                 showCorrect(true);
                                 mNext.setEnabled(true);
                                 mNext.setBackgroundResource(R.drawable.bg_gradient_blue);
                                 break;
                             }
                         }else{
-                            App.showToast(" 错误");
+//                            App.showToast(" 错误");
                             break;
                         }
 

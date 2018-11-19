@@ -184,8 +184,8 @@ public class WalletViewModule extends BaseViewModel {
 //            getBalance();
             Single.just(mGetBalanceInteract
                     .getBalance(defaultWallet.getValue())
-                    .subscribe(defaultWalletBalance::postValue,  this::onGetDefaultBalanceError))
-                    .subscribe();
+                    .subscribe(defaultWalletBalance::postValue,  this::onGetDefaultBalanceError));
+
             call = apiClient.getTransaction("account", "txlist", mWalletRepositoryType.getDefaultWalletAddress().blockingGet(), "desc");
             call.enqueue(callback);
         }
@@ -325,7 +325,7 @@ public class WalletViewModule extends BaseViewModel {
 
     private void sendSuccess(String s) {
         transactionHash.postValue(s);
-        App.showToast("send success");
+//        App.showToast("send success");
     }
 
     private void exportAccountError(Throwable throwable) {

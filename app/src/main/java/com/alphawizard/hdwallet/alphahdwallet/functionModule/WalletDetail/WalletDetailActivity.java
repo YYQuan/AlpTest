@@ -160,6 +160,9 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     private void getPassword(String s) {
         password = s;
+        if(password.length()>30){
+            mAKeystore.setVisibility(View.GONE);
+        }
     }
 
     private void hasMnemonics(Boolean aBoolean) {
@@ -250,7 +253,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
             @Override
             public void onClick(View v) {
                 if(password.equalsIgnoreCase(editPassword.getText().toString())){
-                    App.showToast(" password is true ");
+//                    App.showToast(" password is true ");
                     loading.start();
                     mPrivatekey.setEnabled(false);
                     mAKeystore.setEnabled(false);

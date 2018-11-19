@@ -58,7 +58,7 @@ public class MyDialog implements View.OnClickListener {
                 break;
             case R.id.btn_ok:
                 if(mPassword.equalsIgnoreCase(editPassword.getText().toString())){
-                    App.showToast(" password is true ");
+//                    App.showToast(" password is true ");
                 }
                 break;
 

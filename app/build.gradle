@@ -108,6 +108,9 @@ dependencies {
     implementation 'com.github.ittianyu:BottomNavigationViewEx:2.0.2'
     implementation 'com.ashokvarma.android:bottom-navigation-bar:2.1.0'
 
+    implementation 'com.android.support:percent:22.2.0'
+
+
     implementation project(':common')
     implementation project(':web3lib')
     implementation project(':lib-zxing')

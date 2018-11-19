@@ -214,6 +214,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     @Override
     public void onResume() {
         super.onResume();
+        loading.stop();
         mPresenter.getWallets();
         mPresenter.getDefaultWallet();
         viewModel.getAccountsBalance();
@@ -319,7 +320,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
                             // 将文本内容放到系统剪贴板里。
                             cm.setText(tv.getText());
                             KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));
-                            App.showToast("已复制 keystore");
+//                            App.showToast("已复制 keystore");
                         })
                 .setNegativeButton("cancel", (dialogInterface, i) -> {
                     KeyboardUtils.hideKeyboard(view.findViewById(R.id.tv_keystore));

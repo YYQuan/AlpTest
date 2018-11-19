@@ -212,6 +212,13 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         placeHolder.bind(recyclerView);
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.getDefaultWallet();
+    }
+
     private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
         Log.d("transBeansChange");
 
@@ -308,7 +315,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        App.showToast(" tab is"+tab.getText());
+//        App.showToast(" tab is"+tab.getText());
         switch(tab.getPosition()){
             case TAB_ALL:
                 mAdapter.notifyDataSetChanged();

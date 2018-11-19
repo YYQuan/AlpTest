@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.TrustWallet:TrustSdk-android-0.01.13">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TrustSdk-android-0.01.13.aar/926af98063e18fc1d13d7829e4dddd26/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TrustSdk-android-0.01.13.aar/926af98063e18fc1d13d7829e4dddd26/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TrustSdk-android-0.01.13.aar/b6f48f83bd624eca14973b3c27965c03/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/TrustSdk-android-0.01.13.aar/b6f48f83bd624eca14973b3c27965c03/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

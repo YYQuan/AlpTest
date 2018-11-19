@@ -119,7 +119,7 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="80dp"
-                android:layout_height="21dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="20dp"
                 android:text="交易记录"

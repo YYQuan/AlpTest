@@ -83,7 +83,7 @@ public class CreateOrImportViewModule extends BaseViewModel {
     }
 
     private void onGetDefaultWalleterror(Throwable throwable) {
-        App.showToast("onGetDefaultWallet error");
+//        App.showToast("onGetDefaultWallet error");
     }
 
     private void onGetDefaultWallet(Wallet wallet) {

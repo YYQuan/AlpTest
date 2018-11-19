@@ -354,7 +354,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        App.showToast("WalletActivity   onActivityResult");
+//        App.showToast("WalletActivity   onActivityResult");
         if(requestCode==WalletRouter.RESULT_CODE_FOR_TRANSACTION){
             boolean  resultForTransaction = data.getBooleanExtra(WalletRouter.RESULT_FOR_TRANSACTION,false);
             if(resultForTransaction){

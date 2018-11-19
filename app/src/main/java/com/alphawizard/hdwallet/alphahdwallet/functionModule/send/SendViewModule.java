@@ -25,12 +25,12 @@ public class SendViewModule extends BaseViewModel {
     }
 
     private void sendError(Throwable throwable) {
-        App.showToast("send  Error");
+//        App.showToast("send  Error");
         progress.postValue(false);
     }
 
     private void sendSuccess(String s) {
-        App.showToast("send  Success   transaction  hashcode :" +s );
+//        App.showToast("send  Success   transaction  hashcode :" +s );
         progress.postValue(true);
     }
 
