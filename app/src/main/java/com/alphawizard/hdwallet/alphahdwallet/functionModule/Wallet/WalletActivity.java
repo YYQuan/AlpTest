@@ -156,7 +156,8 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
         navigation.setIconSize(16);
         navigation.setTextSize(8);
-        navigation.setIconsMarginTop(50);
+        int height = navigation.getItemHeight();
+        navigation.setIconsMarginTop(3*height/10);
 
 
         navigation.setCurrentItem(1);
@@ -266,7 +267,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
         int  height = (int)getResources().getDimension(R.dimen.defaultNavHeight);
 
 
-        if(newTab.extra == R.string.title_wallet){
+        if(newTab.extra == R.id.action_wallet){
             if(defaultWalletAddress!=null) {
 
 
@@ -282,7 +283,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
             }
         }
-        else if(newTab.extra == R.string.title_dapps){
+        else if(newTab.extra == R.id.action_dapp){
 
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_active);
 
@@ -348,7 +349,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
                     }).start();
                     */
         }
-        else if(newTab.extra == R.string.title_mine){
+        else if(newTab.extra == R.id.action_mine){
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -364,19 +365,21 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ( newTab.extra == R.string.title_dapps) {
+            if ( newTab.extra == R.id.action_dapp) {
                 floatingActionButton.setImageResource(R.drawable.bg_blue);
             } else {
                 floatingActionButton.setImageResource(R.drawable.bg_black_side);
             }
 
         }else{
-            if ( newTab.extra == R.string.title_dapps) {
+            if ( newTab.extra == R.id.action_dapp) {
 
                 floatingActionButton.setImageResource(R.mipmap.ic_bet_active);
+                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
             } else {
 
                 floatingActionButton.setImageResource(R.mipmap.ic_bet_unactive);
+                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
             }
 
         }

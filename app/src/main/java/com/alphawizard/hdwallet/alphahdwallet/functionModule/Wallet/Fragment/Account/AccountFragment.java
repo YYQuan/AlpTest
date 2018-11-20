@@ -366,7 +366,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
         @Override
         public void onBindViewHolder(Transaction.TransactionBean bean) {
-            if(bean.getTo().equalsIgnoreCase(defaultWalletAddress)){
+            if(bean.getTo().equalsIgnoreCase(defaultWalletAddress)&&!bean.getFrom().equalsIgnoreCase(defaultWalletAddress)){
 //                接收
                 mAddress.setText(bean.getFrom());
                 mSign.setText("+");
@@ -386,6 +386,8 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
                 int ethNum = i/10000;
                 int ethPoint = i%10000;
                 mValue.setText(ethNum+"."+ethPoint+"ETH");
+            }else{
+                mValue.setText("0.0"+"ETH");
             }
 
 

@@ -57,6 +57,7 @@
         android:background="#10101A"
         android:backgroundTint="#10101A"
         app:borderWidth="0dp"
+        android:scaleType="center"
         app:elevation="9dp"/>
 
 

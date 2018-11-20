@@ -212,6 +212,21 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
                     isInputAddress =false;
                     enableNext(false);
                 }
+                if(s.toString().length()<=2){
+                    if(s.toString().length()==1){
+                        if(!s.toString().equalsIgnoreCase("0")){
+                            return ;
+                        }
+                    }
+
+
+                    if(!s.toString().substring(0,2).equalsIgnoreCase("0x")){
+                        mSend.setText("输入地址错误");
+                    }else{
+                        mSend.setText("发送");
+                        checkInput();
+                    }
+                }
             }
         });
         checkInput();
