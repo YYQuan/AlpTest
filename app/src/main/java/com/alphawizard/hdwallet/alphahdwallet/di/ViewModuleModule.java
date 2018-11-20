@@ -25,6 +25,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.Ver
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Router;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.DeleteWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
@@ -96,9 +97,11 @@ public class ViewModuleModule {
     @Provides
     WalletDetailModuleFactory walletDetailModuleFactory(GetBalanceInteract getBalanceInteract,
                                                         ExportWalletInteract exportWalletInteract,
+                                                        DeleteWalletInteract deleteWalletInteract,
+                                                        FetchWalletInteract fetchWalletInteract,
                                                         WalletRouter walletRouter,
                                                         PasswordStore passwordStore){
-        return  new WalletDetailModuleFactory(getBalanceInteract,exportWalletInteract,walletRouter,passwordStore);
+        return  new WalletDetailModuleFactory(getBalanceInteract,exportWalletInteract,deleteWalletInteract,fetchWalletInteract,walletRouter,passwordStore);
     }
 
 

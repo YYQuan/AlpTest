@@ -17,4 +17,8 @@ public interface PasswordStore {
 	Single<String> getPrivateKey(Wallet   wallet );
 	Single<String> getWalletName(Wallet wallet);
 
+
+	Completable deleteWalletName();
+	Completable deleteWalletPassword();
+	Completable	deleteWalletMnemonics();
 }

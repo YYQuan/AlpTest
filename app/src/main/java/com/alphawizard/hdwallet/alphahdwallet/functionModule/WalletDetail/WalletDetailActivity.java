@@ -68,6 +68,12 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     @BindView(R.id.txt_save)
     TextView mSave;
 
+    @BindView(R.id.linie_keystore)
+    View linieKeystore;
+
+    @BindView(R.id.linie_mnemonics)
+    View linieMnemonics;
+
     @OnClick(R.id.txt_save)
     void onClickSave(){
         viewModel.saveWalletName(address,mName.getText().toString());
@@ -75,10 +81,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     @OnClick(R.id.lay_export_private_key)
     void onClickPrivateKey(){
-        loading.start();
-        mPrivatekey.setEnabled(false);
-        mAKeystore.setEnabled(false);
-        mMnemonics.setEnabled(false);
+        enableClick(false);
         viewModel.exportPrivatekey(address);
     }
 
@@ -88,7 +91,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 //        viewModel.exportKeystore(address);
 
         showBackupKeystoreDialog(password);
-
+//        viewModel.exportKeystore(address);
     }
 
     @OnClick(R.id.iv_back)
@@ -97,11 +100,35 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     }
     @OnClick(R.id.lay_export_mnemonics)
     void onClickMnemonics(){
-        loading.start();
-        mPrivatekey.setEnabled(false);
-        mAKeystore.setEnabled(false);
-        mMnemonics.setEnabled(false);
+        enableClick(false);
         viewModel.exportMnemonics(address);
+    }
+
+    @BindView(R.id.btn_delete)
+    Button mDelete;
+
+    @OnClick(R.id.btn_delete)
+    void onClickDelete(){
+
+        enableClick(false);
+        viewModel.deleteWallet(new Wallet(address),password);
+    }
+
+
+    void enableClick(boolean enable ){
+        if(enable){
+            loading.start();
+            mDelete.setEnabled(true);
+            mPrivatekey.setEnabled(true);
+            mAKeystore.setEnabled(true);
+            mMnemonics.setEnabled(true);
+        }else{
+            loading.stop();
+            mDelete.setEnabled(false);
+            mPrivatekey.setEnabled(false);
+            mAKeystore.setEnabled(false);
+            mMnemonics.setEnabled(false);
+        }
     }
 
     String password;
@@ -141,12 +168,20 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         viewModel.isFailExportContent().observe(this,this::isFailExport);
         viewModel.hasMnemonicsString().observe(this,this::hasMnemonics);
         viewModel.passwordString().observe(this,this::getPassword);
+
+        viewModel.isOkDeleteContent().observe(this,this::deleteCallback);
         viewModel.getBalance(address);
         viewModel.getWalletName(address);
         viewModel.hasMnemonics(address);
         mAddress.setText(address);
         viewModel.getPassword(new Wallet(address));
 
+    }
+
+    private void deleteCallback(Boolean aBoolean) {
+        if(aBoolean){
+            onBackPressed();
+        }
     }
 
     private void isFailExport(Boolean aBoolean) {
@@ -161,13 +196,14 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     private void getPassword(String s) {
         password = s;
         if(password.length()>30){
-            mAKeystore.setVisibility(View.GONE);
+//            linieKeystore.setVisibility(View.GONE);
+//            mAKeystore.setVisibility(View.GONE);
         }
     }
 
     private void hasMnemonics(Boolean aBoolean) {
         if(!aBoolean){
-
+            linieMnemonics.setVisibility(View.GONE);
             mMnemonics.setVisibility(View.GONE);
 
         }
@@ -185,26 +221,17 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     }
 
     private void exportMnemonicsString(String s) {
-        loading.stop();
-        mPrivatekey.setEnabled(true);
-        mAKeystore.setEnabled(true);
-        mMnemonics.setEnabled(true);
+        enableClick(true);
         shareTextIntent(s);
     }
 
     private void exportPrivateKeyString(String s) {
-        loading.stop();
-        mPrivatekey.setEnabled(true);
-        mAKeystore.setEnabled(true);
-        mMnemonics.setEnabled(true);
+        enableClick(true);
         shareTextIntent(s);
     }
 
     private void exportKeyStoreString(String s) {
-        loading.stop();
-        mPrivatekey.setEnabled(true);
-        mAKeystore.setEnabled(true);
-        mMnemonics.setEnabled(true);
+        enableClick(true);
         shareTextIntent(s);
     }
 
@@ -254,10 +281,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
             public void onClick(View v) {
                 if(password.equalsIgnoreCase(editPassword.getText().toString())){
 //                    App.showToast(" password is true ");
-                    loading.start();
-                    mPrivatekey.setEnabled(false);
-                    mAKeystore.setEnabled(false);
-                    mMnemonics.setEnabled(false);
+                    enableClick(false);
                     viewModel.exportKeystore(address);
                     return ;
                 }

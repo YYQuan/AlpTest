@@ -302,6 +302,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
     @Override
     public Completable deleteAccount(String address, String password) {
+
         return Single.fromCallable(() -> findAccount(address))
                 .flatMapCompletable(account -> Completable.fromAction(
                         () -> keyStore.deleteAccount(account, password)))

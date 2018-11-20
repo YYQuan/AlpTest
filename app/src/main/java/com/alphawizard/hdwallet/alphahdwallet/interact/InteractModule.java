@@ -74,6 +74,12 @@ public class InteractModule {
         return new ExportWalletInteract(walletRepositoryType,passwordStore);
     }
 
+    @Provides
+    static  DeleteWalletInteract  deleteWalletInteract(WalletRepositoryType walletRepositoryType,
+                                                       PasswordStore passwordStore){
+        return new DeleteWalletInteract(walletRepositoryType,passwordStore);
+    }
+
 
     /*
 

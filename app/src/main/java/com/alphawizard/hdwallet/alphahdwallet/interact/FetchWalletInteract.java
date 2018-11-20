@@ -16,4 +16,8 @@ public class FetchWalletInteract {
     public Single<Wallet[]> fetchAccounts(){
         return walletRepository.fetchWallets();
     }
+
+    public Single<Wallet> fetchAccount(Wallet wallet){
+        return walletRepository.findWallet(wallet.address);
+    }
 }

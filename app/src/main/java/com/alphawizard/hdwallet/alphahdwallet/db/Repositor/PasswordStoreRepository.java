@@ -197,4 +197,19 @@ public class PasswordStoreRepository implements PasswordStore {
 //        });
 
     }
+
+    @Override
+    public Completable deleteWalletName() {
+        return null;
+    }
+
+    @Override
+    public Completable deleteWalletPassword() {
+        return null;
+    }
+
+    @Override
+    public Completable deleteWalletMnemonics() {
+        return null;
+    }
 }

@@ -104,6 +104,12 @@ public class WalletRepository implements WalletRepositoryType {
 		return accountKeystoreService.importPrivateKey(privateKey,password);
 	}
 
+	public  void deleteWallet(Wallet wallet,String password ){
+		 accountKeystoreService.deleteAccount(wallet.address ,password)
+				.subscribeOn(Schedulers.io());
+
+	}
+
 	@Override
 	public Single<Wallet> importMnenonics(String mnenonics,String password){
 //		seed 的passphrase 设置为null

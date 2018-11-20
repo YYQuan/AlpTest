@@ -69,6 +69,7 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
 
 
 	public static  String setPassword(String address,String password){
+
 		String key = getAESPrivatekey();
 
 		try {

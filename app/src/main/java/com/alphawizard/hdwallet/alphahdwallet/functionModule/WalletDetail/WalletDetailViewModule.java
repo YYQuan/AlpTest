@@ -7,16 +7,26 @@ import android.content.Context;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
+import com.alphawizard.hdwallet.alphahdwallet.interact.DeleteWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
+
 public class WalletDetailViewModule extends BaseViewModel {
+
 
     GetBalanceInteract mGetBalanceInteract;
     ExportWalletInteract mExportWalletInteract;
     PasswordStore mPasswordStore;
     WalletRouter mWalletRouter;
+    DeleteWalletInteract mDeleteWalletInteract;
+    FetchWalletInteract mFetchWalletInteract;
+
     private final MutableLiveData<String> walletBalance = new MutableLiveData<>();
 
     private final MutableLiveData<String> exportPrivateKey = new MutableLiveData<>();
@@ -25,16 +35,21 @@ public class WalletDetailViewModule extends BaseViewModel {
     private final MutableLiveData<String> walletName = new MutableLiveData<>();
     private final MutableLiveData<Boolean> hasMnemonics = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isFailExport = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isOkDelete = new MutableLiveData<>();
     private final MutableLiveData<String> passwordString = new MutableLiveData<>();
 
 
     public WalletDetailViewModule(GetBalanceInteract getBalanceInteract,
                                   ExportWalletInteract exportWalletInteract,
+                                  DeleteWalletInteract deleteWalletInteract,
+                                  FetchWalletInteract fetchWalletInteract,
                                   WalletRouter walletRouter,
                                   PasswordStore passwordStore)
     {
         mGetBalanceInteract =  getBalanceInteract;
         mExportWalletInteract = exportWalletInteract;
+        mDeleteWalletInteract = deleteWalletInteract;
+        mFetchWalletInteract =  fetchWalletInteract;
         mPasswordStore = passwordStore;
         mWalletRouter = walletRouter;
     }
@@ -62,15 +77,45 @@ public class WalletDetailViewModule extends BaseViewModel {
         return isFailExport;
     }
 
+    public LiveData<Boolean> isOkDeleteContent() {
+        return isOkDelete;
+    }
     public LiveData<String> passwordString() {
         return passwordString;
     }
-
 
     void getBalance(String address) {
         mGetBalanceInteract
                 .getBalance(new Wallet(address))
                 .subscribe(walletBalance::postValue, this::onGetDefaultBalanceError);
+    }
+
+    void deleteWallet(Wallet wallet ,String password){
+        mDeleteWalletInteract.deleteWallet(wallet,password)
+                .observeOn(Schedulers.io())
+                .subscribe(()->deleteWalletSuccess(wallet),this::deleteWalletError);
+    }
+
+
+
+    private void deleteWalletSuccess(Wallet wallet) {
+
+        mFetchWalletInteract
+                .fetchAccount(wallet)
+                .subscribe(this::checkDeleteAgain,this::deleteComplete);
+
+
+    }
+
+    private void checkDeleteAgain(Wallet wallet) {
+        deleteWalletSuccess(wallet);
+    }
+
+    private void deleteComplete(Throwable throwable) {
+        isOkDelete.setValue(true);
+    }
+
+    private void deleteWalletError(Throwable throwable) {
     }
 
     private void onGetDefaultBalanceError(Throwable throwable) {
