@@ -79,9 +79,7 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
         viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
         viewModel.importWallet().observe(this,this::importWallet);
         Log.d("init  data    ImportMnemonicsFragment");
-        if(((ImportActivity)getActivity()).getScanContent()!=null){
-            mScanContent = ((ImportActivity)getActivity()).getScanContent();
-        }
+
 
         mImport.setEnabled(false);
         mImport.setBackgroundColor(0xff393A50);
@@ -150,6 +148,10 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     @Override
     public void onResume() {
         super.onResume();
+        if(((ImportActivity)getActivity()).getScanContent()!=null){
+            mScanContent = ((ImportActivity) getActivity()).getScanContent();
+            ((ImportActivity) getActivity()).clearScanContent();
+        }
         mMnenonics.setText(mScanContent);
     }
 

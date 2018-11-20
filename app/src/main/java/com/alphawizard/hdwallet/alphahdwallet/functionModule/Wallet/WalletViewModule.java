@@ -298,7 +298,9 @@ public class WalletViewModule extends BaseViewModel {
         public void onResponse(retrofit2.Call<Transaction> call, Response<Transaction> response) {
 
               Transaction body = response.body();
-              transactionBeans.postValue(body.result);
+              if(body!=null) {
+                  transactionBeans.postValue(body.result);
+              }
             Log.d("body ");
         }
 

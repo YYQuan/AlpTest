@@ -71,6 +71,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
     @BindView(R.id.fab)
     FloatingActionButton floatingActionButton;
 
+
     private NavHelper<Integer> mHelper;
 
     String defaultWalletAddress;
@@ -209,7 +210,11 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 floatingActionButton.setForeground(drawable);
+
+            }else{
+
             }
+
             if(defaultWalletAddress==null){
                 return mHelper.performClickMenu(R.id.action_no_default_account);
             }
@@ -222,8 +227,12 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
                 dappFragment.jump2Mine();
                 Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
 
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     floatingActionButton.setForeground(drawable);
+
+                }else{
+
                 }
                 return true;
             }
@@ -235,8 +244,13 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
                 dappFragment.jump2WebMain();
                 Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_active);
 
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     floatingActionButton.setForeground(drawable);
+
+                }else{
+
+
                 }
                 return true;
             }
@@ -261,6 +275,11 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 floatingActionButton.setForeground(drawable);
+
+            }else{
+                floatingActionButton.setImageDrawable(drawable);
+
+
             }
         }
         else if(newTab.extra == R.string.title_dapps){
@@ -269,6 +288,9 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 floatingActionButton.setForeground(drawable);
+
+            }else{
+
             }
             /*
             new Thread(
@@ -330,19 +352,35 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
                 floatingActionButton.setForeground(drawable);
+
+            }else{
 
             }
         }
 
         mFrameLayout.setPadding(0, 0,0,height);
 
-        if ( newTab.extra == R.string.title_dapps) {
-            floatingActionButton.setImageResource(R.drawable.bg_blue);
-        } else {
-            floatingActionButton.setImageResource(R.drawable.bg_black_side);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if ( newTab.extra == R.string.title_dapps) {
+                floatingActionButton.setImageResource(R.drawable.bg_blue);
+            } else {
+                floatingActionButton.setImageResource(R.drawable.bg_black_side);
+            }
+
+        }else{
+            if ( newTab.extra == R.string.title_dapps) {
+
+                floatingActionButton.setImageResource(R.mipmap.ic_bet_active);
+            } else {
+
+                floatingActionButton.setImageResource(R.mipmap.ic_bet_unactive);
+            }
+
         }
+
     }
 
     @Override

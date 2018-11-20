@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -128,17 +129,25 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
 
             }else {
                 //说明已经获取到摄像头权限了 想干嘛干嘛
+                Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
+                startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
             }
         }else {
                 //这个说明系统版本在6.0之下，不需要动态获取权限。
-
+            Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
+            startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
         }
+    }
 
-
+    //activity权限授权结果回调
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
         startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
-
     }
+
+
 
     public  static  void show(Context context){
         context.startActivity(new Intent(context, ImportActivity.class));
@@ -176,6 +185,11 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mHelper.performClickMenu((int)mHelper.getCurrentTab().extra);
+    }
 
     @SuppressLint("ResourceType")
     @Override
@@ -183,9 +197,9 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
         super.initWidget();
 
         mHelper = new NavHelper<>(this,getSupportFragmentManager(),R.id.lay_container,this);
-        mHelper.add(KEYSTORE_FORM_INDEX, new NavHelper.Tab<>(ImportKeyStoreFragment.class, "Keystore"))
-                .add(PRIVATE_KEY_FORM_INDEX, new NavHelper.Tab<>(ImportPrivateKeyFragment.class, "private"))
-                .add(MNENONICS_FORM_INDEX, new NavHelper.Tab<>(ImportMnenonicsFragment.class, "mnemonics"));
+        mHelper.add(KEYSTORE_FORM_INDEX, new NavHelper.Tab<>(ImportKeyStoreFragment.class, KEYSTORE_FORM_INDEX))
+                .add(PRIVATE_KEY_FORM_INDEX, new NavHelper.Tab<>(ImportPrivateKeyFragment.class, PRIVATE_KEY_FORM_INDEX))
+                .add(MNENONICS_FORM_INDEX, new NavHelper.Tab<>(ImportMnenonicsFragment.class, MNENONICS_FORM_INDEX));
 
         mHelper.performClickMenu(MNENONICS_FORM_INDEX);
 //        ViewPager viewPager = findViewById(R.id.viewPager);
@@ -250,22 +264,27 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
 
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    Toast.makeText(this, "result:"+result, Toast.LENGTH_SHORT).show();
                     if(!result.equalsIgnoreCase(scanContent)){
                         scanContent  = result;
+
                     }
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
 
                 }
             }
         }
-        scanContent  = "123456789";
 
-        mHelper.performClickMenu((int)mHelper.getCurrentTab().extra);
+//        mHelper.performClickMenu((int)mHelper.getCurrentTab().extra);
     }
 
     @Override
     public String getScanContent() {
         return scanContent;
+    }
+
+
+    @Override
+    public void  clearScanContent(){
+        scanContent = "";
     }
 }

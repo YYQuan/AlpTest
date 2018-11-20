@@ -65,11 +65,7 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
 
     String  mScanContent;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        mScanContent = ((ImportActivity) activity).getScanContent();
-    }
+
 
     boolean isInputPrivateKey =false;
     boolean isInputName =false;
@@ -151,6 +147,10 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
     @Override
     public void onResume() {
         super.onResume();
+        if(((ImportActivity)getActivity()).getScanContent()!=null){
+            mScanContent = ((ImportActivity) getActivity()).getScanContent();
+            ((ImportActivity) getActivity()).clearScanContent();
+        }
         mPrivatekey.setText(mScanContent);
     }
 

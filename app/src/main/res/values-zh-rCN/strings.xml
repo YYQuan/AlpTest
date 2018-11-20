@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CH-AlphaHDWallet</string>
+    <!--launch-->
+    <string name="launch_title">第一个跨区块链生态的“利润分享型”游戏系统</string>
+
+
+    <!--backup-->
+
+    <!--confirmSend-->
+
+    <!--createOrImport-->
+
+    <!--Import-->
+
+    <!--ManagerAccounts-->
+
+    <!--receiver-->
+
+    <!--send-->
+
+    <!--verifyMnemonics-->
+
+    <!--Wallet-->
+    <string name="wallet_item_wallet">第一个跨区块链生态的“利润分享型”游戏系统</string>
+
+    <!--WalletDetail-->
+
+    <!--web3-->
+
+</resources>

@@ -9,8 +9,10 @@ import android.animation.ValueAnimator;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.content.ContextCompat;
 import android.util.Property;
 import android.view.View;
+import android.webkit.DownloadListener;
 import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.utils.BalanceUtils;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
+import com.alphawizard.hdwallet.common.util.Log;
 import com.example.web3lib.BuildConfig;
 import com.example.web3lib.OnSignMessageListener;
 import com.example.web3lib.OnSignPersonalMessageListener;
@@ -113,6 +116,17 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 //        url = view.findViewById(R.id.url);
         web3 = view.findViewById(R.id.web3view);
 //        view.findViewById(R.id.go).setOnClickListener(this);
+
+        web3.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                Log.d("  webView 下载");
+            }
+        });
+        web3.setBackgroundColor(ContextCompat.getColor(getActivity(),android.R.color.transparent));
+        web3.setBackgroundResource(R.color.colorPrimaryBackgroud);
+
+
     }
 
 

@@ -138,7 +138,7 @@
         android:layout_height="wrap_content"
         android:text="顺序不正确，请重试！"
         android:layout_gravity="center"
-        app:layout_marginBottomPercent="1%"
+        app:layout_marginTopPercent="2%"
         android:gravity="center"
         android:textColor="#ff0000"
         android:textSize="16sp"
@@ -152,9 +152,9 @@
         android:text="完成"
         android:textColor="@color/textWhite"
         android:textSize="18sp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
+        app:layout_marginRightPercent="5%"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginTopPercent="7%"
         app:layout_marginBottomPercent="6%"
         />
 </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>

@@ -44,9 +44,9 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
 
     @OnClick(R.id.txt_copy)
     public void clickCopy(){
-//        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        // 将文本内容放到系统剪贴板里。
-//        cm.setText(mMnemonics.getText());
+        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+//         将文本内容放到系统剪贴板里。
+        cm.setText(mMnemonics.getText());
 //        App.showToast("已复制 助记词");
         //        文本分享
         Intent sendIntent = new Intent();

@@ -2,4 +2,5 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.InterfaceUt
 
 public interface ScanContentProvider {
     String getScanContent();
+    void  clearScanContent();
 }

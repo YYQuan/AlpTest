@@ -28,7 +28,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="第一个跨区块链生态的“利润分享型”游戏系统"
+            android:text="@string/app_name"
             android:textColor="#ffcae4ff"
             android:textSize="15sp"
             android:layout_marginBottom="40dp"
