@@ -99,9 +99,10 @@ public class ViewModuleModule {
                                                         ExportWalletInteract exportWalletInteract,
                                                         DeleteWalletInteract deleteWalletInteract,
                                                         FetchWalletInteract fetchWalletInteract,
+                                                        DefaultWalletInteract defaultWalletInteract,
                                                         WalletRouter walletRouter,
                                                         PasswordStore passwordStore){
-        return  new WalletDetailModuleFactory(getBalanceInteract,exportWalletInteract,deleteWalletInteract,fetchWalletInteract,walletRouter,passwordStore);
+        return  new WalletDetailModuleFactory(getBalanceInteract,exportWalletInteract,deleteWalletInteract,fetchWalletInteract,defaultWalletInteract,walletRouter,passwordStore);
     }
 
 

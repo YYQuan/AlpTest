@@ -32,6 +32,7 @@ import com.alphawizard.hdwallet.common.util.Log;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -71,7 +72,7 @@ public class WalletViewModule extends BaseViewModel {
     private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
 
     private final MutableLiveData<String> transactionHash = new MutableLiveData<>();
-
+    private final MutableLiveData<Boolean> notDefaultWallet = new MutableLiveData<>();
     private final MutableLiveData<List<Transaction.TransactionBean>> transactionBeans = new MutableLiveData<>();
     private final MutableLiveData<CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
 
@@ -148,6 +149,9 @@ public class WalletViewModule extends BaseViewModel {
     public LiveData<CreateWalletEntity> createWalletEntity() {
         return createWalletEntity;
     }
+    public LiveData<Boolean> notDefaultWalletContent() {
+        return notDefaultWallet;
+    }
 
 
     public void getAccounts(){
@@ -162,9 +166,24 @@ public class WalletViewModule extends BaseViewModel {
 
 
     public void setDefaultWallet(Wallet wallet) {
-        disposable = mDefaultWalletInteract
-                .setDefaultWallet(wallet)
-                .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
+        disposable =
+                mFetchWalletInteract
+                        .fetchAccount(wallet)
+                        .subscribe(wallet1 -> {
+                               mDefaultWalletInteract
+                                        .setDefaultWallet(wallet)
+                                        .subscribe(() -> onDefaultWalletChanged(wallet), this::setDefaultWallet);
+
+                        },this::setDefaultWallet );
+
+
+
+//                mDefaultWalletInteract
+//                .setDefaultWallet(wallet)
+//                .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
+    }
+
+    private void setDefaultWallet(Throwable throwable) {
     }
 
     public void getDefaultWallet(){
@@ -178,6 +197,7 @@ public class WalletViewModule extends BaseViewModel {
     private void onDefaultWalletChanged(Wallet wallet) {
         progress.postValue(false);
         defaultWallet.postValue(wallet);
+
 
 //        defaultWallet 变化 要立即改变balance 和transaction  record
         if(call!=null) {
@@ -392,5 +412,9 @@ public class WalletViewModule extends BaseViewModel {
 
     private void onGetDefaultAccountsError(Throwable throwable) {
         createWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
+        if(throwable instanceof NoSuchElementException){
+            notDefaultWallet.setValue(true);
+            createdWallet.postValue(null);
+        }
     }
 }

@@ -74,13 +74,33 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     @BindView(R.id.linie_mnemonics)
     View linieMnemonics;
 
+    private long lastClickTime = 0L;
+    private static final int FAST_CLICK_DELAY_TIME = 500;  // 快速点击间隔
+
+
+    public  boolean     isRepeatClick(){
+        //在设置Item的监听时
+
+        if (System.currentTimeMillis() - lastClickTime < FAST_CLICK_DELAY_TIME){
+            return  true;
+        }
+        lastClickTime = System.currentTimeMillis();
+        return false;
+    }
+
     @OnClick(R.id.txt_save)
     void onClickSave(){
+        if(isRepeatClick()){
+            return ;
+        }
         viewModel.saveWalletName(address,mName.getText().toString());
     }
 
     @OnClick(R.id.lay_export_private_key)
     void onClickPrivateKey(){
+        if(isRepeatClick()){
+            return ;
+        }
         enableClick(false);
         viewModel.exportPrivatekey(address);
     }
@@ -88,6 +108,9 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     @OnClick(R.id.lay_export_keystore)
     void onClickKeystore(){
 
+        if(isRepeatClick()){
+            return ;
+        }
 //        viewModel.exportKeystore(address);
 
         showBackupKeystoreDialog(password);
@@ -96,10 +119,16 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     @OnClick(R.id.iv_back)
     void onClickBack(){
+        if(isRepeatClick()){
+            return ;
+        }
         onBackPressed();
     }
     @OnClick(R.id.lay_export_mnemonics)
     void onClickMnemonics(){
+        if(isRepeatClick()){
+            return ;
+        }
         enableClick(false);
         viewModel.exportMnemonics(address);
     }
@@ -109,7 +138,9 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     @OnClick(R.id.btn_delete)
     void onClickDelete(){
-
+        if(isRepeatClick()){
+            return ;
+        }
         enableClick(false);
         viewModel.deleteWallet(new Wallet(address),password);
     }

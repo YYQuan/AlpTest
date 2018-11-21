@@ -67,11 +67,14 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
     @BindView(R.id.btn_create)
     Button mCreate;
 
+
+    boolean  isCreate = false;
     @OnClick(R.id.btn_create)
     void onClickCreate(){
         loading.start();
         mImport.setEnabled(false);
         mCreate.setEnabled(false);
+        isCreate =true;
         viewModel.newWallet("Wallet");
     }
 
@@ -132,19 +135,30 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
         viewModel.createdWallet().observe(this,this::onCreatedWallet);
         viewModel.defaultWallet().observe(this,this::defaultWallet);
         viewModel.createWalletEntity().observe(this,this::onCreateWalletEntity);
-
-
     }
 
     private void defaultWallet(Wallet wallet) {
-        viewModel.openBackup(getActivity(), String2StringList.string2StringList(mnenonics));
+        if(isCreate) {
+            viewModel.openBackup(getActivity(),String2StringList.string2StringList(mnenonics));
+
+        }
+        if(wallet!=null&&createAddress.equalsIgnoreCase(wallet.address)) {
+            isCreate = false;
+        }
+
     }
 
-    private void onCreatedWallet(Wallet wallet) {
+    String createAddress = "";
 
+//    回到createOrImportFragment的时候   在没有粗发 click 的情况下，会莫名其妙的调用到这里 因此加多一个  isCreate的 判定
+    private void onCreatedWallet(Wallet wallet) {
+        createAddress = wallet.address;
+        viewModel.setDefaultWallet(wallet);
         Log.d("onCreatedWallet");
 //        showBackupMnenonicsDialog(mnenonics);
-        viewModel.setDefaultWallet(wallet);
+
+
+
     }
 
     private void onCreateWalletEntity(CreateWalletEntity createWalletEntity) {

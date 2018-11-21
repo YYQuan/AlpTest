@@ -8,6 +8,7 @@ import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 public class DefaultWalletInteract {
 
@@ -24,6 +25,11 @@ public class DefaultWalletInteract {
 
     public Completable setDefaultWallet(Wallet wallet){
         return Completable.fromAction(()->preferenceRepositoryType.setCurrentWalletAddress(wallet.address));
+    }
+
+    public Completable clearDefaultWallet( ){
+        return Completable.fromAction(()->preferenceRepositoryType.setCurrentWalletAddress(null))
+                .subscribeOn(Schedulers.io());
     }
 
 

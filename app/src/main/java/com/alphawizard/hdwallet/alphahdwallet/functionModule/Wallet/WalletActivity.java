@@ -100,10 +100,20 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(WalletViewModule.class);
         viewModel.defaultWallet().observe(this,this::defaultWalletChange);
-        viewModel.getDefaultWallet();
+        viewModel.notDefaultWalletContent().observe(this,this::notDefaultWallet);
+//        viewModel.getDefaultWallet();
 //        viewModel.createdWallet().observe(this,this::onCreatedWallet);
 
 //        setBottomNavigationItem(navigation,1,16,8);
+    }
+
+    private void notDefaultWallet(Boolean aBoolean) {
+        if(aBoolean){
+            if((int)mHelper.getCurrentTab().extra ==R.id.action_wallet ) {
+                mHelper.performClickMenu(R.id.action_no_default_account);
+                defaultWalletAddress = null;
+            }
+        }
     }
 
     @Override
@@ -111,6 +121,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
         super.onResume();
         viewModel.getDefaultWallet();
     }
+
 
     private void defaultWalletChange(Wallet wallet) {
         if(!wallet.address.equalsIgnoreCase(defaultWalletAddress)){
@@ -159,9 +170,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
         int height = navigation.getItemHeight();
         navigation.setIconsMarginTop(3*height/10);
 
-
         navigation.setCurrentItem(1);
-
 
     }
 
@@ -211,7 +220,6 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 floatingActionButton.setForeground(drawable);
-
             }else{
 
             }
@@ -268,10 +276,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
 
         if(newTab.extra == R.id.action_wallet){
-            if(defaultWalletAddress!=null) {
 
-
-            }
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
