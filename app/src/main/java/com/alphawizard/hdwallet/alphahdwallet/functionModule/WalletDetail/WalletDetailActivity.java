@@ -2,6 +2,7 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.VerifyMnemonicsModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletDetailModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
@@ -37,6 +39,10 @@ import butterknife.OnClick;
 
 public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDetailContract.Presenter,WalletDetailViewModule> implements WalletDetailContract.View {
 
+
+    public  static  void show(Context context){
+        context.startActivity(new Intent(context, WalletDetailActivity.class));
+    }
     @Inject
     WalletDetailModuleFactory walletsViewModuleFactory;
     WalletDetailViewModule viewModel;
@@ -79,7 +85,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
 
     public  boolean     isRepeatClick(){
-        //在设置Item的监听时
+
 
         if (System.currentTimeMillis() - lastClickTime < FAST_CLICK_DELAY_TIME){
             return  true;

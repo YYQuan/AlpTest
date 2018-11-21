@@ -33,49 +33,49 @@ public class InteractModule {
      */
 
     @Provides
-    static CreateWalletInteract  createWalletInteract(WalletRepositoryType walletRepositoryType, PasswordStore passwordStore ){
+    CreateWalletInteract  createWalletInteract(WalletRepositoryType walletRepositoryType, PasswordStore passwordStore ){
         return new CreateWalletInteract(walletRepositoryType,passwordStore);
     }
 
     @Provides
-    static DefaultWalletInteract  defaultWalletInteract(WalletRepositoryType walletRepositoryType, PreferenceRepositoryType  preferenceRepositoryType){
+    DefaultWalletInteract  defaultWalletInteract(WalletRepositoryType walletRepositoryType, PreferenceRepositoryType  preferenceRepositoryType){
         return new DefaultWalletInteract(walletRepositoryType,preferenceRepositoryType);
     }
 
     @Provides
-    static FindDefaultWalletInteract  findDefaultWalletInteract(PreferenceRepositoryType  preferenceRepositoryType, WalletRepositoryType walletRepositoryType){
+    FindDefaultWalletInteract  findDefaultWalletInteract(PreferenceRepositoryType  preferenceRepositoryType, WalletRepositoryType walletRepositoryType){
         return new FindDefaultWalletInteract(preferenceRepositoryType,walletRepositoryType);
     }
 
     @Provides
-    static  GetBalanceInteract  getBalanceInteract(WalletRepositoryType walletRepositoryType){
+    GetBalanceInteract  getBalanceInteract(WalletRepositoryType walletRepositoryType){
         return new GetBalanceInteract(walletRepositoryType);
     }
 
     @Provides
-    static  SendTransactionInteract  sendTransactionInteract(WalletRepositoryType walletRepositoryType,PasswordStore passwordStore){
+    SendTransactionInteract  sendTransactionInteract(WalletRepositoryType walletRepositoryType,PasswordStore passwordStore){
         return new SendTransactionInteract(walletRepositoryType,passwordStore);
     }
 
     @Provides
-    static  FetchWalletInteract  fetchWalletInteract(WalletRepositoryType walletRepositoryType){
+     FetchWalletInteract  fetchWalletInteract(WalletRepositoryType walletRepositoryType){
         return new FetchWalletInteract(walletRepositoryType);
     }
 
     @Provides
-    static  ImportAccountInteract  importAccountInteract(WalletRepositoryType walletRepositoryType,
+    ImportAccountInteract  importAccountInteract(WalletRepositoryType walletRepositoryType,
                                                          PasswordStore passwordStore){
         return new ImportAccountInteract(walletRepositoryType,passwordStore);
     }
 
     @Provides
-    static  ExportWalletInteract  exportWalletInteract(WalletRepositoryType walletRepositoryType,
+    ExportWalletInteract  exportWalletInteract(WalletRepositoryType walletRepositoryType,
                                                        PasswordStore passwordStore){
         return new ExportWalletInteract(walletRepositoryType,passwordStore);
     }
 
     @Provides
-    static  DeleteWalletInteract  deleteWalletInteract(WalletRepositoryType walletRepositoryType,
+    DeleteWalletInteract  deleteWalletInteract(WalletRepositoryType walletRepositoryType,
                                                        PasswordStore passwordStore){
         return new DeleteWalletInteract(walletRepositoryType,passwordStore);
     }
@@ -88,56 +88,56 @@ public class InteractModule {
 
      */
     @Provides
-    public static CreateOrImportRouter providesFirstLaunchRouter(){
+    public  CreateOrImportRouter providesFirstLaunchRouter(){
         return new CreateOrImportRouter();
     }
 
     @Provides
-    public static WalletRouter providesWalletRouter(){
+    public  WalletRouter providesWalletRouter(){
         return new WalletRouter();
     }
 
     @Provides
-    public static SendRouter providesSendRouter(){
+    public  SendRouter providesSendRouter(){
         return new SendRouter();
     }
 
     @Provides
-    public static ImportRouter providesImportRouter(){
+    public  ImportRouter providesImportRouter(){
         return new ImportRouter();
     }
 
     @Provides
-    public static WalletDetailRouter walletDetailRouter(){
+    public  WalletDetailRouter walletDetailRouter(){
         return new WalletDetailRouter();
     }
 
     @Provides
-    public static ManagerAccountsRouter managerAccountsRouter(){
+    public  ManagerAccountsRouter managerAccountsRouter(){
         return new ManagerAccountsRouter();
     }
 
     @Provides
-    public static BackupRouter backupRouter(){
+    public  BackupRouter backupRouter(){
         return new BackupRouter();
     }
 
     @Provides
-    public static VerifyMnemonicsRouter verifyMnemonicsRouter(){
+    public  VerifyMnemonicsRouter verifyMnemonicsRouter(){
         return new VerifyMnemonicsRouter();
     }
     @Provides
-    public static Web3Router web3Router(){
+    public  Web3Router web3Router(){
         return new Web3Router();
     }
 
     @Provides
-    public static LaunchRouter launchRouter(){
+    public  LaunchRouter launchRouter(){
         return new LaunchRouter();
     }
 
     @Provides
-    public static ReceiverRouter receiverRouter(){
+    public  ReceiverRouter receiverRouter(){
         return new ReceiverRouter();
     }
 

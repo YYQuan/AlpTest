@@ -69,7 +69,7 @@ public class EthTickerService implements TickerService {
             if(response!=null) {
                 result = response.body().string();
 //                call =null;
-                Log.d(result);
+//                Log.d(result);
             }else{
                 result = "0.00";
             }

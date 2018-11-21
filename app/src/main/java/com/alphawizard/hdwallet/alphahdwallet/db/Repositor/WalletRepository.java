@@ -151,7 +151,9 @@ public class WalletRepository implements WalletRepositoryType {
 	}
 
 	public Single<Wallet[]> fetchWallets() {
-        return accountKeystoreService.fetchAccounts();
+        return accountKeystoreService
+				.fetchAccounts()
+				.subscribeOn(Schedulers.io());
 	}
 
 }

@@ -7,8 +7,10 @@ import com.alphawizard.hdwallet.alphahdwallet.service.AccountKeystoreService;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class FindDefaultWalletInteract {
 
@@ -37,6 +39,7 @@ public class FindDefaultWalletInteract {
 						.andThen(Single.fromCallable(preferenceRepositoryType::getCurrentWalletAddress)
 								.flatMap(walletRepositoryType::findWallet))
 				)
+				.subscribeOn(Schedulers.io())
 				.observeOn(AndroidSchedulers.mainThread());
 	}
 

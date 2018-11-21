@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -25,8 +26,10 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ManagerA
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
@@ -46,6 +49,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail.WalletDetailRouter.WALLET_DETAIL_STRING;
 
 public class ManagerAccountsActivity extends BasePresenterToolbarActivity<ManagerAccountsContract.Presenter,ManagerAccountsViewModule> implements ManagerAccountsContract.View {
 
@@ -152,6 +157,10 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     }
 
 
+
+
+
+
     private HashMap<String, String> mAccountsNameMap = new HashMap<>();
     private void onGetAccountName(HashMap<String, String> stringStringHashMap) {
         if(stringStringHashMap!=null&&!stringStringHashMap.equals(mAccountsBalanceMap)) {
@@ -200,7 +209,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
 
     private void onExportWallet(String s) {
-        Log.d("keystore : "+s);
+
         showBackupKeystoreDialog(s);
     }
 
@@ -219,6 +228,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         mPresenter.getDefaultWallet();
         viewModel.getAccountsBalance();
         viewModel.getAccountsName();
+        isOpenDetailing =false;
     }
 
     private void onGetWallets(Wallet[] wallets) {
@@ -228,9 +238,15 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         mPresenter.refresh( Arrays.asList(wallets));
     }
 
+
+    boolean isOpenDetailing  = false;
+
+
+
     @Override
     public void initWidget() {
         super.initWidget();
+
         ActionBar actionBar = getSupportActionBar();
         //      隐藏toolbar上的 back btn
         if(actionBar!=null){
@@ -252,9 +268,19 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         mAdapter.setListener(new RecyclerAdapter.HolderClickListenerImpl<Wallet>() {
             @Override
             public void onClickListener(RecyclerAdapter.ViewHolder holder, Wallet wallet) {
-                super.onClickListener(holder, wallet);
-                mPresenter.setDefaultWallet(wallet);
-//                viewModel.openWalletDetail(ManagerAccountsActivity.this,wallet.address);
+
+                Log.d("NabagerAcciybtsActivity  onClickListener ");
+//                mPresenter.setDefaultWallet(wallet);
+                if(!isOpenDetailing) {
+                    isOpenDetailing = true;
+                    Log.d("NabagerAcciybtsActivity  onClickListener true");
+//                    viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
+//                    Intent intent = new Intent(ManagerAccountsActivity.this, Web3Activity.class);
+                    Intent intent = new Intent(ManagerAccountsActivity.this, WalletDetailActivity.class);
+                    startActivity(intent);
+                    startActivity(intent);
+
+                }
             }
 
             @Override
@@ -343,7 +369,9 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         }
     }
 
-    class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Wallet> implements  View.OnClickListener {
+
+
+    class ActionViewHolder  extends RecyclerAdapter.ViewHolder<Wallet> {
 
         @BindView(R.id.txt_eth_address)
         TextView mContent;
@@ -363,19 +391,22 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         ImageView imageTo;
 
 
-        @OnClick(R.id.im_to)
-        void  onCLickImTO(){
-            viewModel.openWalletDetail(ManagerAccountsActivity.this,address);
-        }
+//        @OnClick(R.id.iv_is_default_wallet)
+//        void  onCLickSetDefault(){
+//
+//            mPresenter.setDefaultWallet(new Wallet(address));
+//        }
+
         ActionViewHolder(View itemView) {
             super(itemView);
         }
         String address ;
+
         @Override
         public void onBindViewHolder(Wallet wallet) {
             address = wallet.address;
             mContent.setText(address);
-            imageTo.setOnClickListener(this);
+
 
             String valueName = mAccountsNameMap.get(wallet.address);
             if(valueName!=null) {
@@ -398,9 +429,6 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             }
         }
 
-        @Override
-        public void onClick(View v) {
-            viewModel.openWalletDetail(ManagerAccountsActivity.this,address);
-        }
+
     }
 }

@@ -368,7 +368,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
         int len = (int) accounts.size();
         for (int i = 0; i < len; i++) {
             try {
-                android.util.Log.d("ACCOUNT_FIND", "Address: " + accounts.get(i).getAddress().getHex());
+//                android.util.Log.d("ACCOUNT_FIND", "Address: " + accounts.get(i).getAddress().getHex());
                 if (accounts.get(i).getAddress().getHex().equalsIgnoreCase(address)) {
                     return accounts.get(i);
                 }

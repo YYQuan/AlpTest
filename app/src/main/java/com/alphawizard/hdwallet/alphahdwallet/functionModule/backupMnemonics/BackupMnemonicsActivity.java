@@ -66,6 +66,8 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
     }
 
 
+
+
     @OnClick(R.id.btn_next)
     public void clickNext(){
       viewModel.openVerify(this,mList);

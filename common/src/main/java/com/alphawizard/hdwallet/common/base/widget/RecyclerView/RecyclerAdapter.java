@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alphawizard.hdwallet.common.R;
+import com.alphawizard.hdwallet.common.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -183,9 +184,12 @@ public abstract class RecyclerAdapter <Data> extends RecyclerView.Adapter<Recycl
 
     @Override
     public void onClick(View v) {
+        Log.d("NabagerAcciybtsActivity  onClickListener  onClick outside");
         if(listener !=null) {
+            Log.d("NabagerAcciybtsActivity  onClickListener  onClick inside1");
             ViewHolder holder = (ViewHolder) v.getTag(R.id.ViewHolder_Tag);
             int index = holder.getAdapterPosition();
+            Log.d("NabagerAcciybtsActivity  onClickListener  onClick inside2");
             listener.onClickListener(holder ,  mDataList.get(index));
         }
     }
