@@ -80,8 +80,13 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
         return viewModel;
     }
 
-    @OnClick(R.id.iv_back)
-    void onClickBack(){
+//    @OnClick(R.id.iv_back)
+//    void onClickBack(){
+//        onBackPressed();
+//    }
+
+    @OnClick(R.id.lay_back)
+    void onClickLayBack(){
         onBackPressed();
     }
 

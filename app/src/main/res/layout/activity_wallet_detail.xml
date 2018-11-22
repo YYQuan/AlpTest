@@ -31,13 +31,18 @@
         android:background="#010110"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/statusBarSize">
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="9dp"
-            android:layout_height="15dp"
+        <FrameLayout
+            android:id="@+id/lay_back"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="9dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/ic_title_back_white"/>
+        </FrameLayout>
 
-            android:layout_marginStart="21dp"
-            android:background="@drawable/ic_title_back_white"/>
 
         <TextView
             android:layout_width="match_parent"

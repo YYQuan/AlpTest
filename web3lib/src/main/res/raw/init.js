@@ -29,6 +29,7 @@ window.Trust.init(rpcURL, {
     var data = tx.data || null;
     var nonce = tx.nonce || -1;
     trust.signTransaction(id, tx.to || null, tx.value, nonce, gasLimit, gasPrice, data);
+    trust.changeLanguage("哈哈啊哈 ");
   },
   signMessage: function (msgParams, cb) {
     const { data } = msgParams
@@ -54,9 +55,11 @@ window.Trust.init(rpcURL, {
     address: addressHex,
     networkVersion: chainID
 })
+
 window.web3.setProvider = function () {
   console.debug('Trust Wallet - overrode web3.setProvider')
 }
+
 window.web3.eth.defaultAccount = addressHex
 window.web3.version.getNetwork = function(cb) {
     cb(null, chainID)
@@ -64,3 +67,12 @@ window.web3.version.getNetwork = function(cb) {
 window.web3.eth.getCoinbase = function(cb) {
     return cb(null, addressHex)
 }
+
+
+
+window.app.changeLanguage =function(params) {
+      trust.changeLanguage("哈哈啊哈 ");
+ }
+
+
+

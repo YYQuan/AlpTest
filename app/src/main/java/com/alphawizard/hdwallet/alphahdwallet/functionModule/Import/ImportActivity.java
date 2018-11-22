@@ -63,9 +63,14 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
 
     @BindView(R.id.btn_privateKey)
     Button  mPrivateKey;
+//
+//    @OnClick(R.id.iv_back)
+//    void onClickBack(){
+//        onBackPressed();
+//    }
 
-    @OnClick(R.id.iv_back)
-    void onClickBack(){
+    @OnClick(R.id.lay_back)
+    void onClickLayBack(){
         onBackPressed();
     }
 

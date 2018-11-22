@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,29 +82,38 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     @OnClick(R.id.btn_create_account)
     void onClickCreate(){
-        loading.start();
-        mLayout.setEnabled(false);
-
-        btnImport.setEnabled(false);
-        btnCreate.setEnabled(false);
+        enableClick(false);
         viewModel.newWallet("Wallet");
+    }
+
+    @OnClick(R.id.lay_back)
+    void onClickLayBack(){
+        enableClick(false);
+        onBackPressed();
     }
 
     @OnClick(R.id.btn_import_account)
     void onClickImport(){
-        loading.start();
-        mLayout.setEnabled(false);
-
-        btnImport.setEnabled(false);
-        btnCreate.setEnabled(false);
+        enableClick(false);
         viewModel.openImport(this);
     }
 
-    @OnClick(R.id.iv_back)
-    void onClickBack(){
-        onBackPressed();
-    }
+//    @OnClick(R.id.iv_back)
+//    void onClickBack(){
+//
+//        onBackPressed();
+//    }
 
+
+    private void enableClick(boolean isEnable){
+        if(isEnable){
+            loading.stop();
+        }else{
+            loading.start();
+        }
+        btnCreate.setEnabled(isEnable);
+        btnImport.setEnabled(isEnable);
+    }
 
     RecyclerAdapter<Wallet> mAdapter;
 
@@ -113,6 +123,12 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     @BindView(R.id.loading)
     Loading loading;
+
+
+    @BindView(R.id.lay_back)
+    FrameLayout mLayBack ;
+
+
 
     @Override
     public int getContentLayoutID() {
@@ -134,8 +150,6 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         super.initData();
         loading.stop();
 
-//        loading.setAutoRun(true);
-//        loading.start();
 
         viewModel = ViewModelProviders.of(this, managerAccountsViewModuleFactory)
                 .get(ManagerAccountsViewModule.class);
@@ -229,6 +243,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         viewModel.getAccountsBalance();
         viewModel.getAccountsName();
         isOpenDetailing =false;
+        enableClick(true);
     }
 
     private void onGetWallets(Wallet[] wallets) {
@@ -270,15 +285,15 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             public void onClickListener(RecyclerAdapter.ViewHolder holder, Wallet wallet) {
 
                 Log.d("NabagerAcciybtsActivity  onClickListener ");
-//                mPresenter.setDefaultWallet(wallet);
+                mPresenter.setDefaultWallet(wallet);
                 if(!isOpenDetailing) {
                     isOpenDetailing = true;
                     Log.d("NabagerAcciybtsActivity  onClickListener true");
-//                    viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
+                    viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
 //                    Intent intent = new Intent(ManagerAccountsActivity.this, Web3Activity.class);
-                    Intent intent = new Intent(ManagerAccountsActivity.this, WalletDetailActivity.class);
-                    startActivity(intent);
-                    startActivity(intent);
+//                    Intent intent = new Intent(ManagerAccountsActivity.this, WalletDetailActivity.class);
+//                    startActivity(intent);
+//                    startActivity(intent);
 
                 }
             }
@@ -430,5 +445,11 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         }
 
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewModel.cancelGetAccountsBalance();
     }
 }

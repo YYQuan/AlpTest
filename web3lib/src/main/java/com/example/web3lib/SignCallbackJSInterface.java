@@ -89,6 +89,13 @@ public class SignCallbackJSInterface {
         });
     }
 
+    @JavascriptInterface
+    public void changeLanguage(String params) {
+        Log.d("YYQ","  js    language "+params);
+//        webView.post(() -> onSignPersonalMessageListener.onSignPersonalMessage(new Message<>(data, getUrl(), callbackId)));
+    }
+
+
     private String getUrl() {
         return webView == null ? "" : webView.getUrl();
     }

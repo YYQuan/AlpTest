@@ -93,9 +93,14 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     }
 
-    @OnClick(R.id.iv_back)
-    void onClickBack(){
-       onBackPressed();
+//    @OnClick(R.id.iv_back)
+//    void onClickBack(){
+//       onBackPressed();
+//    }
+
+    @OnClick(R.id.lay_back)
+    void onClickLayBack(){
+        onBackPressed();
     }
 
     @BindView(R.id.txt_eth_balance)

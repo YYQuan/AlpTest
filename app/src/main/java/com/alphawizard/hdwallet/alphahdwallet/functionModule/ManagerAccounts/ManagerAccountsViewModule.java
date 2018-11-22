@@ -115,8 +115,15 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
     private HashMap<String,String>  accountsBalanceMap = new HashMap<>();
     private HashMap<String,String>  accountsNameMap = new HashMap<>();
+
+
+    public void cancelGetAccountsBalance(){
+
+    }
+
+
     public void getAccountsBalance(){
-        mFetchWalletInteract
+        disposable = mFetchWalletInteract
                 .fetchAccounts()
                 .flatMap(w ->{
                     int i = 0;

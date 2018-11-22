@@ -9,20 +9,24 @@
     tools:context=".functionModule.verifyMnemonics.VerifyMnemonicsActivity">
 
     <LinearLayout
-        android:id="@+id/lay_back"
+        android:id="@+id/linear_lay_back"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="9dp"
 
        >
-        <ImageView
-            android:layout_marginLeft="16dp"
-            android:layout_width="9dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_title_back_white"/>
-
+        <FrameLayout
+            android:id="@+id/lay_back"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="9dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="21dp"
+                android:background="@drawable/ic_title_back_white"/>
+        </FrameLayout>
 
     </LinearLayout>
     

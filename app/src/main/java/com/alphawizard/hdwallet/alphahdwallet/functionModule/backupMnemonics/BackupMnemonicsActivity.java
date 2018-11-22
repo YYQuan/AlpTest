@@ -60,12 +60,17 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
     @BindView(R.id.btn_next)
     Button mNext;
 
-    @OnClick(R.id.iv_back)
-    public void clickBack(){
+//    @OnClick(R.id.iv_back)
+//    public void clickBack(){
+//        onBackPressed();
+//    }
+
+
+
+    @OnClick(R.id.lay_back)
+    void onClickLayBack(){
         onBackPressed();
     }
-
-
 
 
     @OnClick(R.id.btn_next)

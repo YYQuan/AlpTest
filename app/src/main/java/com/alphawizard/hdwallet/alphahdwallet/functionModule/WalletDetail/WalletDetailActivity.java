@@ -26,6 +26,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.Bac
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.alphahdwallet.widget.MyDialog;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
@@ -123,13 +124,13 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 //        viewModel.exportKeystore(address);
     }
 
-    @OnClick(R.id.iv_back)
-    void onClickBack(){
-        if(isRepeatClick()){
-            return ;
-        }
-        onBackPressed();
-    }
+//    @OnClick(R.id.iv_back)
+//    void onClickBack(){
+//        if(isRepeatClick()){
+//            return ;
+//        }
+//        onBackPressed();
+//    }
     @OnClick(R.id.lay_export_mnemonics)
     void onClickMnemonics(){
         if(isRepeatClick()){
@@ -141,6 +142,12 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     @BindView(R.id.btn_delete)
     Button mDelete;
+
+
+    @OnClick(R.id.lay_back)
+    void onClickLayBack(){
+        onBackPressed();
+    }
 
     @OnClick(R.id.btn_delete)
     void onClickDelete(){
@@ -291,6 +298,12 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
             actionBar.setDisplayHomeAsUpEnabled(false);
 //            actionBar.setTitle("ETH");
         }
+
+//        StatusBarUtil.statusBarLightMode(this,0x010110);
+//        StatusBarUtil.setStatusBarColor(this,0xffffff);
+//        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
+
     }
 
     private void walletBalanceChange(String s) {
