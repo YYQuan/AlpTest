@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
@@ -19,6 +20,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 
 public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
@@ -36,9 +38,11 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     private SendRouter sendRouter;
     private ReceiverRouter receiverRouter;
     private ManagerAccountsRouter managerAccountsRouter;
+    private LanguageInteract languageInteract;
     private Web3Router web3Router;
     ImportRouter importRouter;
     BackupRouter backupRouter;
+    WalletRouter walletRouter;
 
     public WalletsViewModuleFactory(CreateWalletInteract createWalletInteract,
                                     DefaultWalletInteract defaultWalletInteract,
@@ -47,6 +51,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     GetBalanceInteract getBalanceInteract,
                                     ExportWalletInteract exportWalletInteract,
                                     SendTransactionInteract sendTransactionInteract,
+                                    LanguageInteract languageInteract,
                                     CreateOrImportRouter createOrImportRouter,
                                     SendRouter  sendRouter,
                                     ManagerAccountsRouter managerAccountsRouter,
@@ -54,6 +59,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     BackupRouter backupRouter,
                                     ImportRouter importRouter,
                                     ReceiverRouter receiverRouter,
+                                    WalletRouter walletRouter,
                                     WalletRepositoryType walletRepositoryType) {
         this.createWalletInteract = createWalletInteract;
         this.defaultWalletInteract = defaultWalletInteract;
@@ -62,6 +68,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.fetchWalletInteract = fetchWalletInteract;
         this.exportWalletInteract = exportWalletInteract;
         this.sendTransactionInteract =  sendTransactionInteract;
+        this.languageInteract = languageInteract;
         this.createOrImportRouter = createOrImportRouter;
         this.walletRepositoryType =  walletRepositoryType;
         this.sendRouter = sendRouter;
@@ -69,6 +76,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.backupRouter = backupRouter;
         this.importRouter = importRouter;
         this.receiverRouter = receiverRouter;
+        this.walletRouter =  walletRouter;
         this.managerAccountsRouter =  managerAccountsRouter;
     }
 
@@ -77,8 +85,9 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,
                 fetchWalletInteract,getBalanceInteract,
-                exportWalletInteract,sendTransactionInteract,
+                exportWalletInteract,sendTransactionInteract,languageInteract,
                 createOrImportRouter,sendRouter,
-                managerAccountsRouter,web3Router,backupRouter,importRouter,receiverRouter,walletRepositoryType);
+                managerAccountsRouter,web3Router,backupRouter,importRouter,
+                receiverRouter,walletRouter,walletRepositoryType);
     }
 }

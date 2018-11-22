@@ -1,30 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CH-AlphaHDWallet</string>
     <!--launch-->
     <string name="launch_title">第一个跨区块链生态的“利润分享型”游戏系统</string>
 
 
     <!--backup-->
+    <string name="backup_"></string>
+    <string name="backup_next">下一步</string>
+    <string name="backup_main_tips">备份助记词</string>
+    <string name="backup_tips_line1">这12个单词是恢复AllBet钱包的唯一方法</string>
+    <string name="backup_tips_line2">请将他们保存在安全和隐密额地方</string>
+    <string name="backup_copy">复制</string>
+    <string name="backup_input_wallet_name">输入钱包名称</string>
+
 
     <!--confirmSend-->
+    <string name="confirm_send_"></string>
+
 
     <!--createOrImport-->
+    <string name="create_or_import_"></string>
 
     <!--Import-->
+    <string name="import_"></string>
+    <string name="import_title">导入ETH</string>
+    <string name="import_mnemonics">助记词</string>
+    <string name="import_keystore">Keystore</string>
+    <string name="import_private">私钥</string>
+    <string name="import_input_mnemonics_tips">输入助记词</string>
+    <string name="import_input_keystore_tips">输入助记词</string>
+    <string name="import_input_private_tips">输入助记词</string>
+    <string name="import_input_wallet_name_tips">输入钱包名称</string>
+    <string name="import_input_wallet_keystore_password_tips">输入钱包密码</string>
+    <string name="import_tips">通常是 12 个（有时是 24 个）用单个空格分隔的单词</string>
+    <string name="import_btn_next">导入</string>
 
     <!--ManagerAccounts-->
+    <string name="manager_accounts_"></string>
+    <string name="manager_accounts_title">HD钱包设置</string>
+    <string name="manager_accounts_btn_import">导入钱包</string>
+    <string name="manager_accounts_btn_create">创建钱包</string>
 
     <!--receiver-->
+    <string name="receiver_"></string>
+    <string name="receiver_title">接收ETH</string>
+    <string name="receiver_save_code">保存二维码</string>
+    <string name="receiver_eth_address">ETH接收地址</string>
+    <string name="receiver_copy_address">复制地址</string>
+    <string name="receiver_tips">温馨提示：请勿向上述地址充值任何非 ETH 资产，否则资产将
+不可找回。</string>
 
     <!--send-->
+    <string name="send_"></string>
+    <string name="send_title">发送ETH</string>
+    <string name="send_receiver_address">接收地址</string>
+    <string name="send_amount">ETH数量</string>
+    <string name="send_has_amount">可用 : </string>
+    <string name="send_btn_send">发送</string>
 
     <!--verifyMnemonics-->
-
+    <string name="verify_mnemonics_"></string>
+    <string name="verify_mnemonics_verify">验证助记词</string>
+    <string name="verify_mnemonics_tips">点击单词，把它们按正确的顺序放在一起</string>
+    <string name="verify_mnemonics_next">完成</string>
+    <string name="verify_mnemonics_error_tips">顺序错误，请重试</string>
+    <string name="verify_mnemonics_true_tips">干的漂亮</string>
     <!--Wallet-->
-    <string name="wallet_item_wallet">第一个跨区块链生态的“利润分享型”游戏系统</string>
+
+    <string name="wallet_account_"></string>
+    <string name="wallet_no_account_create">创建钱包</string>
+
+    <string name="wallet_no_account_import">导入钱包</string>
+    <string name="wallet_item_wallet">钱包</string>
+    <string name="wallet_item_my">我的</string>
+
+    <string name="wallet_account_title">ETH</string>
+    <string name="wallet_account_btn_send">发送</string>
+    <string name="wallet_account_btn_receiver">接收</string>
+    <string name="wallet_account_transaction_record">交易记录</string>
+    <string name="wallet_account_transaction_all">全部</string>
+    <string name="wallet_account_transaction_receiver">接收</string>
+    <string name="wallet_account_transaction_send">发送</string>
+
+
 
     <!--WalletDetail-->
+    <string name="wallet_detail_"></string>
+    <string name="wallet_detail_title">Wallet</string>
+    <string name="wallet_detail_save">保存</string>
+    <string name="wallet_detail_wallet_name">钱包名</string>
+    <string name="wallet_detail_export_private">导出私钥</string>
+    <string name="wallet_detail_export_keystore">导出Keystore</string>
+    <string name="wallet_detail_export_mnemonics">导出助记词</string>
+    <string name="wallet_detail_delete_wallet">删除钱包</string>
+
+    <string name="wallet_detail_input_password">请输入密码</string>
+    <string name="wallet_detail_input_cancel">取消</string>
+    <string name="wallet_detail_input_error">密码不正确</string>
+    <string name="wallet_detail_input_confirm">确认</string>
+    <string name="wallet_detail_input_ok">好</string>
 
     <!--web3-->
 

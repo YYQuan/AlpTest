@@ -214,12 +214,24 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
                 callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(DappFragment.this.getActivity());
             }
         });
-      web3.setOnSignTransactionListener(transaction ->
+        web3.setOnSignTransactionListener(transaction ->
                 callSignTransaction = Trust.signTransaction().transaction(transaction).call(getActivity()));
         web3.setOnSignTransactionListener(this::onSignTransaction);
 
         web3.setOnSignTypedMessageListener(message ->
                 callSignTypedMessage = Trust.signTypedMessage().message(message).call(getActivity()));
+        web3.setOnLanguageChangeListener(params ->
+                    {
+                        if(params.equalsIgnoreCase("zh-CN")){
+
+                        }else{
+
+                        }
+                        viewModel.setCurrentLanguage(params);
+                        viewModel.openWallet(getActivity());
+//                        viewModel.openManagerRouter(getActivity());
+                    }
+                );
     }
 
 

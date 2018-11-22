@@ -80,6 +80,11 @@ public class InteractModule {
         return new DeleteWalletInteract(walletRepositoryType,passwordStore);
     }
 
+    @Provides
+    LanguageInteract  languageInteract(PasswordStore passwordStore){
+        return new LanguageInteract(passwordStore);
+    }
+
 
     /*
 

@@ -36,6 +36,8 @@ public class Web3View extends WebView {
     private OnSignPersonalMessageListener onSignPersonalMessageListener;
     @Nullable
     private OnSignTypedMessageListener onSignTypedMessageListener;
+    @Nullable
+    private OnLanguageChangeListener onLanguageChangeListener;
     private JsInjectorClient jsInjectorClient;
     private Web3ViewClient webViewClient;
 
@@ -80,7 +82,8 @@ public class Web3View extends WebView {
                 innerOnSignTransactionListener,
                 innerOnSignMessageListener,
                 innerOnSignPersonalMessageListener,
-                innerOnSignTypedMessageListener), "app");
+                innerOnSignTypedMessageListener,
+                innerOnLanguageChangeListener), "app");
 //                innerOnSignTypedMessageListener), "trust");
 
         super.setWebViewClient(webViewClient);
@@ -140,6 +143,11 @@ public class Web3View extends WebView {
     
     public void setOnSignTypedMessageListener(@Nullable OnSignTypedMessageListener onSignTypedMessageListener) {
         this.onSignTypedMessageListener = onSignTypedMessageListener;
+    }
+
+
+    public void setOnLanguageChangeListener(@Nullable OnLanguageChangeListener onLanguageChangeListener) {
+        this.onLanguageChangeListener = onLanguageChangeListener;
     }
 
     public void onSignTransactionSuccessful(Transaction transaction, String signHex) {
@@ -206,6 +214,7 @@ public class Web3View extends WebView {
         }
     };
 
+
     private final OnSignMessageListener innerOnSignMessageListener = new OnSignMessageListener() {
         @Override
         public void onSignMessage(Message message) {
@@ -228,6 +237,14 @@ public class Web3View extends WebView {
             onSignTypedMessageListener.onSignTypedMessage(message);
         }
     };
+
+    private final OnLanguageChangeListener innerOnLanguageChangeListener = new OnLanguageChangeListener() {
+        @Override
+        public void onLanguageChange(String params) {
+            onLanguageChangeListener.onLanguageChange(params);
+        }
+    };
+
 
     private class WrapWebViewClient extends WebViewClient {
         private final Web3ViewClient internalClient;

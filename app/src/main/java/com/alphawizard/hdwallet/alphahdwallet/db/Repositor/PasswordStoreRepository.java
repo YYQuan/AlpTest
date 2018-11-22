@@ -36,6 +36,23 @@ public class PasswordStoreRepository implements PasswordStore {
 	}
 
 
+    @Override
+	public Single<String> getLanguage(){
+        String language = SharedPreferenceRepository.getCurrentLanguage();
+//                    throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+        return Single.fromCallable(()->language);
+    }
+
+    @Override
+    public Completable setLanguage(String string){
+        return Completable.fromAction(() -> {
+                SharedPreferenceRepository.setCurrentLanguage(string);
+//                    throw new ServiceErrorException(ServiceErrorException.KEY_STORE_ERROR);
+        });
+
+    }
+
+
 
     @Override
 	public Single<String> getPassword(Wallet wallet) {

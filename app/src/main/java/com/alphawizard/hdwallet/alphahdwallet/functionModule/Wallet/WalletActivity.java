@@ -36,6 +36,7 @@ import com.alphawizard.hdwallet.alphahdwallet.utils.Dp2px;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
+import com.alphawizard.hdwallet.common.util.Log;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -415,6 +416,20 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        if(intent.getAction()==null){
+            Log.d(" launch title :"+getResources().getText(R.string.launch_title));
+            finish();
+
+            Intent i=new Intent(this,WalletActivity.class);
+
+            startActivity(i);// overridePendingTransition(0, 0);
+
+        }else{
+
+//其他逻辑
+
+        }
+
     }
 
 }

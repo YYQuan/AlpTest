@@ -28,28 +28,28 @@ window.Trust.init(rpcURL, {
     var gasPrice = tx.gasPrice || null;
     var data = tx.data || null;
     var nonce = tx.nonce || -1;
-    trust.signTransaction(id, tx.to || null, tx.value, nonce, gasLimit, gasPrice, data);
-    trust.changeLanguage("哈哈啊哈 ");
+    app.signTransaction(id, tx.to || null, tx.value, nonce, gasLimit, gasPrice, data);
+    app.changeLanguage("哈哈啊哈 ");
   },
   signMessage: function (msgParams, cb) {
     const { data } = msgParams
     const { id = 8888 } = msgParams
     console.log("signing a message", msgParams)
     Trust.addCallback(id, cb)
-    trust.signMessage(id, data);
+    app.signMessage(id, data);
   },
   signPersonalMessage: function (msgParams, cb) {
     const { data } = msgParams
     const { id = 8888 } = msgParams
     console.log("signing a personal message", msgParams)
     Trust.addCallback(id, cb)
-    trust.signPersonalMessage(id, data);
+    app.signPersonalMessage(id, data);
   },
   signTypedMessage: function (msgParams, cb) {
     const { data } = msgParams
     const { id = 8888 } = msgParams
     Trust.addCallback(id, cb)
-    trust.signTypedMessage(id, JSON.stringify(data))
+    app.signTypedMessage(id, JSON.stringify(data))
   }
 }, {
     address: addressHex,
@@ -71,7 +71,7 @@ window.web3.eth.getCoinbase = function(cb) {
 
 
 window.app.changeLanguage =function(params) {
-      trust.changeLanguage("哈哈啊哈 ");
+      app.changeLanguage("哈哈啊哈 ");
  }
 
 

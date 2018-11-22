@@ -7,8 +7,11 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Property;
 import android.view.View;
 
@@ -21,6 +24,8 @@ import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import net.qiujuer.genius.ui.compat.UiCompat;
+
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -68,6 +73,7 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
                 LaunchActivity.this.finish();
             }
         });
+
 
     }
 

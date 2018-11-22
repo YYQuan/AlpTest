@@ -202,9 +202,9 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         super.initWidget(view);
 //        TabLayout tabLayout = view.findViewById(R.id.tabLayout);
 //        .setCustomView(R.layout.cell_tab_item)
-        tabLayout.addTab(tabLayout.newTab().setText("全部"),TAB_ALL);
-        tabLayout.addTab(tabLayout.newTab().setText("接收"),TAB_RECEIVE);
-        tabLayout.addTab(tabLayout.newTab().setText("发送"),TAB_SEND);
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getText(R.string.wallet_account_transaction_all)),TAB_ALL);
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getText(R.string.wallet_account_transaction_receiver)),TAB_RECEIVE);
+        tabLayout.addTab(tabLayout.newTab().setText(getResources().getText(R.string.wallet_account_transaction_send)),TAB_SEND);
 
         tabLayout.addOnTabSelectedListener(this);
 

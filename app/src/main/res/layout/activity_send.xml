@@ -44,7 +44,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="发送ETH"
+            android:text="@string/send_title"
             android:textColor="#ffffffff"
             android:textSize="18sp"
             android:layout_centerInParent="true"
@@ -70,7 +70,7 @@
             android:id="@+id/ed_eth_address"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:hint="接收地址"
+            android:hint="@string/send_receiver_address"
             android:layout_marginEnd="60dp"
             android:digits="1234567890abcdefx"
             android:maxLength="128"
@@ -120,7 +120,8 @@
             android:id="@+id/ed_eth_amounts"
             android:layout_width="138dp"
             android:layout_height="40dp"
-            android:hint="ETH数量"
+
+            android:hint="@string/send_amount"
             android:maxLength="64"
             android:maxLines="2"
             android:textColorHint="#4E4F6C"
@@ -152,11 +153,8 @@
             android:id="@+id/txt_eth_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="3dp"
-
-
-            android:text="可用：12.455ETH"
+            android:text="@string/send_has_amount"
             android:textColor="#ff4e4f6c"
             android:textSize="10sp"
             android:layout_gravity="center_vertical"/>
@@ -179,7 +177,8 @@
         android:id="@+id/btn_send"
         android:layout_width="335dp"
         android:layout_height="54dp"
-        android:text="发送"
+        android:text="@string/send_btn_send"
+
         android:textSize="16sp"
         android:textColor="@color/textWhite"
         android:layout_gravity="center_horizontal"

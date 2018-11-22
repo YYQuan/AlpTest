@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wallet"
+            android:text="@string/wallet_account_title"
             android:textColor="#ffffffff"
             android:textSize="18sp"
             android:layout_centerInParent="true"
@@ -57,7 +57,7 @@
             android:id="@+id/txt_save"
             android:layout_width="33dp"
             android:layout_height="23dp"
-            android:text="保存"
+            android:text="@string/wallet_detail_save"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical"
@@ -83,7 +83,7 @@
         android:gravity="center_horizontal"
         android:textColor="#ffffffff"
         android:textSize="18sp"
-        android:text="0ETH"/>
+        android:text="0.0000ETH"/>
 
     <TextView
         android:id="@+id/txt_address"
@@ -108,7 +108,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="22dp"
-            android:text="钱包名"
+            android:text="@string/wallet_detail_wallet_name"
             android:textSize="16sp"
             android:textColor="@color/textGreyFourth"
             android:layout_gravity="center_vertical"/>
@@ -153,7 +153,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
-                android:text="导出私钥"
+                android:text="@string/wallet_detail_export_private"
                 android:textSize="16sp"
                 android:textColor="@color/textGreyFourth"
                 android:layout_gravity="center_vertical"/>
@@ -191,7 +191,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
-                android:text="导出Keystore"
+                android:text="@string/wallet_detail_export_keystore"
                 android:textSize="16sp"
                 android:textColor="@color/textGreyFourth"
                 android:layout_gravity="center_vertical"/>
@@ -230,7 +230,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
-                android:text="导出助记词"
+                android:text="@string/wallet_detail_export_mnemonics"
                 android:textSize="16sp"
                 android:textColor="@color/textGreyFourth"
                 android:layout_gravity="center_vertical"/>
@@ -271,7 +271,7 @@
         app:layout_marginBottomPercent="6%"
         app:layout_marginLeftPercent="6%"
         app:layout_marginRightPercent="6%"
-        android:text="删除钱包"
+        android:text="@string/wallet_detail_delete_wallet"
         android:textColor="#fffe4343"
         android:textSize="16sp"
         android:background="@drawable/bg_color_393a50"

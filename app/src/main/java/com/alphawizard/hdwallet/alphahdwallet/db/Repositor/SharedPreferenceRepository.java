@@ -24,6 +24,8 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
     private static final String GAS_LIMIT_KEY  ="gas_limit";
 	private static final String GAS_LIMIT_FOR_TOKENS_KEY = "gas_limit_for_tokens";
 
+	private static final String CURRENT_LANGUAGE = "CURRENT_LANGUAGE";
+
 	private final static SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(App.getInstance());
 
 	public SharedPreferenceRepository(Context context) {
@@ -41,6 +43,16 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
 	@Override
 	public void setCurrentWalletAddress(String address) {
 		pref.edit().putString(CURRENT_ACCOUNT_ADDRESS_KEY, address).apply();
+	}
+
+
+	public static String getCurrentLanguage() {
+		return pref.getString(CURRENT_LANGUAGE, "en-US");
+	}
+
+
+	public static  void setCurrentLanguage(String str) {
+		pref.edit().putString(CURRENT_LANGUAGE, str).apply();
 	}
 
 	@Override

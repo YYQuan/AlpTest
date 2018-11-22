@@ -52,7 +52,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="备份助记词"
+        android:text="@string/backup_main_tips"
         android:textColor="@color/textWhite"
         android:textSize="18sp"
         android:layout_gravity="center_horizontal"
@@ -64,7 +64,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="这12个单词是恢复AllBet钱包的唯一方法。"
+        android:text="@string/backup_tips_line1"
         android:textColor="#C4E5FF"
         android:textSize="13sp"
         android:layout_gravity="center_horizontal"
@@ -72,7 +72,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="请将他们保存在安全和隐密额地方。"
+        android:text="@string/backup_tips_line2"
         android:textColor="#C4E5FF"
         android:textSize="13sp"
         android:layout_gravity="center_horizontal"
@@ -100,16 +100,28 @@
         android:id="@+id/txt_copy"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:text="复制"
+
+        android:text="@string/backup_copy"
         android:textColor="@color/colorBlue"
         android:gravity="center_horizontal"
         app:layout_marginTopPercent="4%"
+        />
+    <net.qiujuer.genius.ui.widget.EditText
+        android:id="@+id/edit_wallet_name"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_heightPercent = "6%"
+        app:layout_marginRightPercent="5%"
+        app:layout_marginTopPercent="6%"
+        android:text="@string/backup_input_wallet_name"
+        android:textColor="#ffc3ceff"
+        android:textSize="15sp"
         />
 
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"/>
     <Button
         android:id="@+id/btn_next"
@@ -119,7 +131,8 @@
         app:layout_marginLeftPercent="5%"
         app:layout_marginRightPercent="5%"
         android:background="@drawable/bg_gradient_blue"
-        android:text="下一步"
+
+        android:text="@string/backup_next"
         android:textColor="#ffffffff"
         android:textSize="16sp"
         />

@@ -31,6 +31,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.ImportAccountInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 
 import dagger.Module;
@@ -47,6 +48,7 @@ public class ViewModuleModule {
                                                               GetBalanceInteract getBalanceInteract,
                                                               ExportWalletInteract exportWalletInteract,
                                                               SendTransactionInteract sendTransactionInteract,
+                                                              LanguageInteract languageInteract,
                                                               CreateOrImportRouter createOrImportRouter,
                                                               SendRouter sendRouter,
                                                               ManagerAccountsRouter managerAccountsRouter,
@@ -54,10 +56,11 @@ public class ViewModuleModule {
                                                               BackupRouter backupRouter,
                                                               ImportRouter importRouter,
                                                               ReceiverRouter receiverRouter,
+                                                              WalletRouter walletRouter,
                                                               WalletRepositoryType walletRepositoryType){
         return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,
-                exportWalletInteract,sendTransactionInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,backupRouter,
-                importRouter,receiverRouter,walletRepositoryType);
+                exportWalletInteract,sendTransactionInteract,languageInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,backupRouter,
+                importRouter,receiverRouter,walletRouter,walletRepositoryType);
     }
 
     @Provides

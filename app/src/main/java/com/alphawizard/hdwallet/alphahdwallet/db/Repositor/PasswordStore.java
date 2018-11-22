@@ -7,6 +7,9 @@ import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public interface PasswordStore {
+
+	Single<String> getLanguage();
+	Completable setLanguage(String string);
 	Single<String> getPassword(Wallet wallet);
 	Single<String> getMnemonics(Wallet wallet);
 	Completable setPassword(Wallet wallet, String password);

@@ -29,17 +29,22 @@ public class SignCallbackJSInterface {
     @NonNull
     private final OnSignTypedMessageListener onSignTypedMessageListener;
 
+    @NonNull
+    private final OnLanguageChangeListener onLanguageChangeListener;
+
     public SignCallbackJSInterface(
             WebView webView,
             @NonNull OnSignTransactionListener onSignTransactionListener,
             @NonNull OnSignMessageListener onSignMessageListener,
             @NonNull OnSignPersonalMessageListener onSignPersonalMessageListener,
-            @NonNull OnSignTypedMessageListener onSignTypedMessageListener) {
+            @NonNull OnSignTypedMessageListener onSignTypedMessageListener,
+            @NonNull OnLanguageChangeListener onLanguageChangeListener) {
         this.webView = webView;
         this.onSignTransactionListener = onSignTransactionListener;
         this.onSignMessageListener = onSignMessageListener;
         this.onSignPersonalMessageListener = onSignPersonalMessageListener;
         this.onSignTypedMessageListener = onSignTypedMessageListener;
+        this.onLanguageChangeListener = onLanguageChangeListener;
     }
 
     @JavascriptInterface
@@ -92,6 +97,7 @@ public class SignCallbackJSInterface {
     @JavascriptInterface
     public void changeLanguage(String params) {
         Log.d("YYQ","  js    language "+params);
+        onLanguageChangeListener.onLanguageChange(params);
 //        webView.post(() -> onSignPersonalMessageListener.onSignPersonalMessage(new Message<>(data, getUrl(), callbackId)));
     }
 

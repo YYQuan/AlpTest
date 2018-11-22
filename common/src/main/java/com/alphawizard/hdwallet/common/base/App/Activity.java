@@ -3,13 +3,17 @@ package com.alphawizard.hdwallet.common.base.App;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.util.DisplayMetrics;
 
 import java.util.List;
+import java.util.Locale;
 
 //import butterknife.ButterKnife;
 //import butterknife.Unbinder;
@@ -29,13 +33,14 @@ public abstract class Activity extends DaggerAppCompatActivity {
 
     Unbinder unbinder;
 
-
+    private static final String CURRENT_LANGUAGE = "CURRENT_LANGUAGE";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         initWindow();
         super.onCreate(savedInstanceState);
-
+        setCustomDensity(this, (Application)Application.getInstance());
+        setLanguage();
 //        setCustomDensity(this,(Application)getApplication());
         if(initArgs(getIntent().getExtras())){
 
@@ -138,7 +143,30 @@ public abstract class Activity extends DaggerAppCompatActivity {
     }
 
 
+    private void setLanguage() {
 
+        Resources resources = getResources();
+        DisplayMetrics dm = resources.getDisplayMetrics();
+        Configuration config = resources.getConfiguration();
+
+        SharedPreferences pref  = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        String  language  = pref.getString(CURRENT_LANGUAGE, "en-US");
+
+        // 应用用户选择语言
+        if("en-US".equalsIgnoreCase(language)){
+            config.locale = Locale.ENGLISH;
+        }else{
+            config.locale = Locale.CHINA;
+        }
+
+
+
+
+        resources.updateConfiguration(config,dm);
+        createConfigurationContext(config);
+
+    }
 
 
     private static float sNoncompatDensity;

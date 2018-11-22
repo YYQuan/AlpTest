@@ -20,7 +20,7 @@
         app:layout_marginLeftPercent="5%"
         android:gravity="left"
         android:padding="20dp"
-        android:hint="私钥"
+        android:hint="@string/import_input_private_tips"
         android:inputType="textMultiLine"
         app:gHintTitle="none"
         app:gLineColor="@color/blue_900"
@@ -37,7 +37,7 @@
         android:textColor="#707185"
         app:layout_marginTopPercent="3%"
         app:layout_marginLeftPercent="5%"
-        android:text="通常是12个（有时是24个）用单个空格分隔的单词"/>
+        android:text="@string/import_tips"/>
 
 
 
@@ -48,7 +48,7 @@
         app:layout_marginTopPercent="6%"
         app:layout_marginLeftPercent="5%"
         app:layout_marginRightPercent="5%"
-        android:hint="Wallet Name"
+        android:hint="@string/import_input_wallet_name_tips"
         android:textColorHint="#4E4F6C"
         android:textColor="@color/textWhite"
         android:textSize="16sp"
@@ -75,7 +75,7 @@
         app:layout_marginBottomPercent="6%"
         app:layout_marginLeftPercent="5%"
         app:layout_marginRightPercent="5%"
-        android:text="导入"
+        android:text="@string/import_btn_next"
         android:textSize="16sp"
         android:textColor="@color/textWhite"
         android:textStyle="bold"

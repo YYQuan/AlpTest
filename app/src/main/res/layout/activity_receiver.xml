@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="接收ETH"
+            android:text="@string/receiver_title"
             android:textColor="#ffffffff"
             android:textSize="18sp"
             android:layout_centerInParent="true"
@@ -69,7 +69,8 @@
             android:textSize="12sp"
             android:textColor="#393A50"
             android:background="@drawable/bg_black_393a50_side"
-            android:text="保存二维码"
+
+            android:text="@string/receiver_save_code"
             app:layout_marginTopPercent="3%"
             android:layout_gravity="center_horizontal"/>
 
@@ -83,7 +84,8 @@
             android:gravity="center_horizontal"
             android:layout_width="177dp"
             android:layout_height="16dp"
-            android:text="ETH接收地址"
+
+            android:text="@string/receiver_eth_address"
             android:textColor="#494A60"
             app:layout_marginTopPercent="6%"
             />
@@ -108,7 +110,7 @@
             android:id="@+id/btn_copy"
             android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:text="复制地址"
+            android:text="@string/receiver_copy_address"
             android:textColor="#ff393a50"
             android:textSize="12sp"
             android:layout_gravity="center_horizontal"
@@ -121,7 +123,7 @@
     <TextView
         android:layout_width="331dp"
         android:layout_height="32dp"
-        android:text="温馨提示：请勿向上述地址充值任何非 ETH 资产，否则资产将不可找回。"
+        android:text="@string/receiver_tips"
         android:textColor="#ff595a6e"
         android:textSize="12sp"
         app:layout_marginTopPercent="3%"

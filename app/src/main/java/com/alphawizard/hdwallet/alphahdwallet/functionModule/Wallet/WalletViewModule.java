@@ -22,6 +22,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.ExportWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FetchWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 import com.alphawizard.hdwallet.alphahdwallet.service.EthTickerService;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
@@ -53,6 +54,7 @@ public class WalletViewModule extends BaseViewModel {
     WalletRepositoryType  mWalletRepositoryType;
     GetBalanceInteract mGetBalanceInteract;
     SendTransactionInteract mSendTransactionInteract;
+    LanguageInteract mLanguageInteract;
     SendRouter  mSendRouter;
     FetchWalletInteract mFetchWalletInteract;
     CreateOrImportRouter mCreateOrImportRouter;
@@ -60,6 +62,7 @@ public class WalletViewModule extends BaseViewModel {
     Web3Router mWeb3Router;
     ImportRouter mImportRouter;
     BackupRouter mBackupRouter;
+    WalletRouter mWalletRouter;
     ReceiverRouter mReceiverRouter;
 
     ExportWalletInteract mExportWalletInteract;
@@ -86,6 +89,7 @@ public class WalletViewModule extends BaseViewModel {
                             GetBalanceInteract  getBalanceInteract,
                             ExportWalletInteract exportWalletInteract,
                             SendTransactionInteract sendTransactionInteract,
+                            LanguageInteract languageInteract,
                             CreateOrImportRouter createOrImportRouter,
                             SendRouter  sendRouter,
                             ManagerAccountsRouter managerRouter,
@@ -93,7 +97,7 @@ public class WalletViewModule extends BaseViewModel {
                             BackupRouter backupRouter,
                             ImportRouter importRouter,
                             ReceiverRouter receiverRouter,
-
+                            WalletRouter walletRouter,
                             WalletRepositoryType walletRepositoryType
                                 )
     {
@@ -103,6 +107,7 @@ public class WalletViewModule extends BaseViewModel {
         mFetchWalletInteract = fetchWalletInteract;
         mExportWalletInteract =exportWalletInteract;
         mSendTransactionInteract = sendTransactionInteract;
+        mLanguageInteract =  languageInteract;
         mWalletRepositoryType  =  walletRepositoryType;
         mCreateOrImportRouter = createOrImportRouter;
         mGetBalanceInteract =getBalanceInteract;
@@ -111,6 +116,7 @@ public class WalletViewModule extends BaseViewModel {
         mBackupRouter =  backupRouter;
         mImportRouter = importRouter;
         mReceiverRouter = receiverRouter;
+        mWalletRouter =  walletRouter;
         mManagerRouter = managerRouter ;
     }
 
@@ -194,6 +200,20 @@ public class WalletViewModule extends BaseViewModel {
 
     }
 
+    public void setDefaultLanguage(String str){
+        mLanguageInteract
+                .setCurrentLanguage(str)
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
+    public void getDefaultLanguage(){
+        mLanguageInteract
+                .getCurrentLanguage()
+                .subscribeOn(Schedulers.io())
+                .subscribe();
+    }
+
     private void onDefaultWalletChanged(Wallet wallet) {
         progress.postValue(false);
         defaultWallet.postValue(wallet);
@@ -228,6 +248,11 @@ public class WalletViewModule extends BaseViewModel {
     }
 
 
+
+    public void setCurrentLanguage(String str ){
+            mLanguageInteract.setCurrentLanguage(str)
+                .subscribe();
+    }
 
 
     public void getBalance() {
@@ -389,6 +414,11 @@ public class WalletViewModule extends BaseViewModel {
     public void openImportRouter(Context context){
         mImportRouter.open(context);
     }
+
+    public void  openWallet(Context context){
+        mWalletRouter.open(context);
+    }
+
 
     private void getTransactionsError(Throwable throwable) {
         exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));

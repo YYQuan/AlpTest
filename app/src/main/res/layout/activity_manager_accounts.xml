@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="28dp"
             android:layout_gravity="center"
-            android:text="HD钱包设置"
+            android:text="@string/manager_accounts_title"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             />
@@ -33,20 +33,20 @@
         android:gravity="center_vertical"
         android:paddingTop="@dimen/statusBarSize">
         <FrameLayout
-            android:id="@+id/lay_back"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp">
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="9dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="21dp"
-                android:background="@drawable/ic_title_back_white"/>
-        </FrameLayout>
+        android:id="@+id/lay_back"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="21dp"
+            android:background="@drawable/ic_title_back_white"/>
+    </FrameLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HD钱包设置"
+            android:text="@string/manager_accounts_title"
             android:textColor="#ffffffff"
             android:textSize="18sp"
             android:layout_centerInParent="true"
@@ -86,7 +86,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/bg_color_393a50"
-            android:text="导入钱包"
+            android:text="@string/manager_accounts_btn_import"
             android:textColor="#ffffffff"
             android:textSize="16sp"
            />
@@ -96,7 +96,7 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/bg_color_6a89c4"
-            android:text="创建钱包"
+            android:text="@string/manager_accounts_btn_create"
             android:textColor="#ffffffff"
             android:textSize="16sp"
             />
