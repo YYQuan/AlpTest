@@ -14,6 +14,7 @@ import android.util.Property;
 import android.view.View;
 import android.webkit.DownloadListener;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,6 +99,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
     @BindView(R.id.web3view)
     Web3View web3;
 
+
 //    @OnClick(R.id.btn_success)
 //    void onClickSuccess(){
 ////        web3.onSignCancel(mTransaction);
@@ -140,11 +142,10 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         viewModel.transactionHash().observe(this,this::onTransactionChange);
         viewModel.defaultWallet().observe(this,this::defaultWalletChange);
         viewModel.defaultWalletBalance().observe(this,this::getBalance);
-        viewModel.getBalance();
+
         viewModel.getDefaultWallet();
 
         if(defaultWalletAddress== null&&!web3.isShown()){
-
             setupWeb3();
             web3.loadUrl("http://192.168.150.84:8080/");
             web3.requestFocus();
@@ -158,6 +159,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
     String defaultWalletAddress;
     private void defaultWalletChange(Wallet wallet) {
+
+        viewModel.getBalance();
         if(! wallet.address.equalsIgnoreCase(defaultWalletAddress)){
             defaultWalletAddress = wallet.address;
             setupWeb3();
@@ -216,6 +219,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         });
         web3.setOnSignTransactionListener(transaction ->
                 callSignTransaction = Trust.signTransaction().transaction(transaction).call(getActivity()));
+//        web3.setOnSignTransactionListener(transaction ->
+//                callSignTransaction = Trust.signTransaction().transaction(transaction).call(getActivity()));
         web3.setOnSignTransactionListener(this::onSignTransaction);
 
         web3.setOnSignTypedMessageListener(message ->
@@ -315,6 +320,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         }
         WalletActivity.isTransaction = false;
         WalletActivity.transactionResult = false;
+        viewModel.getBalance();
     }
 
     @Override
@@ -359,4 +365,13 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
     }
 
 
+    @Override
+    public boolean onBackPressed() {
+        if(!web3.getUrl().equalsIgnoreCase("http://192.168.150.84:8080/dice")){
+            setupWeb3();
+            web3.loadUrl("http://192.168.150.84:8080/dice");
+            return  true;
+        }
+        return super.onBackPressed();
+    }
 }

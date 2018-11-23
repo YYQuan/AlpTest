@@ -33,10 +33,10 @@ public class AccountPresenter extends BaseRecyclerPresenter<Transaction.Transact
     }
 
     @Override
-    public void getBalance() {
+    public void getBalanceCyclical() {
         if(!isStartGetBalance) {
             isStartGetBalance = true;
-            getViewModule().getBalance();
+            getViewModule().getBalanceCyclical();
         }
     }
 

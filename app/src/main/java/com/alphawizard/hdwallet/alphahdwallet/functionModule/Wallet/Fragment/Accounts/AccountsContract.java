@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface AccountsContract {
     interface View extends BaseContract.BaseRecyclerView<AccountsContract.Presenter,WalletViewModule,Wallet> {
-        void defaultWalletChange(Wallet wallet);
-        void openFirstLaunch();
+
+
     }
 
     interface Presenter extends BaseContract.BasePresenter<AccountsContract.View,WalletViewModule> {

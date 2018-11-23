@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -41,6 +42,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -123,6 +125,12 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
         viewModel.getDefaultWallet();
     }
 
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+
+    }
 
     private void defaultWalletChange(Wallet wallet) {
         if(!wallet.address.equalsIgnoreCase(defaultWalletAddress)){
@@ -397,6 +405,24 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        List<Fragment> list = getSupportFragmentManager().getFragments();
+        //这里的fragments中的fragment的优先级，有需要的话应该是可以指定的
+        if(list.size()>0) {
+            for (android.support.v4.app.Fragment fragment : list) {
+                if (fragment instanceof DappFragment) {
+                    if(((DappFragment) fragment).onBackPressed()){
+                        return;
+                    }
+                }
+            }
+        }
+
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

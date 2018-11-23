@@ -128,7 +128,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(WalletViewModule.class);
         getmPresenter().takeView(this,viewModel);
-        viewModel.defaultWallet().observe(this,this::defaultWalletBalanceChange);
+        viewModel.defaultWallet().observe(this,this::defaultWalletChange);
         viewModel.defaultWalletBalance().observe(this,this::defaultWalletBalanceChange);
         viewModel.ethValue().observe(this,this::ethValueChange);
         viewModel.transactionBeans().observe(this,this::transBeansChange);
@@ -219,6 +219,11 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         mPresenter.getDefaultWallet();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
     private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
         Log.d("transBeansChange");
 
@@ -269,9 +274,10 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     }
 
-    private void defaultWalletBalanceChange(Wallet wallet) {
-        mPresenter.getBalance();
+    private void defaultWalletChange(Wallet wallet) {
         defaultWalletAddress = wallet.address;
+        viewModel.getBalanceCyclical();
+
     }
 
     String mBalanceString = "0";

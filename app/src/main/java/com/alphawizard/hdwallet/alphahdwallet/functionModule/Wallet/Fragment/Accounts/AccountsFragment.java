@@ -150,15 +150,7 @@ public class AccountsFragment extends BasePresenterFragment<AccountsContract.Pre
 
 
 
-    @Override
-    public void defaultWalletChange(Wallet wallet) {
 
-    }
-
-    @Override
-    public void openFirstLaunch() {
-        viewModel.openFirstLaunch(getActivity());
-    }
 
     @Override
     public RecyclerAdapter<Wallet> getRecyclerViewAdapter() {

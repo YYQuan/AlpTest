@@ -288,12 +288,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
                 mPresenter.setDefaultWallet(wallet);
                 if(!isOpenDetailing) {
                     isOpenDetailing = true;
-                    Log.d("NabagerAcciybtsActivity  onClickListener true");
-                    viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
-//                    Intent intent = new Intent(ManagerAccountsActivity.this, Web3Activity.class);
-//                    Intent intent = new Intent(ManagerAccountsActivity.this, WalletDetailActivity.class);
-//                    startActivity(intent);
-//                    startActivity(intent);
+//                    viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
 
                 }
             }

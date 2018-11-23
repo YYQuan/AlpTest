@@ -19,7 +19,7 @@ public interface AccountContract {
 
     interface Presenter extends BaseContract.BasePresenter<AccountContract.View,WalletViewModule> {
         void getDefaultWallet();
-        void getBalance();
+        void getBalanceCyclical();
         void getTransactions();
         void refresh(List<Transaction.TransactionBean> list);
         Bitmap createQRImage(String address, int imageSize);

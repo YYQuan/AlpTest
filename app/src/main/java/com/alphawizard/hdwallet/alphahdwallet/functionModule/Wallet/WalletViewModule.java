@@ -8,6 +8,7 @@ import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.CreateWalletEntity;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
@@ -25,6 +26,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 import com.alphawizard.hdwallet.alphahdwallet.service.EthTickerService;
+import com.alphawizard.hdwallet.alphahdwallet.utils.rx.Operators;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.C;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -66,10 +69,16 @@ public class WalletViewModule extends BaseViewModel {
     ReceiverRouter mReceiverRouter;
 
     ExportWalletInteract mExportWalletInteract;
+
+    //    获取全部wallet
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
+//    获取默认钱包
     private final MutableLiveData<Wallet> defaultWallet = new MutableLiveData<>();
+//    获取创建出来的钱包
     private final MutableLiveData<Wallet> createdWallet = new MutableLiveData<>();
+//    创建钱包发生错误
     private final MutableLiveData<ErrorEnvelope> createWalletError = new MutableLiveData<>();
+//    导出
     private final MutableLiveData<String> exportedStore = new MutableLiveData<>();
     private final MutableLiveData<String>  ethValue = new MutableLiveData<>();
     private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
@@ -81,6 +90,19 @@ public class WalletViewModule extends BaseViewModel {
 
 
     private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
+
+
+    retrofit2.Call<Transaction> call ;
+    EthTickerService.ApiClient apiClient;
+    Retrofit retrofit = new Retrofit.Builder()
+            //使用自定义的mGsonConverterFactory
+//                            .addConverterFactory(GsonConverterFactory.create(buildGson()))
+            .addConverterFactory(GsonConverterFactory.create())
+//                            .baseUrl("http://apis.baidu.com/txapi/")
+            .baseUrl("https://rinkeby.etherscan.io/")
+            .build();
+    Call  callback = new Call(transactionBeans);
+
 
     public WalletViewModule(CreateWalletInteract createWalletInteract,
                             DefaultWalletInteract defaultWalletInteract,
@@ -172,47 +194,22 @@ public class WalletViewModule extends BaseViewModel {
 
 
     public void setDefaultWallet(Wallet wallet) {
-        disposable =
-                mFetchWalletInteract
-                        .fetchAccount(wallet)
-                        .subscribe(wallet1 -> {
-                               mDefaultWalletInteract
-                                        .setDefaultWallet(wallet)
-                                        .subscribe(() -> onDefaultWalletChanged(wallet), this::setDefaultWallet);
-
-                        },this::setDefaultWallet );
-
-
-
-//                mDefaultWalletInteract
-//                .setDefaultWallet(wallet)
-//                .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
+        mFetchWalletInteract
+                .fetchAccount(wallet)
+                .compose(Operators.setDefaultWallet(mDefaultWalletInteract))
+                .subscribe(wallet1 -> onDefaultWalletChanged(wallet1), this::setDefaultWalletError);
     }
 
-    private void setDefaultWallet(Throwable throwable) {
+    private void setDefaultWalletError(Throwable throwable) {
     }
 
     public void getDefaultWallet(){
-        disposable = mFindDefaultWalletInteract
+         mFindDefaultWalletInteract
                 .find()
                 .subscribe(wallet -> onDefaultWalletChanged(wallet), this::onGetDefaultAccountsError);
-
-
     }
 
-    public void setDefaultLanguage(String str){
-        mLanguageInteract
-                .setCurrentLanguage(str)
-                .subscribeOn(Schedulers.io())
-                .subscribe();
-    }
 
-    public void getDefaultLanguage(){
-        mLanguageInteract
-                .getCurrentLanguage()
-                .subscribeOn(Schedulers.io())
-                .subscribe();
-    }
 
     private void onDefaultWalletChanged(Wallet wallet) {
         progress.postValue(false);
@@ -221,7 +218,7 @@ public class WalletViewModule extends BaseViewModel {
 
 //        defaultWallet 变化 要立即改变balance 和transaction  record
         if(call!=null) {
-//            getBalance();
+//            getBalance
             Single.just(mGetBalanceInteract
                     .getBalance(defaultWallet.getValue())
                     .subscribe(defaultWalletBalance::postValue,  this::onGetDefaultBalanceError));
@@ -254,60 +251,84 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribe();
     }
 
+    public void getBalance (){
+        mGetBalanceInteract
+                .getBalance(defaultWallet.getValue())
+                .subscribe(balance -> {
 
-    public void getBalance() {
 
+                    defaultWalletBalance.postValue(balance);
+
+                }, this::onGetDefaultBalanceError);
+    }
+
+
+    public void getBalanceCyclical() {
+
+
+        cancel();
         disposable = Observable.interval(0, GET_BALANCE_INTERVAL, TimeUnit.SECONDS)
-                .doOnNext(l -> mGetBalanceInteract
-                        .getBalance(defaultWallet.getValue())
-                        .subscribe(defaultWalletBalance::postValue,  this::onGetDefaultBalanceError))
-                .doOnNext(l-> Single.just(mWalletRepositoryType
-                        .getTickerPrice())
-                        .observeOn(Schedulers.io())
-                        .subscribe(this::getTickerPriceSuccess,this::getTickerPriceError))
+                .doOnNext(l ->
+                        mDefaultWalletInteract
+                                .getDefaultWallet()
+                                .flatMap(wallet -> mGetBalanceInteract
+                                        .getBalance(wallet) )
+                                .subscribe(balance -> {
+                                            defaultWalletBalance.postValue(balance);
+                                            getTransactionRecord();
+                                        },
+                                        this::onGetDefaultBalanceError))
+//               获取当前ETH 市值
 //                .doOnNext(l-> Single.just(mWalletRepositoryType
-//                        .getTransactions(mWalletRepositoryType.getDefaultWalletAddress().blockingGet()))
+//                        .getTickerPrice())
 //                        .observeOn(Schedulers.io())
-//                        .subscribe(this::getTransactionsSuccess,this::getTransactionsError))
+//                        .subscribe(this::getTickerPriceSuccess,this::getTickerPriceError))
                 .subscribe();
+
+    }
+
+
+
+    public void cancelGetBalanceCyclical(){
+        cancel();
     }
 
     public void fetchTransactions() {
 
     }
 
-    public void exportAccount(Wallet wallet,String password){
-        mExportWalletInteract.exportKeystore(wallet,password)
-                .subscribe(this::exportAccountSuccess,this::exportAccountError);
-//        mWalletRepositoryType
-//                .exportAccount(wallet,password)
-//                .subscribe(this::exportAccountSuccess,this::exportAccountError);
-    }
 
-    private void exportAccountSuccess(String s) {
-        exportedStore.postValue(s);
-    }
-
-
-    retrofit2.Call<Transaction> call ;
-    EthTickerService.ApiClient apiClient;
-    Retrofit retrofit = new Retrofit.Builder()
-            //使用自定义的mGsonConverterFactory
-//                            .addConverterFactory(GsonConverterFactory.create(buildGson()))
-            .addConverterFactory(GsonConverterFactory.create())
-//                            .baseUrl("http://apis.baidu.com/txapi/")
-            .baseUrl("https://rinkeby.etherscan.io/")
-            .build();
-    Call  callback = new Call(transactionBeans);
+    // 从etheresum中 提取出  eth当前市值  保留着先别删除
     private void getTickerPriceSuccess(String stringResponse) {
 
+
+        getTransactionRecord();
+
+        if(stringResponse.indexOf("<span id='price'>")>=0) {
+
+            stringResponse = stringResponse.substring(stringResponse.indexOf("<span id='price'>"));
+            stringResponse = stringResponse.substring(17, stringResponse.indexOf("@"));
+            ethValue.postValue(stringResponse);
+        }
+    }
+
+//    拿交易记录
+    private  void getTransactionRecord(){
         if(apiClient==null) {
             apiClient = retrofit.create(EthTickerService.ApiClient.class);
         }
         if (call == null) {
-            String  address = mWalletRepositoryType.getDefaultWalletAddress().blockingGet();
-            call = apiClient.getTransaction("account", "txlist",address,"desc");
-            call.enqueue(callback);
+//            String  address = mWalletRepositoryType.getDefaultWalletAddress().blockingGet();
+            mWalletRepositoryType.getDefaultWalletAddress()
+                    .flatMap(address ->{
+                        call = apiClient.getTransaction("account", "txlist",address,"desc");
+                        call.enqueue(callback);
+                        return Single.just(address);
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .subscribe();
+//            call = apiClient.getTransaction("account", "txlist",address,"desc");
+//            call.enqueue(callback);
         }else{
 
             if(call.isExecuted()) {
@@ -321,66 +342,6 @@ public class WalletViewModule extends BaseViewModel {
 
             }
         }
-
-
-        if(stringResponse.indexOf("<span id='price'>")>=0) {
-
-            stringResponse = stringResponse.substring(stringResponse.indexOf("<span id='price'>"));
-            stringResponse = stringResponse.substring(17, stringResponse.indexOf("@"));
-            ethValue.postValue(stringResponse);
-        }
-    }
-
-    static class Call implements retrofit2.Callback<Transaction>{
-
-        MutableLiveData<List<Transaction.TransactionBean>> transactionBeans;
-
-        public Call(MutableLiveData<List<Transaction.TransactionBean>> transactionBeans) {
-            this.transactionBeans = transactionBeans;
-        }
-
-        @Override
-        public void onResponse(retrofit2.Call<Transaction> call, Response<Transaction> response) {
-
-              Transaction body = response.body();
-              if(body!=null) {
-                  transactionBeans.postValue(body.result);
-              }
-            Log.d("body ");
-        }
-
-        @Override
-        public void onFailure(retrofit2.Call<Transaction> call, Throwable t) {
-
-        }
-    }
-
-
-    public void  sendTransaction(String toAddress, BigInteger amount , BigInteger gasPrice, BigInteger gasLimit, long nonce, String dataString, long chainId){
-
-
-        mSendTransactionInteract
-                .sendTransaction(toAddress,amount,gasPrice,gasLimit,nonce,dataString,chainId)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::sendSuccess,this::sendError);
-    }
-
-
-    private void sendError(Throwable throwable) {
-        App.showToast("send fail");
-    }
-
-    private void sendSuccess(String s) {
-        transactionHash.postValue(s);
-//        App.showToast("send success");
-    }
-
-    private void exportAccountError(Throwable throwable) {
-        exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
-    }
-
-    private void getTickerPriceError(Throwable throwable) {
-        exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     }
 
     public void openSendEth(Context context,float value){
@@ -391,16 +352,8 @@ public class WalletViewModule extends BaseViewModel {
         mSendRouter.open(context,address,amount,value,transaction);
     }
 
-    public void openFirstLaunch(Context context){
-        mCreateOrImportRouter.open(context);
-    }
-
     public void openManagerRouter(Context context){
         mManagerRouter.open(context);
-    }
-
-    public void openWeb3Router(Context context){
-        mWeb3Router.open(context);
     }
 
     public void openBackup(Context context,ArrayList<String> strings){
@@ -419,16 +372,13 @@ public class WalletViewModule extends BaseViewModel {
         mWalletRouter.open(context);
     }
 
-
-    private void getTransactionsError(Throwable throwable) {
+    // 从etheresum中 提取出eth当前市值的过程中出错    保留着先别删除
+    private void getTickerPriceError(Throwable throwable) {
         exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     }
+
 
     private void onGetDefaultBalanceError(Throwable throwable) {
-        exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
-    }
-
-    private void onExportError(Throwable throwable) {
         exportWalletError.postValue(new ErrorEnvelope(C.ErrorCode.UNKNOWN, null));
     }
 
@@ -445,6 +395,51 @@ public class WalletViewModule extends BaseViewModel {
         if(throwable instanceof NoSuchElementException){
             notDefaultWallet.setValue(true);
             createdWallet.postValue(null);
+        }
+    }
+
+
+     class Call implements retrofit2.Callback<Transaction>{
+
+        MutableLiveData<List<Transaction.TransactionBean>> transactionBeans;
+
+        public Call(MutableLiveData<List<Transaction.TransactionBean>> transactionBeans) {
+            this.transactionBeans = transactionBeans;
+        }
+
+        @Override
+        public void onResponse(retrofit2.Call<Transaction> call, Response<Transaction> response) {
+
+            Transaction body = response.body();
+
+            if(body!=null) {
+                List<Transaction.TransactionBean>  list = body.result;
+                if(list.size()<=0){
+                    transactionBeans.postValue(list);
+                    return ;
+                }
+                Transaction.TransactionBean bean =   list.get(0);
+                mDefaultWalletInteract
+                        .getDefaultWallet()
+                        .subscribe(wallet -> {
+                            if(wallet.address.equalsIgnoreCase(bean.getFrom())
+                                    ||wallet.address.equalsIgnoreCase(bean.getTo())) {
+                                transactionBeans.postValue(list);
+                            }
+                        },this::onFailure);
+
+
+
+            }
+            Log.d("wallet get current wallet transaction info  10s/次 ");
+        }
+
+         private void onFailure(Throwable throwable) {
+         }
+
+         @Override
+        public void onFailure(retrofit2.Call<Transaction> call, Throwable t) {
+
         }
     }
 }

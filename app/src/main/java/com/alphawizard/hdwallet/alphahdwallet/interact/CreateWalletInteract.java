@@ -7,6 +7,7 @@ import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.utils.rx.Operators;
 
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.alphawizard.hdwallet.alphahdwallet.utils.rx.Operators.completableErrorProxy;
 
@@ -28,7 +29,8 @@ public class CreateWalletInteract {
 				.compose(Operators.savePassword(passwordStore, walletRepository, entiry.getPassword()))
 				.compose(Operators.saveMnemonics(passwordStore, walletRepository, entiry.getMnenonics()))
 				.compose(Operators.saveWalletName(passwordStore, walletRepository, entiry.getWalletName()))
-				.flatMap(wallet -> passwordVerification(wallet, entiry.getPassword()));
+				.flatMap(wallet -> passwordVerification(wallet, entiry.getPassword()))
+				.subscribeOn(Schedulers.io());
 
 	}
 

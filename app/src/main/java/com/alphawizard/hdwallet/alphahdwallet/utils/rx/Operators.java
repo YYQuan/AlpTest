@@ -3,6 +3,7 @@ package com.alphawizard.hdwallet.alphahdwallet.utils.rx;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
 
 
 import io.reactivex.CompletableOperator;
@@ -27,7 +28,13 @@ public class Operators {
     }
 
 
+    public static SingleTransformer<Wallet, Wallet> setDefaultWallet(DefaultWalletInteract defaultWalletInteract) {
+        return new SetDefaultWalletOperator(defaultWalletInteract);
+    }
+
     public static CompletableOperator completableErrorProxy(Throwable throwable) {
         return new CompletableErrorProxyOperator(throwable);
     }
+
+
 }

@@ -58,6 +58,7 @@ public class EthTickerService implements TickerService {
             .build();
     okhttp3.Call call= okHttpClient.newCall(request);
     okhttp3.Response response = null;
+//    爬取 etheresum 的内容  来获取 ETH 当前市值
     @Override
     public  String  fetchTickerPrice() {
 
