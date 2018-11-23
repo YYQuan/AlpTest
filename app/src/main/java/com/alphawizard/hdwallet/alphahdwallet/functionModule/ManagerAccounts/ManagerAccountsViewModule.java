@@ -21,12 +21,17 @@ import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.internal.operators.observable.ObservableFromArray;
 import io.reactivex.schedulers.Schedulers;
+import rx.Observable;
 
 public class ManagerAccountsViewModule extends BaseViewModel {
 
@@ -118,60 +123,50 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
 
     public void cancelGetAccountsBalance(){
-
+        cancel();
     }
 
 
     public void getAccountsBalance(){
-        disposable = mFetchWalletInteract
-                .fetchAccounts()
-                .flatMap(w ->{
-                    int i = 0;
-                    for (;i<w.length;i++){
-                        int finalI = i;
 
-                        mGetBalanceInteract
-                                .getBalance(w[i])
-                                .subscribe(value->{
-                                    accountsBalanceMap.put(w[finalI].address,value);
-                                    },this::getBalanceError);
-//                        accountsBalance.setValue(accountsBalanceMap);
-                    }
-                    while (accountsBalanceMap.get(w[w.length-1].address)==null){
-                            Log.d("getAccountsBalance  running");
-                    }
-                    return Single.just(accountsBalanceMap);
+        mFetchWalletInteract
+                .fetchAccounts()
+                .subscribe(this::getBalances,this::getBalanceError);
+
+    }
+
+    private void getBalances(Wallet[] wallets) {
+        Observable.from(wallets)
+                .doOnNext(wallet -> {
+                    mGetBalanceInteract
+                            .getBalance(wallet)
+                            .doAfterSuccess(m->accountsBalance.postValue(accountsBalanceMap))
+                            .subscribe(value->{
+                                accountsBalanceMap.put(wallet.address,value);
+                            },this::getBalanceError);
                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(map->
-                        accountsBalance.setValue(map),this::getBalanceError);
+                .subscribe();
+
     }
 
 
     public void getAccountsName(){
         mFetchWalletInteract
                 .fetchAccounts()
-                .flatMap(w ->{
-                    int i = 0;
-                    for (;i<w.length;i++){
-                        int finalI = i;
+                .subscribe(this::getNames,this::getNameError);
+    }
 
-                        mPasswordStore.getWalletName(w[i])
-                                .subscribe(value->{
-                                    accountsNameMap.put(w[finalI].address,value);
-                                },this::getBalanceError);
-//                        accountsBalance.setValue(accountsBalanceMap);
-                    }
-                    while (accountsNameMap.get(w[w.length-1].address)==null){
-                        Log.d("getAccountsBalance  running");
-                    }
-                    return Single.just(accountsNameMap);
+    private void getNames(Wallet[] wallets) {
+
+        Observable.from(wallets)
+                .doOnNext(wallet -> {
+
+                    mPasswordStore.getWalletName(wallet)
+                                .doAfterSuccess(m->accountsName.postValue(accountsNameMap))
+                                .subscribe(s -> accountsNameMap.put(wallet.address,s));
                 })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(map->
-                        accountsName.setValue(map),this::getNameError);
+                .subscribe();
+
 
     }
 
