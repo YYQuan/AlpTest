@@ -254,12 +254,10 @@ public class WalletViewModule extends BaseViewModel {
     public void getBalance (){
         mGetBalanceInteract
                 .getBalance(defaultWallet.getValue())
-                .subscribe(balance -> {
-
-
-                    defaultWalletBalance.postValue(balance);
-
-                }, this::onGetDefaultBalanceError);
+                .observeOn(Schedulers.io())
+                .subscribe(balance ->
+                    defaultWalletBalance.postValue(balance)
+                , this::onGetDefaultBalanceError);
     }
 
 
@@ -273,6 +271,7 @@ public class WalletViewModule extends BaseViewModel {
                                 .getDefaultWallet()
                                 .flatMap(wallet -> mGetBalanceInteract
                                         .getBalance(wallet) )
+                                .observeOn(Schedulers.io())
                                 .subscribe(balance -> {
                                             defaultWalletBalance.postValue(balance);
                                             getTransactionRecord();

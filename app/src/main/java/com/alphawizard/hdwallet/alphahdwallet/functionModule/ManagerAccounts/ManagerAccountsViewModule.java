@@ -127,10 +127,12 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     }
 
 
+
     public void getAccountsBalance(){
 
         mFetchWalletInteract
                 .fetchAccounts()
+                .observeOn(Schedulers.io())
                 .subscribe(this::getBalances,this::getBalanceError);
 
     }
@@ -140,6 +142,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
                 .doOnNext(wallet -> {
                     mGetBalanceInteract
                             .getBalance(wallet)
+                            .observeOn(Schedulers.io())
                             .doAfterSuccess(m->accountsBalance.postValue(accountsBalanceMap))
                             .subscribe(value->{
                                 accountsBalanceMap.put(wallet.address,value);
@@ -153,7 +156,10 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     public void getAccountsName(){
         mFetchWalletInteract
                 .fetchAccounts()
+                .observeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(this::getNames,this::getNameError);
+
     }
 
     private void getNames(Wallet[] wallets) {
@@ -162,6 +168,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
                 .doOnNext(wallet -> {
 
                     mPasswordStore.getWalletName(wallet)
+                                .observeOn(Schedulers.io())
                                 .doAfterSuccess(m->accountsName.postValue(accountsNameMap))
                                 .subscribe(s -> accountsNameMap.put(wallet.address,s));
                 })

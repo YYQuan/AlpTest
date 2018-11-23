@@ -102,7 +102,12 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 //        }
     }
 
-    @OnClick(R.id.iv_setting)
+//    @OnClick(R.id.iv_setting)
+//    void onClickSetting(){
+//        viewModel.openManagerRouter(getActivity());
+//    }
+
+    @OnClick(R.id.layout_setting)
     void onClickSetting(){
         viewModel.openManagerRouter(getActivity());
     }
