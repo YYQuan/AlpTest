@@ -285,10 +285,10 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             public void onClickListener(RecyclerAdapter.ViewHolder holder, Wallet wallet) {
 
                 Log.d("NabagerAcciybtsActivity  onClickListener ");
-                mPresenter.setDefaultWallet(wallet);
+//                mPresenter.setDefaultWallet(wallet);
                 if(!isOpenDetailing) {
                     isOpenDetailing = true;
-//                    viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
+                    viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
 
                 }
             }
@@ -393,6 +393,11 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
         @BindView(R.id.iv_is_default_wallet)
         ImageView imageDefault;
 
+        @OnClick(R.id.iv_is_default_wallet)
+        void onClickImageDefault(){
+            viewModel.setDefaultWallet(mWallet);
+        }
+
 
         @BindView(R.id.txt_eth_balance)
         TextView mBalance;
@@ -411,9 +416,10 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             super(itemView);
         }
         String address ;
-
+        Wallet mWallet ;
         @Override
         public void onBindViewHolder(Wallet wallet) {
+            mWallet = wallet;
             address = wallet.address;
             mContent.setText(address);
 

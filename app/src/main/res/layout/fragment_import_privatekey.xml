@@ -37,7 +37,7 @@
         android:textColor="#707185"
         app:layout_marginTopPercent="3%"
         app:layout_marginLeftPercent="5%"
-        android:text="@string/import_tips"/>
+        android:text="@string/import_input_private_tips"/>
 
 
 

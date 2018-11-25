@@ -118,11 +118,11 @@ public class SendTransactionInteract {
 
 
         BigInteger subunitAmount = BalanceUtils.baseToSubunit(amount, 18);
-        BigInteger gasPriceMin = BigInteger.valueOf(1000000000L); //long GAS_PRICE_MIN = 1000000000L;
+        BigInteger gasPriceMin = BigInteger.valueOf(15000000000L); //long GAS_PRICE_MIN = 1000000000L;
         int gasPriceMinGwei = BalanceUtils.weiToGweiBI(gasPriceMin).intValue();
         BigInteger gasPrice = BalanceUtils.gweiToWei(BigDecimal.valueOf(55 + gasPriceMinGwei));
         BigInteger gasLimitMin = BigInteger.valueOf(2100L);
-        BigInteger gasLimit = BigInteger.valueOf(50000).add(gasLimitMin);
+        BigInteger gasLimit = BigInteger.valueOf(100000).add(gasLimitMin);
         byte[] data = null;
         long chainId  =4L ;//rinkeby 网络
 

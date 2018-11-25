@@ -5,22 +5,19 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#010110"
+    android:background="#ff295ef7"
     tools:context=".functionModule.Wallet.WalletActivity"
     android:paddingTop="@dimen/statusBarSize"
     >
-
-
-
-
 
 
     <FrameLayout
         android:id="@+id/lay_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    </FrameLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
     <!--android:paddingTop="@dimen/actionBarWithStatusBarSize"-->
     <!--android:paddingBottom="@dimen/defaultNavHeight"-->
 
@@ -33,7 +30,7 @@
         app:menu="@menu/navigation_items"
         tools:targetApi="lollipop"
         android:layout_alignParentBottom="true"
-        android:background="#10101A"
+        android:background="#ffffffff"
         app:itemIconSize="16dp"
         app:itemTextAppearanceInactive="@style/TextAppearance.TitleTextSize"
         app:itemTextAppearanceActive="@style/TextAppearance.TitleTextSize"
@@ -54,8 +51,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
         android:src="@mipmap/ic_bet_active"
-        android:background="#10101A"
-        android:backgroundTint="#10101A"
+        android:background="#ffffffff"
+        android:backgroundTint="#ffffffff"
         app:borderWidth="0dp"
         android:scaleType="center"
         app:elevation="9dp"/>
