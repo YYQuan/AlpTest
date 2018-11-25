@@ -16,6 +16,7 @@ import android.util.Property;
 import android.view.View;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
@@ -69,8 +70,9 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
         startAnim(1.0f, new Runnable() {
             @Override
             public void run() {
-                viewModel.openWallet(LaunchActivity.this);
-                LaunchActivity.this.finish();
+                ConfirmSendActivity.show(LaunchActivity.this);
+//                viewModel.openWallet(LaunchActivity.this);
+//                LaunchActivity.this.finish();
             }
         });
 

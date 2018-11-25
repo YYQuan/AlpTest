@@ -5,8 +5,12 @@ import android.content.Context;
 import android.support.annotation.MainThread;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.SendTransactionRequest;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
+import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.DeleteWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.BalanceUtils;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
@@ -18,11 +22,16 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class SendViewModule extends BaseViewModel {
 
     SendTransactionInteract  mSendTransactionInteract;
-    WalletRouter mWalletRouter;
 
-    public SendViewModule(SendTransactionInteract sendTransactionInteract, WalletRouter walletRouter) {
+    ConfirmSendRouter mConfirmSendRouter;
+    DefaultWalletInteract mDefaultWalletInteract;
+
+    public SendViewModule(SendTransactionInteract sendTransactionInteract
+            , DefaultWalletInteract defaultWalletInteract
+            , ConfirmSendRouter confirmSendRouter) {
         mSendTransactionInteract = sendTransactionInteract;
-        mWalletRouter = walletRouter;
+        mConfirmSendRouter= confirmSendRouter;
+        mDefaultWalletInteract =defaultWalletInteract;
     }
 
     private void sendError(Throwable throwable) {
@@ -36,9 +45,19 @@ public class SendViewModule extends BaseViewModel {
     }
 
 
-    void openWallet(Context context){
-        mWalletRouter.open(context);
+
+
+    void openConfirm(Context context,String to ,String amount ,String  gasPrice ){
+        mDefaultWalletInteract.getDefaultWalletAddress()
+                .subscribe(s->openConfirm(context,s,to,amount,gasPrice));
+
     }
+
+    private void openConfirm(Context context ,String from,String to,String amount,String gasPrice) {
+        SendTransactionRequest request = new SendTransactionRequest(from,to,amount,gasPrice);
+        mConfirmSendRouter.open(context,request);
+    }
+
     public  void  sendTransaction(String  to , String amount){
         mSendTransactionInteract
                 .sendTransaction(to,amount)
@@ -64,7 +83,5 @@ public class SendViewModule extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendSuccess,this::sendError);
     }
-    void openWalletForTransactionResult(Activity context, boolean result){
-        mWalletRouter.openTransactionForResult(context,result);
-    }
+
 }

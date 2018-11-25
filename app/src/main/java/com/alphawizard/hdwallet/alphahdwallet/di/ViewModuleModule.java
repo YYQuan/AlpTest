@@ -2,9 +2,11 @@ package com.alphawizard.hdwallet.alphahdwallet.di;
 
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ConfirmSendModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.FirstLaunchViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.LaunchViewModuleFactory;
@@ -69,8 +71,8 @@ public class ViewModuleModule {
     }
 
     @Provides
-    SendViewModuleFactory providesSendViewModule(SendTransactionInteract interact,WalletRouter walletRouter){
-        return  new SendViewModuleFactory(interact,walletRouter);
+    SendViewModuleFactory providesSendViewModule(SendTransactionInteract interact, DefaultWalletInteract defaultWalletInteract, ConfirmSendRouter confirmSendRouter){
+        return  new SendViewModuleFactory(interact,defaultWalletInteract,confirmSendRouter);
     }
 
     @Provides
@@ -135,6 +137,11 @@ public class ViewModuleModule {
     @Provides
     ReceiverViewModuleFactory receiverViewModuleFactory( DefaultWalletInteract defaultWalletInteract){
         return  new ReceiverViewModuleFactory( defaultWalletInteract);
+    }
+
+    @Provides
+    ConfirmSendModuleFactory confirmSendModuleFactory(SendTransactionInteract sendTransactionInteract ,WalletRouter walletRouter){
+        return  new ConfirmSendModuleFactory( sendTransactionInteract,walletRouter);
     }
 
 

@@ -4,6 +4,7 @@ package com.alphawizard.hdwallet.alphahdwallet.interact;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PreferenceRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Launch.LaunchRouter;
@@ -144,6 +145,11 @@ public class InteractModule {
     @Provides
     public  ReceiverRouter receiverRouter(){
         return new ReceiverRouter();
+    }
+
+    @Provides
+    public ConfirmSendRouter confirmSendRouter(){
+        return new ConfirmSendRouter();
     }
 
 }

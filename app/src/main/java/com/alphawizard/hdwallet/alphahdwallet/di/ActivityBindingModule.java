@@ -2,6 +2,8 @@ package com.alphawizard.hdwallet.alphahdwallet.di;
 
 
 
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportModule;
@@ -85,4 +87,8 @@ public abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = ReceiverModule.class)
     abstract ReceiverActivity receiverActivity();
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = ConfirmSendModule.class)
+    abstract ConfirmSendActivity confirmSendActivity();
 }

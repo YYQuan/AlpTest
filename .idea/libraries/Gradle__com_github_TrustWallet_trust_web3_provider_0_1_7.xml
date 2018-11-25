@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.TrustWallet:trust-web3-provider-0.1.7">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/trust-web3-provider-0.1.7.aar/8f9be87bb8a732c842b8d858338e678b/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/trust-web3-provider-0.1.7.aar/8f9be87bb8a732c842b8d858338e678b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/trust-web3-provider-0.1.7.aar/1248952cb43bee5f3534ea18b8145faa/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/trust-web3-provider-0.1.7.aar/1248952cb43bee5f3534ea18b8145faa/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -16,6 +16,13 @@
 
     <!--confirmSend-->
     <string name="confirm_send_"></string>
+    <string name="confirm_send_title">确认</string>
+    <string name="confirm_send_from">From</string>
+    <string name="confirm_send_to">To</string>
+    <string name="confirm_send_gas">网络费用</string>
+    <string name="confirm_send_senior">高级设置</string>
+    <string name="confirm_send_btn">发送</string>
+
 
 
     <!--createOrImport-->
