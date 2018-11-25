@@ -8,6 +8,7 @@ import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
+import com.alphawizard.hdwallet.alphahdwallet.utils.BalanceUtils;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 
 import java.math.BigInteger;
@@ -43,6 +44,18 @@ public class SendViewModule extends BaseViewModel {
                 .sendTransaction(to,amount)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendSuccess,this::sendError);
+    }
+
+    public  void  sendTransaction(String  to ,String amount, String  gasPrice ,String gasLimit,String dataString){
+
+        BigInteger subunitAmount = BalanceUtils.baseToSubunit(amount, 18);
+
+        BigInteger bigL = BalanceUtils.baseToSubunit(gasPrice, 9);
+
+        BigInteger bigLimitL = BalanceUtils.baseToSubunit(gasLimit, 1);
+
+
+        sendTransaction(to,subunitAmount,bigL,bigLimitL,0,dataString,4L);
     }
 
     public void  sendTransaction(String toAddress, BigInteger amount , BigInteger gasPrice, BigInteger gasLimit, long nonce, String dataString, long chainId){

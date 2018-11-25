@@ -109,9 +109,11 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
 
     public void getAccounts(){
-        progress.setValue(true);
+        progress.postValue(true);
         mFetchWalletInteract
                 .fetchAccounts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(accounts->{
                     wallets.postValue(accounts);
                 },this::onGetAccountsError);
@@ -132,6 +134,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
         mFetchWalletInteract
                 .fetchAccounts()
+                .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(this::getBalances,this::getBalanceError);
 
@@ -142,6 +145,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
                 .doOnNext(wallet -> {
                     mGetBalanceInteract
                             .getBalance(wallet)
+                            .subscribeOn(Schedulers.io())
                             .observeOn(Schedulers.io())
                             .doAfterSuccess(m->accountsBalance.postValue(accountsBalanceMap))
                             .subscribe(value->{
@@ -169,6 +173,8 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
                     mPasswordStore.getWalletName(wallet)
                                 .observeOn(Schedulers.io())
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(Schedulers.io())
                                 .doAfterSuccess(m->accountsName.postValue(accountsNameMap))
                                 .subscribe(s -> accountsNameMap.put(wallet.address,s));
                 })
@@ -189,25 +195,31 @@ public class ManagerAccountsViewModule extends BaseViewModel {
 
 
     public void setDefaultWallet(Wallet wallet) {
-        disposable = mDefaultWalletInteract
+         mDefaultWalletInteract
                 .setDefaultWallet(wallet)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(() -> onDefaultWalletChanged(wallet), this::onError);
     }
 
     public void setNewAccountDefaultWallet(Wallet wallet) {
-        disposable = mDefaultWalletInteract
+         mDefaultWalletInteract
                 .setDefaultWallet(wallet)
-                .subscribe(() -> newAccountDefaultWallet.setValue(wallet), this::onError);
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(() -> newAccountDefaultWallet.postValue(wallet), this::onError);
     }
 
     private void onDefaultWalletChanged(Wallet wallet) {
-        defaultWallet.setValue(wallet) ;
+        defaultWallet.postValue(wallet) ;
     }
 
 
     public void getDefaultWallet(){
         disposable = mFindDefaultWalletInteract
                 .find()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(wallet -> onDefaultWalletChanged(wallet), this::onGetDefaultAccountsError);
     }
 
@@ -215,7 +227,7 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     }
 
     public void newWallet(String name) {
-        progress.setValue(true);
+        progress.postValue(true);
 
         //        CreateWalletEntity
         mCreateWalletInteract
@@ -225,6 +237,8 @@ public class ManagerAccountsViewModule extends BaseViewModel {
                     mEntity = e;
                     createWalletEntity.postValue(mEntity);
                     return mCreateWalletInteract.create(e); })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(this::onCreateWallet,this::onCreateWalletError);
     }
 
