@@ -47,14 +47,14 @@ public class SendViewModule extends BaseViewModel {
 
 
 
-    void openConfirm(Context context,String to ,String amount ,String  gasPrice ){
+    void openConfirm(Context context,String to ,String amount ,long gasPrice ,long gasLimit,String data ){
         mDefaultWalletInteract.getDefaultWalletAddress()
-                .subscribe(s->openConfirm(context,s,to,amount,gasPrice));
+                .subscribe(s->openConfirm(context,s,to,amount,gasPrice,gasLimit,data));
 
     }
 
-    private void openConfirm(Context context ,String from,String to,String amount,String gasPrice) {
-        SendTransactionRequest request = new SendTransactionRequest(from,to,amount,gasPrice);
+    private void openConfirm(Context context ,String from,String to,String amount,long gasPrice ,long gasLimit,String data) {
+        SendTransactionRequest request = new SendTransactionRequest(from,to,amount,gasPrice,gasLimit,data);
         mConfirmSendRouter.open(context,request);
     }
 

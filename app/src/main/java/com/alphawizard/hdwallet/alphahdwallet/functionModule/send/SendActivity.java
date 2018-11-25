@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivity;
 import com.alphawizard.hdwallet.alphahdwallet.utils.BalanceUtils;
@@ -312,23 +313,27 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         mAddresss.setEnabled(false);
         mAmount.setEnabled(false);
         if(transaction!=null) {
-            BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
+//            BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
 //            viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);
             String  value = String.valueOf(transaction.value.longValue());
-            String  gas = String.valueOf(transaction.gasPrice.longValue());
-
-            viewModel.openConfirm(this,transaction.recipient.toString(), value,gas);
+            String  gasLimitString = String.valueOf(transaction.gasLimit);
+            BigInteger gasBidInteger = BalanceUtils.baseToSubunit(gasLimitString, 9);
+            String  gasLimitStringSure = String.valueOf(gasBidInteger.longValue());
+            long gasLimitLong =  Long.valueOf(gasLimitStringSure);
+            viewModel.openConfirm(this,transaction.recipient.toString(), value,gasLimitLong,transaction.gasLimit,transaction.payload);
             transaction = null;
 
 
         }else {
-            String address = mAddresss.getText().toString();
+
             String amounts = mAmount.getText().toString();
 //            mPresenter.sendTransaction(address, amounts);
 
             BigInteger gasBidInteger = BalanceUtils.baseToSubunit("21", 13);
             String  gas = String.valueOf(gasBidInteger.longValue());
-            viewModel.openConfirm(this,address, amounts,gas);
+            viewModel.openConfirm(this,transaction.recipient.toString(), amounts, ConfirmSendRouter.DEFAULT_GAS_PRICE,ConfirmSendRouter.DEFAULT_GAS_PRICE,"");
+
+//            viewModel.openConfirm(this,address, amounts,gas);
         }
     }
 

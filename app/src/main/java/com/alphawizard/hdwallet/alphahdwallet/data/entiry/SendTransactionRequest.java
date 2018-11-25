@@ -7,23 +7,50 @@ public class SendTransactionRequest {
     String  form ;
     String  to ;
     String  ethAmount ;
-    String  gasPrice ;
 
-    public SendTransactionRequest(String form, String to, String ethAmount, String  gasPrice) {
+
+    long  gaslimit ;
+//    单位是G wei 要注意
+    long  gasPrice ;
+
+    String  data ;
+
+    public SendTransactionRequest(String form, String to, String ethAmount, long  gasPrice,long  gaslimit,String  data) {
         this.form = form;
         this.to = to;
         this.ethAmount = ethAmount;
-        this.gasPrice = gasPrice;
+
+        this.gaslimit=gaslimit;
+        this.gasPrice=gasPrice;
+        this.data = data;
     }
 
 
-    public String getGasPrice() {
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public long getGaslimit() {
+        return gaslimit;
+    }
+
+    public void setGaslimit(long gaslimit) {
+        this.gaslimit = gaslimit;
+    }
+
+    public long getGasPrice() {
         return gasPrice;
     }
 
-    public void setGasPrice(String gasPrice) {
+    public void setGasPrice(long gasPrice) {
         this.gasPrice = gasPrice;
     }
+
+
 
     public String getForm() {
         return form;

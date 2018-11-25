@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.percent.PercentRelativeLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +30,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_AMOUNT;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_FROM;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_GAS;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_TO;
 
 public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContract.Presenter,ConfirmSendViewModule> implements ConfirmSendContract.View {
 
@@ -86,6 +93,12 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     Button  mSend;
 
 
+
+    String  from;
+    String  to ;
+    String  amount ;
+    String gas ;
+
     @OnClick(R.id.layout_setting_senior)
     void  onClickSettingSenior(){
         mSetting.setVisibility(View.GONE);
@@ -94,6 +107,11 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     @OnClick(R.id.layout_setting_senior_cancel)
     void  onClickSettingSeniorCancel(){
         mSetting.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.btn_send)
+    void  onClickSend(){
+//        viewModel.sendTransaction();
     }
 
 
@@ -118,6 +136,55 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(ConfirmSendViewModule.class);
         mPresenter.takeView(this,viewModel);
+
+
+
+        from =getIntent().getStringExtra(SEND_REQUEST_FROM);
+        to =getIntent().getStringExtra(SEND_REQUEST_TO);
+        amount =getIntent().getStringExtra(SEND_REQUEST_AMOUNT);
+        gas =getIntent().getStringExtra(SEND_REQUEST_GAS);
+
+        mTxtForm.setText(from);
+        mTxtTo.setText(to);
+        mEth.setText(amount);
+        mTxtGas.setText(gas);
+
+
+        mGasPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculatorGasprice();
+            }
+        });
+        mGasLimit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculatorGasprice();
+            }
+        });
+
     }
 
     @Override
@@ -125,5 +192,44 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         super.initWidget();
         //        透明状态栏 ， 这种方式不会引起  崩溃
         StatusBarUtil.transparencyBar(this);
+    }
+
+
+    private void   calculatorGasprice(){
+        String price = mGasPrice.getText().toString();
+        String limit = mGasLimit.getText().toString();
+        Long priceL  = Long.valueOf(price);
+        Long limitL  = Long.valueOf(limit);
+        Log.d("calculatorGasprice priceL  = " +priceL);
+        Log.d("calculatorGasprice limitL  = " +limitL);
+        Log.d("calculatorGasprice priceL * limitL  = " +(priceL * limitL));
+
+        float  sum  = priceL * limitL /(10e9f);
+        String  sumString = String.valueOf(sum);
+        Log.d("calculatorGasprice sum  = " +sum);
+        Log.d("calculatorGasprice sumString  = " +sumString);
+        mTxtGas.setText(formatFloatNumber(sum)+" ETH");
+    }
+
+    public static String formatFloatNumber(double value) {
+        if(value != 0.00){
+            java.text.DecimalFormat df = new java.text.DecimalFormat("########.00000000");
+            return df.format(value);
+        }else{
+            return "0.00";
+        }
+
+    }
+
+    public  String formatFloatNumber(Double value) {
+        if(value != null){
+            if(value.doubleValue() != 0.00){
+                java.text.DecimalFormat df = new java.text.DecimalFormat("########.00");
+                return df.format(value.doubleValue());
+            }else{
+                return "0.00";
+            }
+        }
+        return "";
     }
 }
