@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.Activity;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,11 +17,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
-import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.SendViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivity;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivityContract;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -169,27 +166,43 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         mAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkInput();
+
             }
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                                           int after) {
-                checkInput();
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(mAmount.getText().length()>0){
-                    isInputAmounts =true;
-                    if(isInputAddress){
-                        checkInput();
-                    }
-                }else{
-                    isInputAmounts =false;
+                String amountTrue  = getResources().getString(R.string.send_btn_send);
+                String amountError  = getResources().getString(R.string.send_btn_send_amount_error);
+
+
+
+                if(mAmount.getText().toString().length()<=0) {
                     enableNext(false);
+                    mSend.setText(amountError);
+                    isInputAmounts =false;
+                    return ;
+                }else{
+                    float inputValue = Float.parseFloat(mAmount.getText().toString());
+                    if(balance<=inputValue){
+                        enableNext(false);
+                        mSend.setText(amountError);
+                        isInputAmounts =false;
+                        return ;
+                    }
+                    mSend.setText(amountTrue);
+                    isInputAmounts =true;
                 }
 
+
+                if(isInputAmounts&&isInputAddress){
+                    enableNext(true);
+                }
 
 
             }
@@ -197,73 +210,60 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         mAddresss.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                checkInput();
+
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                checkInput();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(mAddresss.getText().length()>0){
-                    isInputAddress =true;
-                    if(isInputAmounts){
-                        checkInput();
-                    }
-                }else{
-                    isInputAddress =false;
-                    enableNext(false);
-                }
-                if(s.toString().length()<=2){
+                String addressTrue  = getResources().getString(R.string.send_btn_send);
+                String addressError  = getResources().getString(R.string.send_btn_send_addresss_error);
+                mSend.setText(addressTrue);
+                if(0<s.toString().length()&&s.toString().length()<=2){
                     if(s.toString().length()==1){
-                        if(!s.toString().equalsIgnoreCase("0")){
+                        if(s.toString().equalsIgnoreCase("0")){
                             return ;
                         }
                     }
-
-
+                    if(s.toString().length()==2){
+                        if(s.toString().equalsIgnoreCase("0x")){
+                            return ;
+                        }
+                    }
                     if(!s.toString().substring(0,2).equalsIgnoreCase("0x")){
-                        mSend.setText("输入地址错误");
-                    }else{
-                        mSend.setText("发送");
-                        checkInput();
+                        mSend.setText(addressError);
                     }
                 }
+
+                if(mAddresss.getText().length()>3){
+                    isInputAddress =true;
+                }else{
+                    isInputAddress =false;
+                    mSend.setText(addressError);
+                    enableNext(false);
+                }
+
+                if(isInputAmounts&&isInputAddress){
+                    enableNext(true);
+                }
+
             }
         });
-        checkInput();
-
     }
 
-    private void checkInput(){
-        if(mAmount.getText().toString().length()<=0)
-            return;
-        float inputValue = Float.parseFloat(mAmount.getText().toString());
 
-        if(balance<=inputValue){
-            enableNext(false);
-            mSend.setText("ETH 余额不足");
-            return ;
-        }
-        if(mAddresss.getText().toString().length()<15){
-            return;
-        }
-        String subAddress = mAddresss.getText().toString().substring(0,2);
-
-        if("0x".equalsIgnoreCase(subAddress)){
-            enableNext(true);
-        }
-    }
 
     private void enableNext(boolean isEnable){
-        mSend.setText("发送");
+
         if(!isEnable) {
-            mSend.setBackgroundResource(R.drawable.bg_color_393a50);
+            mSend.setBackgroundResource(R.drawable.bg_color_dae6ff);
             mSend.setEnabled(false);
         }else {
+            mSend.setText("发送");
             mSend.setBackgroundResource(R.drawable.bg_gradient_blue);
             mSend.setEnabled(true);
         }
@@ -280,6 +280,9 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setTitle("");
         }
+
+        //        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
 
         mSend.setEnabled(false);
     }

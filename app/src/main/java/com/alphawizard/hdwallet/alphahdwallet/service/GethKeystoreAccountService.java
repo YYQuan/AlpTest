@@ -3,6 +3,7 @@ package com.alphawizard.hdwallet.alphahdwallet.service;
 
 
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.WalletExistException;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ServiceException;
 import com.alphawizard.hdwallet.common.util.Log;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -259,7 +260,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
         return Single.fromCallable(() -> {
 
             if(!isEnableImportKeyStore(getAddressFromKeystore(store),keyStore.getAccounts())){
-                return  null;
+                throw  new WalletExistException();
             }
 
             org.ethereum.geth.Account account = keyStore
@@ -277,7 +278,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
             ECKeyPair keypair = ECKeyPair.create(key);
             WalletFile walletFile = create(newPassword, keypair, N, P);
             if(!isEnableImportKeyStore(walletFile.getAddress(),keyStore.getAccounts())){
-                return null;
+                throw  new  WalletExistException();
             }
             return new ObjectMapper().writeValueAsString(walletFile);
         }).compose(upstream -> GethKeystoreAccountService.this.importKeystore(upstream.blockingGet(), newPassword, newPassword));

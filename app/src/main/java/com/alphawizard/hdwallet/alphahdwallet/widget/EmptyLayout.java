@@ -1,4 +1,4 @@
-package com.alphawizard.hdwallet.common.base.Layout.PlaceHolder;
+package com.alphawizard.hdwallet.alphahdwallet.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -6,64 +6,51 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.common.R;
 import com.alphawizard.hdwallet.common.base.App.Application;
-
-import net.qiujuer.genius.ui.widget.Loading;
+import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.PlaceHolderView;
 
 
 /**
  * Created by Yqquan on 2018/7/23.
  */
 
-public class LoadingLayout extends LinearLayout implements PlaceHolderView{
+public class EmptyLayout extends LinearLayout implements PlaceHolderView{
 
-    private Loading mLoading;
-    private ImageView mImageView;
     private TextView mTextView;
 
-    private int[] mDrawableIds = new int[]{0, 0};
-    private int[] mTextIds = new int[]{0, 0, 0};
 
     private View[] mBindViews;
 
-    public LoadingLayout(Context context) {
+    public EmptyLayout(Context context) {
         super(context);
         init(null,0);
     }
 
-    public LoadingLayout(Context context, @Nullable AttributeSet attrs) {
+    public EmptyLayout(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(attrs,0);
     }
 
-    public LoadingLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public EmptyLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs,defStyleAttr);
     }
 
     private void init(AttributeSet attrs,int defaultStyle){
         inflate(getContext(), R.layout.layout_empty,this);
-        mLoading   =  (Loading) findViewById(R.id.loading);
-        mImageView = (ImageView) findViewById(R.id.image);
+
         mTextView  = (TextView) findViewById(R.id.text);
 
 
         // Load attributes   获取自定义属性的值
-        final TypedArray a = getContext().obtainStyledAttributes(
-                attrs, R.styleable.EmptyView, defaultStyle, 0);
 
-        mDrawableIds[0] = a.getInt(R.styleable.EmptyView_comEmptyDrawable, R.drawable.status_empty);
-        mDrawableIds[1] = a.getInt(R.styleable.EmptyView_comErrorDrawable, R.drawable.status_empty);
-        mTextIds[0] = a.getInt(R.styleable.EmptyView_comEmptyText, R.string.prompt_empty);
-        mTextIds[1] = a.getInt(R.styleable.EmptyView_comErrorText, R.string.prompt_error);
-        mTextIds[2] = a.getInt(R.styleable.EmptyView_comLoadingText, R.string.prompt_loading);
 
-        a.recycle();
+
+//        a.recycle();
 
 
 
@@ -100,11 +87,9 @@ public class LoadingLayout extends LinearLayout implements PlaceHolderView{
      */
     @Override
     public void triggerEmpty() {
-        mLoading.setVisibility(GONE);
-        mLoading.stop();
-        mImageView.setImageResource(mDrawableIds[0]);
-        mTextView.setText(mTextIds[0]);
-        mImageView.setVisibility(VISIBLE);
+
+
+
         setVisibility(VISIBLE);
         changeBindViewVisibility(GONE);
     }
@@ -124,11 +109,10 @@ public class LoadingLayout extends LinearLayout implements PlaceHolderView{
      */
     @Override
     public void triggerLoading() {
-        mImageView.setVisibility(GONE);
-        mTextView.setText(mTextIds[2]);
+
+
         setVisibility(VISIBLE);
-        mLoading.setVisibility(VISIBLE);
-        mLoading.start();
+
         changeBindViewVisibility(GONE);
     }
 

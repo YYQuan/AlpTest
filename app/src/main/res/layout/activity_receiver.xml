@@ -5,13 +5,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#191A2A"
+    android:background="#fff5f8ff"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="#010110"
+        android:background="#295EF7"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/statusBarSize"
         >
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#131422"
+        android:background="#ffffff"
          android:layout_gravity="center_horizontal"
 
         app:layout_marginTopPercent="3%"
@@ -64,12 +64,14 @@
 
         <Button
             android:id="@+id/btn_share_pic"
-            android:layout_width="90dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:textSize="12sp"
             android:textColor="#393A50"
-            android:background="@drawable/bg_black_393a50_side"
-
+            android:background="@drawable/bg_color_dae6ff_side"
+            app:layout_heightPercent="4%"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:text="@string/receiver_save_code"
             app:layout_marginTopPercent="3%"
             android:layout_gravity="center_horizontal"/>
@@ -82,8 +84,8 @@
             android:textSize="12sp"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
-            android:layout_width="177dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
             android:text="@string/receiver_eth_address"
             android:textColor="#494A60"
@@ -96,9 +98,9 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:text="0x2fa986D54445a0c7e337A735Daf1121a4038474e"
-            android:textColor="#FFFFFF"
+            android:textColor="#323232"
             app:layout_marginTopPercent="3%"
 
             />
@@ -109,24 +111,28 @@
         <Button
             android:id="@+id/btn_copy"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="25dp"
             android:text="@string/receiver_copy_address"
-            android:textColor="#ff393a50"
+            android:textColor="#393A50"
             android:textSize="12sp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/bg_black_393a50_side"
+            android:background="@drawable/bg_color_dae6ff_side"
             app:layout_marginTopPercent="3%"
             app:layout_marginBottomPercent="4%"
             />
     </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
 
     <TextView
-        android:layout_width="331dp"
-        android:layout_height="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/receiver_tips"
         android:textColor="#ff595a6e"
         android:textSize="12sp"
         app:layout_marginTopPercent="3%"
+        app:layout_marginLeftPercent="5%"
+        app:layout_marginRightPercent="5%"
         android:layout_gravity="center_horizontal"
         />
 

@@ -23,8 +23,8 @@ public class Operators {
 
 
     public static SingleTransformer<Wallet, Wallet> saveWalletName(
-            PasswordStore passwordStore, WalletRepositoryType walletRepository, String name) {
-        return new SaveWalletNameOperator(passwordStore, walletRepository, name);
+            PasswordStore passwordStore, String name) {
+        return new SaveWalletNameOperator(passwordStore, name);
     }
 
 

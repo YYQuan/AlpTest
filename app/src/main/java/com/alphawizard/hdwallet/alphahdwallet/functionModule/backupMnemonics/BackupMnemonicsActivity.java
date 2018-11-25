@@ -11,8 +11,11 @@ import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.util.Log;
+
+import net.qiujuer.genius.ui.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -60,6 +63,9 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
     @BindView(R.id.btn_next)
     Button mNext;
 
+    @BindView(R.id.ed_wallet_name)
+    EditText  mName;
+
 //    @OnClick(R.id.iv_back)
 //    public void clickBack(){
 //        onBackPressed();
@@ -104,6 +110,8 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(BackupViewModule.class);
         mPresenter.takeView(this,viewModel);
+        viewModel.getIsOkSaveName().observe(this,this::saveName);
+
 
         mList = getIntent().getStringArrayListExtra(BackupRouter.MNEMONICS_STRING);
         Log.d("initData  mList.toString() :"+mList.toString());
@@ -115,12 +123,30 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
         mMnemonics.setText(builder);
     }
 
+    @Override
+    public void initWidget() {
+        super.initWidget();
+        //        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
+    }
+
+    private void saveName(Boolean aBoolean) {
+        if(aBoolean) {
+            viewModel.openWalletPage(this);
+        }
+    }
+
     private void getDefaultWallet(Wallet wallet) {
     }
 
 
     @Override
     public void onBackPressed() {
-        viewModel.openWalletPage(this);
+        if(!"".equalsIgnoreCase(mName.getText().toString())) {
+            viewModel.saveWalletName(mName.getText().toString());
+        }else{
+            viewModel.saveWalletName("Wallet");
+        }
+
     }
 }

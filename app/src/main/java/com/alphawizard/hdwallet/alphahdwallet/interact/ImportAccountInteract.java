@@ -23,7 +23,7 @@ public class ImportAccountInteract {
         return mPasswordStore.generatePassword()
                 .flatMap(newPassword->mWalletRepositoryType.importKeystore(keystore,password,password)
                         .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, password))
-                        .compose(Operators.saveWalletName(mPasswordStore, mWalletRepositoryType,name))
+                        .compose(Operators.saveWalletName(mPasswordStore,name))
                         .flatMap(wallet -> passwordVerification(wallet, password)));
 
 
@@ -33,7 +33,7 @@ public class ImportAccountInteract {
         return mPasswordStore.generatePassword()
                 .flatMap(newPassword ->mWalletRepositoryType.importPrivateKey(privateKey,newPassword)
                         .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, newPassword))
-                        .compose(Operators.saveWalletName(mPasswordStore, mWalletRepositoryType,name))
+                        .compose(Operators.saveWalletName(mPasswordStore,name))
                         .flatMap(wallet -> passwordVerification(wallet, newPassword)));
     }
 
@@ -42,7 +42,7 @@ public class ImportAccountInteract {
                 .flatMap(newPassword ->mWalletRepositoryType.importMnenonics(mnemonics,newPassword)
                         .compose(Operators.savePassword(mPasswordStore, mWalletRepositoryType, newPassword))
                         .compose(Operators.saveMnemonics(mPasswordStore, mWalletRepositoryType, mnemonics))
-                        .compose(Operators.saveWalletName(mPasswordStore, mWalletRepositoryType,name))
+                        .compose(Operators.saveWalletName(mPasswordStore,name))
                         .flatMap(wallet -> passwordVerification(wallet, newPassword)));
     }
 

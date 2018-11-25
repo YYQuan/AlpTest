@@ -28,7 +28,7 @@ public class CreateWalletInteract {
 		return  walletRepository.createAccount(entiry.getMnenonics(),entiry.getPassword())
 				.compose(Operators.savePassword(passwordStore, walletRepository, entiry.getPassword()))
 				.compose(Operators.saveMnemonics(passwordStore, walletRepository, entiry.getMnenonics()))
-				.compose(Operators.saveWalletName(passwordStore, walletRepository, entiry.getWalletName()))
+				.compose(Operators.saveWalletName(passwordStore, entiry.getWalletName()))
 				.flatMap(wallet -> passwordVerification(wallet, entiry.getPassword()))
 				.subscribeOn(Schedulers.io());
 

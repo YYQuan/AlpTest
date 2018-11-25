@@ -33,6 +33,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Cre
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dapp.DappFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.setting.SettingFragment;
 import com.alphawizard.hdwallet.alphahdwallet.utils.SavePic2Local;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
@@ -155,6 +156,9 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setTitle("");
         }
+
+        //        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
 
 
     }

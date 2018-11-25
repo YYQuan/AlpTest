@@ -59,6 +59,9 @@
     <string name="send_amount">ETH数量</string>
     <string name="send_has_amount">可用 : </string>
     <string name="send_btn_send">发送</string>
+    <string name="send_btn_send_addresss_error">发送地址错误</string>
+    <string name="send_btn_send_amount_error">发送余额不足</string>
+
 
     <!--verifyMnemonics-->
     <string name="verify_mnemonics_"></string>

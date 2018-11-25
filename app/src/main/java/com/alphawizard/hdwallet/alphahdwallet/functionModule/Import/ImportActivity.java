@@ -12,7 +12,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
 
@@ -21,8 +20,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.imp
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importMnenonics.ImportMnenonicsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.importPrivateKey.ImportPrivateKeyFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
-import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
 import com.alphawizard.hdwallet.common.util.Log;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
@@ -81,21 +80,21 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
         Log.d("  now  " + itemID.getId());
         switch (itemID.getId()){
             case R.id.btn_mnemonics:
-                mMnemonics.setBackgroundResource(R.drawable.bg_color_6a89c4);
-                mKeystore.setBackgroundResource(R.drawable.bg_color_393a50);
-                mPrivateKey.setBackgroundResource(R.drawable.bg_color_393a50);
+                mMnemonics.setBackgroundResource(R.drawable.bg_color_3174ff);
+                mKeystore.setBackgroundResource(R.drawable.bg_color_9fadca);
+                mPrivateKey.setBackgroundResource(R.drawable.bg_color_9fadca);
                 mHelper.performClickMenu(MNENONICS_FORM_INDEX);
                 break;
             case R.id.btn_keystore:
-                mMnemonics.setBackgroundResource(R.drawable.bg_color_393a50);
-                mKeystore.setBackgroundResource(R.drawable.bg_color_6a89c4);
-                mPrivateKey.setBackgroundResource(R.drawable.bg_color_393a50);
+                mMnemonics.setBackgroundResource(R.drawable.bg_color_9fadca);
+                mKeystore.setBackgroundResource(R.drawable.bg_color_3174ff);
+                mPrivateKey.setBackgroundResource(R.drawable.bg_color_9fadca);
                 mHelper.performClickMenu(KEYSTORE_FORM_INDEX);
                 break;
             case R.id.btn_privateKey:
-                mMnemonics.setBackgroundResource(R.drawable.bg_color_393a50);
-                mKeystore.setBackgroundResource(R.drawable.bg_color_393a50);
-                mPrivateKey.setBackgroundResource(R.drawable.bg_color_6a89c4);
+                mMnemonics.setBackgroundResource(R.drawable.bg_color_9fadca);
+                mKeystore.setBackgroundResource(R.drawable.bg_color_9fadca);
+                mPrivateKey.setBackgroundResource(R.drawable.bg_color_3174ff);
                 mHelper.performClickMenu(PRIVATE_KEY_FORM_INDEX);
                 break;
 
@@ -186,6 +185,7 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
 
         viewModel.progress().observe(this,this::importCallback);
 
+        onClickImportBTN(mMnemonics);
 
     }
 
@@ -206,35 +206,11 @@ public class ImportActivity extends BasePresenterActivity<ImportContract.Present
                 .add(PRIVATE_KEY_FORM_INDEX, new NavHelper.Tab<>(ImportPrivateKeyFragment.class, PRIVATE_KEY_FORM_INDEX))
                 .add(MNENONICS_FORM_INDEX, new NavHelper.Tab<>(ImportMnenonicsFragment.class, MNENONICS_FORM_INDEX));
 
+        //        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
+
         mHelper.performClickMenu(MNENONICS_FORM_INDEX);
-//        ViewPager viewPager = findViewById(R.id.viewPager);
-//        TabPagerAdapter adatper = new TabPagerAdapter(this,getSupportFragmentManager(), pages);
-//        viewPager.setAdapter(adatper);
-//        TabLayout tabLayout = findViewById(R.id.tabLayout);
-//        tabLayout.setupWithViewPager(viewPager);
-//        viewPager.addOnAdapterChangeListener(new ViewPager.OnAdapterChangeListener() {
-//            @Override
-//            public void onAdapterChanged(@NonNull ViewPager viewPager, @Nullable PagerAdapter pagerAdapter, @Nullable PagerAdapter pagerAdapter1) {
-//
-//
-//                    TabLayout.Tab tab = tabLayout.getTabAt( viewPager.getCurrentItem());//获得每一个tab
-//                    tab.setCustomView(R.layout.cell_tab_item);//给每一个tab设置view
-//
-//                    TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tv_item_content);
-//                    textView.setText(pages.get(viewPager.getCurrentItem()).first);//设置tab上的文字
-//                    textView.setTextColor(0xffff0000);
-//
-//            }
-//        });
-//
-//
-//        for (int i = 0; i < adatper.getCount(); i++) {
-//            TabLayout.Tab tab = tabLayout.getTabAt(i);//获得每一个tab
-//            tab.setCustomView(R.layout.cell_tab_item);//给每一个tab设置view
-//
-//            TextView textView = (TextView) tab.getCustomView().findViewById(R.id.tv_item_content);
-//            textView.setText(pages.get(i).first);//设置tab上的文字
-//        }
+
 
     }
 

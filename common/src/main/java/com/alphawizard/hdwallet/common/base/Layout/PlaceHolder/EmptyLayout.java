@@ -23,8 +23,6 @@ import net.qiujuer.genius.ui.widget.Loading;
 
 public class EmptyLayout extends LinearLayout implements PlaceHolderView{
 
-    private Loading mLoading;
-    private ImageView mImageView;
     private TextView mTextView;
 
     private int[] mDrawableIds = new int[]{0, 0};
@@ -49,8 +47,7 @@ public class EmptyLayout extends LinearLayout implements PlaceHolderView{
 
     private void init(AttributeSet attrs,int defaultStyle){
         inflate(getContext(), R.layout.layout_empty,this);
-        mLoading   =  (Loading) findViewById(R.id.loading);
-        mImageView = (ImageView) findViewById(R.id.image);
+
         mTextView  = (TextView) findViewById(R.id.text);
 
 
@@ -64,7 +61,7 @@ public class EmptyLayout extends LinearLayout implements PlaceHolderView{
         mTextIds[1] = a.getInt(R.styleable.EmptyView_comErrorText, R.string.prompt_error);
         mTextIds[2] = a.getInt(R.styleable.EmptyView_comLoadingText, R.string.prompt_loading);
 
-        a.recycle();
+//        a.recycle();
 
 
 
@@ -101,11 +98,9 @@ public class EmptyLayout extends LinearLayout implements PlaceHolderView{
      */
     @Override
     public void triggerEmpty() {
-        mLoading.setVisibility(GONE);
-        mLoading.stop();
-        mImageView.setImageResource(mDrawableIds[0]);
+
         mTextView.setText(mTextIds[0]);
-        mImageView.setVisibility(VISIBLE);
+
         setVisibility(VISIBLE);
         changeBindViewVisibility(GONE);
     }
@@ -125,11 +120,10 @@ public class EmptyLayout extends LinearLayout implements PlaceHolderView{
      */
     @Override
     public void triggerLoading() {
-        mImageView.setVisibility(GONE);
+
         mTextView.setText(mTextIds[2]);
         setVisibility(VISIBLE);
-        mLoading.setVisibility(VISIBLE);
-        mLoading.start();
+
         changeBindViewVisibility(GONE);
     }
 

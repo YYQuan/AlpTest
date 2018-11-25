@@ -81,7 +81,8 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
         viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
         viewModel.importWallet().observe(this,this::importWallet);
         mImport.setEnabled(false);
-        mImport.setBackgroundColor(0xff393A50);
+        mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
 
         mPrivatekey.addTextChangedListener(new TextWatcher() {
             @Override
@@ -106,7 +107,8 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
                 }else{
                     isInputPrivateKey =false;
                     mImport.setEnabled(false);
-                    mImport.setBackgroundColor(0xff393A50);
+                    mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
                 }
 
 
@@ -138,7 +140,8 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
                     isInputName =false;
 
                     mImport.setEnabled(false);
-                    mImport.setBackgroundColor(0xff393A50);
+                    mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
                 }
             }
         });

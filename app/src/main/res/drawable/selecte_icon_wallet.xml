@@ -2,6 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!--<item android:color="#ff44B3F5" android:state_checked="true" />-->
 
-    <item android:color="#ff2656f4" android:state_checked="true" />
-    <item android:color="#ffC8C8C8" />
+    <item android:icon="@mipmap/ic_wallet" android:state_checked="true" />
+    <item android:icon="@mipmap/ic_wallet_activity" />
 </selector>

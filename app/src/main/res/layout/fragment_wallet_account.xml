@@ -5,13 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#010110"
+    android:background="#295EF7"
     android:orientation="vertical"
     tools:context=".functionModule.Wallet.WalletActivity">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarSize"
-        android:background="#010110"
+        android:background="#295EF7"
         android:gravity="center_vertical"
         >
         <RelativeLayout
@@ -44,29 +44,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#131422">
+        android:background="@drawable/bg_color_dae6ff">
 
 
-    <ImageView
-        android:id="@+id/iv_eth"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:background="@mipmap/ic_eth_grey"
-         />
+        <ImageView
+            android:id="@+id/iv_eth"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:background="@mipmap/ic_eth"
+             />
 
-    <TextView
-        android:id="@+id/tv_balances"
-        android:layout_width="105dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="0.000ETH"
-        android:textColor="#FEFEFE"
-        android:textSize="18sp"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        />
+        <TextView
+            android:id="@+id/tv_balances"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="0.000ETH"
+            android:textColor="#ff323232"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                 android:id="@+id/btn_receive"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_color_6a89c4"
+                android:background="@drawable/bg_color_5784db"
                 android:text="@string/wallet_account_btn_receiver"
                 android:textSize="18sp"
                 android:textColor="@color/textWhite"
@@ -119,16 +119,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#191A2A"
+            android:background="#ffffff"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/textView"
-                android:layout_width="80dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="21dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/wallet_account_transaction_record"
-                android:textColor="#C9C9C9"
+                android:textColor="#323232"
                 android:textSize="18sp" />
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -152,7 +152,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="126" />
             </LinearLayout>
+            <com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout
+                android:id="@+id/place_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+            </com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recyclerView_transactionBean"
@@ -165,11 +170,7 @@
 
 
         </LinearLayout>
-        <com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout
-            android:id="@+id/place_holder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
+
     </FrameLayout>
 </LinearLayout>
 

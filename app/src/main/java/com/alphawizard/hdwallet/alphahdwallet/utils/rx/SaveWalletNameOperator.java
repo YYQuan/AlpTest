@@ -13,13 +13,13 @@ public class SaveWalletNameOperator implements SingleTransformer<Wallet, Wallet>
 
     private final PasswordStore passwordStore;
     private final String name;
-    private final WalletRepositoryType walletRepository;
+
 
     public SaveWalletNameOperator(
-            PasswordStore passwordStore, WalletRepositoryType walletRepository, String name) {
+            PasswordStore passwordStore,  String name) {
         this.passwordStore = passwordStore;
         this.name = name;
-        this.walletRepository = walletRepository;
+
     }
 
     @Override

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="#191A2A"
+    android:background="#ffffff"
     android:orientation="vertical"
     tools:context=".functionModule.Wallet.WalletActivity"
     >
@@ -23,21 +23,20 @@
         android:hint="@string/import_input_private_tips"
         android:inputType="textMultiLine"
         app:gHintTitle="none"
-        app:gLineColor="@color/blue_900"
         app:gLineSize="1dp"
-        android:textColorHint="#4E4F6C"
-        android:textColor="@color/textWhite"
+        android:textColorHint="#C3CEFF"
+        android:textColor="#323232"
         android:textSize="16sp"
-        android:background="@drawable/bg_color_131422_side"
+        android:background="@drawable/bg_color_c1d5ff_side"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="17dp"
         android:textSize="12sp"
-        android:textColor="#707185"
+        android:textColor="#969696"
         app:layout_marginTopPercent="3%"
         app:layout_marginLeftPercent="5%"
-        android:text="@string/import_input_private_tips"/>
+        android:text="@string/import_private_key_tips"/>
 
 
 
@@ -49,15 +48,14 @@
         app:layout_marginLeftPercent="5%"
         app:layout_marginRightPercent="5%"
         android:hint="@string/import_input_wallet_name_tips"
-        android:textColorHint="#4E4F6C"
-        android:textColor="@color/textWhite"
+        android:textColorHint="#C3CEFF"
+        android:textColor="#323232"
         android:textSize="16sp"
         android:inputType="textMultiLine"
         android:maxLines="1"
 
-        android:background="@drawable/bg_color_131422_side"
+        android:background="@drawable/bg_color_c1d5ff_side"
         app:gHintTitle="none"
-        app:gLineColor="@color/blue_900"
         app:gLineSize="1dp"
         android:gravity="left|center_vertical"
 

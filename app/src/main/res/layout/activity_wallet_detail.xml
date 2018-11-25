@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".functionModule.WalletDetail.WalletDetailActivity"
-    android:background="#191A2A"
+    android:background="#EAF1FF"
 
     android:orientation="vertical">
 
@@ -28,7 +28,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="#010110"
+        android:background="#295EF7"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/statusBarSize">
         <FrameLayout
@@ -81,7 +81,7 @@
         android:layout_marginTop="14dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
-        android:textColor="#ffffffff"
+        android:textColor="#323232"
         android:textSize="18sp"
         android:text="0.0000ETH"/>
 
@@ -92,13 +92,13 @@
         android:layout_marginTop="7dp"
 
         android:text="0xe56…efwfrwds"
-        android:textColor="@color/textGreyFourth"
+        android:textColor="#969696"
         android:layout_gravity="center_horizontal"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#202234"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         android:layout_marginTop="59dp"
         android:layout_marginStart="20dp"
@@ -110,7 +110,7 @@
             android:layout_height="22dp"
             android:text="@string/wallet_detail_wallet_name"
             android:textSize="16sp"
-            android:textColor="@color/textGreyFourth"
+            android:textColor="#969696"
             android:layout_gravity="center_vertical"/>
         <View
             android:layout_width="wrap_content"
@@ -122,13 +122,14 @@
             android:layout_width="104dp"
             android:layout_height="22dp"
             android:text="ETH-Wallet"
-            android:textColor="@color/textWhite"
+            android:textColor="#323232"
             android:textSize="16sp"
             android:layout_marginEnd="40dp"
             android:layout_gravity="center_vertical"
             android:gravity="end"
             android:textCursorDrawable="@null"
             android:background="@null"
+
             />
 
     </LinearLayout>
@@ -141,7 +142,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:background="#202234">
+        android:background="#FFFFFF">
         <LinearLayout
             android:id="@+id/lay_export_private_key"
             android:layout_width="match_parent"
@@ -155,7 +156,7 @@
                 android:layout_height="22dp"
                 android:text="@string/wallet_detail_export_private"
                 android:textSize="16sp"
-                android:textColor="@color/textGreyFourth"
+                android:textColor="#969696"
                 android:layout_gravity="center_vertical"/>
             <View
                 android:layout_width="wrap_content"
@@ -175,7 +176,7 @@
             android:id="@+id/linie_keystore"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#111221"
+            android:background="#ffeaf1ff"
             android:layout_marginTop="22dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"/>
@@ -193,7 +194,7 @@
                 android:layout_height="22dp"
                 android:text="@string/wallet_detail_export_keystore"
                 android:textSize="16sp"
-                android:textColor="@color/textGreyFourth"
+                android:textColor="#969696"
                 android:layout_gravity="center_vertical"/>
             <View
                 android:layout_width="wrap_content"
@@ -213,7 +214,7 @@
             android:id="@+id/linie_mnemonics"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#111221"
+            android:background="#ffeaf1ff"
             android:layout_marginTop="22dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"/>
@@ -232,7 +233,7 @@
                 android:layout_height="22dp"
                 android:text="@string/wallet_detail_export_mnemonics"
                 android:textSize="16sp"
-                android:textColor="@color/textGreyFourth"
+                android:textColor="#969696"
                 android:layout_gravity="center_vertical"/>
             <View
                 android:layout_width="wrap_content"
@@ -272,9 +273,9 @@
         app:layout_marginLeftPercent="6%"
         app:layout_marginRightPercent="6%"
         android:text="@string/wallet_detail_delete_wallet"
-        android:textColor="#fffe4343"
+        android:textColor="#4480FF"
         android:textSize="16sp"
-        android:background="@drawable/bg_color_393a50"
+        android:background="@drawable/bg_bccbeb_side"
         />
 
 </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>

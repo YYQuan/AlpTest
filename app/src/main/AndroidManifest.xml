@@ -32,11 +32,12 @@
             android:name=".functionModule.Wallet.WalletActivity"
             android:label="@string/title_activity_first_launch"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.TransStatusBar.Base"/>
+            />
+
         <activity
             android:name=".functionModule.send.SendActivity"
             android:label="@string/title_activity_send"
-            android:theme="@style/AppTheme.TransStatusBar.Base"
+
             />
         <activity
             android:name=".functionModule.ConfirmSend.ConfirmSendActivity"
@@ -44,14 +45,14 @@
         <activity
             android:name=".functionModule.Import.ImportActivity"
             android:label="@string/title_activity_import"
-            android:theme="@style/AppTheme.TransStatusBar.Base"/>
+            />
         <activity
             android:name=".functionModule.web3.Web3Activity"
             android:label="@string/title_activity_first_launch" />
         <activity
             android:name=".functionModule.backupMnemonics.BackupMnemonicsActivity"
             android:label="@string/title_activity_backup_mnemonics"
-            android:theme="@style/AppTheme.TransStatusBar.Base"/>
+            />
         <activity
             android:name=".functionModule.verifyMnemonics.VerifyMnemonicsActivity"
             android:label="@string/title_activity_verify_mnemonics" />
@@ -62,12 +63,12 @@
         <activity
             android:name=".functionModule.ManagerAccounts.ManagerAccountsActivity"
             android:label="@string/title_activity_first_launch"
-            android:theme="@style/AppTheme.TransStatusBar.Base"/>
+            />
         <activity
             android:name=".functionModule.receiver.ReceiverActivity"
             android:label="@string/title_activity_first_launch"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.TransStatusBar.Base"
+
             />
     </application>
 

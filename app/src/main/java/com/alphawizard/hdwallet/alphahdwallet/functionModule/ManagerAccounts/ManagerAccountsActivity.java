@@ -33,6 +33,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.Bac
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
@@ -268,6 +269,10 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             actionBar.setDisplayHomeAsUpEnabled(false);
             actionBar.setTitle("");
         }
+
+        //        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter =new RecyclerAdapter<Wallet>() {
             @Override

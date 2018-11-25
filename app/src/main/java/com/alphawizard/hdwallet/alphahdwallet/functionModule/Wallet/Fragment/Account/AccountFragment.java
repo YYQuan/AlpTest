@@ -23,7 +23,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Acc
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.alphahdwallet.widget.BackupView;
-import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
+
+import com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
@@ -215,6 +216,8 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
         setPlaceHolderView(placeHolder);
         placeHolder.bind(recyclerView);
+
+
     }
 
 
@@ -231,7 +234,11 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
         Log.d("transBeansChange");
-
+        if(transactionBeans.size()>0) {
+            placeHolder.triggerOkOrEmpty(true);
+        }else {
+            placeHolder.triggerOkOrEmpty(false);
+        }
 
         mAdapter.replace(transactionBeans);
         mReceiveAdapter.replace(filterReceiveTransaction(transactionBeans));

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#191A2A"
+    android:background="#ffffff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".functionModule.verifyMnemonics.VerifyMnemonicsActivity">
 
@@ -25,6 +25,7 @@
                 android:layout_width="9dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="21dp"
+                android:visibility="gone"
                 android:background="@drawable/ic_title_back_white"/>
         </FrameLayout>
 
@@ -42,7 +43,7 @@
         android:layout_height="21dp"
         android:text="@string/verify_mnemonics_verify"
         android:textSize="18sp"
-        android:textColor="#FFFFFF"
+        android:textColor="#4480FF"
         android:layout_gravity="center_horizontal"
         app:layout_marginTopPercent="3%"
         android:gravity="center_vertical"/>
@@ -51,7 +52,7 @@
         android:layout_height="21dp"
         android:text="@string/verify_mnemonics_tips"
         android:textSize="13sp"
-        android:textColor="#C4E5FF"
+        android:textColor="#323232"
         android:layout_gravity="center_horizontal"
         app:layout_marginTopPercent="8%"
         android:gravity="center_vertical"/>
@@ -81,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="100dp"
-                    android:background="#111224"
+                    android:background="#f1f6ff"
                     android:paddingTop="20dp"
                     android:paddingBottom="30dp"
                     app:layout_marginStartPercent="5%"
@@ -92,7 +93,7 @@
                 android:id="@+id/mnemonicsView_no_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#191A2A"
+                android:background="#ffffff"
                 android:paddingTop="20dp"
                 android:layout_marginTop="30dp"
                 app:layout_marginTopPercent="4%"

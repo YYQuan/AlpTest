@@ -82,7 +82,7 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
 
 
         mImport.setEnabled(false);
-        mImport.setBackgroundColor(0xff393A50);
+        mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
 
         mMnenonics.addTextChangedListener(new TextWatcher() {
             @Override
@@ -107,7 +107,8 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
                 }else{
                     isInputMnemonics =false;
                     mImport.setEnabled(false);
-                    mImport.setBackgroundColor(0xff393A50);
+                    mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
                 }
 
 
@@ -139,7 +140,8 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
                     isInputName =false;
 
                     mImport.setEnabled(false);
-                    mImport.setBackgroundColor(0xff393A50);
+                    mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
                 }
             }
         });

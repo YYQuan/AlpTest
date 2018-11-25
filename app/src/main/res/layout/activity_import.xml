@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#191A2A"
+    android:background="#ffffff"
     android:orientation="vertical"
     tools:context=".functionModule.Wallet.WalletActivity">
 
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="#010110"
+        android:background="#295EF7"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/statusBarSize">
         <FrameLayout
@@ -63,7 +63,7 @@
             app:layout_marginTopPercent="4%"
             android:text="@string/import_mnemonics"
             android:textColor="@color/textWhite"
-            android:background="@drawable/bg_color_6a89c4"
+            android:background="@drawable/bg_color_9fadca"
             android:textSize="18sp"
             />
         <View
@@ -85,7 +85,7 @@
             android:text="@string/import_keystore"
             android:textAllCaps="false"
             android:textColor="@color/textWhite"
-            android:background="@drawable/bg_color_393a50"
+            android:background="@drawable/bg_color_9fadca"
             android:textSize="18sp"
             />
         <View
@@ -95,16 +95,21 @@
             />
         <Button
             android:id="@+id/btn_privateKey"
+
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_widthPercent="27%"
+            app:layout_widthPercent="26%"
             app:layout_heightPercent="7%"
+            android:layout_marginTop="20dp"
             app:layout_marginTopPercent="4%"
             android:gravity="center"
             android:text="@string/import_private"
             android:textColor="@color/textWhite"
-            android:background="@drawable/bg_color_393a50"
+            android:background="@drawable/bg_color_9fadca"
             android:textSize="18sp"
+            android:singleLine="true"
+            android:ellipsize="middle"
+
             />
         <View
             android:layout_width="0dp"

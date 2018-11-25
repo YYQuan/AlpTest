@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
+import com.alphawizard.hdwallet.alphahdwallet.data.entiry.WalletExistException;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.interact.DefaultWalletInteract;
@@ -80,7 +81,15 @@ public class ImportViewModule extends BaseViewModel {
 
     private void onImportError(Throwable throwable) {
         Log.d("import  fail ");
-        App.showToast("填入信息有误");
+
+        if(WalletExistException.DEFAULT_ALL_INFO.equalsIgnoreCase(throwable.getMessage())){
+            App.showToast("账户已经被导入");
+        }else{
+            App.showToast("填入信息有误");
+        }
+
+
+
     }
 
     private void onWallet(Wallet wallet) {

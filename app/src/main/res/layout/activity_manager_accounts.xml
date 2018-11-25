@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#191A2A"
+    android:background="#EAF1FF"
     android:id="@+id/layout_manager_wallet"
     tools:context=".functionModule.backupMnemonics.BackupMnemonicsActivity">
     <android.support.v7.widget.Toolbar
@@ -29,7 +29,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="#010110"
+        android:background="#295EF7"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/statusBarSize">
         <FrameLayout
@@ -95,7 +95,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_color_6a89c4"
+            android:background="@drawable/bg_color_3174ff"
             android:text="@string/manager_accounts_btn_create"
             android:textColor="#ffffffff"
             android:textSize="16sp"

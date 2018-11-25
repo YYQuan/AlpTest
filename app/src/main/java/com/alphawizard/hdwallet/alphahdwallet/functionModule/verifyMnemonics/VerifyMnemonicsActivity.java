@@ -3,24 +3,15 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.VerifyMnemonicsModuleFactory;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupContract;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupMnemonicsActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
-import com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendViewModule;
-import com.alphawizard.hdwallet.alphahdwallet.utils.UmrechnungUtil;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.util.Log;
@@ -137,7 +128,7 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
 
 
                 mNext.setEnabled(false);
-                mNext.setBackgroundResource(R.drawable.bg_color_393a50);
+                mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
 
                 if(View.VISIBLE ==mImageCorrect.getVisibility()){
                     showCorrect(false);
@@ -161,7 +152,7 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
                 mMnemonicsViewSelect.replace(listSelect);
                 mMnemonicsViewNoSelect.replace(listNoSelect);
                 mNext.setEnabled(false);
-                mNext.setBackgroundResource(R.drawable.bg_color_393a50);
+                mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
 
 
 
@@ -206,8 +197,11 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     public void initWidget() {
         super.initWidget();
 
+        //        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
+
         mNext.setEnabled(false);
-        mNext.setBackgroundResource(R.drawable.bg_color_393a50);
+        mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
 
     }
 

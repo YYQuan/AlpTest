@@ -24,7 +24,7 @@
     <string name="backup_tips_line1">These 12 words are the only way to restore your ALLBET.</string>
     <string name="backup_tips_line2">Save them somewhere safe and secret.</string>
     <string name="backup_copy">Copy</string>
-    <string name="backup_input_wallet_name">E输入钱包名称</string>
+    <string name="backup_input_wallet_name">Name</string>
 
 
     <!--confirmSend-->
@@ -71,6 +71,8 @@
     <string name="send_amount">ETH Amount</string>
     <string name="send_has_amount">Available  Send: </string>
     <string name="send_btn_send">Send</string>
+    <string name="send_btn_send_addresss_error">发送地址错误</string>
+    <string name="send_btn_send_amount_error">发送余额不足</string>
 
     <!--verifyMnemonics-->
     <string name="verify_mnemonics_"></string>
@@ -91,7 +93,7 @@
     <string name="wallet_account_title">ETH</string>
     <string name="wallet_account_btn_send">Send</string>
     <string name="wallet_account_btn_receiver">Receiver</string>
-    <string name="wallet_account_transaction_record">E交易记录</string>
+    <string name="wallet_account_transaction_record">交易记录</string>
     <string name="wallet_account_transaction_all">All</string>
     <string name="wallet_account_transaction_receiver">Receive</string>
     <string name="wallet_account_transaction_send">Send</string>
@@ -100,7 +102,7 @@
     <!--WalletDetail-->
     <string name="wallet_detail_"></string>
     E<string name="wallet_detail_title">EWallet</string>
-    <string name="wallet_detail_save">E保存</string>
+    <string name="wallet_detail_save">Save</string>
     <string name="wallet_detail_wallet_name">Name</string>
     <string name="wallet_detail_export_private">Export Private Key</string>
     <string name="wallet_detail_export_keystore">Export Keystore</string>

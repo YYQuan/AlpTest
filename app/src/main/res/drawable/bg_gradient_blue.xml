@@ -14,8 +14,8 @@
      -->
     <solid android:color="#ff16319c" />
     <gradient
-        android:startColor="#ff45b6f5"
-        android:endColor="#ff2d5cf5"
+        android:startColor="#3174FF"
+        android:endColor="#1C39EA"
         android:angle="0"
         />
     <corners android:topLeftRadius="3dp" android:topRightRadius="3dp" android:bottomLeftRadius="3dp" android:bottomRightRadius="3dp" />

@@ -8,7 +8,7 @@
     android:layout_marginBottom="10dp"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
-    android:background="#202234"
+    android:background="#ffffff"
     >
 
    <LinearLayout
@@ -32,7 +32,7 @@
            android:textSize="18sp"
            android:singleLine="true"
            android:ellipsize="middle"
-           android:textColor="#FEFEFE"
+           android:textColor="#4480FF"
 
            android:gravity="center_vertical"
            android:layout_gravity="center_vertical"
@@ -47,7 +47,7 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:text="0.001ETH"
-           android:textColor="#fffefefe"
+           android:textColor="#323232"
            android:textSize="12sp"
            android:singleLine="true"
            android:layout_gravity="center_vertical"
@@ -60,10 +60,7 @@
            android:background="@drawable/ic_to"
            android:layout_gravity="center_vertical"/>
    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#191A2A"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -75,7 +72,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:ellipsize="middle"
-        android:textColor="@color/textGreyThird"
+        android:textColor="#969696"
         android:textSize="14sp"
         android:layout_gravity="center_vertical"
         android:text="0xe567hjfi5fkjio000fajlkdjfsdiefljfaaefwfrwds"

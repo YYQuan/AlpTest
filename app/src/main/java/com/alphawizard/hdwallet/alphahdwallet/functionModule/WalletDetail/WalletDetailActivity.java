@@ -26,6 +26,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.Bac
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.verifyMnemonics.VerifyMnemonicsViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.utils.Dp2px;
 import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.alphahdwallet.widget.MyDialog;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
@@ -63,7 +64,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     LinearLayout mPrivatekey;
 
     @BindView(R.id.lay_export_keystore)
-    LinearLayout mAKeystore;
+    LinearLayout mKeystore;
 
     @BindView(R.id.lay_export_mnemonics)
     LinearLayout mMnemonics;
@@ -164,13 +165,13 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
             loading.start();
             mDelete.setEnabled(true);
             mPrivatekey.setEnabled(true);
-            mAKeystore.setEnabled(true);
+            mKeystore.setEnabled(true);
             mMnemonics.setEnabled(true);
         }else{
             loading.stop();
             mDelete.setEnabled(false);
             mPrivatekey.setEnabled(false);
-            mAKeystore.setEnabled(false);
+            mKeystore.setEnabled(false);
             mMnemonics.setEnabled(false);
         }
     }
@@ -232,7 +233,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         if(!aBoolean){
             loading.stop();
             mPrivatekey.setEnabled(true);
-            mAKeystore.setEnabled(true);
+            mKeystore.setEnabled(true);
             mMnemonics.setEnabled(true);
         }
     }
@@ -240,8 +241,8 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     private void getPassword(String s) {
         password = s;
         if(password.length()>30){
-//            linieKeystore.setVisibility(View.GONE);
-//            mAKeystore.setVisibility(View.GONE);
+            linieKeystore.setVisibility(View.GONE);
+            mKeystore.setVisibility(View.GONE);
         }
     }
 
@@ -249,6 +250,11 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         if(!aBoolean){
             linieMnemonics.setVisibility(View.GONE);
             mMnemonics.setVisibility(View.GONE);
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mKeystore.getLayoutParams();
+            int marginTop = Dp2px.dip2px(19);
+            int marginBottom = Dp2px.dip2px(22);
+            lp.setMargins(0, marginTop, 0, marginBottom);
+            mKeystore.setLayoutParams(lp);
 
         }
     }
@@ -304,6 +310,9 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 //        透明状态栏 ， 这种方式不会引起  崩溃
         StatusBarUtil.transparencyBar(this);
 
+
+
+        mName.setSelection(mName.getText().length());
     }
 
     private void walletBalanceChange(String s) {

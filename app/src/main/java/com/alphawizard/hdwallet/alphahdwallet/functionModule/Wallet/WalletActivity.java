@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -34,6 +35,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.dap
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.setting.SettingFragment;
 import com.alphawizard.hdwallet.alphahdwallet.utils.BottomNavigationViewHelper;
 import com.alphawizard.hdwallet.alphahdwallet.utils.Dp2px;
+import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
@@ -73,6 +75,9 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
     @BindView(R.id.fab)
     FloatingActionButton floatingActionButton;
+
+    @BindView(R.id.layout_wallet_top)
+    RelativeLayout  mLayoutTop;
 
 
     private NavHelper<Integer> mHelper;
@@ -166,6 +171,9 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 //            actionBar.setTitle("ETH");
         }
 
+        //        透明状态栏 ， 这种方式不会引起  崩溃
+        StatusBarUtil.transparencyBar(this);
+
 
 //        int px  = Dp2px.dp2px(10);
 
@@ -224,17 +232,18 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        mLayoutTop.setBackgroundColor(0x295EF7);
         if(item.getItemId() == R.id.action_wallet){
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                floatingActionButton.setForeground(drawable);
-            }else{
 
-            }
 
             if(defaultWalletAddress==null){
+//                mLayoutTop.setBackgroundColor(0xffffff);
                 return mHelper.performClickMenu(R.id.action_no_default_account);
+            }else{
+
+                return mHelper.performClickMenu(R.id.action_wallet);
             }
 
         }else if(item.getItemId() == R.id.action_mine){
@@ -243,15 +252,6 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
             if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
                 DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
                 dappFragment.jump2Mine();
-                Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
-
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    floatingActionButton.setForeground(drawable);
-
-                }else{
-
-                }
                 return true;
             }
 
@@ -260,16 +260,6 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
             if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
                 DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
                 dappFragment.jump2WebMain();
-                Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_active);
-
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    floatingActionButton.setForeground(drawable);
-
-                }else{
-
-
-                }
                 return true;
             }
         }
@@ -293,6 +283,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
             }else{
                 floatingActionButton.setImageDrawable(drawable);
+                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
 
 
             }
@@ -305,7 +296,8 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
                 floatingActionButton.setForeground(drawable);
 
             }else{
-
+                floatingActionButton.setImageDrawable(drawable);
+                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
             }
             /*
             new Thread(
@@ -370,7 +362,8 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
                 floatingActionButton.setForeground(drawable);
 
             }else{
-
+                floatingActionButton.setImageDrawable(drawable);
+                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
             }
         }
 
@@ -379,11 +372,11 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if ( newTab.extra == R.id.action_dapp) {
-                floatingActionButton.setImageResource(R.drawable.bg_blue);
-            } else {
-                floatingActionButton.setImageResource(R.drawable.bg_black_side);
-            }
+//            if ( newTab.extra == R.id.action_dapp) {
+//                floatingActionButton.setImageResource(R.drawable.bg_blue);
+//            } else {
+//                floatingActionButton.setImageResource(R.drawable.bg_black_side);
+//            }
 
         }else{
             if ( newTab.extra == R.id.action_dapp) {

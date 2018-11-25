@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#191A2A"
+    android:background="#ffffff"
     tools:context=".functionModule.backupMnemonics.BackupMnemonicsActivity">
 
     <android.support.v7.widget.Toolbar
@@ -38,7 +38,8 @@
                 android:layout_width="9dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="21dp"
-                android:background="@drawable/ic_title_back_white"/>
+                android:background="@drawable/ic_title_back_white"
+                />
         </FrameLayout>
     </RelativeLayout>
     <ImageView
@@ -53,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/backup_main_tips"
-        android:textColor="@color/textWhite"
+        android:textColor="#4480FF"
         android:textSize="18sp"
         android:layout_gravity="center_horizontal"
         android:gravity="center_vertical"
@@ -65,7 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/backup_tips_line1"
-        android:textColor="#C4E5FF"
+        android:textColor="#323232"
         android:textSize="13sp"
         android:layout_gravity="center_horizontal"
         app:layout_marginTopPercent="9%"/>
@@ -73,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/backup_tips_line2"
-        android:textColor="#C4E5FF"
+        android:textColor="#323232"
         android:textSize="13sp"
         android:layout_gravity="center_horizontal"
         app:layout_marginTopPercent="2%"/>
@@ -82,9 +83,9 @@
         android:id="@+id/txt_mnemonics"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#111224"
+        android:background="#F1F6FF"
         android:text="right  straegy  nerve  afraid  fancy  pigeon  fatal  tone  rather  cross  little  cry"
-        android:textColor="@color/textWhite"
+        android:textColor="#323232"
         android:textSize="13sp"
         android:lineSpacingExtra = "20dp"
         android:layout_gravity="center_horizontal"
@@ -106,17 +107,32 @@
         android:gravity="center_horizontal"
         app:layout_marginTopPercent="4%"
         />
+
+
     <net.qiujuer.genius.ui.widget.EditText
-        android:id="@+id/edit_wallet_name"
+        android:id="@+id/ed_wallet_name"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_heightPercent = "6%"
-        app:layout_marginRightPercent="5%"
+        android:layout_height="40dp"
         app:layout_marginTopPercent="6%"
-        android:text="@string/backup_input_wallet_name"
-        android:textColor="#ffc3ceff"
+
+
+        android:gravity="left|center_vertical"
+        android:layout_gravity="center"
+
+        android:paddingLeft="20dp"
+        android:hint="@string/backup_input_wallet_name"
+        android:inputType="textMultiLine"
+        app:gHintTitle="none"
+        app:gLineColor="@color/blue_900"
+        app:gLineSize="1dp"
+        android:textColorHint="#C3CEFF"
+        android:textColor="#323232"
         android:textSize="15sp"
+
+        android:background="#fff3f7ff"
         />
+
+
 
 
     <View

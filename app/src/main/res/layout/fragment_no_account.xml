@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context="com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendActivity"
     android:orientation="vertical"
-    android:background="#191A2A"
+    android:background="#ffffffff"
     >
     <net.qiujuer.genius.ui.widget.Loading
         android:id="@+id/loading"
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:foreground="@mipmap/bg_launch"
+        android:background="#ffffff"
         android:layout_marginTop="20dp"
         android:layout_marginStart="11dp"
         android:layout_margin="11dp"

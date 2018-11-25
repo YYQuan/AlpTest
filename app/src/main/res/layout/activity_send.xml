@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.alphawizard.hdwallet.alphahdwallet.functionModule.send.SendActivity"
     android:orientation="vertical"
-    android:background="#191A2A"
+    android:background="#ffffff"
     >
 
 
@@ -26,7 +26,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/actionBarWithStatusBarSize"
-        android:background="#010110"
+        android:background="#295EF7"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/statusBarSize">
         <FrameLayout
@@ -58,7 +58,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_alignParentStart="true"
         android:layout_marginTop="36dp"
-        android:background="@drawable/bg_color_131422_side"
+        android:background="@drawable/bg_color_0071ff_side"
         >
         <View
             android:id="@+id/v_placeholder1"
@@ -76,8 +76,8 @@
             android:maxLength="128"
             android:singleLine="true"
             android:ellipsize="middle"
-            android:background="@drawable/bg_color_131422_side"
-            android:textColorHint="#4E4F6C"
+            android:background="@drawable/bg_white"
+            android:textColorHint="#C3CEFF"
             android:textColor="@color/textWhite"
             android:textSize="16sp"
             app:gHintTitle="none"
@@ -90,7 +90,7 @@
             android:id="@+id/iv_code"
             android:layout_width="19dp"
             android:layout_height="20dp"
-            android:background="@mipmap/ic_erweima_grey"
+            android:background="@mipmap/ic_erweima_blue"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:gravity="center_vertical"
@@ -109,7 +109,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_alignParentStart="true"
         android:layout_marginTop="15dp"
-        android:background="@drawable/bg_color_131422_side"
+        android:background="@drawable/bg_color_0071ff_side"
         >
         <View
             android:id="@+id/v_placeholder2"
@@ -124,10 +124,10 @@
             android:hint="@string/send_amount"
             android:maxLength="64"
             android:maxLines="2"
-            android:textColorHint="#4E4F6C"
+            android:textColorHint="#C3CEFF"
             android:textColor="@color/textWhite"
             android:textSize="16sp"
-            android:background="@drawable/bg_color_131422_side"
+            android:background="@drawable/bg_white"
             app:gHintTitle="none"
             app:gLineSize="0dp"
             android:inputType="number|numberDecimal"
@@ -147,7 +147,7 @@
 
             android:layout_width="12dp"
             android:layout_height="12dp"
-            android:background="@mipmap/ic_tip_grey"
+            android:background="@mipmap/ic_tip"
             android:layout_gravity="center_vertical"/>
         <TextView
             android:id="@+id/txt_eth_balance"
@@ -155,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:text="@string/send_has_amount"
-            android:textColor="#ff4e4f6c"
+            android:textColor="#969696"
             android:textSize="10sp"
             android:layout_gravity="center_vertical"/>
 
@@ -183,6 +183,6 @@
         android:textColor="@color/textWhite"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="40dp"
-        android:background="@drawable/bg_color_393a50"
+        android:background="@drawable/bg_color_dae6ff"
         />
 </LinearLayout>

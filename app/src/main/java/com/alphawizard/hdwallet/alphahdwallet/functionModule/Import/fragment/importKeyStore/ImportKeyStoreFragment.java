@@ -96,7 +96,10 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
         viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
         viewModel.importWallet().observe(this,this::importWallet);
         mImport.setEnabled(false);
-        mImport.setBackgroundColor(0xff393A50);
+        mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
+
+
 
         mKeystore.addTextChangedListener(new TextWatcher() {
             @Override
@@ -121,7 +124,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
                 }else{
                     isInputKeystore =false;
                     mImport.setEnabled(false);
-                    mImport.setBackgroundColor(0xff393A50);
+                    mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
                 }
 
 
@@ -153,7 +156,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
                     isInputName =false;
 
                     mImport.setEnabled(false);
-                    mImport.setBackgroundColor(0xff393A50);
+                    mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
                 }
             }
         });
@@ -183,7 +186,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
                     isInputPassword =false;
 
                     mImport.setEnabled(false);
-                    mImport.setBackgroundColor(0xff393A50);
+                    mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
                 }
             }
         });
