@@ -24,6 +24,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewMo
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -52,9 +54,16 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
     @BindView(R.id.btn_import )
     Button mImport;
 
+    @BindView(R.id.loading)
+    Loading loading;
 
     @OnClick(R.id.btn_import)
     void onClickImport(){
+        if(isLoading){
+            return ;
+        }
+        isLoading =true;
+        loading.start();
         getmPresenter().importKeyStore(mKeystore.getText().toString(),mPassword.getText().toString(),mName.getText().toString());
     }
 
@@ -84,6 +93,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
     boolean isInputName =false;
     boolean isInputPassword =false;
 
+    boolean isLoading  = false;
 
 
     @Override
@@ -95,6 +105,7 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
         viewModel.progress().observe(this,this::importCallback);
         viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
         viewModel.importWallet().observe(this,this::importWallet);
+        viewModel.observeImportWalletError().observe(this,this::showError);
         mImport.setEnabled(false);
         mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
 
@@ -192,6 +203,11 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
         });
     }
 
+    private void showError(Boolean aBoolean) {
+        isLoading = false;
+        loading.stop();
+    }
+
     Wallet importWallet ;
     private void importWallet(Wallet wallet) {
         importWallet = wallet;
@@ -200,8 +216,8 @@ public class ImportKeyStoreFragment extends BasePresenterFragment<ImportKeyStore
     @Override
     public void onResume() {
         super.onResume();
-
-
+        isLoading = false;
+        loading.stop();
         if(((ImportActivity) getActivity()).getScanContent()!= null) {
             mScanContent = ((ImportActivity) getActivity()).getScanContent();
             ((ImportActivity) getActivity()).clearScanContent();

@@ -16,6 +16,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportVi
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -39,9 +41,16 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     @BindView(R.id.btn_import )
     Button mImport;
 
+    @BindView(R.id.loading)
+    Loading loading;
+
     @OnClick(R.id.btn_import)
     void onClickImport(){
-
+        if(isLoading){
+            return;
+        }
+        isLoading = true;
+        loading.start();
         getmPresenter().importMnenonics(mMnenonics.getText().toString(),mName.getText().toString());
     }
 
@@ -68,7 +77,7 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     String  mScanContent;
     boolean isInputMnemonics =false;
     boolean isInputName =false;
-
+    boolean  isLoading = false;
     @Override
     public void initData() {
         super.initData();
@@ -78,6 +87,7 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
         viewModel.progress().observe(this,this::importCallback);
         viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
         viewModel.importWallet().observe(this,this::importWallet);
+        viewModel.observeImportWalletError().observe(this,this::showError);
         Log.d("init  data    ImportMnemonicsFragment");
 
 
@@ -150,6 +160,8 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
     @Override
     public void onResume() {
         super.onResume();
+        isLoading = false;
+        loading.stop();
         if(((ImportActivity)getActivity()).getScanContent()!=null){
             mScanContent = ((ImportActivity) getActivity()).getScanContent();
             ((ImportActivity) getActivity()).clearScanContent();
@@ -176,5 +188,8 @@ public class ImportMnenonicsFragment extends BasePresenterFragment<ImportMnenoni
             }
 
         }
+    }
+    private void showError(Boolean aBoolean) {
+        loading.stop();
     }
 }

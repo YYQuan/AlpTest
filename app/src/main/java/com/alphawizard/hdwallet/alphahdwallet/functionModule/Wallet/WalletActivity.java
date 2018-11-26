@@ -228,52 +228,12 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
     }
 
+    boolean  isMy =false ;
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 //        mLayoutTop.setBackgroundColor(0x295EF7);
         if(item.getItemId() == R.id.action_wallet){
-            Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
-
-
-
-            if(defaultWalletAddress==null){
-//                mLayoutTop.setBackgroundColor(0xffffff);
-                return mHelper.performClickMenu(R.id.action_no_default_account);
-            }else{
-
-                return mHelper.performClickMenu(R.id.action_wallet);
-            }
-
-        }else if(item.getItemId() == R.id.action_mine){
-
-            mHelper.performClickMenu( R.id.action_dapp );
-            if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
-                DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
-                dappFragment.jump2Mine();
-                return true;
-            }
-
-        }else if(item.getItemId() == R.id.action_dapp){
-            mHelper.performClickMenu( R.id.action_dapp );
-            if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
-                DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
-                dappFragment.jump2WebMain();
-                return true;
-            }
-        }
-        return mHelper.performClickMenu(item.getItemId());
-    }
-
-
-    @Override
-    public void onMenuSucceed(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
-
-
-        int  height = (int)getResources().getDimension(R.dimen.defaultNavHeight);
-
-
-        if(newTab.extra == R.id.action_wallet){
-
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -285,8 +245,37 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
 
             }
-        }
-        else if(newTab.extra == R.id.action_dapp){
+
+            if(defaultWalletAddress==null){
+
+                return mHelper.performClickMenu(R.id.action_no_default_account);
+            }else{
+
+                return mHelper.performClickMenu(R.id.action_wallet);
+            }
+
+        }else if(item.getItemId() == R.id.action_mine){
+            Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
+            isMy = true;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                floatingActionButton.setForeground(drawable);
+
+            }else{
+                floatingActionButton.setImageDrawable(drawable);
+                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
+
+
+            }
+            mHelper.performClickMenu( R.id.action_dapp );
+            if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
+                DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
+                dappFragment.jump2Mine();
+                return true;
+            }else{
+
+            }
+
+        }else if(item.getItemId() == R.id.action_dapp){
 
             Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_active);
 
@@ -297,95 +286,29 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
                 floatingActionButton.setImageDrawable(drawable);
                 floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
             }
-            /*
-            new Thread(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            while(true) {
-                                try {
-                                    Thread.sleep(5000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
 
-                                Run.onUiAsync(new Action() {
-                                                  @Override
-                                                  public void call() {
-                                                      navigation.setVisibility(View.GONE);
-                                                      floatingActionButton.hide();
+            mHelper.performClickMenu( R.id.action_dapp );
+            if(mHelper.getArrays().get(R.id.action_dapp)!=null) {
+                DappFragment dappFragment = (DappFragment) ((NavHelper.Tab)mHelper.getArrays().get(R.id.action_dapp)).mFragment;
+                dappFragment.jump2WebMain();
+                return true;
+            }
+        }
 
-                                                      RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(mFrameLayout.getLayoutParams());
-
-                                                      int size = (int) getResources().getDimension(R.dimen.statusBarSize);
-
-                                                      mFrameLayout.setPadding(0, size, 0, 0);
-                                                      //                                    int height = (int)getResources().getDimension(R.dimen.defaultNavHeight);
-                                                      //                                    lp.setMargins(0,0 , 0, 0);
-                                                      //                                    mFrameLayout.setLayoutParams(lp);
-                                                  }
-                                              }
-                                );
-                                try {
-                                    Thread.sleep(3000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-
-                                Run.onUiAsync(new Action() {
-                                                  @Override
-                                                  public void call() {
-                                                      navigation.setVisibility(View.VISIBLE);
-                                                      floatingActionButton.show();
-                                                      int size = (int) getResources().getDimension(R.dimen.statusBarSize);
+        return mHelper.performClickMenu(item.getItemId());
+    }
 
 
-                                                      int height = (int) getResources().getDimension(R.dimen.defaultNavHeight);
-                                                      mFrameLayout.setPadding(0, size, 0, height);
-                                                      //                                    int height = (int)getResources().getDimension(R.dimen.defaultNavHeight);
-                                                      //                                    lp.setMargins(0,0 , 0, 0);
-                                                      //                                    mFrameLayout.setLayoutParams(lp);
-                                                  }
-                                              }
-                                );
-                            }
-                        }
-                    }).start();
-                    */
+    @Override
+    public void onMenuSucceed(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
+
+        if(newTab.extra == R.id.action_wallet){
+
+        }
+        else if(newTab.extra == R.id.action_dapp){
+
         }
         else if(newTab.extra == R.id.action_mine){
-            Drawable  drawable = getResources().getDrawable(R.mipmap.ic_bet_unactive);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                floatingActionButton.setForeground(drawable);
-
-            }else{
-                floatingActionButton.setImageDrawable(drawable);
-                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
-            }
-        }
-
-        mFrameLayout.setPadding(0, 0,0,height);
-
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if ( newTab.extra == R.id.action_dapp) {
-//                floatingActionButton.setImageResource(R.drawable.bg_blue);
-//            } else {
-//                floatingActionButton.setImageResource(R.drawable.bg_black_side);
-//            }
-
-        }else{
-            if ( newTab.extra == R.id.action_dapp) {
-
-                floatingActionButton.setImageResource(R.mipmap.ic_bet_active);
-                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
-            } else {
-
-                floatingActionButton.setImageResource(R.mipmap.ic_bet_unactive);
-                floatingActionButton.setScaleType(ImageView.ScaleType.CENTER);
-            }
 
         }
 

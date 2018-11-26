@@ -58,6 +58,10 @@ import trust.core.entity.TypedData;
 
 public class DappFragment extends BasePresenterFragment<DappContract.Presenter,WalletViewModule> implements DappContract.View,View.OnClickListener
         , OnSignTransactionListener, OnSignPersonalMessageListener, OnSignTypedMessageListener, OnSignMessageListener {
+
+    public  final static  String   MY_URL  ="http://47.91.247.93:8000/my";
+    public  final static  String   DICE_URL  ="http://47.91.247.93:8000";
+
     @Inject
     DappContract.Presenter mPresenter;
 
@@ -167,8 +171,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
             }else{
                 setupWeb3();
-//            web3.loadUrl("http://192.168.150.84:8080/");
-                web3.loadUrl(" http://47.91.247.93:8000");
+                web3.loadUrl(DICE_URL);
                 web3.requestFocus();
             }
 
@@ -187,51 +190,26 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         if(! wallet.address.equalsIgnoreCase(defaultWalletAddress)){
             defaultWalletAddress = wallet.address;
             setupWeb3();
-//            web3.loadUrl("http://192.168.150.84:8080/");
-            web3.loadUrl(" http://47.91.247.93:8000");
-            http://47.91.247.93:8000
+            web3.loadUrl(DICE_URL);
             web3.requestFocus();
-
-
-//        new Thread(
-//                new Runnable() {
-//                    @Override
-//                    public void run() {
-//
-//                        try {
-//                            Thread.sleep(10000);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-//                        viewModel.openWeb3Router(DappFragment.this.getActivity());
-//                    }
-//                }).start();
         }
     }
 
 
     private void onTransactionChange(String s) {
-//        web3.onSignCancel(mTransaction);
         hexSign  = s ;
-//        web3.onSignTransactionSuccessful(mTransaction,s);
-
     }
 
     private void setupWeb3() {
+
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
-
         web3.setChainId(4);
-
         web3.setRpcUrl("https://mainnet.infura.io/llyrtzQ3YhkdESt2Fzrk");
 
-//        web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
         if(defaultWalletAddress!=null) {
             web3.setWalletAddress(new Address(defaultWalletAddress));
-//            web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
-//            web3.setWalletAddress(new Address("0x242776e7ca6271e416e737adffcfeb22e8dc1b3c"));
-        }
 
-//        web3.setWalletAddress(new Address("0x2fa986D54445a0c7e337A735Daf1121a4038474e"));
+        }
 
         web3.setOnSignMessageListener(message ->
                 callSignMessage = Trust.signMessage().message(message).call(getActivity()));
@@ -369,33 +347,28 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
     public void jump2Mine(){
         if(web3!=null&&web3.isShown()){
-            if(web3.getUrl() !="http://192.168.150.84:8080/my") {
+            if(web3.getUrl() !=MY_URL) {
                 setupWeb3();
-//                web3.loadUrl("http://192.168.150.84:8080/my");
-                web3.loadUrl(" http://47.91.247.93:8000/my");
+                web3.loadUrl(MY_URL);
             }
         }
     }
 
     public void jump2WebMain(){
         if(web3!=null&&web3.isShown()){
-            if(!"http://192.168.150.84:8080/dice".equalsIgnoreCase(web3.getUrl())) {
+            if(!DICE_URL.equalsIgnoreCase(web3.getUrl())) {
                 setupWeb3();
-//                web3.loadUrl("http://192.168.150.84:8080/dice");
-                web3.loadUrl(" http://47.91.247.93:8000");
+                web3.loadUrl(DICE_URL);
             }
-
-
-
         }
     }
 
 
     @Override
     public boolean onBackPressed() {
-        if(!web3.getUrl().equalsIgnoreCase("http://192.168.150.84:8080/dice")){
+        if(!web3.getUrl().equalsIgnoreCase( DICE_URL)){
             setupWeb3();
-            web3.loadUrl("http://192.168.150.84:8080/dice");
+            web3.loadUrl(DICE_URL);
             return  true;
         }
         return super.onBackPressed();

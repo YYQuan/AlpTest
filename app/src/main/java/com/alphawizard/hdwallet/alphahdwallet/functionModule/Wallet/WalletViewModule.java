@@ -49,7 +49,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WalletViewModule extends BaseViewModel {
 
-    private static final long GET_BALANCE_INTERVAL = 10;
+    private static final long GET_BALANCE_INTERVAL = 5;
 
     CreateWalletInteract mCreateWalletInteract;
     DefaultWalletInteract mDefaultWalletInteract;
@@ -69,6 +69,7 @@ public class WalletViewModule extends BaseViewModel {
     ReceiverRouter mReceiverRouter;
 
     ExportWalletInteract mExportWalletInteract;
+    PasswordStore mPasswordStore;
 
     //    获取全部wallet
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
@@ -120,7 +121,8 @@ public class WalletViewModule extends BaseViewModel {
                             ImportRouter importRouter,
                             ReceiverRouter receiverRouter,
                             WalletRouter walletRouter,
-                            WalletRepositoryType walletRepositoryType
+                            WalletRepositoryType walletRepositoryType,
+                            PasswordStore passwordStore
                                 )
     {
         mCreateWalletInteract = createWalletInteract;
@@ -140,6 +142,7 @@ public class WalletViewModule extends BaseViewModel {
         mReceiverRouter = receiverRouter;
         mWalletRouter =  walletRouter;
         mManagerRouter = managerRouter ;
+        mPasswordStore =  passwordStore;
     }
 
     public LiveData<Wallet[]> wallets() {
@@ -228,13 +231,15 @@ public class WalletViewModule extends BaseViewModel {
         }
     }
 
-    public void newWallet(String name) {
+    public void newWallet() {
         progress.setValue(true);
 
         //        CreateWalletEntity
         mCreateWalletInteract
                 .generatePassword()
-                .flatMap(s->mCreateWalletInteract.generateMnenonics(s,name))
+                .flatMap(s-> mPasswordStore.generateWalletName()
+                        .flatMap(n ->mCreateWalletInteract.generateMnenonics(s,n))
+                )
                 .flatMap(e-> {
                     createWalletEntity.postValue(e);
                     return mCreateWalletInteract.create(e); })

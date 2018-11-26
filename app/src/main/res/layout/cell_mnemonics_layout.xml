@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
     android:orientation="horizontal"
-    android:background="#191A2A"
+    android:background="#ffffff"
     >
     <View
         android:layout_weight="1"
@@ -17,20 +17,20 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_grey_side_fourth"
+        android:background="@drawable/bg_color_dae6ff_side"
 
         >
         <TextView
             android:id="@+id/txt_cell_mnemonic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#191A2A"
+            android:background="#ffffff"
             android:layout_gravity="center_horizontal|center_vertical"
             android:gravity="center"
             android:singleLine="true"
             android:ellipsize="middle"
             android:text="strategy"
-            android:textColor="#ffffffff"
+            android:textColor="#323232"
             android:textSize="13sp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"

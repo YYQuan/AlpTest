@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -37,6 +38,7 @@ import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterToolbarActivity;
 import com.alphawizard.hdwallet.common.util.Helper.NavHelper;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
 
 import net.qiujuer.genius.ui.compat.UiCompat;
 
@@ -114,11 +116,13 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
         if (permission != PackageManager.PERMISSION_GRANTED) {
             // 没有写的权限，去申请写的权限，会弹出对话框
             ActivityCompat.requestPermissions(this, PERMISSIONS,1);
+        }else{
+            //        SavePic2Local.SaveBitmapFromView(mCode);
+            SavePic2Local.saveBitmap(bitmap,"eth_address:"+mTextAddress.getText());
+            App.showToast("图片已保存");
         }
 
-//        SavePic2Local.SaveBitmapFromView(mCode);
-        SavePic2Local.saveBitmap(bitmap,"eth_address:"+mTextAddress.getText());
-        App.showToast("图片已保存");
+
     }
 
     @OnClick(R.id.btn_copy)
@@ -184,5 +188,14 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
         }
     }
 
+
+    //activity权限授权结果回调
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //        SavePic2Local.SaveBitmapFromView(mCode);
+        SavePic2Local.saveBitmap(bitmap,"eth_address:"+mTextAddress.getText());
+        App.showToast("图片已保存");
+    }
 
 }

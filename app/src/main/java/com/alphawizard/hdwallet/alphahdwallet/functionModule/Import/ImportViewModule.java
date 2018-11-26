@@ -26,6 +26,7 @@ public class ImportViewModule extends BaseViewModel {
 
     private final MutableLiveData<Boolean> isOkchangeDefaultWallet = new MutableLiveData<>();
     private final MutableLiveData<Wallet> importWallet = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> importWalletError = new MutableLiveData<>();
 
     public ImportViewModule(ImportAccountInteract mImportAccountInteract,
                             DefaultWalletInteract defaultWalletInteract,
@@ -39,6 +40,11 @@ public class ImportViewModule extends BaseViewModel {
     public LiveData< Boolean> changeDefaultWallet() {
         return isOkchangeDefaultWallet;
     }
+
+    public LiveData< Boolean> observeImportWalletError() {
+        return importWalletError;
+    }
+
     public LiveData< Wallet> importWallet() {
         return importWallet;
     }
@@ -82,6 +88,7 @@ public class ImportViewModule extends BaseViewModel {
     private void onImportError(Throwable throwable) {
         Log.d("import  fail ");
 
+        importWalletError.setValue(true);
         if(WalletExistException.DEFAULT_ALL_INFO.equalsIgnoreCase(throwable.getMessage())){
             App.showToast("账户已经被导入");
         }else{

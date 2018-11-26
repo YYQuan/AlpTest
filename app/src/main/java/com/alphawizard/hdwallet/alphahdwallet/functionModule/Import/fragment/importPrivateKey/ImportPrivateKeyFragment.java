@@ -15,6 +15,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.fragment.imp
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ImportViewModuleFactory;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -37,9 +39,16 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
     @BindView(R.id.btn_import )
     Button  mImport;
 
+    @BindView(R.id.loading)
+    Loading loading;
 
     @OnClick(R.id.btn_import)
     void onClickImport(){
+        if(isLoading){
+            return ;
+        }
+        isLoading = true;
+        loading.start();
         getmPresenter().importPrivateKey(mPrivatekey.getText().toString(),mName.getText().toString());
     }
 
@@ -65,7 +74,7 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
 
     String  mScanContent;
 
-
+    boolean isLoading  =false;
 
     boolean isInputPrivateKey =false;
     boolean isInputName =false;
@@ -80,6 +89,7 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
         viewModel.progress().observe(this,this::importCallback);
         viewModel.changeDefaultWallet().observe(this,this::defaultWalletChange);
         viewModel.importWallet().observe(this,this::importWallet);
+        viewModel.observeImportWalletError().observe(this,this::showError);
         mImport.setEnabled(false);
         mImport.setBackgroundResource(R.drawable.bg_color_dae6ff);
 
@@ -147,9 +157,12 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
         });
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
+        isLoading = false;
+        loading.stop();
         if(((ImportActivity)getActivity()).getScanContent()!=null){
             mScanContent = ((ImportActivity) getActivity()).getScanContent();
             ((ImportActivity) getActivity()).clearScanContent();
@@ -176,5 +189,9 @@ public class ImportPrivateKeyFragment extends BasePresenterFragment<ImportPrivat
             }
 
         }
+    }
+    private void showError(Boolean aBoolean) {
+        isLoading = false;
+        loading.stop();
     }
 }

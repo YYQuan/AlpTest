@@ -75,7 +75,7 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
         mImport.setEnabled(false);
         mCreate.setEnabled(false);
         isCreate =true;
-        viewModel.newWallet("Wallet");
+        viewModel.newWallet();
     }
 
     @OnClick(R.id.btn_import)
@@ -137,10 +137,11 @@ public class CreateOrImportFragment extends BasePresenterFragment<CreateOrImport
         viewModel.createWalletEntity().observe(this,this::onCreateWalletEntity);
     }
 
+
+
     private void defaultWallet(Wallet wallet) {
         if(isCreate) {
             viewModel.openBackup(getActivity(),String2StringList.string2StringList(mnenonics));
-
         }
         if(wallet!=null&&createAddress.equalsIgnoreCase(wallet.address)) {
             isCreate = false;

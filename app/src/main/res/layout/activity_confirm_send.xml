@@ -434,7 +434,14 @@
 
 
     </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
-
+    <net.qiujuer.genius.ui.widget.Loading
+        android:id="@+id/loading"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/len_32"
+        android:layout_height="@dimen/len_32"
+        app:gBackgroundColor="@color/trans"
+        app:gForegroundColor="#295EF7"
+        app:gAutoRun="false"/>
     <Button
         android:id="@+id/btn_send"
         android:layout_width="match_parent"

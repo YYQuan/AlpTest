@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -81,15 +82,18 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
 
             }else {
                 //说明已经获取到摄像头权限了 想干嘛干嘛
+                Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
+                startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
             }
         }else {
-//这个说明系统版本在6.0之下，不需要动态获取权限。
+            //这个说明系统版本在6.0之下，不需要动态获取权限。
 
+            Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
+            startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
         }
 
 
-        Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
-        startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+
     }
 
 //    @OnClick(R.id.iv_back)
@@ -360,6 +364,15 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         mSend.setEnabled(true);
         mAddresss.setEnabled(true);
         mAmount.setEnabled(true);
+    }
+
+
+    //activity权限授权结果回调
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
+        startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
     }
 
     @Override

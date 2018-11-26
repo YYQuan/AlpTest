@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
+import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
@@ -40,6 +41,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     private ManagerAccountsRouter managerAccountsRouter;
     private LanguageInteract languageInteract;
     private Web3Router web3Router;
+    private PasswordStore passwordStore;
     ImportRouter importRouter;
     BackupRouter backupRouter;
     WalletRouter walletRouter;
@@ -60,7 +62,8 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     ImportRouter importRouter,
                                     ReceiverRouter receiverRouter,
                                     WalletRouter walletRouter,
-                                    WalletRepositoryType walletRepositoryType) {
+                                    WalletRepositoryType walletRepositoryType,
+                                    PasswordStore passwordStore) {
         this.createWalletInteract = createWalletInteract;
         this.defaultWalletInteract = defaultWalletInteract;
         this.findDefaultWalletInteract = findDefaultWalletInteract;
@@ -78,6 +81,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.receiverRouter = receiverRouter;
         this.walletRouter =  walletRouter;
         this.managerAccountsRouter =  managerAccountsRouter;
+        this.passwordStore = passwordStore ;
     }
 
     @NonNull
@@ -88,6 +92,6 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                 exportWalletInteract,sendTransactionInteract,languageInteract,
                 createOrImportRouter,sendRouter,
                 managerAccountsRouter,web3Router,backupRouter,importRouter,
-                receiverRouter,walletRouter,walletRepositoryType);
+                receiverRouter,walletRouter,walletRepositoryType,passwordStore);
     }
 }

@@ -28,6 +28,8 @@ import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
+import net.qiujuer.genius.ui.widget.Loading;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -102,8 +104,6 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     @BindView(R.id.btn_send)
     Button  mSend;
 
-
-
     String  from;
     String  to ;
     String  amount ;
@@ -111,6 +111,7 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     long   gasLimit ;
     String data ;
 
+    boolean  isLoading  =false ;
     @OnClick(R.id.layout_setting_senior)
     void  onClickSettingSenior(){
         mSetting.setVisibility(View.GONE);
@@ -124,7 +125,11 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     @OnClick(R.id.btn_send)
     void  onClickSend(){
 //        String  to ,String amount, String  gasPrice ,String gasLimit,String dataString
-
+        if(isLoading){
+            return ;
+        }
+        isLoading =true;
+        loading.start();
         viewModel.sendTransaction(to,amount,gasPrice,gasLimit, mEditData.getText().toString());
 //        viewModel.sendTransaction(to,amount,""+gasPrice,""+gasLimit,data);
     }
@@ -145,7 +150,8 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     void onClickData(){
 
     }
-
+    @BindView(R.id.loading)
+    Loading loading;
 
     @Override
     public int getContentLayoutID() {
@@ -170,7 +176,7 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         mPresenter.takeView(this,viewModel);
         viewModel.progress().observe(this,this::sendCallback);
 
-
+        loading.stop();
         from =getIntent().getStringExtra(SEND_REQUEST_FROM);
         to =getIntent().getStringExtra(SEND_REQUEST_TO);
         amount =getIntent().getStringExtra(SEND_REQUEST_AMOUNT);
@@ -244,6 +250,13 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         StatusBarUtil.transparencyBar(this);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loading.stop();
+        isLoading = false;
+    }
 
     private void sendCallback(Boolean aBoolean) {
         WalletActivity.isTransaction =true;

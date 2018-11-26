@@ -62,6 +62,14 @@
         android:paddingLeft="20dp"
 
         />
+    <net.qiujuer.genius.ui.widget.Loading
+        android:id="@+id/loading"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/len_32"
+        android:layout_height="@dimen/len_32"
+        app:gBackgroundColor="@color/trans"
+        app:gForegroundColor="#295EF7"
+        app:gAutoRun="false"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

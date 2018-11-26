@@ -163,7 +163,6 @@ public class ManagerAccountsViewModule extends BaseViewModel {
                 .observeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(this::getNames,this::getNameError);
-
     }
 
     private void getNames(Wallet[] wallets) {
@@ -226,13 +225,16 @@ public class ManagerAccountsViewModule extends BaseViewModel {
     private void onGetDefaultAccountsError(Throwable throwable) {
     }
 
-    public void newWallet(String name) {
+    public void newWallet() {
         progress.postValue(true);
 
         //        CreateWalletEntity
         mCreateWalletInteract
                 .generatePassword()
-                .flatMap(s->mCreateWalletInteract.generateMnenonics(s,name))
+                .flatMap(s->
+                        mPasswordStore.generateWalletName()
+                                .flatMap(n ->mCreateWalletInteract.generateMnenonics(s,n))
+                        )
                 .flatMap(e-> {
                     mEntity = e;
                     createWalletEntity.postValue(mEntity);

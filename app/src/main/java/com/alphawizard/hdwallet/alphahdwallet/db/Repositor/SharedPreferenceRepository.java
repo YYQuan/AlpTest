@@ -47,7 +47,7 @@ public class SharedPreferenceRepository implements PreferenceRepositoryType {
 
 
 	public static String getCurrentLanguage() {
-		return pref.getString(CURRENT_LANGUAGE, "en-US");
+		return pref.getString(CURRENT_LANGUAGE, "zh-CN");
 	}
 
 

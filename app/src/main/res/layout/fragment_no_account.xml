@@ -10,14 +10,7 @@
     android:orientation="vertical"
     android:background="#ffffffff"
     >
-    <net.qiujuer.genius.ui.widget.Loading
-        android:id="@+id/loading"
-        android:layout_gravity="center"
-        android:layout_width="@dimen/len_32"
-        android:layout_height="@dimen/len_32"
-        app:gBackgroundColor="@color/trans"
-        app:gForegroundColor="@color/white"
-        app:gAutoRun="false"/>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -65,5 +58,12 @@
             />
     </RelativeLayout>
 
-
+    <net.qiujuer.genius.ui.widget.Loading
+        android:id="@+id/loading"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/len_32"
+        android:layout_height="@dimen/len_32"
+        app:gBackgroundColor="@color/trans"
+        app:gForegroundColor="#295EF7"
+        app:gAutoRun="false"/>
 </FrameLayout>

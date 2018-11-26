@@ -181,6 +181,10 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     @BindView(R.id.loading)
     Loading loading;
 
+
+    boolean  hasKeystore = true;
+    boolean  hasMnemonics = true;
+
     @Override
     public int getContentLayoutID() {
         return R.layout.activity_wallet_detail;
@@ -238,24 +242,44 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         }
     }
 
+
+
     private void getPassword(String s) {
         password = s;
         if(password.length()>30){
             linieKeystore.setVisibility(View.GONE);
             mKeystore.setVisibility(View.GONE);
+            hasKeystore = false ;
         }
+        setMargin();
     }
 
     private void hasMnemonics(Boolean aBoolean) {
         if(!aBoolean){
+            hasMnemonics = false ;
             linieMnemonics.setVisibility(View.GONE);
             mMnemonics.setVisibility(View.GONE);
+        }
+        setMargin();
+    }
+
+    private void  setMargin(){
+
+
+        if(!hasMnemonics&&!hasKeystore) {
+
+            LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mPrivatekey.getLayoutParams();
+            int marginTop = Dp2px.dip2px(19);
+            int marginBottom = Dp2px.dip2px(22);
+            lp.setMargins(0, marginTop, 0, marginBottom);
+            mPrivatekey.setLayoutParams(lp);
+        }
+        else if(!hasMnemonics){
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) mKeystore.getLayoutParams();
             int marginTop = Dp2px.dip2px(19);
             int marginBottom = Dp2px.dip2px(22);
             lp.setMargins(0, marginTop, 0, marginBottom);
             mKeystore.setLayoutParams(lp);
-
         }
     }
 

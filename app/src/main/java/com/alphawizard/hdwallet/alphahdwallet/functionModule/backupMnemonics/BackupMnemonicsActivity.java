@@ -144,9 +144,7 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
     public void onBackPressed() {
         if(!"".equalsIgnoreCase(mName.getText().toString())) {
             viewModel.saveWalletName(mName.getText().toString());
-        }else{
-            viewModel.saveWalletName("Wallet");
         }
-
+        super.onBackPressed();
     }
 }

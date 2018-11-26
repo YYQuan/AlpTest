@@ -81,10 +81,11 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     @BindView(R.id.layout_manager_wallet)
     LinearLayout mLayout;
 
+
     @OnClick(R.id.btn_create_account)
     void onClickCreate(){
         enableClick(false);
-        viewModel.newWallet("Wallet");
+        viewModel.newWallet();
     }
 
     @OnClick(R.id.lay_back)
@@ -108,8 +109,10 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     private void enableClick(boolean isEnable){
         if(isEnable){
+            isLoading = false ;
             loading.stop();
         }else{
+            isLoading = true;
             loading.start();
         }
         btnCreate.setEnabled(isEnable);
@@ -121,6 +124,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     private Dialog dialog;
     String  mnenonics ;
     String defaultAddress = "";
+    boolean  isLoading = false;
 
     @BindView(R.id.loading)
     Loading loading;
@@ -193,7 +197,7 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
     private HashMap<String, String> mAccountsBalanceMap = new HashMap<>();
     private void onGetAccountBalance(HashMap<String, String> walletStringHashMap) {
-        if(walletStringHashMap!=null&&!walletStringHashMap.equals(mAccountsBalanceMap)) {
+        if(walletStringHashMap!=null) {
             mAccountsBalanceMap = walletStringHashMap;
             mAdapter.notifyDataSetChanged();
         }
@@ -238,11 +242,14 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
     @Override
     public void onResume() {
         super.onResume();
+        isLoading  =false;
         loading.stop();
+
         mPresenter.getWallets();
         mPresenter.getDefaultWallet();
         viewModel.getAccountsBalance();
         viewModel.getAccountsName();
+
         isOpenDetailing =false;
         enableClick(true);
     }
@@ -400,6 +407,10 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
         @OnClick(R.id.iv_is_default_wallet)
         void onClickImageDefault(){
+            viewModel.setDefaultWallet(mWallet);
+        }
+        @OnClick(R.id.txt_name)
+        void onClickName  (){
             viewModel.setDefaultWallet(mWallet);
         }
 

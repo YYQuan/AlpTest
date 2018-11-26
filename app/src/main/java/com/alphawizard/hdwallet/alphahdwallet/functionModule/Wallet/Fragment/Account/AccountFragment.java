@@ -94,19 +94,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     @OnClick(R.id.btn_receive)
     void clickBtnReceive(){
         viewModel.openReceiver(getActivity());
-//        Point size = new Point();
-//        getActivity().getWindowManager().getDefaultDisplay().getSize(size);
-//        int imageSize = (int) (size.x * QR_IMAGE_WIDTH_RATIO);
-//        if(defaultWalletAddress!=null){
-//            Bitmap bitmap = getmPresenter().createQRImage(defaultWalletAddress,imageSize);
-//            showCodeDialog(defaultWalletAddress,bitmap);
-//        }
     }
-
-//    @OnClick(R.id.iv_setting)
-//    void onClickSetting(){
-//        viewModel.openManagerRouter(getActivity());
-//    }
 
     @OnClick(R.id.layout_setting)
     void onClickSetting(){
