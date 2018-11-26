@@ -251,12 +251,15 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
 
             if(WalletActivity.isTransaction){
                 WalletActivity.transactionResult = true;
+//                onBackPressed();
                 viewModel.openWallet(this,true);
                 return ;
             }
         }else{
             WalletActivity.transactionResult = false;
             viewModel.openWallet(this,false);
+
+//            onBackPressed();
         }
     }
 

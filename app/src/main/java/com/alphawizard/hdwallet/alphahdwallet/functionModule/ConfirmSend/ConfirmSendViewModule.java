@@ -37,8 +37,8 @@ public class ConfirmSendViewModule   extends BaseViewModel {
 
 
     void openWallet(Activity context,boolean result){
-
-        mWalletRouter.openTransactionForResult(context,result);
+        mWalletRouter.open(context);
+//        mWalletRouter.openTransactionForResult(context,result);
     }
 
     public  void  sendTransaction(String  to , String amount,long gasPrice,long gasLimit,String data){

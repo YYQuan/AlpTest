@@ -132,9 +132,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
 
     @Override
     protected void onStop() {
-
         super.onStop();
-
     }
 
     private void defaultWalletChange(Wallet wallet) {
@@ -413,7 +411,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
             }
         }
 
-        finish();
+//        finish();
         super.onBackPressed();
     }
 

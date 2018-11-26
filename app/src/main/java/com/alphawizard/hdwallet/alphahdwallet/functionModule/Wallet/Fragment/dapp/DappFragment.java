@@ -145,11 +145,33 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
         viewModel.getDefaultWallet();
 
+//        if(defaultWalletAddress== null&&!web3.isShown()){
+//            setupWeb3();
+////            web3.loadUrl("http://192.168.150.84:8080/");
+//            web3.loadUrl(" http://47.91.247.93:8000");
+//            web3.requestFocus();
+//        }
+    }
+
+    @Override
+    public void initFirst() {
+
+        super.initFirst();
         if(defaultWalletAddress== null&&!web3.isShown()){
-            setupWeb3();
+            if(WalletActivity.isTransaction){
+                if(WalletActivity.transactionResult){
+
+                }else{
+
+                }
+
+            }else{
+                setupWeb3();
 //            web3.loadUrl("http://192.168.150.84:8080/");
-            web3.loadUrl(" http://47.91.247.93:8000");
-            web3.requestFocus();
+                web3.loadUrl(" http://47.91.247.93:8000");
+                web3.requestFocus();
+            }
+
         }
     }
 
