@@ -146,9 +146,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         address = getIntent().getStringExtra(WALLET_SEND2ADDRESS);
 
         transaction = getIntent().getParcelableExtra(WALLET_SEND_TRANSACTION);
-        if(transaction !=null){
 
-        }
 
 
         if(address!=null&&address.length()>5){
@@ -255,9 +253,28 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
 
             }
         });
+
+        checkEnable();
     }
 
 
+    private void checkEnable(){
+        String amountTrue  = getResources().getString(R.string.send_btn_send);
+        String amountError  = getResources().getString(R.string.send_btn_send_amount_error);
+        if(transaction !=null){
+            float inputValue = Float.parseFloat(mAmount.getText().toString());
+            if(balance<=inputValue){
+                enableNext(false);
+                mSend.setText(amountError);
+                isInputAmounts =false;
+                return ;
+            }else{
+                enableNext(true);
+                mSend.setText(amountTrue);
+                isInputAmounts =true;
+            }
+        }
+    }
 
     private void enableNext(boolean isEnable){
 
@@ -313,25 +330,30 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         mAddresss.setEnabled(false);
         mAmount.setEnabled(false);
         if(transaction!=null) {
-//            BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
-//            viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);
+            BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
+            String  gasPrice = String.valueOf( transaction.gasPrice.longValue());
+
+            viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);
+
+
+
             String  value = String.valueOf(transaction.value.longValue());
             String  gasLimitString = String.valueOf(transaction.gasLimit);
             BigInteger gasBidInteger = BalanceUtils.baseToSubunit(gasLimitString, 9);
             String  gasLimitStringSure = String.valueOf(gasBidInteger.longValue());
             long gasLimitLong =  Long.valueOf(gasLimitStringSure);
-            viewModel.openConfirm(this,transaction.recipient.toString(), value,gasLimitLong,transaction.gasLimit,transaction.payload);
+//            viewModel.openConfirm(this,transaction.recipient.toString(), value,gasLimitLong,transaction.gasLimit,transaction.payload);
             transaction = null;
 
 
         }else {
 
             String amounts = mAmount.getText().toString();
-//            mPresenter.sendTransaction(address, amounts);
+            mPresenter.sendTransaction(address, amounts);
 
             BigInteger gasBidInteger = BalanceUtils.baseToSubunit("21", 13);
             String  gas = String.valueOf(gasBidInteger.longValue());
-            viewModel.openConfirm(this,transaction.recipient.toString(), amounts, ConfirmSendRouter.DEFAULT_GAS_PRICE,ConfirmSendRouter.DEFAULT_GAS_PRICE,"");
+//            viewModel.openConfirm(this,mAddresss.getText().toString(), amounts, ConfirmSendRouter.DEFAULT_GAS_PRICE,ConfirmSendRouter.DEFAULT_GAS_LIMIT,"");
 
 //            viewModel.openConfirm(this,address, amounts,gas);
         }

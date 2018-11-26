@@ -32,8 +32,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_AMOUNT;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_DATA;
 import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_FROM;
-import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_GAS;
+
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_GAS_LIMIT;
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_GAS_PRICE;
 import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_TO;
 
 public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContract.Presenter,ConfirmSendViewModule> implements ConfirmSendContract.View {
@@ -97,7 +100,9 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     String  from;
     String  to ;
     String  amount ;
-    String gas ;
+    long   gasPrice ;
+    long   gasLimit ;
+    String data ;
 
     @OnClick(R.id.layout_setting_senior)
     void  onClickSettingSenior(){
@@ -111,7 +116,9 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
 
     @OnClick(R.id.btn_send)
     void  onClickSend(){
-//        viewModel.sendTransaction();
+//        String  to ,String amount, String  gasPrice ,String gasLimit,String dataString
+        viewModel.sendTransaction(to,amount,gasPrice,gasLimit);
+//        viewModel.sendTransaction(to,amount,""+gasPrice,""+gasLimit,data);
     }
 
 
@@ -142,12 +149,23 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         from =getIntent().getStringExtra(SEND_REQUEST_FROM);
         to =getIntent().getStringExtra(SEND_REQUEST_TO);
         amount =getIntent().getStringExtra(SEND_REQUEST_AMOUNT);
-        gas =getIntent().getStringExtra(SEND_REQUEST_GAS);
-
+        gasLimit = getIntent().getLongExtra(SEND_REQUEST_GAS_LIMIT,21000);
+        gasPrice= getIntent().getLongExtra(SEND_REQUEST_GAS_PRICE,1);
+         data  = getIntent().getStringExtra(SEND_REQUEST_DATA);
         mTxtForm.setText(from);
         mTxtTo.setText(to);
         mEth.setText(amount);
-        mTxtGas.setText(gas);
+
+        if(!data.equalsIgnoreCase("")) {
+            mEditData.setText( data);
+        }else{
+            mEditData.setText( "0x");
+        }
+        mGasLimit.setText(""+gasLimit);
+        mGasPrice.setText(""+gasPrice);
+        calculatorGasprice();
+
+
 
 
         mGasPrice.addTextChangedListener(new TextWatcher() {
@@ -210,6 +228,8 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         Log.d("calculatorGasprice sumString  = " +sumString);
         mTxtGas.setText(formatFloatNumber(sum)+" ETH");
     }
+
+
 
     public static String formatFloatNumber(double value) {
         if(value != 0.00){

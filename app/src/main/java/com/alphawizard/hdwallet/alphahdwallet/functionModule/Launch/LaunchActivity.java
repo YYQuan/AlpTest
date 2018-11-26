@@ -70,9 +70,9 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
         startAnim(1.0f, new Runnable() {
             @Override
             public void run() {
-                ConfirmSendActivity.show(LaunchActivity.this);
-//                viewModel.openWallet(LaunchActivity.this);
-//                LaunchActivity.this.finish();
+//                ConfirmSendActivity.show(LaunchActivity.this);
+                viewModel.openWallet(LaunchActivity.this);
+                LaunchActivity.this.finish();
             }
         });
 

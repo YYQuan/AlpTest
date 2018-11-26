@@ -147,7 +147,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
         if(defaultWalletAddress== null&&!web3.isShown()){
             setupWeb3();
-            web3.loadUrl("http://192.168.150.84:8080/");
+//            web3.loadUrl("http://192.168.150.84:8080/");
+            web3.loadUrl(" http://47.91.247.93:8000");
             web3.requestFocus();
         }
     }
@@ -164,8 +165,9 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         if(! wallet.address.equalsIgnoreCase(defaultWalletAddress)){
             defaultWalletAddress = wallet.address;
             setupWeb3();
-            web3.loadUrl("http://192.168.150.84:8080/");
-
+//            web3.loadUrl("http://192.168.150.84:8080/");
+            web3.loadUrl(" http://47.91.247.93:8000");
+            http://47.91.247.93:8000
             web3.requestFocus();
 
 
@@ -214,7 +216,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         web3.setOnSignPersonalMessageListener(new OnSignPersonalMessageListener() {
             @Override
             public void onSignPersonalMessage(Message<String> message) {
-                callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(DappFragment.this.getActivity());
+//                callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(DappFragment.this.getActivity());
             }
         });
         web3.setOnSignTransactionListener(transaction ->
@@ -347,7 +349,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         if(web3!=null&&web3.isShown()){
             if(web3.getUrl() !="http://192.168.150.84:8080/my") {
                 setupWeb3();
-                web3.loadUrl("http://192.168.150.84:8080/my");
+//                web3.loadUrl("http://192.168.150.84:8080/my");
+                web3.loadUrl(" http://47.91.247.93:8000/my");
             }
         }
     }
@@ -356,7 +359,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         if(web3!=null&&web3.isShown()){
             if(!"http://192.168.150.84:8080/dice".equalsIgnoreCase(web3.getUrl())) {
                 setupWeb3();
-                web3.loadUrl("http://192.168.150.84:8080/dice");
+//                web3.loadUrl("http://192.168.150.84:8080/dice");
+                web3.loadUrl(" http://47.91.247.93:8000");
             }
 
 

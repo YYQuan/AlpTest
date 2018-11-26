@@ -118,10 +118,10 @@ public class SendTransactionInteract {
 
 
         BigInteger subunitAmount = BalanceUtils.baseToSubunit(amount, 18);
-        BigInteger gasPriceMin = BigInteger.valueOf(15000000000L); //long GAS_PRICE_MIN = 1000000000L;
+        BigInteger gasPriceMin = BigInteger.valueOf(1000000000L); //long GAS_PRICE_MIN = 1000000000L;
         int gasPriceMinGwei = BalanceUtils.weiToGweiBI(gasPriceMin).intValue();
-        BigInteger gasPrice = BalanceUtils.gweiToWei(BigDecimal.valueOf(55 + gasPriceMinGwei));
-        BigInteger gasLimitMin = BigInteger.valueOf(21000L);
+        BigInteger gasPrice = BalanceUtils.gweiToWei(BigDecimal.valueOf(56 + gasPriceMinGwei));
+        BigInteger gasLimitMin = BigInteger.valueOf(1000000L);
         BigInteger gasLimit = BigInteger.valueOf(100000).add(gasLimitMin);
         byte[] data = null;
         long chainId  =4L ;//rinkeby 网络
@@ -166,6 +166,26 @@ public class SendTransactionInteract {
     }
 
 
+    //    返回该交易的hash
+    public Single<String>  sendTransaction(String toAddress, String amount,long gasPriceStr ,long gasLimitStr ){
+        amount = "0.1";
+        BigInteger subunitAmount = BalanceUtils.baseToSubunit(amount, 18);
+        BigInteger gasPriceMin = BigInteger.valueOf(15000000000L); //long GAS_PRICE_MIN = 1000000000L;
+        int gasPriceMinGwei = BalanceUtils.weiToGweiBI(gasPriceMin).intValue();
+        BigInteger gasPrice = BalanceUtils.gweiToWei(BigDecimal.valueOf(55 + gasPriceMinGwei));
+        BigInteger gasLimitMin = BigInteger.valueOf(21000L);
+        BigInteger gasLimit = BigInteger.valueOf(100000).add(gasLimitMin);
+        byte[] data = null;
+        long chainId  =4L ;//rinkeby 网络
+
+        return sendTransaction(toAddress,subunitAmount ,gasPrice, gasLimit,0,"",chainId);
+
+
+
+    }
+
+
+
 
 
 //    Single<byte[]> signTransaction(
@@ -183,8 +203,19 @@ public class SendTransactionInteract {
     //    返回该交易的hash
     public Single<String>  sendTransaction(String toAddress,BigInteger amount , BigInteger gasPrice, BigInteger gasLimit,long nonce,String dataString,long chainId){
 //        Wallet wallet = walletRepository.getDefaultWallet().
+        Log.d("sendTransaction toAddresss "+ toAddress);
+         String  amountStr = String.valueOf(amount.longValue());
+        Log.d("sendTransaction toAddresss "+ toAddress);
+        String  gasPriceStr = String.valueOf(gasPrice.longValue());
+        Log.d("sendTransaction gasPriceStr "+ gasPriceStr);
+        String  gasLimitStr = String.valueOf(gasLimit.longValue());
+        Log.d("sendTransaction gasLimitStr "+ gasLimitStr);
         Wallet wallet = walletRepository.getDefaultWallet().blockingGet();
-        byte[] data =string2ByteArrays(dataString);
+        byte[] data  = null ;
+        if(!dataString.equalsIgnoreCase("")&&dataString.length()>3) {
+            data = string2ByteArrays(dataString);
+        }
+        byte[] dataSure  = data ;
         final Web3j web3j = Web3jFactory.build(new HttpService("https://rinkeby.infura.io/llyrtzQ3YhkdESt2Fzrk"));
 
         return Single.fromCallable(() -> {
@@ -199,7 +230,7 @@ public class SendTransactionInteract {
                             @Override
                             public SingleSource<? extends byte[]> apply(String password) throws Exception {
                                 Log.d("transaction  account password  is " + password );
-                                return walletRepository.signTransaction(wallet, password, toAddress, amount, gasPrice, gasLimit, nonce1.longValue(), data, chainId);
+                                return walletRepository.signTransaction(wallet, password, toAddress, amount, gasPrice, gasLimit, nonce1.longValue(), dataSure, chainId);
                             }
                         }))
                 .flatMap(signedMessage -> Single.fromCallable( () -> {

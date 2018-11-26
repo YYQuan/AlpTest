@@ -37,11 +37,13 @@ public class SendViewModule extends BaseViewModel {
     private void sendError(Throwable throwable) {
 //        App.showToast("send  Error");
         progress.postValue(false);
+        App.showToast("send   sendError");
     }
 
     private void sendSuccess(String s) {
 //        App.showToast("send  Success   transaction  hashcode :" +s );
         progress.postValue(true);
+        App.showToast("send   sendSuccess");
     }
 
 
@@ -60,7 +62,7 @@ public class SendViewModule extends BaseViewModel {
 
     public  void  sendTransaction(String  to , String amount){
         mSendTransactionInteract
-                .sendTransaction(to,amount)
+                .sendTransaction(to,amount,0,0)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendSuccess,this::sendError);
     }
