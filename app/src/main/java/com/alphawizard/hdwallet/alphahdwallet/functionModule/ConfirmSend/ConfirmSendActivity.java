@@ -9,6 +9,7 @@ import android.support.percent.PercentRelativeLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.BackupModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.ConfirmSendModuleFactory;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupContract;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupMnemonicsActivity;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
@@ -55,6 +57,11 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     @BindView(R.id.iv_back)
     ImageView mBack;
 
+
+    @OnClick(R.id.iv_back)
+    void  onClickClick(){
+        onBackPressed();
+    }
 
 
     @BindView(R.id.txt_eth_amount)
@@ -117,8 +124,26 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     @OnClick(R.id.btn_send)
     void  onClickSend(){
 //        String  to ,String amount, String  gasPrice ,String gasLimit,String dataString
-        viewModel.sendTransaction(to,amount,gasPrice,gasLimit);
+
+        viewModel.sendTransaction(to,amount,gasPrice,gasLimit, mEditData.getText().toString());
 //        viewModel.sendTransaction(to,amount,""+gasPrice,""+gasLimit,data);
+    }
+
+
+    @OnClick(R.id.layout_gas_price)
+    void onClickGasPrice(){
+
+
+    }
+
+    @OnClick(R.id.layout_gas_limit)
+    void onClickGasLimit(){
+
+    }
+
+    @OnClick(R.id.layout_data)
+    void onClickData(){
+
     }
 
 
@@ -143,7 +168,7 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         viewModel = ViewModelProviders.of(this, viewModuleFactory)
                 .get(ConfirmSendViewModule.class);
         mPresenter.takeView(this,viewModel);
-
+        viewModel.progress().observe(this,this::sendCallback);
 
 
         from =getIntent().getStringExtra(SEND_REQUEST_FROM);
@@ -154,7 +179,7 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
          data  = getIntent().getStringExtra(SEND_REQUEST_DATA);
         mTxtForm.setText(from);
         mTxtTo.setText(to);
-        mEth.setText(amount);
+        mEth.setText(amount +" ETH");
 
         if(!data.equalsIgnoreCase("")) {
             mEditData.setText( data);
@@ -166,7 +191,7 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         calculatorGasprice();
 
 
-
+        mSetting.setVisibility(View.VISIBLE);
 
         mGasPrice.addTextChangedListener(new TextWatcher() {
             @Override
@@ -183,6 +208,9 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
             @Override
             public void afterTextChanged(Editable s) {
                 calculatorGasprice();
+                if(!s.toString().equalsIgnoreCase("")) {
+                    gasPrice = Long.valueOf(s.toString());
+                }
             }
         });
         mGasLimit.addTextChangedListener(new TextWatcher() {
@@ -200,6 +228,10 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
             @Override
             public void afterTextChanged(Editable s) {
                 calculatorGasprice();
+                if(!s.toString().equalsIgnoreCase("")) {
+                    gasLimit = Long.valueOf(s.toString());
+                }
+
             }
         });
 
@@ -213,27 +245,48 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     }
 
 
+    private void sendCallback(Boolean aBoolean) {
+        WalletActivity.isTransaction =true;
+        if(aBoolean) {
+
+            if(WalletActivity.isTransaction){
+                WalletActivity.transactionResult = true;
+                viewModel.openWallet(this,true);
+                return ;
+            }
+        }else{
+            WalletActivity.transactionResult = false;
+            viewModel.openWallet(this,false);
+        }
+    }
+
+
     private void   calculatorGasprice(){
+
+
         String price = mGasPrice.getText().toString();
         String limit = mGasLimit.getText().toString();
+        if(price.equalsIgnoreCase("")||limit.equalsIgnoreCase("")){
+            return ;
+        }
         Long priceL  = Long.valueOf(price);
         Long limitL  = Long.valueOf(limit);
         Log.d("calculatorGasprice priceL  = " +priceL);
         Log.d("calculatorGasprice limitL  = " +limitL);
         Log.d("calculatorGasprice priceL * limitL  = " +(priceL * limitL));
 
-        float  sum  = priceL * limitL /(10e9f);
+        float  sum  = priceL * limitL /(10e8f);
         String  sumString = String.valueOf(sum);
         Log.d("calculatorGasprice sum  = " +sum);
         Log.d("calculatorGasprice sumString  = " +sumString);
-        mTxtGas.setText(formatFloatNumber(sum)+" ETH");
+        mTxtGas.setText("0"+formatFloatNumber(sum)+" ETH");
     }
 
 
 
     public static String formatFloatNumber(double value) {
         if(value != 0.00){
-            java.text.DecimalFormat df = new java.text.DecimalFormat("########.00000000");
+            java.text.DecimalFormat df = new java.text.DecimalFormat("########.000000");
             return df.format(value);
         }else{
             return "0.00";

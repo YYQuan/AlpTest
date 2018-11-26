@@ -14,6 +14,7 @@ public class WalletRouter {
 
 
     public void openWalletPage(Context context) {
+
         open(context);
     }
 

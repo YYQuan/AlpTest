@@ -62,7 +62,7 @@ public class SendViewModule extends BaseViewModel {
 
     public  void  sendTransaction(String  to , String amount){
         mSendTransactionInteract
-                .sendTransaction(to,amount,0,0)
+                .sendTransaction(to,amount,0,0,"")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendSuccess,this::sendError);
     }

@@ -152,7 +152,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         if(address!=null&&address.length()>5){
             mAddresss.setText(address);
 
-            WalletActivity.isTransaction =true;
+
 
             if(amount!=null&&amount.length()>0){
                 mAmount.setText(amount);
@@ -307,20 +307,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     }
 
     private void sendCallback(Boolean aBoolean) {
-        if(aBoolean) {
-            if(WalletActivity.isTransaction){
-                WalletActivity.transactionResult = true;
-                onBackPressed();
-                return ;
-            }
-//            viewModel.openWallet(this);
 
-        }else{
-            loading.stop();
-            mSend.setEnabled(true);
-            mAddresss.setEnabled(true);
-            mAmount.setEnabled(true);
-        }
     }
 
     @OnClick(R.id.btn_send)
@@ -330,33 +317,49 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         mAddresss.setEnabled(false);
         mAmount.setEnabled(false);
         if(transaction!=null) {
-            BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
-            String  gasPrice = String.valueOf( transaction.gasPrice.longValue());
-
-            viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);
 
 
 
-            String  value = String.valueOf(transaction.value.longValue());
-            String  gasLimitString = String.valueOf(transaction.gasLimit);
-            BigInteger gasBidInteger = BalanceUtils.baseToSubunit(gasLimitString, 9);
-            String  gasLimitStringSure = String.valueOf(gasBidInteger.longValue());
-            long gasLimitLong =  Long.valueOf(gasLimitStringSure);
-//            viewModel.openConfirm(this,transaction.recipient.toString(), value,gasLimitLong,transaction.gasLimit,transaction.payload);
+//            viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);
+
+
+
+           ;
+            String  gasPriceString = String.valueOf( transaction.gasPrice.longValue());
+            long   priceLong  = (long) ( transaction.gasPrice.longValue()/(10e8f));
+
+            String  amount =  null;
+            try {
+                amount =  BalanceUtils.weiToEth(transaction.value,6);
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            viewModel.openConfirm(this,transaction.recipient.toString(), amount,priceLong,transaction.gasLimit,transaction.payload);
             transaction = null;
 
 
         }else {
 
             String amounts = mAmount.getText().toString();
-            mPresenter.sendTransaction(address, amounts);
+//            mPresenter.sendTransaction(mAddresss.getText().toString(), amounts);
 
             BigInteger gasBidInteger = BalanceUtils.baseToSubunit("21", 13);
             String  gas = String.valueOf(gasBidInteger.longValue());
-//            viewModel.openConfirm(this,mAddresss.getText().toString(), amounts, ConfirmSendRouter.DEFAULT_GAS_PRICE,ConfirmSendRouter.DEFAULT_GAS_LIMIT,"");
+            viewModel.openConfirm(this,mAddresss.getText().toString(), amounts, ConfirmSendRouter.DEFAULT_GAS_PRICE,ConfirmSendRouter.DEFAULT_GAS_LIMIT,"");
 
 //            viewModel.openConfirm(this,address, amounts,gas);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loading.stop();
+        mSend.setEnabled(true);
+        mAddresss.setEnabled(true);
+        mAmount.setEnabled(true);
     }
 
     @Override

@@ -167,18 +167,15 @@ public class SendTransactionInteract {
 
 
     //    返回该交易的hash
-    public Single<String>  sendTransaction(String toAddress, String amount,long gasPriceStr ,long gasLimitStr ){
-        amount = "0.1";
+    public Single<String>  sendTransaction(String toAddress, String amount,long gasPriceStr ,long gasLimitStr ,String dataStr ){
+
         BigInteger subunitAmount = BalanceUtils.baseToSubunit(amount, 18);
-        BigInteger gasPriceMin = BigInteger.valueOf(15000000000L); //long GAS_PRICE_MIN = 1000000000L;
-        int gasPriceMinGwei = BalanceUtils.weiToGweiBI(gasPriceMin).intValue();
-        BigInteger gasPrice = BalanceUtils.gweiToWei(BigDecimal.valueOf(55 + gasPriceMinGwei));
-        BigInteger gasLimitMin = BigInteger.valueOf(21000L);
-        BigInteger gasLimit = BigInteger.valueOf(100000).add(gasLimitMin);
-        byte[] data = null;
+        BigInteger bigPrice = BalanceUtils.gweiToWei(BigDecimal.valueOf(gasPriceStr));
+        BigInteger bigLimit = BigInteger.valueOf(gasLimitStr);
         long chainId  =4L ;//rinkeby 网络
 
-        return sendTransaction(toAddress,subunitAmount ,gasPrice, gasLimit,0,"",chainId);
+
+        return sendTransaction(toAddress,subunitAmount ,bigPrice, bigLimit,0,dataStr,chainId);
 
 
 

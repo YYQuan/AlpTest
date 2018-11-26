@@ -437,11 +437,11 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
         super.onNewIntent(intent);
         if(intent.getAction()==null){
             Log.d(" launch title :"+getResources().getText(R.string.launch_title));
-            finish();
+//            finish();
 
-            Intent i=new Intent(this,WalletActivity.class);
-
-            startActivity(i);// overridePendingTransition(0, 0);
+//            Intent i=new Intent(this,WalletActivity.class);
+//
+//            startActivity(i);// overridePendingTransition(0, 0);
 
         }else{
 

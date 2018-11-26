@@ -36,12 +36,14 @@ public class ConfirmSendViewModule   extends BaseViewModel {
     }
 
 
-    void openWallet(Context context){
-        mWalletRouter.open(context);
+    void openWallet(Activity context,boolean result){
+
+        mWalletRouter.openTransactionForResult(context,result);
     }
-    public  void  sendTransaction(String  to , String amount,long gasPrice,long gasLimit){
+
+    public  void  sendTransaction(String  to , String amount,long gasPrice,long gasLimit,String data){
         mSendTransactionInteract
-                .sendTransaction(to,amount)
+                .sendTransaction(to,amount,gasPrice,gasLimit,data)
 //                .sendTransaction(to,amount,gasPrice,gasLimit)
                 .observeOn(Schedulers.io())
                 .subscribe(this::sendSuccess,this::sendError);
