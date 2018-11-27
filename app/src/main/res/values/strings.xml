@@ -29,16 +29,16 @@
 
     <!--confirmSend-->
     <string name="confirm_send_"></string>
-    <string name="confirm_send_title">确认</string>
+    <string name="confirm_send_title">Confirm</string>
     <string name="confirm_send_from">From</string>
     <string name="confirm_send_to">To</string>
-    <string name="confirm_send_gas">网络费用</string>
-    <string name="confirm_send_senior">高级设置</string>
-    <string name="confirm_send_btn">发送</string>
+    <string name="confirm_send_gas">GAS</string>
+    <string name="confirm_send_senior">Advanced setup</string>
+    <string name="confirm_send_btn">Send</string>
 
-    <string name="confirm_send_gas_price">Gas 价格 （Gwei）</string>
-    <string name="confirm_send_gas_limit">Gas 限制</string>
-    <string name="confirm_send_data">交易数据（可选）</string>
+    <string name="confirm_send_gas_price">Gas Price （Gwei）</string>
+    <string name="confirm_send_gas_limit">Gas Limit</string>
+    <string name="confirm_send_data">Transaction Data</string>
 
 
     <!--createOrImport-->
@@ -81,8 +81,8 @@
     <string name="send_amount">ETH Amount</string>
     <string name="send_has_amount">Available  Send: </string>
     <string name="send_btn_send">Send</string>
-    <string name="send_btn_send_addresss_error">发送地址错误</string>
-    <string name="send_btn_send_amount_error">发送余额不足</string>
+    <string name="send_btn_send_addresss_error">Address error</string>
+    <string name="send_btn_send_amount_error">Lack of balance</string>
 
     <!--verifyMnemonics-->
     <string name="verify_mnemonics_"></string>
@@ -103,11 +103,13 @@
     <string name="wallet_account_title">ETH</string>
     <string name="wallet_account_btn_send">Send</string>
     <string name="wallet_account_btn_receiver">Receiver</string>
-    <string name="wallet_account_transaction_record">交易记录</string>
+    <string name="wallet_account_transaction_record">Transaction Record</string>
     <string name="wallet_account_transaction_all">All</string>
     <string name="wallet_account_transaction_receiver">Receive</string>
     <string name="wallet_account_transaction_send">Send</string>
     <string name="wallet_account_account_no_transaction">No Transactions Yet！</string>
+
+    <!--由于 Wallet  是-->
 
     <!--WalletDetail-->
     <string name="wallet_detail_"></string>
@@ -117,7 +119,7 @@
     <string name="wallet_detail_export_private">Export Private Key</string>
     <string name="wallet_detail_export_keystore">Export Keystore</string>
     <string name="wallet_detail_export_mnemonics">Export Backup Keystire</string>
-    <string name="wallet_detail_delete_wallet">E删除钱包</string>
+    <string name="wallet_detail_delete_wallet">Delete Wallet</string>
 
     <string name="wallet_detail_input_password">Please Input Password</string>
     <string name="wallet_detail_input_cancel">Cancel</string>

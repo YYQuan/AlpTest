@@ -26,6 +26,8 @@ public class WalletRouter {
     }
 
     public void openTransactionForResult(Activity context,boolean transactionResult) {
+
+//        语言切换时 会用到这里   ， 因为WalletActivity 是singleTask 的 因此 常规的 startActivity 是不会触发 oncreate的 ，但是 SstartActivityForResule 可以。
         Intent intent = new Intent(context, WalletActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra(RESULT_FOR_TRANSACTION,transactionResult);

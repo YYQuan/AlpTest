@@ -159,7 +159,7 @@ public abstract class Activity extends DaggerAppCompatActivity {
         }else{
             config.locale = Locale.CHINA;
         }
-        config.locale = Locale.CHINA;
+//        config.locale = Locale.CHINA;
 
 
 

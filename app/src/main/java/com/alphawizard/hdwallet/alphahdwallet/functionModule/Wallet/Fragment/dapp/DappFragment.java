@@ -27,6 +27,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletActivi
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.utils.BalanceUtils;
+import com.alphawizard.hdwallet.common.base.App.Activity;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
 import com.example.web3lib.BuildConfig;
@@ -235,7 +236,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 
                         }
                         viewModel.setCurrentLanguage(params);
-                        viewModel.openWallet(getActivity());
+                        getActivity().finish();
+                        viewModel.openWallet((Activity) getActivity());
 //                        viewModel.openManagerRouter(getActivity());
                     }
                 );

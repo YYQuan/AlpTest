@@ -27,6 +27,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
 import com.alphawizard.hdwallet.alphahdwallet.service.EthTickerService;
 import com.alphawizard.hdwallet.alphahdwallet.utils.rx.Operators;
+import com.alphawizard.hdwallet.common.base.App.Activity;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.C;
 import com.alphawizard.hdwallet.common.base.ViewModule.entity.ErrorEnvelope;
@@ -372,8 +373,8 @@ public class WalletViewModule extends BaseViewModel {
         mImportRouter.open(context);
     }
 
-    public void  openWallet(Context context){
-        mWalletRouter.open(context);
+    public void  openWallet(Activity context){
+        mWalletRouter.openTransactionForResult(context,false);
     }
 
     // 从etheresum中 提取出eth当前市值的过程中出错    保留着先别删除

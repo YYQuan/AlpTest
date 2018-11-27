@@ -71,7 +71,5 @@ public class ConfirmSendViewModule   extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::sendSuccess,this::sendError);
     }
-    void openWalletForTransactionResult(Activity context, boolean result){
-        mWalletRouter.openTransactionForResult(context,result);
-    }
+
 }
