@@ -115,4 +115,10 @@
 
     <!--web3-->
 
+
+    <!--Tost-->
+    <string name="has_copied">已经复制到粘贴板</string>
+    <string name="has_savedToAlbum">已经保存到相册</string>
+    <string name="address_formatError">输入地址不合法，请重新输入</string>
+
 </resources>

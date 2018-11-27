@@ -119,7 +119,8 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
         }else{
             //        SavePic2Local.SaveBitmapFromView(mCode);
             SavePic2Local.saveBitmap(bitmap,"eth_address:"+mTextAddress.getText());
-            App.showToast("图片已保存");
+
+            App.showToast(getResources().getString(R.string.has_savedToAlbum));
         }
 
 
@@ -130,7 +131,7 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
         ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         // 将文本内容放到系统剪贴板里。
         cm.setText(mTextAddress.getText());
-        App.showToast("地址已复制");
+        App.showToast(getResources().getString(R.string.has_copied));
     }
     String defaultAddress;
     @Override
@@ -195,7 +196,7 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         //        SavePic2Local.SaveBitmapFromView(mCode);
         SavePic2Local.saveBitmap(bitmap,"eth_address:"+mTextAddress.getText());
-        App.showToast("图片已保存");
+        App.showToast(getResources().getString(R.string.has_savedToAlbum));
     }
 
 }

@@ -257,7 +257,7 @@
         android:layout_width="@dimen/len_32"
         android:layout_height="@dimen/len_32"
         app:gBackgroundColor="@color/trans"
-        app:gForegroundColor="@color/white"
+        app:gForegroundColor="#295EF7"
 
         app:gAutoRun="false"/>
     <View

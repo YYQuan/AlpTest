@@ -126,4 +126,11 @@
     <string name="wallet_detail_input_ok">OK</string>
 
     <!--web3-->
+
+
+    <!--Tost-->
+    <string name="has_copied">Already copied to the pasteboard</string>
+    <string name="has_savedToAlbum">Already saved to album</string>
+    <string name="address_formatError">Incorrect address format</string>
+
 </resources>

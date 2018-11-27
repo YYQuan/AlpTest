@@ -60,7 +60,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         , OnSignTransactionListener, OnSignPersonalMessageListener, OnSignTypedMessageListener, OnSignMessageListener {
 
     public  final static  String   MY_URL  ="http://47.91.247.93:8000/my";
-    public  final static  String   DICE_URL  ="http://47.91.247.93:8000";
+    public  final static  String   DICE_URL  ="http://47.91.247.93:8000/dice";
 
     @Inject
     DappContract.Presenter mPresenter;
@@ -346,8 +346,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
     }
 
     public void jump2Mine(){
-        if(web3!=null&&web3.isShown()){
-            if(web3.getUrl() !=MY_URL) {
+        if(web3!=null){
+            if(!MY_URL.equalsIgnoreCase(web3.getUrl())) {
                 setupWeb3();
                 web3.loadUrl(MY_URL);
             }
@@ -355,7 +355,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
     }
 
     public void jump2WebMain(){
-        if(web3!=null&&web3.isShown()){
+        if(web3!=null){
             if(!DICE_URL.equalsIgnoreCase(web3.getUrl())) {
                 setupWeb3();
                 web3.loadUrl(DICE_URL);

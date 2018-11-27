@@ -122,6 +122,8 @@ public class WalletDetailViewModule extends BaseViewModel {
 
 
 
+
+
     private void onGetDefaultBalanceError(Throwable throwable) {
     }
 

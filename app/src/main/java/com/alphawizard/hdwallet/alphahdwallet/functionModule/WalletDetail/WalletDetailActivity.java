@@ -162,13 +162,14 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 
     void enableClick(boolean enable ){
         if(enable){
-            loading.start();
+            loading.stop();
             mDelete.setEnabled(true);
             mPrivatekey.setEnabled(true);
             mKeystore.setEnabled(true);
             mMnemonics.setEnabled(true);
         }else{
-            loading.stop();
+
+            loading.start();
             mDelete.setEnabled(false);
             mPrivatekey.setEnabled(false);
             mKeystore.setEnabled(false);
