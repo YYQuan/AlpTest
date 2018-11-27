@@ -134,5 +134,7 @@
     <string name="has_copied">Already copied to the pasteboard</string>
     <string name="has_savedToAlbum">Already saved to album</string>
     <string name="address_formatError">Incorrect address format</string>
-
+    <string name="import_account_error_exist">The account has been imported</string>
+    <string name="import_account_error_input">Error Information</string>
+    <string name="import_account_success">Import Success</string>
 </resources>

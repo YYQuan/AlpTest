@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 
 import com.alphawizard.hdwallet.alphahdwallet.App;
+import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.WalletExistException;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
@@ -90,9 +91,11 @@ public class ImportViewModule extends BaseViewModel {
 
         importWalletError.setValue(true);
         if(WalletExistException.DEFAULT_ALL_INFO.equalsIgnoreCase(throwable.getMessage())){
-            App.showToast("账户已经被导入");
+            String errorStr = App.getInstance().getResources().getString(R.string.import_account_error_exist);
+            App.showToast(errorStr);
         }else{
-            App.showToast("填入信息有误");
+            String errorStr = App.getInstance().getResources().getString(R.string.import_account_error_input);
+            App.showToast(errorStr);
         }
 
 
@@ -102,7 +105,8 @@ public class ImportViewModule extends BaseViewModel {
     private void onWallet(Wallet wallet) {
         importWallet.setValue(wallet);
         progress.setValue(true);
-        App.showToast("导入成功");
+        String success = App.getInstance().getResources().getString(R.string.import_account_success);
+        App.showToast(success);
     }
 
     public void  openWallet(Context context){

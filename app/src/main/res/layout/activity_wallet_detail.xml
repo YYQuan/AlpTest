@@ -40,6 +40,7 @@
                 android:layout_width="9dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="21dp"
+                android:layout_marginEnd="21dp"
                 android:background="@drawable/ic_title_back_white"/>
         </FrameLayout>
 
@@ -74,6 +75,7 @@
         android:background="@drawable/ic_eth"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"/>
+
     <TextView
         android:id="@+id/txt_eth_balance"
         android:layout_width="wrap_content"
@@ -85,16 +87,27 @@
         android:textSize="18sp"
         android:text="0.0000ETH"/>
 
-    <TextView
-        android:id="@+id/txt_address"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="7dp"
-
-        android:text="0xe56…efwfrwds"
-        android:textColor="#969696"
-        android:layout_gravity="center_horizontal"/>
-
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txt_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0xe56…efwfrwds"
+            android:textColor="#969696"
+           />
+        <ImageView
+            android:id="@+id/image_copy"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/ic_copy"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"

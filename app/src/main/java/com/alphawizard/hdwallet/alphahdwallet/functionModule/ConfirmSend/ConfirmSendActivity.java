@@ -60,7 +60,7 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     ImageView mBack;
 
 
-    @OnClick(R.id.iv_back)
+    @OnClick(R.id.lay_back)
     void  onClickClick(){
         onBackPressed();
     }

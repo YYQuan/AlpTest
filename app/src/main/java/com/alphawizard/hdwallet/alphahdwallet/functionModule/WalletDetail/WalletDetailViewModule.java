@@ -17,6 +17,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.common.base.ViewModule.BaseViewModel;
 
 import io.reactivex.Scheduler;
+import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
 public class WalletDetailViewModule extends BaseViewModel {
@@ -39,6 +40,7 @@ public class WalletDetailViewModule extends BaseViewModel {
     private final MutableLiveData<Boolean> isFailExport = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isOkDelete = new MutableLiveData<>();
     private final MutableLiveData<String> passwordString = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isDefaultWallet = new MutableLiveData<>();
 
 
     public WalletDetailViewModule(GetBalanceInteract getBalanceInteract,
@@ -86,6 +88,10 @@ public class WalletDetailViewModule extends BaseViewModel {
     }
     public LiveData<String> passwordString() {
         return passwordString;
+    }
+
+    public LiveData<Boolean> isDefaultWallet() {
+        return isDefaultWallet;
     }
 
     void getBalance(String address) {
@@ -137,6 +143,20 @@ public class WalletDetailViewModule extends BaseViewModel {
     public void  exportKeystore(String address){
         mExportWalletInteract.exportKeystore(new Wallet(address),"123")
                 .subscribe(s->exportKeyStore.postValue(s),this::exportError);
+    }
+
+    public void  getDefaultWallet(String address){
+        mDefaultWalletInteract.getDefaultWallet()
+                .flatMap(s ->{
+                    if(s.address.equalsIgnoreCase(address)) {
+                        return Single.just(true);
+                    }
+                    return Single.just(false);
+                })
+                .subscribe(s->isDefaultWallet.postValue(s),this::getDefaultWalletError);
+    }
+
+    private void getDefaultWalletError(Throwable throwable) {
     }
 
     public void  hasMnemonics(String address){

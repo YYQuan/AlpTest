@@ -24,6 +24,7 @@
                 android:layout_width="9dp"
                 android:layout_height="15dp"
                 android:layout_marginStart="21dp"
+                android:layout_marginEnd="21dp"
                 android:background="@drawable/ic_title_back_white"/>
         </FrameLayout>
 
@@ -36,13 +37,20 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             />
-        <ImageView
-            android:id="@+id/iv_share"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_alignParentEnd="true"
-            android:background="@mipmap/ic_share"/>
+       <FrameLayout
+           android:id="@+id/layout_share"
+           android:layout_alignParentEnd="true"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+
+                android:background="@mipmap/ic_share"/>
+       </FrameLayout>
     </RelativeLayout>
     <com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
         android:layout_width="match_parent"

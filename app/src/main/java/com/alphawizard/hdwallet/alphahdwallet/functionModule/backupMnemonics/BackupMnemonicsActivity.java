@@ -81,7 +81,10 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
 
     @OnClick(R.id.btn_next)
     public void clickNext(){
-      viewModel.openVerify(this,mList);
+        if(!"".equalsIgnoreCase(mName.getText().toString())) {
+            viewModel.saveWalletName(mName.getText().toString());
+        }
+        viewModel.openVerify(this,mList);
     }
 
 

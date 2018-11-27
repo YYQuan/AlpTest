@@ -2,6 +2,7 @@ package com.alphawizard.hdwallet.alphahdwallet.functionModule.WalletDetail;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -182,6 +183,14 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     @BindView(R.id.loading)
     Loading loading;
 
+    @OnClick(R.id.image_copy)
+    void  onClickCopy(){
+        ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        // 将文本内容放到系统剪贴板里。
+        cm.setText(address);
+        App.showToast(getResources().getString(R.string.has_copied));
+    }
+
 
     boolean  hasKeystore = true;
     boolean  hasMnemonics = true;
@@ -218,6 +227,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         viewModel.isFailExportContent().observe(this,this::isFailExport);
         viewModel.hasMnemonicsString().observe(this,this::hasMnemonics);
         viewModel.passwordString().observe(this,this::getPassword);
+        viewModel.isDefaultWallet().observe(this,this::isDefaultWallet);
 
         viewModel.isOkDeleteContent().observe(this,this::deleteCallback);
         viewModel.getBalance(address);
@@ -225,7 +235,14 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
         viewModel.hasMnemonics(address);
         mAddress.setText(address);
         viewModel.getPassword(new Wallet(address));
+        viewModel.getDefaultWallet(address);
 
+    }
+
+    private void isDefaultWallet(Boolean aBoolean) {
+        if(aBoolean){
+            mDelete.setVisibility(View.GONE);
+        }
     }
 
     private void deleteCallback(Boolean aBoolean) {
@@ -341,7 +358,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
     }
 
     private void walletBalanceChange(String s) {
-        mBalance.setText(s+"EHT");
+        mBalance.setText(s+"ETH");
     }
 
     Dialog dialog ;

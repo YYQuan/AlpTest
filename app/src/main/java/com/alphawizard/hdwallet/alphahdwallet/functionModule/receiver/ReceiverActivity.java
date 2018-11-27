@@ -93,7 +93,7 @@ public class ReceiverActivity extends BasePresenterActivity<ReceiverContract.Pre
         onBackPressed();
     }
 
-    @OnClick(R.id.iv_share)
+    @OnClick(R.id.layout_share)
     void onClickShare(){
 //        文本分享
         Intent sendIntent = new Intent();

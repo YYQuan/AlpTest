@@ -36,7 +36,7 @@
     <string name="import_private">私钥</string>
     <string name="import_input_mnemonics_tips">输入助记词</string>
     <string name="import_input_keystore_tips">Keystore Json</string>
-    <string name="import_input_private_tips">输入助记词</string>
+    <string name="import_input_private_tips">私钥</string>
     <string name="import_input_wallet_name_tips">输入钱包名称</string>
     <string name="import_input_wallet_keystore_password_tips">输入钱包密码</string>
     <string name="import_private_key_tips">通常为 64 个字母或数字字符</string>
@@ -120,5 +120,7 @@
     <string name="has_copied">已经复制到粘贴板</string>
     <string name="has_savedToAlbum">已经保存到相册</string>
     <string name="address_formatError">输入地址不合法，请重新输入</string>
-
+    <string name="import_account_error_exist">账户已经被导入</string>
+    <string name="import_account_error_input">填入信息有误</string>
+    <string name="import_account_success">导入成功</string>
 </resources>
