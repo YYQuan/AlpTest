@@ -7,74 +7,72 @@
     android:background="#ffffff"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".functionModule.verifyMnemonics.VerifyMnemonicsActivity">
-
-    <LinearLayout
+    <com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
         android:id="@+id/lay_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/statusBarSize"
+        app:layout_heightPercent = "5%"
+        >
 
-       >
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="9dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginEnd="21dp"
+            app:layout_marginTopPercent="50%"
+            android:background="@drawable/ic_title_back_black"/>
+    </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
 
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="9dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="21dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/ic_title_back_black"/>
-
-
-    </LinearLayout>
-    
     <ImageView
-        android:layout_width="27dp"
-        android:layout_height="31dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@drawable/ic_verify"
         app:layout_marginTopPercent="5%"
+        app:layout_heightPercent = "5%"
+        app:layout_widthPercent = "7%"
         android:layout_gravity="center_horizontal"
         />
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
+        android:layout_height="wrap_content"
         android:text="@string/verify_mnemonics_verify"
         android:textSize="18sp"
         android:textColor="#4480FF"
         android:layout_gravity="center_horizontal"
-        app:layout_marginTopPercent="3%"
+        app:layout_marginTopPercent="2%"
         android:gravity="center_vertical"/>
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="21dp"
+        android:layout_height="wrap_content"
         android:text="@string/verify_mnemonics_tips"
         android:textSize="13sp"
         android:textColor="#323232"
         android:layout_gravity="center_horizontal"
         app:layout_marginTopPercent="8%"
         android:gravity="center_vertical"/>
-
-
-    <FrameLayout
-        android:layout_marginTop="20dp"
+    <com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-       >
+        app:layout_heightPercent = "45%"
+        app:layout_marginTopPercent = "2%"
+        android:orientation="vertical"
 
-
-        <com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout
+        >
+        <android.support.percent.PercentFrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-
-
+            android:background="@color/blue_700"
+            >
             <android.support.percent.PercentFrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#111224">
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:background="#F1F6FF">
                 <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
                     android:id="@+id/mnemonicsView_select"
                     android:layout_width="match_parent"
@@ -83,59 +81,67 @@
                     android:background="#f1f6ff"
                     android:paddingTop="20dp"
                     android:paddingBottom="30dp"
+
                     app:layout_marginStartPercent="5%"
                     app:layout_marginEndPercent="5%"
                     />
+
             </android.support.percent.PercentFrameLayout>
+        </android.support.percent.PercentFrameLayout>
+        <android.support.percent.PercentFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_heightPercent = "65%"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            >
+            <LinearLayout
+                android:id="@+id/layout_correct"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_marginTopPercent="20%"
+                android:visibility="gone"
+                >
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+                <ImageView
+                    android:id="@+id/iv_correct"
+                    android:background="@drawable/ic_correct"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:visibility="gone"
+                    />
+                <TextView
+                    android:id="@+id/txt_correct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:text="@string/verify_mnemonics_true_tips"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:layout_marginStart="10dp"
+                    android:textColor="#4FFF37"
+                    android:visibility="gone"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
             <com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView
                 android:id="@+id/mnemonicsView_no_select"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:paddingTop="20dp"
-                android:layout_marginTop="30dp"
+                android:layout_height="match_parent"
+
                 app:layout_marginTopPercent="4%"
                 app:layout_marginStartPercent="5%"
                 app:layout_marginEndPercent="5%"
                 />
-        </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
-        <LinearLayout
-            android:id="@+id/layout_correct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="216dp"
-            >
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-            <ImageView
-                android:id="@+id/iv_correct"
-                android:background="@drawable/ic_correct"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:visibility="gone"
-                />
-            <TextView
-                android:id="@+id/txt_correct"
-                android:layout_width="wrap_content"
-                android:layout_height="26dp"
-
-                android:text="@string/verify_mnemonics_true_tips"
-                android:textSize="18sp"
-                android:gravity="center"
-                android:layout_marginStart="10dp"
-                android:textColor="#4FFF37"
-                android:visibility="gone"/>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-        </LinearLayout>
-
-    </FrameLayout>
-
+        </android.support.percent.PercentFrameLayout>
+    </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>
     <TextView
         android:id="@+id/txt_input_error"
         android:layout_width="wrap_content"
@@ -147,19 +153,20 @@
         android:gravity="center"
         android:textColor="#ff0000"
         android:textSize="16sp"
-        android:visibility="gone"
+        android:visibility="invisible"
         />
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="0dp"
         android:background="@drawable/bg_gradient_blue"
         android:text="@string/verify_mnemonics_next"
         android:textColor="@color/textWhite"
         android:textSize="18sp"
+        app:layout_heightPercent = "7%"
         app:layout_marginRightPercent="5%"
         app:layout_marginLeftPercent="5%"
-        app:layout_marginTopPercent="7%"
+        app:layout_marginTopPercent="3%"
         app:layout_marginBottomPercent="6%"
         />
 </com.alphawizard.hdwallet.alphahdwallet.widget.PercentLinearlayout>

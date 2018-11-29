@@ -35,6 +35,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.ACCOUNT_BALANCE;
 import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_AMOUNT;
 import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_DATA;
 import static com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter.SEND_REQUEST_FROM;
@@ -104,7 +105,10 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
     @BindView(R.id.btn_send)
     Button  mSend;
 
+
+    String balance ;
     String  from;
+
     String  to ;
     String  amount ;
     long   gasPrice ;
@@ -177,6 +181,8 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         viewModel.progress().observe(this,this::sendCallback);
 
         loading.stop();
+        balance =getIntent().getStringExtra(ACCOUNT_BALANCE);
+
         from =getIntent().getStringExtra(SEND_REQUEST_FROM);
         to =getIntent().getStringExtra(SEND_REQUEST_TO);
         amount =getIntent().getStringExtra(SEND_REQUEST_AMOUNT);
@@ -185,8 +191,16 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
          data  = getIntent().getStringExtra(SEND_REQUEST_DATA);
         mTxtForm.setText(from);
         mTxtTo.setText(to);
-        mEth.setText(amount +" ETH");
+        mEth.setText("- "+amount +" ETH");
 
+        float  balanceFloat = Float.parseFloat(balance);
+        float  amountFloat =  Float.parseFloat(amount);
+        if(balanceFloat - amountFloat<=0){
+            mSend.setEnabled(false);
+            mSend.setBackgroundResource(R.drawable.bg_color_dae6ff);
+            String  text = getResources().getString(R.string.confirm_send_less_balance);
+            mSend.setText(text);
+        }
         if(!data.equalsIgnoreCase("")) {
             mEditData.setText( data);
         }else{
@@ -233,13 +247,32 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 calculatorGasprice();
                 if(!s.toString().equalsIgnoreCase("")) {
                     gasLimit = Long.valueOf(s.toString());
+                    if(gasLimit <21000l){
+                        enableSend(false);
+                    }else{
+                        enableSend(true);
+                    }
                 }
 
             }
         });
+
+    }
+
+    private void   enableSend(boolean   isEnable ){
+        if(isEnable){
+            mSend.setBackgroundResource(R.drawable.bg_gradient_blue);
+            mSend.setEnabled(true);
+            mSend.setText(getResources().getText(R.string.confirm_send_btn));
+        }else{
+            mSend.setBackgroundResource(R.drawable.bg_color_dae6ff);
+            mSend.setEnabled(false);
+            mSend.setText(getResources().getText(R.string.confirm_send_Limit_error));
+        }
 
     }
 

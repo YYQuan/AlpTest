@@ -135,7 +135,7 @@ public class BackupMnemonicsActivity extends BasePresenterActivity<BackupContrac
 
     private void saveName(Boolean aBoolean) {
         if(aBoolean) {
-            viewModel.openWalletPage(this);
+//            viewModel.openWalletPage(this);
         }
     }
 

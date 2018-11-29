@@ -59,11 +59,12 @@ public class ViewModuleModule {
                                                               ImportRouter importRouter,
                                                               ReceiverRouter receiverRouter,
                                                               WalletRouter walletRouter,
+                                                              ConfirmSendRouter confirmSendRouter ,
                                                               WalletRepositoryType walletRepositoryType,
                                                               PasswordStore passwordStore){
         return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,
                 exportWalletInteract,sendTransactionInteract,languageInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,backupRouter,
-                importRouter,receiverRouter,walletRouter,walletRepositoryType,passwordStore);
+                importRouter,receiverRouter,walletRouter,confirmSendRouter,walletRepositoryType,passwordStore);
     }
 
     @Provides

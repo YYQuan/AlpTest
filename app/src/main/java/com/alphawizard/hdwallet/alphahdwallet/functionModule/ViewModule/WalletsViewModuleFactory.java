@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletRouter;
@@ -45,6 +46,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     ImportRouter importRouter;
     BackupRouter backupRouter;
     WalletRouter walletRouter;
+    ConfirmSendRouter  confirmSendRouter ;
 
     public WalletsViewModuleFactory(CreateWalletInteract createWalletInteract,
                                     DefaultWalletInteract defaultWalletInteract,
@@ -62,6 +64,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     ImportRouter importRouter,
                                     ReceiverRouter receiverRouter,
                                     WalletRouter walletRouter,
+                                    ConfirmSendRouter confirmSendRouter ,
                                     WalletRepositoryType walletRepositoryType,
                                     PasswordStore passwordStore) {
         this.createWalletInteract = createWalletInteract;
@@ -80,6 +83,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.importRouter = importRouter;
         this.receiverRouter = receiverRouter;
         this.walletRouter =  walletRouter;
+        this.confirmSendRouter  = confirmSendRouter ;
         this.managerAccountsRouter =  managerAccountsRouter;
         this.passwordStore = passwordStore ;
     }
@@ -92,6 +96,6 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                 exportWalletInteract,sendTransactionInteract,languageInteract,
                 createOrImportRouter,sendRouter,
                 managerAccountsRouter,web3Router,backupRouter,importRouter,
-                receiverRouter,walletRouter,walletRepositoryType,passwordStore);
+                receiverRouter,walletRouter,confirmSendRouter,walletRepositoryType,passwordStore);
     }
 }

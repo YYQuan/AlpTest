@@ -180,7 +180,9 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
     }
 
     float balance  = 0f;
+    String  balanceString = "0.0";
     private void getBalance(String s) {
+        balanceString = s;
         balance = Float.parseFloat(s);
     }
 
@@ -191,7 +193,11 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         if(! wallet.address.equalsIgnoreCase(defaultWalletAddress)){
             defaultWalletAddress = wallet.address;
             setupWeb3();
-            web3.loadUrl(DICE_URL);
+            if(DICE_URL.equalsIgnoreCase(web3.getUrl())) {
+                web3.loadUrl(DICE_URL);
+            }else{
+                web3.loadUrl(MY_URL);
+            }
             web3.requestFocus();
         }
     }
@@ -222,8 +228,11 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         });
         web3.setOnSignTransactionListener(transaction ->
                 callSignTransaction = Trust.signTransaction().transaction(transaction).call(getActivity()));
-//        web3.setOnSignTransactionListener(transaction ->
-//                callSignTransaction = Trust.signTransaction().transaction(transaction).call(getActivity()));
+        web3.setOnSignTransactionListener(transaction -> {
+                    onSignTransaction(transaction);
+                    callSignTransaction = Trust.signTransaction().transaction(transaction).call(getActivity());
+                }
+            );
         web3.setOnSignTransactionListener(this::onSignTransaction);
 
         web3.setOnSignTypedMessageListener(message ->
@@ -274,25 +283,27 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
                 .append(transaction.nonce).append(" : ")
                 .append(transaction.payload).append(" : ")
                 .toString();
-//        Toast.makeText(this, str, Toast.LENGTH_LONG).show();
 
         mTransaction = transaction;
 
-//        viewModel.sendTran
-// saction(transaction.recipient.toString(),transaction.value,transaction.gasPrice,transaction.gasLimit,transaction.nonce);
-//        viewModel.sendTransaction(transaction.recipient.toString(),"0.05",transaction.payload);
-
-//        BigInteger gasLimit = BigInteger.valueOf(transaction.gasLimit);
-//        viewModel.sendTransaction(transaction.recipient.toString(), transaction.value , transaction.gasPrice,gasLimit,transaction.nonce,transaction.payload,4);
-//        web3.onSignCancel(transaction);
-//        web3.onSignTransactionSuccessful(mTransaction,null);
         String  value = "";
         try {
             value = BalanceUtils.weiToEth(transaction.value,5);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        viewModel.openSendEthHasInfo(getActivity(),transaction.recipient.toString(),value,balance,transaction);
+        String  amount =  null;
+        try {
+            amount =  BalanceUtils.weiToEth(transaction.value,6);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        long   priceLong  = (long) ( transaction.gasPrice.longValue()/(10e8f));
+
+        viewModel.openSendEthHasInfo(getActivity(),defaultWalletAddress,transaction.recipient.toString(),amount,balanceString,priceLong,transaction.gasLimit,transaction.payload);
+
 
     }
 

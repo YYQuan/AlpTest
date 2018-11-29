@@ -6,7 +6,7 @@
     android:layout_gravity="center_horizontal"
     android:orientation="vertical"
     android:layout_marginBottom="10dp"
-    android:paddingStart="20dp"
+
     android:paddingEnd="20dp"
     android:background="#ffffff"
     >
@@ -18,10 +18,11 @@
 
        <ImageView
            android:id="@+id/iv_is_default_wallet"
-           android:layout_width="15dp"
-           android:layout_height="15dp"
+           android:layout_width="35dp"
+           android:layout_height="35dp"
            android:layout_marginTop="1dp"
-           android:background="@mipmap/ic_select_unactivity"
+           android:paddingLeft="20dp"
+           android:src="@mipmap/ic_select_unactivity"
            android:layout_gravity="center_vertical"/>
 
        <TextView
@@ -64,6 +65,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="20dp"
         android:layout_weight="1"
         />
     <TextView
@@ -74,6 +76,7 @@
         android:ellipsize="middle"
         android:textColor="#969696"
         android:textSize="14sp"
+        android:layout_marginStart="20dp"
         android:layout_gravity="center_vertical"
         android:text="0xe567hjfi5fkjio000fajlkdjfsdiefljfaaefwfrwds"
         />
@@ -81,6 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:layout_marginStart="20dp"
         />
 
 </LinearLayout>

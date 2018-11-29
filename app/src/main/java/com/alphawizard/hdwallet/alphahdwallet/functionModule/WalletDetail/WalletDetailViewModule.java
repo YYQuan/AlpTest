@@ -97,6 +97,8 @@ public class WalletDetailViewModule extends BaseViewModel {
     void getBalance(String address) {
         mGetBalanceInteract
                 .getBalance(new Wallet(address))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(walletBalance::postValue, this::onGetDefaultBalanceError);
     }
 
@@ -105,6 +107,8 @@ public class WalletDetailViewModule extends BaseViewModel {
 //                .observeOn(Schedulers.io())
 //                .subscribe(()->deleteWalletSuccess(wallet),this::deleteWalletError);
         mDeleteWalletInteract.delete(wallet,password)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(this::onFetchWallets, this::onDeleteError);
     }
 
@@ -115,9 +119,9 @@ public class WalletDetailViewModule extends BaseViewModel {
 
         if(items.length<=0){
             mDefaultWalletInteract.clearDefaultWallet();
-            isOkDelete.setValue(true);
+            isOkDelete.postValue(true);
         }else{
-            isOkDelete.setValue(true);
+            isOkDelete.postValue(true);
         }
 
     }
@@ -135,6 +139,8 @@ public class WalletDetailViewModule extends BaseViewModel {
 
     public void  exportPrivatekey(String address){
         mExportWalletInteract.exportPrivateKey(new Wallet(address))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(s->exportPrivateKey.postValue(s),this::exportError);
     }
 
@@ -142,6 +148,8 @@ public class WalletDetailViewModule extends BaseViewModel {
 
     public void  exportKeystore(String address){
         mExportWalletInteract.exportKeystore(new Wallet(address),"123")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(s->exportKeyStore.postValue(s),this::exportError);
     }
 
@@ -153,6 +161,8 @@ public class WalletDetailViewModule extends BaseViewModel {
                     }
                     return Single.just(false);
                 })
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(s->isDefaultWallet.postValue(s),this::getDefaultWalletError);
     }
 
@@ -160,30 +170,40 @@ public class WalletDetailViewModule extends BaseViewModel {
     }
 
     public void  hasMnemonics(String address){
-        hasMnemonics.setValue(true);
+        hasMnemonics.postValue(true);
         mExportWalletInteract.exportMnemonics(new Wallet(address))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(s->hasMnemonics.postValue(true),s->hasMnemonics.postValue(false));
     }
 
     public void  exportMnemonics(String address){
         mExportWalletInteract.exportMnemonics(new Wallet(address))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(s->exportMnemonics.postValue(s),this::exportError);
     }
 
     public void getWalletName(String address){
         mPasswordStore.getWalletName(new Wallet(address))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                     .subscribe(s->walletName.postValue(s) ,this::getWalletNameError);
     }
 
     public void saveWalletName(String address ,String name){
-        progress.setValue(false);
+        progress.postValue(false);
         mPasswordStore.setWalletName(new Wallet(address),name)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
                 .subscribe(this::saveWalletNameSuccess ,this::saveWalletNameError);
     }
 
     public void getPassword(Wallet wallet){
         mPasswordStore.getPassword(wallet)
-                .subscribe(s->passwordString.setValue(s),this::getPasswordError);
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(s->passwordString.postValue(s),this::getPasswordError);
     }
 
     private void getPasswordError(Throwable throwable) {
@@ -191,7 +211,7 @@ public class WalletDetailViewModule extends BaseViewModel {
 
 
     private void saveWalletNameSuccess() {
-        progress.setValue(true);
+        progress.postValue(true);
     }
 
 
@@ -203,7 +223,7 @@ public class WalletDetailViewModule extends BaseViewModel {
     }
 
     private void exportError(Throwable throwable) {
-        isFailExport.setValue(false);
+        isFailExport.postValue(false);
     }
 
     public void openWallet(Context context){

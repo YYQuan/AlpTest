@@ -386,12 +386,12 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
 //            int i = Integer.parseInt(bean.getValue());
             String value  = "";
-            if(bean.getValue().length()>14){
-                value = bean.getValue().substring(0,bean.getValue().length()-14);
-                int i = Integer.parseInt(value);
-                int ethNum = i/10000;
-                int ethPoint = i%10000;
-                mValue.setText(ethNum+"."+ethPoint+"ETH");
+            if(!"".equalsIgnoreCase(bean.getValue())&&bean.getValue().length()>15){
+                value = bean.getValue().substring(0,bean.getValue().length()-15);
+                float i = Float.parseFloat(value);
+                float  ethPointFloat =  i / 1000;
+                String  point = String.valueOf(ethPointFloat);
+                mValue.setText(point+"ETH");
             }else{
                 mValue.setText("0.0"+"ETH");
             }

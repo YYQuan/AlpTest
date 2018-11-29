@@ -32,6 +32,7 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.Bac
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupViewModule;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.web3.Web3Activity;
 import com.alphawizard.hdwallet.alphahdwallet.interact.CreateWalletInteract;
+import com.alphawizard.hdwallet.alphahdwallet.utils.Dp2px;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.EmptyLayout;
@@ -298,10 +299,10 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
 
                 Log.d("NabagerAcciybtsActivity  onClickListener ");
 //                mPresenter.setDefaultWallet(wallet);
+
                 if(!isOpenDetailing) {
                     isOpenDetailing = true;
                     viewModel.openWalletDetail(ManagerAccountsActivity.this, wallet.address);
-
                 }
             }
 
@@ -450,9 +451,13 @@ public class ManagerAccountsActivity extends BasePresenterToolbarActivity<Manage
             String valueBalance = mAccountsBalanceMap.get(wallet.address);
 
             if(address.equalsIgnoreCase(defaultAddress)){
-                imageDefault.setBackgroundResource(R.mipmap.ic_select_activity);
+
+
+                imageDefault.setImageResource(R.mipmap.ic_select_activity);
+//                imageDefault.setBackgroundResource(R.mipmap.ic_select_activity);
             }else{
-                imageDefault.setBackgroundResource(R.mipmap.ic_select_unactivity);
+                imageDefault.setImageResource(R.mipmap.ic_select_unactivity);
+//                imageDefault.setBackgroundResource(R.mipmap.ic_select_unactivity);
             }
             if(valueBalance!=null) {
                 mBalance.setText(valueBalance + "ETH");

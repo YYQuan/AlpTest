@@ -1,6 +1,8 @@
 package com.alphawizard.hdwallet.alphahdwallet.functionModule.send;
 
 import android.app.Activity;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.MainThread;
 
@@ -26,6 +28,7 @@ public class SendViewModule extends BaseViewModel {
     ConfirmSendRouter mConfirmSendRouter;
     DefaultWalletInteract mDefaultWalletInteract;
 
+
     public SendViewModule(SendTransactionInteract sendTransactionInteract
             , DefaultWalletInteract defaultWalletInteract
             , ConfirmSendRouter confirmSendRouter) {
@@ -33,6 +36,8 @@ public class SendViewModule extends BaseViewModel {
         mConfirmSendRouter= confirmSendRouter;
         mDefaultWalletInteract =defaultWalletInteract;
     }
+
+
 
     private void sendError(Throwable throwable) {
 //        App.showToast("send  Error");
@@ -57,7 +62,7 @@ public class SendViewModule extends BaseViewModel {
 
     private void openConfirm(Context context ,String from,String to,String amount,long gasPrice ,long gasLimit,String data) {
         SendTransactionRequest request = new SendTransactionRequest(from,to,amount,gasPrice,gasLimit,data);
-        mConfirmSendRouter.open(context,request);
+//        mConfirmSendRouter.open(context,);
     }
 
     public  void  sendTransaction(String  to , String amount){

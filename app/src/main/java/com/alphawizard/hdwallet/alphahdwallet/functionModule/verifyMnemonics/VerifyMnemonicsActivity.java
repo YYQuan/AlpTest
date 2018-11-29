@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alphawizard.hdwallet.alphahdwallet.R;
@@ -45,6 +46,9 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     @BindView(R.id.mnemonicsView_no_select)
     MnemonicsView mMnemonicsViewNoSelect;
 
+    @BindView(R.id.layout_correct)
+    LinearLayout  mLayCorrect ;
+
     @BindView(R.id.iv_correct)
     ImageView mImageCorrect;
 
@@ -75,7 +79,8 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     ArrayList<String> listNoSelect = new ArrayList<>();
     @Override
     public int getContentLayoutID() {
-        return R.layout.activity_verify_mnemonics;
+        return R.layout.activity_verify_mnemonics_adapte;
+//        return R.layout.activity_verify_mnemonics;
     }
 
     @Override
@@ -208,13 +213,14 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
     void showCorrect(boolean isShow){
 
         if(isShow) {
-
+            mLayCorrect.setVisibility(View.VISIBLE);
             mImageCorrect.setVisibility(View.VISIBLE);
             mTxtCorrect.setVisibility(View.VISIBLE);
-        }else{
 
-            mImageCorrect.setVisibility(View.GONE);
-            mTxtCorrect.setVisibility(View.GONE);
+        }else{
+            mLayCorrect.setVisibility(View.INVISIBLE);
+            mImageCorrect.setVisibility(View.INVISIBLE);
+            mTxtCorrect.setVisibility(View.INVISIBLE);
         }
 
     }
@@ -228,7 +234,7 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
             mTxError.setVisibility(View.VISIBLE);
 
         }else{
-            mTxError.setVisibility(View.GONE);
+            mTxError.setVisibility(View.INVISIBLE);
         }
 
     }

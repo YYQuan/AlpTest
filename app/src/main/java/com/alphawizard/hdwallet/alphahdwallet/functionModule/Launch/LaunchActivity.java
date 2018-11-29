@@ -41,11 +41,12 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
     @Inject
     LaunchContract.Presenter mPresenter;
 
-    @BindView(R.id.lay_background)
-    View root ;
+//    @BindView(R.id.lay_background)
+//    View root ;
 
     @Override
     public int getContentLayoutID() {
+//        return R.layout.activity_verify_mnemonics_adapte;
         return R.layout.activity_launch;
     }
 
@@ -70,7 +71,7 @@ public class LaunchActivity extends BasePresenterActivity<LaunchContract.Present
         startAnim(1.0f, new Runnable() {
             @Override
             public void run() {
-//                ConfirmSendActivity.show(LaunchActivity.this);
+
                 viewModel.openWallet(LaunchActivity.this);
                 LaunchActivity.this.finish();
             }

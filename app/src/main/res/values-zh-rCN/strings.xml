@@ -9,7 +9,7 @@
     <string name="backup_next">下一步</string>
     <string name="backup_main_tips">备份助记词</string>
     <string name="backup_tips_line1">这12个单词是恢复AllBet钱包的唯一方法</string>
-    <string name="backup_tips_line2">请将他们保存在安全和隐密额地方</string>
+    <string name="backup_tips_line2">请将他们保存在安全和隐密的地方</string>
     <string name="backup_copy">复制</string>
     <string name="backup_input_wallet_name">输入钱包名称</string>
 
@@ -23,7 +23,16 @@
     <string name="confirm_send_senior">高级设置</string>
     <string name="confirm_send_btn">发送</string>
 
+    <string name="confirm_send_gas_price">Gas 费用（Gwei）</string>
+    <string name="confirm_send_gas_limit">Gas 限制</string>
+    <string name="confirm_send_data">交易数据</string>
 
+    <string name="confirm_send_less_balance">发送余额不足</string>
+    <string name="confirm_send_gas_price_hint">请输入Gas price</string>
+    <string name="confirm_send_gas_limit_hint">请输入Gas limit</string>
+    <string name="confirm_send_data_hint">不需要携带数据</string>
+
+    <string name="confirm_send_Limit_error">Gas Limit  最少需要设置为21000</string>
 
     <!--createOrImport-->
     <string name="create_or_import_"></string>
@@ -64,7 +73,7 @@
     <string name="send_title">发送ETH</string>
     <string name="send_receiver_address">接收地址</string>
     <string name="send_amount">ETH数量</string>
-    <string name="send_has_amount">可用 : </string>
+    <string name="send_has_amount">可用 :  </string>
     <string name="send_btn_send">发送</string>
     <string name="send_btn_send_addresss_error">发送地址错误</string>
     <string name="send_btn_send_amount_error">发送余额不足</string>

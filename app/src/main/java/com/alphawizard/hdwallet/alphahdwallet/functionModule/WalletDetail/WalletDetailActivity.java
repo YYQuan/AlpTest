@@ -268,6 +268,9 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
             linieKeystore.setVisibility(View.GONE);
             mKeystore.setVisibility(View.GONE);
             hasKeystore = false ;
+        }else{
+            linieKeystore.setVisibility(View.VISIBLE);
+            mKeystore.setVisibility(View.VISIBLE);
         }
         setMargin();
     }
@@ -277,6 +280,9 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
             hasMnemonics = false ;
             linieMnemonics.setVisibility(View.GONE);
             mMnemonics.setVisibility(View.GONE);
+        }else{
+            linieMnemonics.setVisibility(View.VISIBLE);
+            mMnemonics.setVisibility(View.VISIBLE);
         }
         setMargin();
     }
@@ -384,6 +390,7 @@ public class WalletDetailActivity extends BasePresenterToolbarActivity<WalletDet
 //                    App.showToast(" password is true ");
                     enableClick(false);
                     viewModel.exportKeystore(address);
+                    dialog.dismiss();
                     return ;
                 }
                 showBackupKeystoreErrorDialog();

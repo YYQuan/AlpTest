@@ -133,6 +133,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     float balance = 0f;
     String amount  = "";
     String address = "";
+    boolean  isGame  =false;
     @Override
     public void initData() {
         super.initData();
@@ -144,7 +145,9 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         getmPresenter().takeView(this,viewModel);
 
         balance = getIntent().getFloatExtra(WALLET_BALANCE,0);
-        mBalance.setText("可用："+balance+"ETH");
+
+        String  balanceStr = getResources().getString(R.string.send_has_amount);
+        mBalance.setText(balanceStr+balance+"ETH");
 
         amount = getIntent().getStringExtra(WALLET_SEND_AMOUNT);
         address = getIntent().getStringExtra(WALLET_SEND2ADDRESS);
@@ -156,14 +159,19 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         if(address!=null&&address.length()>5){
             mAddresss.setText(address);
 
-
+            mAddresss.setEnabled(false);
+            mAmount.setEnabled(false);
+            mCode.setClickable(false);
 
             if(amount!=null&&amount.length()>0){
                 mAmount.setText(amount);
-                mAddresss.setEnabled(false);
-                mAmount.setEnabled(false);
-                mCode.setClickable(false);
+                mSend.setEnabled(true);
+                isGame = true;
             }
+        }else{
+            mAddresss.setEnabled(true);
+            mAmount.setEnabled(true);
+            mCode.setClickable(true);
         }
 
 
@@ -188,7 +196,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
 
                 if(mAmount.getText().toString().length()<=0) {
                     enableNext(false);
-                    mSend.setText(amountError);
+                    mSend.setText(amountTrue);
                     isInputAmounts =false;
                     return ;
                 }else{
@@ -231,19 +239,20 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
                     if(s.toString().length()==1){
                         if(s.toString().equalsIgnoreCase("0")){
                             return ;
+                        }else{
+                            mSend.setText(addressError);
                         }
                     }
                     if(s.toString().length()==2){
                         if(s.toString().equalsIgnoreCase("0x")){
                             return ;
+                        }else{
+                            mSend.setText(addressError);
                         }
-                    }
-                    if(!s.toString().substring(0,2).equalsIgnoreCase("0x")){
-                        mSend.setText(addressError);
                     }
                 }
 
-                if(mAddresss.getText().length()>3){
+                if(mAddresss.getText().length()>30){
                     isInputAddress =true;
                 }else{
                     isInputAddress =false;
@@ -286,7 +295,8 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
             mSend.setBackgroundResource(R.drawable.bg_color_dae6ff);
             mSend.setEnabled(false);
         }else {
-            mSend.setText("发送");
+            String addressTrue  = getResources().getString(R.string.send_btn_send);
+            mSend.setText(addressTrue);
             mSend.setBackgroundResource(R.drawable.bg_gradient_blue);
             mSend.setEnabled(true);
         }
@@ -308,6 +318,7 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         StatusBarUtil.transparencyBar(this);
 
         mSend.setEnabled(false);
+
     }
 
     private void sendCallback(Boolean aBoolean) {
@@ -319,17 +330,13 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
         loading.start();
         mSend.setEnabled(false);
         mAddresss.setEnabled(false);
+        mCode.setClickable(false);
         mAmount.setEnabled(false);
         if(transaction!=null) {
 
 
 
 //            viewModel.sendTransaction(transaction.recipient.toString(), transaction.value, transaction.gasPrice, gasLimit, transaction.nonce, transaction.payload, 4);
-
-
-
-           ;
-            String  gasPriceString = String.valueOf( transaction.gasPrice.longValue());
             long   priceLong  = (long) ( transaction.gasPrice.longValue()/(10e8f));
 
             String  amount =  null;
@@ -361,9 +368,18 @@ public class SendActivity extends BasePresenterToolbarActivity<SendContract.Pres
     protected void onResume() {
         super.onResume();
         loading.stop();
-        mSend.setEnabled(true);
-        mAddresss.setEnabled(true);
-        mAmount.setEnabled(true);
+        if(isGame){
+            mAddresss.setEnabled(false);
+            mAmount.setEnabled(false);
+            mCode.setClickable(false);
+            mSend.setEnabled(true);
+        }else{
+            mAddresss.setEnabled(true);
+            mAmount.setEnabled(true);
+            mSend.setEnabled(true);
+            mCode.setClickable(true);
+        }
+
     }
 
 

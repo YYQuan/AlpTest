@@ -40,6 +40,13 @@
     <string name="confirm_send_gas_limit">Gas Limit</string>
     <string name="confirm_send_data">Transaction Data</string>
 
+    <string name="confirm_send_less_balance"> Lack of balance</string>
+    <string name="confirm_send_gas_price_hint">请输入Gas price</string>
+    <string name="confirm_send_gas_limit_hint">请输入Gas limit</string>
+    <string name="confirm_send_data_hint">不需要携带数据</string>
+
+    <string name="confirm_send_Limit_error">Gas Limit  最少需要设置为21000</string>
+
 
     <!--createOrImport-->
     <string name="create_or_import_"></string>
@@ -79,7 +86,7 @@
     <string name="send_title">Send ETH</string>
     <string name="send_receiver_address">Recipient Address</string>
     <string name="send_amount">ETH Amount</string>
-    <string name="send_has_amount">Available  Send: </string>
+    <string name="send_has_amount">Available  Send:  </string>
     <string name="send_btn_send">Send</string>
     <string name="send_btn_send_addresss_error">Address error</string>
     <string name="send_btn_send_amount_error">Lack of balance</string>
@@ -113,7 +120,7 @@
 
     <!--WalletDetail-->
     <string name="wallet_detail_"></string>
-    E<string name="wallet_detail_title">EWallet</string>
+    <string name="wallet_detail_title">Wallet</string>
     <string name="wallet_detail_save">Save</string>
     <string name="wallet_detail_wallet_name">Name</string>
     <string name="wallet_detail_export_private">Export Private Key</string>

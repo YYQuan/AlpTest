@@ -157,7 +157,7 @@ public class PasswordStoreRepository implements PasswordStore {
     @Override
     public Single<String> generateWalletName(){
         return accountKeystoreService.fetchAccounts()
-                .flatMap(wallets ->  Single.just( new  String("钱包 #"+(wallets.length+1))) );
+                .flatMap(wallets ->  Single.just( new  String("Wallet #"+(wallets.length+1))) );
 
 //        return Single.fromCallable(() -> new String("Wallet"));
     }

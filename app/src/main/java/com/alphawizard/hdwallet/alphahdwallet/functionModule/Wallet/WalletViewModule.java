@@ -10,6 +10,8 @@ import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Transaction;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.PasswordStore;
 import com.alphawizard.hdwallet.alphahdwallet.db.Repositor.WalletRepositoryType;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendActivity;
+import com.alphawizard.hdwallet.alphahdwallet.functionModule.ConfirmSend.ConfirmSendRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.CreateOrImport.CreateOrImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Import.ImportRouter;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ManagerAccounts.ManagerAccountsRouter;
@@ -71,6 +73,7 @@ public class WalletViewModule extends BaseViewModel {
 
     ExportWalletInteract mExportWalletInteract;
     PasswordStore mPasswordStore;
+    ConfirmSendRouter  mConfirmSendRouter;
 
     //    获取全部wallet
     private final MutableLiveData<Wallet[]> wallets = new MutableLiveData<>();
@@ -122,6 +125,7 @@ public class WalletViewModule extends BaseViewModel {
                             ImportRouter importRouter,
                             ReceiverRouter receiverRouter,
                             WalletRouter walletRouter,
+                            ConfirmSendRouter  confirmSendRouter ,
                             WalletRepositoryType walletRepositoryType,
                             PasswordStore passwordStore
                                 )
@@ -144,6 +148,7 @@ public class WalletViewModule extends BaseViewModel {
         mWalletRouter =  walletRouter;
         mManagerRouter = managerRouter ;
         mPasswordStore =  passwordStore;
+        mConfirmSendRouter =   confirmSendRouter;
     }
 
     public LiveData<Wallet[]> wallets() {
@@ -353,8 +358,11 @@ public class WalletViewModule extends BaseViewModel {
         mSendRouter.open(context,value);
     }
 
-    public void openSendEthHasInfo(Context context, String address , String amount , float value, trust.core.entity.Transaction transaction){
-        mSendRouter.open(context,address,amount,value,transaction);
+    public void openSendEthHasInfo(Context context,String   form , String to , String amount , String  balance, long gasPrice ,long gasLimit , String data){
+//        mSendRouter.open(context,to,amount,value,transaction);
+
+        mConfirmSendRouter.open(context,form,to,balance,amount ,gasPrice,gasLimit,data);
+
     }
 
     public void openManagerRouter(Context context){
