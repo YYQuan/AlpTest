@@ -86,6 +86,7 @@ public class WalletViewModule extends BaseViewModel {
 //    导出
     private final MutableLiveData<String> exportedStore = new MutableLiveData<>();
     private final MutableLiveData<String>  ethValue = new MutableLiveData<>();
+    private final MutableLiveData<String>  currentLanguage = new MutableLiveData<>();
     private final MutableLiveData<ErrorEnvelope> exportWalletError = new MutableLiveData<>();
 
     private final MutableLiveData<String> transactionHash = new MutableLiveData<>();
@@ -173,6 +174,10 @@ public class WalletViewModule extends BaseViewModel {
 
     public LiveData<String> exportedStore() {
         return exportedStore;
+    }
+
+    public LiveData<String> currentLanguage() {
+        return currentLanguage;
     }
 
     public LiveData<String> transactionHash() {
@@ -269,6 +274,14 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribe(balance ->
                     defaultWalletBalance.postValue(balance)
                 , this::onGetDefaultBalanceError);
+    }
+
+
+    public void getLanguage() {
+        mLanguageInteract.getCurrentLanguage()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(s -> currentLanguage.postValue(s));
     }
 
 

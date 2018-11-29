@@ -7,7 +7,8 @@ import io.reactivex.Single;
 
 
 public class LanguageInteract {
-
+	public static final String    LANGUAGE_CHINA  =  "zh-CN";
+	public static final String    LANGUAGE_ENGLISH  =  "en-US";
 
 	PasswordStore passwordStore;
 

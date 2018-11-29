@@ -21,6 +21,7 @@ import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.WalletsViewModuleFactory;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.Fragment.Accounts.AccountsFragment;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Wallet.WalletViewModule;
+import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.utils.KeyboardUtils;
 import com.alphawizard.hdwallet.alphahdwallet.widget.BackupView;
 
@@ -64,6 +65,10 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     @BindView(R.id.btn_receive)
     Button  mReceive;
+
+    @BindView(R.id.txt_record)
+    TextView  mRecord;
+
 
     @BindView(R.id.place_holder)
     EmptyLayout placeHolder;
@@ -126,9 +131,10 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
         viewModel.defaultWalletBalance().observe(this,this::defaultWalletBalanceChange);
         viewModel.ethValue().observe(this,this::ethValueChange);
         viewModel.transactionBeans().observe(this,this::transBeansChange);
+        viewModel.currentLanguage().observe(this,this::getCurrentLanguage);
         mPresenter.getDefaultWallet();
 
-
+        viewModel.getLanguage();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter =new RecyclerAdapter<Transaction.TransactionBean>() {
             @Override
@@ -189,6 +195,30 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
             }
         });
 
+    }
+
+    private void getCurrentLanguage(String s) {
+        tabLayout.removeAllTabs();
+        if(s.equalsIgnoreCase(LanguageInteract.LANGUAGE_CHINA)){
+
+
+            mSend.setText("发送");
+            mReceive.setText("接收");
+
+            mRecord.setText("交易记录");
+            tabLayout.addTab(tabLayout.newTab().setText("全部"),TAB_ALL);
+            tabLayout.addTab(tabLayout.newTab().setText("接收"),TAB_RECEIVE);
+            tabLayout.addTab(tabLayout.newTab().setText("发送"),TAB_SEND);
+        }else{
+            mSend.setText("Send");
+            mReceive.setText("Receiver");
+
+
+            mRecord.setText("Transaction Record");
+            tabLayout.addTab(tabLayout.newTab().setText("All"),TAB_ALL);
+            tabLayout.addTab(tabLayout.newTab().setText("Receiver"),TAB_RECEIVE);
+            tabLayout.addTab(tabLayout.newTab().setText("Send"),TAB_SEND);
+        }
     }
 
     @Override

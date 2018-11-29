@@ -57,8 +57,7 @@ import trust.core.entity.Message;
 import trust.core.entity.Transaction;
 import trust.core.entity.TypedData;
 
-public class DappFragment extends BasePresenterFragment<DappContract.Presenter,WalletViewModule> implements DappContract.View,View.OnClickListener
-        , OnSignTransactionListener, OnSignPersonalMessageListener, OnSignTypedMessageListener, OnSignMessageListener {
+public class DappFragment extends BasePresenterFragment<DappContract.Presenter,WalletViewModule> implements DappContract.View, OnSignTransactionListener, OnSignPersonalMessageListener, OnSignTypedMessageListener, OnSignMessageListener {
 
     public  final static  String   MY_URL  ="http://47.91.247.93:8000/my";
     public  final static  String   DICE_URL  ="http://47.91.247.93:8000/dice";
@@ -124,12 +123,8 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         web3 = view.findViewById(R.id.web3view);
 //        view.findViewById(R.id.go).setOnClickListener(this);
 
-        web3.setDownloadListener(new DownloadListener() {
-            @Override
-            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
-                Log.d("  webView 下载");
-            }
-        });
+
+
         web3.setBackgroundColor(ContextCompat.getColor(getActivity(),android.R.color.transparent));
         web3.setBackgroundResource(R.color.colorPrimaryBackgroud);
 
@@ -156,6 +151,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 //            web3.loadUrl(" http://47.91.247.93:8000");
 //            web3.requestFocus();
 //        }
+
     }
 
     @Override
@@ -217,6 +213,12 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
             web3.setWalletAddress(new Address(defaultWalletAddress));
 
         }
+        web3.setDownloadListener(new DownloadListener() {
+            @Override
+            public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
+                Log.d("  webView 下载");
+            }
+        });
 
         web3.setOnSignMessageListener(message ->
                 callSignMessage = Trust.signMessage().message(message).call(getActivity()));
@@ -350,12 +352,6 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
                 web3.onSignCancel(mTransaction);
             }
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-//        web3.loadUrl(url.getText().toString());
-        web3.requestFocus();
     }
 
     public void jump2Mine(){

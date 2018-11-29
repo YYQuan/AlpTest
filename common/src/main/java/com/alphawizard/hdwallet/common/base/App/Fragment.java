@@ -2,7 +2,9 @@ package com.alphawizard.hdwallet.common.base.App;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 
 
 import com.alphawizard.hdwallet.common.base.Layout.PlaceHolder.PlaceHolderView;
+
+import java.util.Locale;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -57,6 +61,7 @@ public abstract class Fragment extends dagger.android.support.DaggerFragment {
                 ((ViewGroup)(mRoot.getParent())).removeView(mRoot);
             }
         }
+
         return mRoot;
     }
 

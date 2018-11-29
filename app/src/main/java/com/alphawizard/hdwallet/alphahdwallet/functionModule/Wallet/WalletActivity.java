@@ -109,10 +109,14 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
                 .get(WalletViewModule.class);
         viewModel.defaultWallet().observe(this,this::defaultWalletChange);
         viewModel.notDefaultWalletContent().observe(this,this::notDefaultWallet);
+        viewModel.currentLanguage().observe(this,this::getCurrentLanguage);
 //        viewModel.getDefaultWallet();
 //        viewModel.createdWallet().observe(this,this::onCreatedWallet);
 
 //        setBottomNavigationItem(navigation,1,16,8);
+    }
+
+    private void getCurrentLanguage(String s) {
     }
 
     private void notDefaultWallet(Boolean aBoolean) {
@@ -128,6 +132,7 @@ public class WalletActivity extends BasePresenterActivity<WalletActivityContract
     protected void onResume() {
         super.onResume();
         viewModel.getDefaultWallet();
+        viewModel.getLanguage();
     }
 
     @Override

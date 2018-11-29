@@ -32,6 +32,7 @@
             android:name=".functionModule.Wallet.WalletActivity"
             android:label="@string/title_activity_first_launch"
             android:launchMode="singleTask"
+
             />
 
         <activity
