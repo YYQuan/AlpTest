@@ -59,8 +59,10 @@ import trust.core.entity.TypedData;
 
 public class DappFragment extends BasePresenterFragment<DappContract.Presenter,WalletViewModule> implements DappContract.View, OnSignTransactionListener, OnSignPersonalMessageListener, OnSignTypedMessageListener, OnSignMessageListener {
 
-    public  final static  String   MY_URL  ="http://47.91.247.93:8000/my";
-    public  final static  String   DICE_URL  ="http://47.91.247.93:8000/dice";
+//    public  final static  String   MY_URL  ="http://47.91.247.93:8000/my";
+//    public  final static  String   DICE_URL  ="http://47.91.247.93:8000/dice";
+    public  final static  String   MY_URL  ="http://192.168.150.84:8080/my";
+    public  final static  String   DICE_URL  ="http://192.168.150.84:8080/dice";
 
     @Inject
     DappContract.Presenter mPresenter;
@@ -225,6 +227,12 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         web3.setOnSignPersonalMessageListener(new OnSignPersonalMessageListener() {
             @Override
             public void onSignPersonalMessage(Message<String> message) {
+                Log.d("onSignPersonalMessage");
+                String callback = String.format("onSignSuccessful(%1$s, \"%2$s\")", "8888", message.value);
+
+                byte[]  messageByte  = message.value.getBytes();
+
+                web3.post(() -> web3.evaluateJavascript(callback, value -> android.util.Log.d("WEB_VIEW", value)));
 //                callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(DappFragment.this.getActivity());
             }
         });

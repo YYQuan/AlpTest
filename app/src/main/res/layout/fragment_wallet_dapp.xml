@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/bg_blue"
+    android:paddingBottom="@dimen/defaultNavHeight"
     >
 
     <com.example.web3lib.Web3View
