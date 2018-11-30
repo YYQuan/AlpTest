@@ -86,6 +86,11 @@ public class InteractModule {
         return new LanguageInteract(passwordStore);
     }
 
+    @Provides
+    SignPersonInteract  signPersonInteract(WalletRepositoryType walletRepositoryType,PasswordStore passwordStore){
+        return new SignPersonInteract(walletRepositoryType,passwordStore);
+    }
+
 
     /*
 

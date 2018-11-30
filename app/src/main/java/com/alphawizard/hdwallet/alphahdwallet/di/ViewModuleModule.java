@@ -35,6 +35,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.ImportAccountInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.SignPersonInteract;
 
 import dagger.Module;
 import dagger.Provides;
@@ -51,6 +52,7 @@ public class ViewModuleModule {
                                                               ExportWalletInteract exportWalletInteract,
                                                               SendTransactionInteract sendTransactionInteract,
                                                               LanguageInteract languageInteract,
+                                                              SignPersonInteract signPersonInteract,
                                                               CreateOrImportRouter createOrImportRouter,
                                                               SendRouter sendRouter,
                                                               ManagerAccountsRouter managerAccountsRouter,
@@ -63,7 +65,7 @@ public class ViewModuleModule {
                                                               WalletRepositoryType walletRepositoryType,
                                                               PasswordStore passwordStore){
         return  new WalletsViewModuleFactory(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,fetchWalletInteract,getBalanceInteract,
-                exportWalletInteract,sendTransactionInteract,languageInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,backupRouter,
+                exportWalletInteract,sendTransactionInteract,languageInteract,signPersonInteract, createOrImportRouter,sendRouter,managerAccountsRouter,web3Router,backupRouter,
                 importRouter,receiverRouter,walletRouter,confirmSendRouter,walletRepositoryType,passwordStore);
     }
 

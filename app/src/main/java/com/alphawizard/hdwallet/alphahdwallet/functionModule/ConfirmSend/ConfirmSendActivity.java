@@ -192,15 +192,19 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         mTxtForm.setText(from);
         mTxtTo.setText(to);
         mEth.setText("- "+amount +" ETH");
-
-        float  balanceFloat = Float.parseFloat(balance);
-        float  amountFloat =  Float.parseFloat(amount);
-        if(balanceFloat - amountFloat<=0){
-            mSend.setEnabled(false);
-            mSend.setBackgroundResource(R.drawable.bg_color_dae6ff);
-            String  text = getResources().getString(R.string.confirm_send_less_balance);
-            mSend.setText(text);
+        float balanceFloat = 0 ;
+        if(balance!=null) {
+            balanceFloat = Float.parseFloat(balance);
+            float  amountFloat =  Float.parseFloat(amount);
+            if(balanceFloat - amountFloat<=0){
+                mSend.setEnabled(false);
+                mSend.setBackgroundResource(R.drawable.bg_color_dae6ff);
+                String  text = getResources().getString(R.string.confirm_send_less_balance);
+                mSend.setText(text);
+            }
         }
+
+
         if(!data.equalsIgnoreCase("")) {
             mEditData.setText( data);
         }else{

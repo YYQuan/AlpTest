@@ -75,6 +75,13 @@ public class WalletRepository implements WalletRepositoryType {
 					.getBalance())
                 .subscribeOn(Schedulers.io());
 	}
+	@Override
+	public Single<byte[]> signPerson(Wallet signer,
+									 String signerPassword,
+									 byte[] data){
+		return   accountKeystoreService.signPerson(signer,signerPassword,data);
+	}
+
 
 	@Override
 	public Single<byte[]> signTransaction(  Wallet signer,String signerPassword,String toAddress,

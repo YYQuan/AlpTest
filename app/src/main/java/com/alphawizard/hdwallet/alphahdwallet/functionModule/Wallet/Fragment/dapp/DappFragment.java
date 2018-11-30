@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alphawizard.hdwallet.alphahdwallet.App;
 import com.alphawizard.hdwallet.alphahdwallet.R;
 import com.alphawizard.hdwallet.alphahdwallet.data.entiry.Wallet;
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.Launch.LaunchActivity;
@@ -144,7 +145,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
         viewModel.transactionHash().observe(this,this::onTransactionChange);
         viewModel.defaultWallet().observe(this,this::defaultWalletChange);
         viewModel.defaultWalletBalance().observe(this,this::getBalance);
-
+        viewModel.signPerson().observe(this,this::signPersonalSuccess);
         viewModel.getDefaultWallet();
 
 //        if(defaultWalletAddress== null&&!web3.isShown()){
@@ -154,6 +155,11 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 //            web3.requestFocus();
 //        }
 
+    }
+
+    private void signPersonalSuccess(byte[] bytes) {
+        String callback = String.format("onSignSuccessful(%1$s, \"%2$s\")", "8888", bytes);
+        web3.post(() -> web3.evaluateJavascript(callback, value -> android.util.Log.d("WEB_VIEW", value)));
     }
 
     @Override
@@ -228,11 +234,24 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
             @Override
             public void onSignPersonalMessage(Message<String> message) {
                 Log.d("onSignPersonalMessage");
-                String callback = String.format("onSignSuccessful(%1$s, \"%2$s\")", "8888", message.value);
 
-                byte[]  messageByte  = message.value.getBytes();
+                String value ="";
+                byte[]  messageByte = new byte[32];
+                if(message.value.length()==32) {
+                    value = message.value.substring(2,32);
+                    messageByte  = value.getBytes();
+                    App.showToast("Sign  Message value  length  is  32");
+                }else{
+                    App.showToast("Sign  Message value  length  is  "+ message.value.length());
+                    for(int i = 0 ; i<32 ;i++){
+                        messageByte[i] = 0x1;
+                    }
+                }
 
-                web3.post(() -> web3.evaluateJavascript(callback, value -> android.util.Log.d("WEB_VIEW", value)));
+
+                viewModel.signPersonDefaultWallet(messageByte);
+//                String callback = String.format("onSignSuccessful(%1$s, \"%2$s\")", "8888", message.value);
+//                web3.post(() -> web3.evaluateJavascript(callback, value -> android.util.Log.d("WEB_VIEW", value)));
 //                callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(DappFragment.this.getActivity());
             }
         });

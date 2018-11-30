@@ -27,6 +27,9 @@ public interface WalletRepositoryType {
 								   long nonce,
 								   byte[] data,
 								   long chainId);
+	Single<byte[]> signPerson(Wallet signer,
+								   String signerPassword,
+								   byte[] data);
 	Single<String> exportAccount(Wallet wallet,String password, String newPassword);
 	Single<Wallet> importKeystore(String keystore, String password,String newPassword);
 	Single<Wallet> importPrivateKey(String privateKey, String password);

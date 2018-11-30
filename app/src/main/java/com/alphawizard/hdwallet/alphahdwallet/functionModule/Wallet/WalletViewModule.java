@@ -27,6 +27,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.SignPersonInteract;
 import com.alphawizard.hdwallet.alphahdwallet.service.EthTickerService;
 import com.alphawizard.hdwallet.alphahdwallet.utils.rx.Operators;
 import com.alphawizard.hdwallet.common.base.App.Activity;
@@ -72,6 +73,7 @@ public class WalletViewModule extends BaseViewModel {
     ReceiverRouter mReceiverRouter;
 
     ExportWalletInteract mExportWalletInteract;
+    SignPersonInteract mSignPersonInteract ;
     PasswordStore mPasswordStore;
     ConfirmSendRouter  mConfirmSendRouter;
 
@@ -93,6 +95,7 @@ public class WalletViewModule extends BaseViewModel {
     private final MutableLiveData<Boolean> notDefaultWallet = new MutableLiveData<>();
     private final MutableLiveData<List<Transaction.TransactionBean>> transactionBeans = new MutableLiveData<>();
     private final MutableLiveData<CreateWalletEntity> createWalletEntity = new MutableLiveData<>();
+    private final MutableLiveData<byte[]> signPerson = new MutableLiveData<>();
 
 
     private final MutableLiveData<String> defaultWalletBalance = new MutableLiveData<>();
@@ -118,7 +121,9 @@ public class WalletViewModule extends BaseViewModel {
                             ExportWalletInteract exportWalletInteract,
                             SendTransactionInteract sendTransactionInteract,
                             LanguageInteract languageInteract,
+                            SignPersonInteract signPersonInteract,
                             CreateOrImportRouter createOrImportRouter,
+
                             SendRouter  sendRouter,
                             ManagerAccountsRouter managerRouter,
                             Web3Router web3Router,
@@ -137,6 +142,7 @@ public class WalletViewModule extends BaseViewModel {
         mFetchWalletInteract = fetchWalletInteract;
         mExportWalletInteract =exportWalletInteract;
         mSendTransactionInteract = sendTransactionInteract;
+        mSignPersonInteract =  signPersonInteract;
         mLanguageInteract =  languageInteract;
         mWalletRepositoryType  =  walletRepositoryType;
         mCreateOrImportRouter = createOrImportRouter;
@@ -191,6 +197,11 @@ public class WalletViewModule extends BaseViewModel {
     public LiveData<CreateWalletEntity> createWalletEntity() {
         return createWalletEntity;
     }
+
+    public LiveData<byte[]> signPerson() {
+        return signPerson;
+    }
+
     public LiveData<Boolean> notDefaultWalletContent() {
         return notDefaultWallet;
     }
@@ -282,6 +293,24 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
                 .subscribe(s -> currentLanguage.postValue(s));
+    }
+
+    public  void  signPersonDefaultWallet(byte[] data){
+        mDefaultWalletInteract.getDefaultWallet()
+                .flatMap(wallet -> mSignPersonInteract.signPerson(wallet,data))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .subscribe(this::signPersonSuccess,this::onSignPersonError);
+    }
+
+    private void signPersonSuccess(byte[] bytes) {
+        signPerson.postValue(bytes);
+        App.showToast("signPersonSuccess success");
+    }
+
+    private void onSignPersonError(Throwable throwable) {
+        Log.d("onSignPersonError");
+        App.showToast("signPersonSuccess onSignPersonError");
     }
 
 

@@ -24,6 +24,7 @@ import com.alphawizard.hdwallet.alphahdwallet.interact.FindDefaultWalletInteract
 import com.alphawizard.hdwallet.alphahdwallet.interact.GetBalanceInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.LanguageInteract;
 import com.alphawizard.hdwallet.alphahdwallet.interact.SendTransactionInteract;
+import com.alphawizard.hdwallet.alphahdwallet.interact.SignPersonInteract;
 
 public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
 
@@ -37,6 +38,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
     private CreateOrImportRouter createOrImportRouter;
     private FetchWalletInteract  fetchWalletInteract;
     private SendTransactionInteract sendTransactionInteract;
+    private SignPersonInteract signPersonInteract;
     private SendRouter sendRouter;
     private ReceiverRouter receiverRouter;
     private ManagerAccountsRouter managerAccountsRouter;
@@ -56,6 +58,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
                                     ExportWalletInteract exportWalletInteract,
                                     SendTransactionInteract sendTransactionInteract,
                                     LanguageInteract languageInteract,
+                                    SignPersonInteract signPersonInteract,
                                     CreateOrImportRouter createOrImportRouter,
                                     SendRouter  sendRouter,
                                     ManagerAccountsRouter managerAccountsRouter,
@@ -77,6 +80,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         this.languageInteract = languageInteract;
         this.createOrImportRouter = createOrImportRouter;
         this.walletRepositoryType =  walletRepositoryType;
+        this.signPersonInteract = signPersonInteract;
         this.sendRouter = sendRouter;
         this.web3Router = web3Router;
         this.backupRouter = backupRouter;
@@ -94,6 +98,7 @@ public class WalletsViewModuleFactory implements ViewModelProvider.Factory {
         return (T)new WalletViewModule(createWalletInteract,defaultWalletInteract,findDefaultWalletInteract,
                 fetchWalletInteract,getBalanceInteract,
                 exportWalletInteract,sendTransactionInteract,languageInteract,
+                signPersonInteract,
                 createOrImportRouter,sendRouter,
                 managerAccountsRouter,web3Router,backupRouter,importRouter,
                 receiverRouter,walletRouter,confirmSendRouter,walletRepositoryType,passwordStore);

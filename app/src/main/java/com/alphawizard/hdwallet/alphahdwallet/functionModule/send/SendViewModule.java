@@ -62,7 +62,7 @@ public class SendViewModule extends BaseViewModel {
 
     private void openConfirm(Context context ,String from,String to,String amount,long gasPrice ,long gasLimit,String data) {
         SendTransactionRequest request = new SendTransactionRequest(from,to,amount,gasPrice,gasLimit,data);
-//        mConfirmSendRouter.open(context,);
+        mConfirmSendRouter.open(context,request);
     }
 
     public  void  sendTransaction(String  to , String amount){

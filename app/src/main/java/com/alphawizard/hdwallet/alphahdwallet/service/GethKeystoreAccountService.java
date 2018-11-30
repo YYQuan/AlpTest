@@ -105,21 +105,22 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
 
     /**
-     * generate a random group of mnemonics
      * 生成一组随机的助记词
      */
     public Single<String> generateMnemonics() {
-        StringBuilder sb = new StringBuilder();
-        byte[] entropy = new byte[Words.TWELVE.byteLength()];
-        new SecureRandom().nextBytes(entropy);
-        new MnemonicGenerator(English.INSTANCE)
-                .createMnemonic(entropy, sb::append);
-        return Single.fromCallable(()->sb.toString())
+
+        return Single.fromCallable(()->{
+            StringBuilder sb = new StringBuilder();
+            byte[] entropy = new byte[Words.TWELVE.byteLength()];
+            new SecureRandom().nextBytes(entropy);
+            new MnemonicGenerator(English.INSTANCE)
+                    .createMnemonic(entropy, sb::append);
+            return sb.toString();
+        })
                 .subscribeOn(Schedulers.io());
     }
 
     /**
-     * generate key pair to create eth wallet
      * 生成KeyPair , 用于创建钱包
      */
     public String getPrivateKey(String mnemonics) {
@@ -310,6 +311,25 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
                 .subscribeOn(Schedulers.io());
     }
 
+
+
+    @Override
+    public Single<byte[]> signPerson(
+            Wallet signer,
+            String  password,
+            byte[] data){
+
+        return Single.fromCallable(() -> {
+
+            org.ethereum.geth.Account gethAccount = findAccount(signer.address);
+            keyStore.unlock(gethAccount, password);
+
+            byte[]  resultBytes = keyStore.signHash(gethAccount.getAddress(),data);
+            keyStore.lock(gethAccount.getAddress());
+            return resultBytes;
+            }).subscribeOn(Schedulers.io());
+    }
+
     @Override
     public Single<byte[]> signTransaction(Wallet signer, String signerPassword, String toAddress, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, long nonce, byte[] data, long chainId) {
         return Single.fromCallable(() -> {
@@ -349,8 +369,7 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
     @Override
     public Single<Wallet[]> fetchAccounts() {
         return Single.fromCallable(() -> {
-//            注意这里用geth的 getAccounts  api 返回的是当前钱包里所有的账户，
-//            是不是说明geth 就已经做了 账户的管理了？
+//            这里用geth的 getAccounts  api 返回的是当前钱包里所有的账户，
             Accounts accounts = keyStore.getAccounts();
             int len = (int) accounts.size();
             Wallet[] result = new Wallet[len];
