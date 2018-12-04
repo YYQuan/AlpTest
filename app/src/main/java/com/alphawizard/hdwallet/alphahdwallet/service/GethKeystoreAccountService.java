@@ -12,6 +12,7 @@ import org.ethereum.geth.Geth;
 import org.ethereum.geth.KeyStore;
 import org.web3j.crypto.CipherException;
 import org.web3j.crypto.Keys;
+import org.web3j.crypto.Sign;
 import org.web3j.protocol.ObjectMapperFactory;
 import org.web3j.protocol.admin.Admin;
 import org.web3j.protocol.admin.AdminFactory;
@@ -313,22 +314,41 @@ public class GethKeystoreAccountService implements AccountKeystoreService {
 
 
 
-    @Override
-    public Single<byte[]> signPerson(
-            Wallet signer,
-            String  password,
-            byte[] data){
-
-        return Single.fromCallable(() -> {
-
-            org.ethereum.geth.Account gethAccount = findAccount(signer.address);
-            keyStore.unlock(gethAccount, password);
-
-            byte[]  resultBytes = keyStore.signHash(gethAccount.getAddress(),data);
-            keyStore.lock(gethAccount.getAddress());
-            return resultBytes;
-            }).subscribeOn(Schedulers.io());
-    }
+//    @Override
+//    public Single<byte[]> signPerson(
+//            String keystore,
+//            Wallet signer,
+//            String  password,
+//            byte[] data){
+//
+//        return Single.fromCallable(() -> {
+//
+////            org.ethereum.geth.Account gethAccount = findAccount(signer.address);
+////            keyStore.unlock(gethAccount, password);
+////
+////            byte[]  resultBytes = keyStore.signHash(gethAccount.getAddress(),data);
+////            keyStore.lock(gethAccount.getAddress());
+////            return resultBytes;
+//            ObjectMapper objectMapper = ObjectMapperFactory.getObjectMapper();
+//            byte[]  resultBytes   =  new byte[32] ;
+//            try {
+//                WalletFile walletFile = objectMapper.readValue(keystore, WalletFile.class);
+//                ECKeyPair ecKeyPair = null;
+//                ecKeyPair = org.web3j.crypto.Wallet.decrypt(password, walletFile);
+//                Sign.SignatureData  signatureData  = Sign.signMessage(data,ecKeyPair);
+//
+//
+//            } catch (CipherException e) {
+//                if ("Invalid password provided".equals(e.getMessage())) {
+//                    System.out.println("密码错误");
+//                }
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            }).subscribeOn(Schedulers.io());
+//    }
 
     @Override
     public Single<byte[]> signTransaction(Wallet signer, String signerPassword, String toAddress, BigInteger amount, BigInteger gasPrice, BigInteger gasLimit, long nonce, byte[] data, long chainId) {

@@ -69,10 +69,10 @@ public interface AccountKeystoreService {
             byte[] data,
             long chainId);
 
-	Single<byte[]> signPerson(
-			Wallet signer,
-			String  password,
-			byte[] data);
+//	Single<byte[]> signPerson(
+//			Wallet signer,
+//			String  password,
+//			byte[] data);
 
 
 	/**
