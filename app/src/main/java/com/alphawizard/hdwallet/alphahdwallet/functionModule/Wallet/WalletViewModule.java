@@ -365,7 +365,7 @@ public class WalletViewModule extends BaseViewModel {
     }
 
 //    拿交易记录
-    private  void getTransactionRecord(){
+    public   void getTransactionRecord(){
         if(apiClient==null) {
             apiClient = retrofit.create(EthTickerService.ApiClient.class);
         }

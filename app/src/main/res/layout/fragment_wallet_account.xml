@@ -153,22 +153,44 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="126" />
             </LinearLayout>
-            <com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout
-                android:id="@+id/place_holder"
+
+
+
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout
+                        android:id="@+id/place_holder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        >
+                    </com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView_transactionBean"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                        tools:ignore="MissingConstraints"
+                        tools:layout_editor_absoluteX="56dp"
+                    />
+                </LinearLayout>
 
-            </com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView_transactionBean"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="56dp"
-                 />
-
+                <!--<com.jcodecraeer.xrecyclerview.XRecyclerView-->
+                    <!--android:id="@+id/recyclerView_transactionBean"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/linearLayout"-->
+                    <!--tools:ignore="MissingConstraints"-->
+                    <!--tools:layout_editor_absoluteX="56dp"-->
+                    <!--/>-->
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </LinearLayout>
 

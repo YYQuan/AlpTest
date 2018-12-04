@@ -4,7 +4,9 @@ import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +31,7 @@ import com.alphawizard.hdwallet.alphahdwallet.widget.EmptyLayout;
 import com.alphawizard.hdwallet.common.base.widget.RecyclerView.RecyclerAdapter;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterFragment;
 import com.alphawizard.hdwallet.common.util.Log;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,6 +78,10 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     @BindView(R.id.recyclerView_transactionBean)
     RecyclerView recyclerView;
+//    XRecyclerView recyclerView;
+
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout mSwipeRefreshLayout;
 
     RecyclerAdapter<Transaction.TransactionBean> mAdapter;
     RecyclerAdapter<Transaction.TransactionBean> mReceiveAdapter;
@@ -88,7 +95,7 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     private Dialog dialog;
 
-
+    boolean isCurrentLanguageEn = false;
 
     @OnClick(R.id.btn_send)
     void clickBtnSend(){
@@ -136,6 +143,9 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
         viewModel.getLanguage();
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        initPullRefresh();
+
         mAdapter =new RecyclerAdapter<Transaction.TransactionBean>() {
             @Override
             public ViewHolder createViewHolder(View view, int type) {
@@ -197,10 +207,21 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 
     }
 
+    private void initPullRefresh() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                viewModel.getTransactionRecord();
+            }
+        });
+    }
+
     private void getCurrentLanguage(String s) {
         tabLayout.removeAllTabs();
+
         if(s.equalsIgnoreCase(LanguageInteract.LANGUAGE_CHINA)){
 
+            isCurrentLanguageEn = false;
 
             mSend.setText("发送");
             mReceive.setText("接收");
@@ -210,10 +231,11 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
             tabLayout.addTab(tabLayout.newTab().setText("接收"),TAB_RECEIVE);
             tabLayout.addTab(tabLayout.newTab().setText("发送"),TAB_SEND);
         }else{
+
+            isCurrentLanguageEn = true;
+
             mSend.setText("Send");
             mReceive.setText("Receiver");
-
-
             mRecord.setText("Transaction Record");
             tabLayout.addTab(tabLayout.newTab().setText("All"),TAB_ALL);
             tabLayout.addTab(tabLayout.newTab().setText("Receiver"),TAB_RECEIVE);
@@ -251,11 +273,18 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
     }
 
     private void transBeansChange(List<Transaction.TransactionBean> transactionBeans) {
+        if(mSwipeRefreshLayout.isRefreshing()) {
+            //刷新完成
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+
         Log.d("transBeansChange");
         if(transactionBeans.size()>0) {
             placeHolder.triggerOkOrEmpty(true);
+
         }else {
             placeHolder.triggerOkOrEmpty(false);
+
         }
 
         mAdapter.replace(transactionBeans);
@@ -430,8 +459,15 @@ public class AccountFragment extends BasePresenterFragment<AccountContract.Prese
 //            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
 //            calendar.setTimeInMillis((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS);
 //            "yyyy-MM-dd HH:mm:ss"
-            String  time  =getDateToString((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS
-                    , "yyyy MM dd HH:mm");
+
+            String time = "";
+            if(isCurrentLanguageEn) {
+                time = getDateToString((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS
+                        , "yyyy-MM-dd HH:mm");
+            }else{
+                time = getDateToString((bean.getTimeStamp()) * DateUtils.SECOND_IN_MILLIS
+                        , "yyyy年MM月dd日 HH:mm");
+            }
             mTime.setText("" +time );
         }
     }

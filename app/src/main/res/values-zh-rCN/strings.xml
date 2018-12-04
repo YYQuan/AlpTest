@@ -125,6 +125,15 @@
     <!--web3-->
 
 
+
+    <!--Tools-->
+    <string name="date_year">年</string>
+    <string name="date_mounth">月</string>
+    <string name="date_day">日</string>
+
+    <string name="date_hour">:</string>
+    <string name="date_min">:</string>
+
     <!--Tost-->
     <string name="has_copied">已经复制到粘贴板</string>
     <string name="has_savedToAlbum">已经保存到相册</string>

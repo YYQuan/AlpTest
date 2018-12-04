@@ -112,6 +112,9 @@ dependencies {
 
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
 
+    // 1.5.9 is the main
+    implementation 'com.jcodecraeer:xrecyclerview:1.5.9'
+
     implementation project(':common')
     implementation project(':web3lib')
     implementation project(':lib-zxing')

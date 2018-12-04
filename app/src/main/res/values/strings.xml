@@ -137,6 +137,15 @@
     <!--web3-->
 
 
+
+    <!--Tools-->
+    <string name="date_year">-</string>
+    <string name="date_mounth">-</string>
+    <string name="date_day">-</string>
+
+    <string name="date_hour">:</string>
+    <string name="date_min">:</string>
+
     <!--Tost-->
     <string name="has_copied">Already copied to the pasteboard</string>
     <string name="has_savedToAlbum">Already saved to album</string>

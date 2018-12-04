@@ -50,7 +50,7 @@
             android:layout_centerVertical="true"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="扫一扫"
+            android:text="Scan"
             android:textColor="@color/bg_color"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -62,7 +62,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:text="相册"
+            android:text="Gallery"
             android:textColor="@color/bg_color"
             android:textSize="16sp"
             android:id="@+id/captureSelectTv"
