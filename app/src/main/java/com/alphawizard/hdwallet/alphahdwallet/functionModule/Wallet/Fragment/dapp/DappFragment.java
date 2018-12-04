@@ -249,7 +249,7 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
                 }
 
 
-                viewModel.signPersonDefaultWallet(messageByte);
+//                viewModel.signPersonDefaultWallet(messageByte);
 //                String callback = String.format("onSignSuccessful(%1$s, \"%2$s\")", "8888", message.value);
 //                web3.post(() -> web3.evaluateJavascript(callback, value -> android.util.Log.d("WEB_VIEW", value)));
 //                callSignPersonalMessage = Trust.signPersonalMessage().message(message).call(DappFragment.this.getActivity());

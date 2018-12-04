@@ -295,13 +295,13 @@ public class WalletViewModule extends BaseViewModel {
                 .subscribe(s -> currentLanguage.postValue(s));
     }
 
-    public  void  signPersonDefaultWallet(byte[] data){
-        mDefaultWalletInteract.getDefaultWallet()
-                .flatMap(wallet -> mSignPersonInteract.signPerson(wallet,data))
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(this::signPersonSuccess,this::onSignPersonError);
-    }
+//    public  void  signPersonDefaultWallet(byte[] data){
+//        mDefaultWalletInteract.getDefaultWallet()
+//                .flatMap(wallet -> mSignPersonInteract.signPerson(wallet,data))
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.io())
+//                .subscribe(this::signPersonSuccess,this::onSignPersonError);
+//    }
 
     private void signPersonSuccess(byte[] bytes) {
         signPerson.postValue(bytes);

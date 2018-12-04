@@ -14,6 +14,8 @@ import com.alphawizard.hdwallet.alphahdwallet.functionModule.ViewModule.VerifyMn
 import com.alphawizard.hdwallet.alphahdwallet.functionModule.backupMnemonics.BackupRouter;
 import com.alphawizard.hdwallet.alphahdwallet.utils.StatusBarUtil;
 import com.alphawizard.hdwallet.alphahdwallet.widget.MnemonicsView;
+import com.alphawizard.hdwallet.alphahdwallet.widget.MyTextView;
+import com.alphawizard.hdwallet.alphahdwallet.widget.WordWrapView;
 import com.alphawizard.hdwallet.common.presenter.BasePresenterActivity;
 import com.alphawizard.hdwallet.common.util.Log;
 
@@ -41,10 +43,12 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
 
 
     @BindView(R.id.mnemonicsView_select)
-    MnemonicsView mMnemonicsViewSelect;
+//    MnemonicsView mMnemonicsViewSelect;
+    WordWrapView mMnemonicsViewSelect;
 
     @BindView(R.id.mnemonicsView_no_select)
-    MnemonicsView mMnemonicsViewNoSelect;
+//    MnemonicsView mMnemonicsViewNoSelect;
+    WordWrapView mMnemonicsViewNoSelect;
 
     @BindView(R.id.layout_correct)
     LinearLayout  mLayCorrect ;
@@ -119,83 +123,187 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
 
 
         showCorrect(false);
-        mMnemonicsViewSelect.replace(listSelect);
-        mMnemonicsViewSelect.setColor(0x111224);
-        mMnemonicsViewNoSelect.replace(listNoSelect);
-        mMnemonicsViewNoSelect.setColor(0x191A2A);
-        mMnemonicsViewSelect.setmListener(new MnemonicsView.OnItemCountListener() {
-            @Override
-            public void onCountChange(String mnemonics) {
-                listSelect.remove(mnemonics);
-                listNoSelect.add(mnemonics);
-                mMnemonicsViewSelect.replace(listSelect);
-                mMnemonicsViewNoSelect.replace(listNoSelect);
+        updateSelect();
+//        mMnemonicsViewSelect.replace(listSelect);
+//        mMnemonicsViewSelect.setColor(0x111224);
+//        mMnemonicsViewNoSelect.replace(listNoSelect);
+//        mMnemonicsViewNoSelect.setColor(0x191A2A);
+        updateNoSelect();
+//        mMnemonicsViewSelect.setmListener(new MnemonicsView.OnItemCountListener() {
+//            @Override
+//            public void onCountChange(String mnemonics) {
+//                listSelect.remove(mnemonics);
+//                listNoSelect.add(mnemonics);
+//                mMnemonicsViewSelect.replace(listSelect);
+////                mMnemonicsViewNoSelect.replace(listNoSelect);
+//                updateNoSelect();
+//
+//                mNext.setEnabled(false);
+//                mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
+//
+//                if(View.VISIBLE ==mImageCorrect.getVisibility()){
+//                    showCorrect(false);
+//                }
+//                showError(false);
+//                for(int  i= 0; i<listSelect.size();i++){
+//                    if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
+//                        showError(true);
+//                        break;
+//                    }
+//                }
+//
+//            }
+//        });
+
+//        mMnemonicsViewNoSelect.setmListener(new MnemonicsView.OnItemCountListener() {
+//            @Override
+//            public void onCountChange(String mnemonics) {
+//                listNoSelect.remove(mnemonics);
+//                listSelect.add(mnemonics);
+//                mMnemonicsViewSelect.replace(listSelect);
+//                mMnemonicsViewNoSelect.replace(listNoSelect);
+//                mNext.setEnabled(false);
+//                mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
+//
+//
+//
+//
+//                if(listNoSelect.size()<=0){
+//                    int i = 0 ;
+//                    for(String str:mList){
+//                        if(str.equalsIgnoreCase(listSelect.get(i))){
+//                            i++;
+//                            if(i==(mList.size())) {
+////                                App.showToast(" 正确");
+//                                showCorrect(true);
+//                                mNext.setEnabled(true);
+//                                mNext.setBackgroundResource(R.drawable.bg_gradient_blue);
+//                                break;
+//                            }
+//                        }else{
+////                            App.showToast(" 错误");
+//                            break;
+//                        }
+//
+//
+//
+//                    }
+//                }else{
+//                    showError(false);
+//                    for(int  i= 0; i<listSelect.size();i++){
+//                        if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
+//                            showError(true);
+//                            break;
+//                        }
+//                    }
+//
+//
+//                }
+//
+//            }
+//        });
+    }
+
+    private void updateNoSelect(){
+        mMnemonicsViewNoSelect.removeAllViews();
+        for (String str : listNoSelect) {
+            MyTextView tv=new MyTextView(this);
+//            tv.setTextSize(14);//设置字体大小
+//            tv.setTextColor(Color.WHITE);
+            tv.setText(str);
+            tv.setBackgroundColor(0xffff00);//子view背景
+            tv.setOnClickListener(this::clickNoSelectItem);
+            mMnemonicsViewNoSelect.addView(tv);
+        }
+    }
+
+    private void updateSelect(){
+        mMnemonicsViewSelect.removeAllViews();
+        for (String str : listSelect) {
+            MyTextView tv=new MyTextView(this);
+//            tv.setTextSize(14);//设置字体大小
+//            tv.setTextColor(Color.WHITE);
+            tv.setText(str);
+            tv.setBackgroundColor(0xffff00);//子view背景
+            tv.setOnClickListener(this::clickSelectItem);
+            mMnemonicsViewSelect.addView(tv);
+        }
+    }
+
+    private void clickSelectItem(View view) {
+        listSelect.remove(((MyTextView)view).getText());
+        listNoSelect.add(((MyTextView)view).getText());
+//        mMnemonicsViewSelect.replace(listSelect);
+         updateSelect();
+//                mMnemonicsViewNoSelect.replace(listNoSelect);
+        updateNoSelect();
+
+        mNext.setEnabled(false);
+        mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
+        if(View.VISIBLE ==mImageCorrect.getVisibility()){
+            showCorrect(false);
+        }
+        showError(false);
+        for(int  i= 0; i<listSelect.size();i++){
+            if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
+                showError(true);
+                break;
+            }
+        }
 
 
-                mNext.setEnabled(false);
-                mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
+    }
 
-                if(View.VISIBLE ==mImageCorrect.getVisibility()){
-                    showCorrect(false);
-                }
-                showError(false);
-                for(int  i= 0; i<listSelect.size();i++){
-                    if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
-                        showError(true);
+    private void clickNoSelectItem(View view) {
+
+        mMnemonicsViewNoSelect.removeView(view);
+
+        listNoSelect.remove(((MyTextView)view).getText());
+        listSelect.add(((MyTextView)view).getText());
+
+        updateNoSelect();
+        updateSelect();
+
+        mNext.setEnabled(false);
+        mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
+
+
+
+
+        if(listNoSelect.size()<=0){
+            int i = 0 ;
+            for(String str:mList){
+                if(str.equalsIgnoreCase(listSelect.get(i))){
+                    i++;
+                    if(i==(mList.size())) {
+//                                App.showToast(" 正确");
+                        showCorrect(true);
+                        mNext.setEnabled(true);
+                        mNext.setBackgroundResource(R.drawable.bg_gradient_blue);
                         break;
                     }
-                }
-
-            }
-        });
-
-        mMnemonicsViewNoSelect.setmListener(new MnemonicsView.OnItemCountListener() {
-            @Override
-            public void onCountChange(String mnemonics) {
-                listNoSelect.remove(mnemonics);
-                listSelect.add(mnemonics);
-                mMnemonicsViewSelect.replace(listSelect);
-                mMnemonicsViewNoSelect.replace(listNoSelect);
-                mNext.setEnabled(false);
-                mNext.setBackgroundResource(R.drawable.bg_color_dae6ff);
-
-
-
-
-                if(listNoSelect.size()<=0){
-                    int i = 0 ;
-                    for(String str:mList){
-                        if(str.equalsIgnoreCase(listSelect.get(i))){
-                            i++;
-                            if(i==(mList.size())) {
-//                                App.showToast(" 正确");
-                                showCorrect(true);
-                                mNext.setEnabled(true);
-                                mNext.setBackgroundResource(R.drawable.bg_gradient_blue);
-                                break;
-                            }
-                        }else{
-//                            App.showToast(" 错误");
-                            break;
-                        }
-
-
-
-                    }
                 }else{
-                    showError(false);
-                    for(int  i= 0; i<listSelect.size();i++){
-                        if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
-                            showError(true);
-                            break;
-                        }
-                    }
-
-
+//                            App.showToast(" 错误");
+                    break;
                 }
 
+
+
             }
-        });
+        }else{
+            showError(false);
+            for(int  i= 0; i<listSelect.size();i++){
+                if(!listSelect.get(i).equalsIgnoreCase(mList.get(i))){
+                    showError(true);
+                    break;
+                }
+            }
+
+
+        }
+
+
     }
 
     @Override
@@ -234,7 +342,7 @@ public class VerifyMnemonicsActivity extends BasePresenterActivity<VerifyMnemoni
             mTxError.setVisibility(View.VISIBLE);
 
         }else{
-            mTxError.setVisibility(View.INVISIBLE);
+            mTxError.setVisibility(View.GONE);
         }
 
     }

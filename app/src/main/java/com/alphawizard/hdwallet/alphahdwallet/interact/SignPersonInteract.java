@@ -22,10 +22,10 @@ public class SignPersonInteract {
 		this.passwordStore = passwordStore;
 	}
 
-	public   Single<byte[]>   signPerson(Wallet wallet ,byte[] data){
-		return passwordStore.getPassword(wallet)
-				.flatMap(password -> walletRepository.signPerson(wallet,password,data))
-				.subscribeOn(Schedulers.io());
-	}
+//	public   Single<byte[]>   signPerson(Wallet wallet ,byte[] data){
+//		return passwordStore.getPassword(wallet)
+//				.flatMap(password -> walletRepository.signPerson(wallet,password,data))
+//				.subscribeOn(Schedulers.io());
+//	}
 
 }
