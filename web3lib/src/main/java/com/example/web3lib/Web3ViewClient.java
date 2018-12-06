@@ -41,13 +41,25 @@ public class Web3ViewClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//        String urlString = context.getResources().getString(R.string.info_url);
+        if(url.equalsIgnoreCase("http://47.91.247.93:8000/pdf/whitebook_en.pdf")){
+            return true;
+        }
         return shouldOverrideUrlLoading(view, url, false, false);
     }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
         if (request == null || view == null) {
             return false;
+        }
+        String urlStr = request.getUrl().toString();
+        if(urlStr.equalsIgnoreCase("http://47.91.247.93:8000/pdf/whitebook_en.pdf")){
+            return true;
+        }
+        if(urlStr.equalsIgnoreCase("http://47.91.247.93:8000/pdf/whitebook.pdf")){
+            return true;
         }
         String url = request.getUrl().toString();
         boolean isMainFrame = request.isForMainFrame();

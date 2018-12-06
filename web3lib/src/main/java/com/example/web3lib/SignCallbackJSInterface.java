@@ -30,6 +30,9 @@ public class SignCallbackJSInterface {
     private final OnSignTypedMessageListener onSignTypedMessageListener;
 
     @NonNull
+    private final OnOpenInfoChangeListener onOpenInfoChangeListener;
+
+    @NonNull
     private final OnLanguageChangeListener onLanguageChangeListener;
 
     public SignCallbackJSInterface(
@@ -38,13 +41,15 @@ public class SignCallbackJSInterface {
             @NonNull OnSignMessageListener onSignMessageListener,
             @NonNull OnSignPersonalMessageListener onSignPersonalMessageListener,
             @NonNull OnSignTypedMessageListener onSignTypedMessageListener,
-            @NonNull OnLanguageChangeListener onLanguageChangeListener) {
+            @NonNull OnLanguageChangeListener onLanguageChangeListener,
+            @NonNull OnOpenInfoChangeListener onOpenInfoChangeListener) {
         this.webView = webView;
         this.onSignTransactionListener = onSignTransactionListener;
         this.onSignMessageListener = onSignMessageListener;
         this.onSignPersonalMessageListener = onSignPersonalMessageListener;
         this.onSignTypedMessageListener = onSignTypedMessageListener;
         this.onLanguageChangeListener = onLanguageChangeListener;
+        this.onOpenInfoChangeListener =onOpenInfoChangeListener;
     }
 
     @JavascriptInterface
@@ -98,6 +103,15 @@ public class SignCallbackJSInterface {
     public void changeLanguage(String params) {
         Log.d("YYQ","  js    language "+params);
         onLanguageChangeListener.onLanguageChange(params);
+//        webView.post(() -> onSignPersonalMessageListener.onSignPersonalMessage(new Message<>(data, getUrl(), callbackId)));
+    }
+
+
+    @JavascriptInterface
+    public void openURLOnSystermBrowser(String params) {
+        Log.d("YYQ","  js    openURLOnSystermBrowser "+params);
+        onOpenInfoChangeListener.OnOpenInfoChange(params);
+//        onLanguageChangeListener.onLanguageChange(params);
 //        webView.post(() -> onSignPersonalMessageListener.onSignPersonalMessage(new Message<>(data, getUrl(), callbackId)));
     }
 

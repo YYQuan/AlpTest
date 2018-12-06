@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Web3Lib</string>
+    <string name="info_url"> http://47.91.247.93:8000/pdf/whitebook_en.pdf</string>
 </resources>

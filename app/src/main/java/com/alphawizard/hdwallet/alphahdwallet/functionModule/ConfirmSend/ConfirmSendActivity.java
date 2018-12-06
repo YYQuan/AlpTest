@@ -329,10 +329,14 @@ public class ConfirmSendActivity extends BasePresenterActivity<ConfirmSendContra
         Log.d("calculatorGasprice priceL * limitL  = " +(priceL * limitL));
 
         float  sum  = priceL * limitL /(10e8f);
+
         String  sumString = String.valueOf(sum);
         Log.d("calculatorGasprice sum  = " +sum);
         Log.d("calculatorGasprice sumString  = " +sumString);
         mTxtGas.setText("0"+formatFloatNumber(sum)+" ETH");
+        float amountL  = Float.valueOf(amount);
+        amountL = amountL + sum ;
+        mEth.setText("- "+amountL +" ETH");
     }
 
 

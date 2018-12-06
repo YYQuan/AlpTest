@@ -9,6 +9,7 @@ import android.animation.ValueAnimator;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.util.Property;
 import android.view.View;
@@ -39,6 +40,8 @@ import com.example.web3lib.OnSignTypedMessageListener;
 import com.example.web3lib.Web3View;
 import com.google.gson.Gson;
 
+import net.qiujuer.genius.kit.handler.Run;
+import net.qiujuer.genius.kit.handler.runable.Action;
 import net.qiujuer.genius.ui.compat.UiCompat;
 
 import java.math.BigInteger;
@@ -60,10 +63,10 @@ import trust.core.entity.TypedData;
 
 public class DappFragment extends BasePresenterFragment<DappContract.Presenter,WalletViewModule> implements DappContract.View, OnSignTransactionListener, OnSignPersonalMessageListener, OnSignTypedMessageListener, OnSignMessageListener {
 
-//    public  final static  String   MY_URL  ="http://47.91.247.93:8000/my";
-//    public  final static  String   DICE_URL  ="http://47.91.247.93:8000/dice";
-    public  final static  String   MY_URL  ="http://192.168.150.84:8080/my";
-    public  final static  String   DICE_URL  ="http://192.168.150.84:8080/dice";
+    public  final static  String   MY_URL  ="http://47.91.247.93:8000/my";
+    public  final static  String   DICE_URL  ="http://47.91.247.93:8000/dice";
+//    public  final static  String   MY_URL  ="http://192.168.120.187:8080/my";
+//    public  final static  String   DICE_URL  ="http://192.168.120.187:8080/dice";
 
     @Inject
     DappContract.Presenter mPresenter;
@@ -279,6 +282,31 @@ public class DappFragment extends BasePresenterFragment<DappContract.Presenter,W
 //                        viewModel.openManagerRouter(getActivity());
                     }
                 );
+        web3.setOnOpenInfoChangeListener(params -> {
+
+            Run.onBackground(new Action() {
+                @Override
+                public void call() {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Run.onUiAsync(()->{
+//                        onBackPressed();
+//                        setupWeb3();
+//                        web3.loadUrl(DICE_URL);
+                        Intent intent = new Intent();
+                        intent.setAction("android.intent.action.VIEW");
+                        Uri content_url = Uri.parse(params);
+                        intent.setData(content_url);
+                        startActivity(intent);
+                    });
+
+                    Log.d("白皮书");
+                }
+            });
+        });
     }
 
 

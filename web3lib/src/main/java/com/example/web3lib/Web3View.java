@@ -28,6 +28,8 @@ public class Web3View extends WebView {
     private static final String JS_PROTOCOL_CANCELLED = "cancelled";
     private static final String JS_PROTOCOL_ON_SUCCESSFUL = "onSignSuccessful(%1$s, \"%2$s\")";
     private static final String JS_PROTOCOL_ON_FAILURE = "onSignError(%1$s, \"%2$s\")";
+
+
     @Nullable
     private OnSignTransactionListener onSignTransactionListener;
     @Nullable
@@ -38,6 +40,10 @@ public class Web3View extends WebView {
     private OnSignTypedMessageListener onSignTypedMessageListener;
     @Nullable
     private OnLanguageChangeListener onLanguageChangeListener;
+
+    @Nullable
+    private OnOpenInfoChangeListener onOpenInfoChangeListener;
+
     private JsInjectorClient jsInjectorClient;
     private Web3ViewClient webViewClient;
 
@@ -83,7 +89,9 @@ public class Web3View extends WebView {
                 innerOnSignMessageListener,
                 innerOnSignPersonalMessageListener,
                 innerOnSignTypedMessageListener,
-                innerOnLanguageChangeListener), "app");
+                innerOnLanguageChangeListener,
+                innerOnOpenInfoChangeListenerListener
+                ), "app");
 //                innerOnSignTypedMessageListener), "trust");
 
         super.setWebViewClient(webViewClient);
@@ -149,6 +157,12 @@ public class Web3View extends WebView {
     public void setOnLanguageChangeListener(@Nullable OnLanguageChangeListener onLanguageChangeListener) {
         this.onLanguageChangeListener = onLanguageChangeListener;
     }
+
+    public void setOnOpenInfoChangeListener(@Nullable OnOpenInfoChangeListener onOpenInfoChangeListener) {
+        this.onOpenInfoChangeListener = onOpenInfoChangeListener;
+    }
+
+
 
     public void onSignTransactionSuccessful(Transaction transaction, String signHex) {
 //        long callbackId = transaction.leafPosition;
@@ -245,6 +259,14 @@ public class Web3View extends WebView {
         }
     };
 
+    private final OnOpenInfoChangeListener innerOnOpenInfoChangeListenerListener = new OnOpenInfoChangeListener() {
+        @Override
+        public void OnOpenInfoChange(String params) {
+            onOpenInfoChangeListener.OnOpenInfoChange(params);
+        }
+    };
+
+
 
     private class WrapWebViewClient extends WebViewClient {
         private final Web3ViewClient internalClient;
@@ -266,12 +288,15 @@ public class Web3View extends WebView {
         @RequiresApi(api = Build.VERSION_CODES.N)
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+
+
             return externalClient.shouldOverrideUrlLoading(view, request)
                     || internalClient.shouldOverrideUrlLoading(view, request);
         }
 
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+
             WebResourceResponse response = externalClient.shouldInterceptRequest(view, request);
             if (response != null) {
                 try {
